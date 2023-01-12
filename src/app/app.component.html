@@ -1,4 +1,70 @@
-<!-- NG-ZORRO -->
-<a href="https://github.com/NG-ZORRO/ng-zorro-antd" target="_blank" style="display: flex;align-items: center;justify-content: center;height: 100%;width: 100%;">
-  <img height="300" src="https://img.alicdn.com/tfs/TB1X.qJJgHqK1RjSZFgXXa7JXXa-89-131.svg">
-</a>
+<div>
+  <nz-select [(ngModel)]="selectedJobs" nzSize="default" nzMode="multiple" nzPlaceHolder="ジョブ"
+    nzAllowClear="true" style="width:180px" (ngModelChange)="inputChange()">
+    <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
+  </nz-select>
+  <nz-select [(ngModel)]="selectedWepons" nzSize="default" nzMode="multiple" nzPlaceHolder="武器"
+    nzAllowClear="true" style="width:260px" (ngModelChange)="inputChange()">
+    <nz-option *ngFor="let option of wepons" [nzLabel]="option" [nzValue]="option"></nz-option>
+  </nz-select>
+  <nz-select [(ngModel)]="selectedArmors" nzSize="default" nzMode="multiple" nzPlaceHolder="防具"
+  nzAllowClear="true" style="width:260px" (ngModelChange)="inputChange()">
+  <nz-option *ngFor="let option of armors" [nzLabel]="option" [nzValue]="option"></nz-option>
+</nz-select>
+</div>
+<div style="width:500px">
+  <nz-input-group [nzSuffix]="suffixIconSearch">
+    <input type="text" nz-input placeholder="(例) PC:命中>20 PET:攻>20"
+      [(ngModel)]="inputValue" nzAllowClear="true" (ngModelChange)="inputChange()" />
+  </nz-input-group>
+</div>
+<div>
+  <ng-template #suffixIconSearch>
+    <span
+        nz-icon
+        class="ant-input-clear-icon"
+        nzTheme="fill"
+        nzType="close-circle"
+        *ngIf="inputValue"
+        (click)="inputValue = '';inputChange()"
+      ></span>
+    <span nz-icon nzType="search" *ngIf="!inputValue"></span>
+  </ng-template>
+</div>
+<nz-table #basicTable [nzData]="equipments" [nzPageSize]="50" nzSize="small">
+  <thead>
+    <tr>
+      <th style="width: 180px;">NAME</th>
+      <th style="width: 340px;">PC</th>
+      <th style="width: 180px;">PET</th>
+      <ng-container *ngFor="let key of opKeywords">
+        <th style="width: 40px;">{{key}}</th>
+      </ng-container>
+      <th style="width: 200px;">OTHER</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{data.name}}
+        <div style="font-size: smaller;">
+          {{data.slot}}
+          <br/>
+          Lv{{data.lv}} {{data.job}}
+      </div>
+      </td>
+      <td ><div [innerHTML]="replacer(data.pc_text)"></div></td>
+      <td><div *ngIf="data.pet_status_target"
+          [innerHTML]="'(' + data.pet_status_target + ') ' + replacer(data.pet_text)">
+        </div>
+      </td>
+      <ng-container *ngFor="let key of opKeywords">
+        <td style="width: 40px;">{{getOpKeywordValue(data, key)}}</td>
+      </ng-container>
+      <td>
+        <div [innerHTML]="replacer(data.other_text)"></div>
+      </td>
+      <td></td>
+    </tr>
+  </tbody>
+</nz-table>

@@ -1,13 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { SupabaseService } from 'src/app/service/supabase.service';
 import { Equipment } from 'src/app/model/equipment';
+import { ItemDetailComponent } from '../item-detail/item-detail.component';
 
 @Component({
-  selector: 'item-navi',
+  selector: 'app-item-navi',
   templateUrl: './item-navi.component.html',
   styleUrls: ['./item-navi.component.css']
 })
 export class ItemNaviComponent {
+
+  @ViewChild(ItemDetailComponent)
+  private itemDetail!: ItemDetailComponent;
 
   jobs: readonly string[] = ["戦","暗","侍","竜","モ","か","シ","踊","忍","コ","狩","青","赤","吟","剣","ナ","風","黒","召","白","学","獣","All Jobs"];
   wepons: readonly string[] = ["格闘","短剣","片手剣","両手剣","片手斧","両手斧","両手鎌","両手槍","片手刀","両手刀","片手棍","両手棍","弓術","射撃","楽器","投擲","矢・弾","グリップ"];
@@ -72,21 +76,9 @@ export class ItemNaviComponent {
     return returnHtml;
   }
 
-  /** 値付き項目の値取得 */
-  getOpKeywordValue(eq: Equipment, keyword: string) : string{
 
-    var keycolumn = "";
-    var arr_tmp = keyword.split(":");
-    if(arr_tmp.length > 0){
-      keycolumn = arr_tmp[0].toUpperCase();
-      keyword = keyword.substring(arr_tmp[0].length+1, keyword.length);
-    }
-
-    var regularExp = new RegExp(keyword + '[:：]([0-9]+)', "g" );
-    var regularText = eq.pc_text;
-    if(keycolumn == "PET") regularText = eq.pet_text;
-    var matches = regularExp.exec(regularText);
-    return matches![1];
+  showItemDetail(equip: Equipment){
+    this.itemDetail.show(equip);
   }
 
 }

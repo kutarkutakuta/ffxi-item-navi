@@ -92,9 +92,9 @@
     <tbody>
       <tr *ngFor="let data of basicTable.data">
         <td>
-          <div style="font-size: larger;font-weight: bolder;">
+          <a aria-label="Name1" (click)="showItemDetail(data)" style="font-size: larger;font-weight: bolder;">
             <span [innerHTML]="replacer(data.name,'NAME')"></span>
-          </div>
+          </a>
           <div>
             {{ data.slot }}
             <br />
@@ -111,7 +111,7 @@
           ></div>
         </td>
         <ng-container *ngFor="let keyword of opKeywords">
-          <td style="width: 40px">{{ getOpKeywordValue(data, keyword) }}</td>
+          <td class="status_value">{{ data.pc_status[keyword] }}</td>
         </ng-container>
         <td>
           <div [innerHTML]="replacer(data.other_text,'OTHER')"></div>
@@ -121,3 +121,4 @@
     </tbody>
   </nz-table>
 </div>
+<app-item-detail #ItemDetail></app-item-detail>

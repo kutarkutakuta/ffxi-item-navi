@@ -8,6 +8,7 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { Job } from '../model/job';
 import { Wepon } from '../model/wepon';
 import { Equipment } from '../model/equipment';
+import { Status } from '../model/status';
 
 @Injectable({
   providedIn: 'root',
@@ -15,8 +16,7 @@ import { Equipment } from '../model/equipment';
 export class SupabaseService {
 
   private supabase: SupabaseClient;
-  private _jobs: BehaviorSubject<Job[]> = new BehaviorSubject<Job[]>([]);
-  private _wepons: BehaviorSubject<Wepon[]> = new BehaviorSubject<Wepon[]>([]);
+  private _statuses: BehaviorSubject<Status[]> = new BehaviorSubject<Status[]>([]);
 
   constructor(private http:HttpClient,
     private message: NzMessageService,) {
@@ -25,12 +25,13 @@ export class SupabaseService {
     this.loadData();
   }
 
-  getJob(): Observable<Job[]> {
-    return this._jobs.asObservable();
-  }
+  private async loadData() {
+    const statusQuery = await this.supabase.from('statuses').select('*');
+    this._statuses.next(statusQuery.data as Status[]);
+}
 
-  getWepon(): Observable<Wepon[]> {
-    return this._wepons.asObservable();
+  getStatus(): Observable<Status[]> {
+    return this._statuses.asObservable();
   }
 
   async getEquipment(jobs: string[], wepons:string[], inputText: string): Promise<[Equipment[], number, string[], string[]]> {
@@ -149,12 +150,6 @@ export class SupabaseService {
       return [queryData.data as Equipment[], queryData.count!, txtkeywords, opkeywords];
   }
 
-  private async loadData() {
-      const jobQuery = await this.supabase.from('jobs').select('*');
-      this._jobs.next(jobQuery.data as Job[]);
 
-      const weponQuery = await this.supabase.from('wepons').select('*');
-      this._wepons.next(weponQuery.data as Wepon[]);
-  }
 
 }

@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ItemNaviComponent } from './component/item-navi/item-navi.component';
+import { ItemDetailComponent } from './component/item-detail/item-detail.component';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { ja_JP } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
@@ -19,13 +20,17 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 registerLocaleData(ja);
 
 @NgModule({
   declarations: [
     AppComponent,
-    ItemNaviComponent
+    ItemNaviComponent,
+    ItemDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -40,7 +45,10 @@ registerLocaleData(ja);
     NzSelectModule,
     NzInputModule,
     NzIconModule,
-    NzImageModule
+    NzImageModule,
+    NzDrawerModule,
+    NzDescriptionsModule,
+    NzGridModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: ja_JP }

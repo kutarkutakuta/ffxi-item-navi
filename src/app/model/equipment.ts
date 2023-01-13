@@ -16,5 +16,6 @@ export interface Equipment {
   other_text: string;
   job: string;
   install_date: Date;
+  page_title: string;
   original_text: string;
 }

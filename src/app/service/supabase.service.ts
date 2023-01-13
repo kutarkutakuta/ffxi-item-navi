@@ -38,13 +38,21 @@ export class SupabaseService {
     var txtkeywords: string[] = [];
     var opkeywords: string[] = [];
 
+    // 全角→半角変換
     var fnToHnakaku = (str: string) :string => {
-      return str.replace(/[Ａ-Ｚａ-ｚ０-９！＜＞＝]/g, (s) => {
+      return str.replace(/[Ａ-Ｚａ-ｚ０-９！＜＞＝：]/g, (s) => {
           return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
       });
     }
 
-    var fn = (): PostgrestFilterBuilder<any, any, any> =>{
+    // +-半角変換
+    var fnToHnakakuPlusMinus = (str: string) :string => {
+      return str.replace(/[＋]/g, '+')
+        .replace(/[－﹣−‐⁃‑‒–—﹘―⎯⏤ーｰ─━]/g, '-');
+    }
+
+    // フィルタビルダ
+    var fnFilterBuilder = (): PostgrestFilterBuilder<any, any, any> =>{
       var query = this.supabase.from('equipments').select();
 
       if(jobs.length > 0){
@@ -66,49 +74,69 @@ export class SupabaseService {
       }
 
       if(inputText.length > 0){
-        inputText.split(/[,\s]+/).forEach(n=>{
-          if(!["and","or"].includes(n.toLowerCase())){
-            var keyword = n;
-            var colonIndex = keyword.lastIndexOf(":");
-            if(colonIndex > -1){
-              keyword = keyword.substring(colonIndex, keyword.length)
-            }
-            const regex  = /(?<keyword>[^\=\>\<\!＝＞＜！]+)(?<operator>[\=\>\<＝＞＜]|[\>\<＞＜!！][=＝])(?<value>[\+\-＋－ー]?[0-9０-９]+)/g;
-            var matches = regex.exec(keyword);
-            if(matches){
-              keyword = fnToHnakaku(matches[1]);
-              var operator = fnToHnakaku(matches[2]);
-              var value = fnToHnakaku(matches[3]);
-
-              switch(operator){
-                case "!=":
-                  query = query.neq("pc_status->" + keyword, value);
-                  break;
-                case ">=":
-                  query = query.gte("pc_status->" + keyword, value);
-                  break;
-                case "<=":
-                  query = query.lte("pc_status->" + keyword, value);
-                  break;
-                case ">":
-                  query = query.gt("pc_status->" + keyword, value);
-                  break;
-                case "<":
-                  query = query.lt("pc_status->" + keyword, value);
-                  break;
-                case "=":
-                  query = query.eq("pc_status->" + keyword, value);
-                  break;
-              }
-              query = query.order("pc_status->" + keyword, {ascending:false, nullsFirst:false});
-              opkeywords.push(keyword);
-            }
-            else{
-              txtkeywords.push(keyword);
-
-            }
-            query = query.or("name.ilike.%"+keyword+"%, pc_text.ilike.%"+keyword+"%, pet_text.ilike.%"+keyword+"%, other_text.ilike.%"+keyword+"%" );
+        fnToHnakaku(inputText).split(/[,\s]+/).forEach(itemText => {
+          var keycolumn = "";
+          var keyword = itemText;
+          var arr_tmp = itemText.split(":");
+          if(arr_tmp.length > 1){
+            keycolumn = arr_tmp[0].toUpperCase();
+            keyword = itemText.substring(arr_tmp[0].length+1, keyword.length);
           }
+          const regex  = /(?<keyword>[^\=\>\<\!]+)(?<operator>[\=\>\<]|[\>\<!][=])(?<value>[\+\-＋－﹣−‐⁃‑‒–—﹘―⎯⏤ーｰ─━]?[0-9]+)/g;
+          var matches = regex.exec(keyword);
+          if(matches){
+            keyword = matches[1];
+            var operator = matches[2];
+            var value = fnToHnakakuPlusMinus(matches[3]);
+
+            // デフォルトはPCステータスで検索するがPET指定時は変更
+            var column = "pc_status->" + keyword;
+            if(keycolumn == "PET") column = "pet_status->" + keyword;
+            switch(operator){
+              case "!=":
+                query = query.neq(column, value);
+                break;
+              case ">=":
+                query = query.gte(column, value);
+                break;
+              case "<=":
+                query = query.lte(column, value);
+                break;
+              case ">":
+                query = query.gt(column, value);
+                break;
+              case "<":
+                query = query.lt(column, value);
+                break;
+              case "=":
+                query = query.eq(column, value);
+                break;
+            }
+            query = query.order(column, {ascending:false, nullsFirst:false});
+            opkeywords.push((keycolumn ? keycolumn + ":" : "") + keyword);
+          }
+          else{
+            txtkeywords.push(itemText);
+          }
+
+          switch(keycolumn){
+            case "NAME":
+              query = query.ilike("name", "%"+keyword+"%");
+              break;
+            case "PC":
+              query = query.ilike("pc_text", "%"+keyword+"%");
+              break;
+            case "PET":
+              query = query.ilike("pet_text", "%"+keyword+"%");
+              break;
+            case "OTHER":
+              query = query.ilike("other_text", "%"+keyword+"%");
+              break;
+            default:
+              query = query.or("name.ilike.%"+keyword+"%, pc_text.ilike.%"+keyword+"%, pet_text.ilike.%"+keyword+"%, other_text.ilike.%"+keyword+"%" );
+              break;
+          }
+
         });
       }
 
@@ -117,7 +145,7 @@ export class SupabaseService {
 
       return query;
     }
-    const queryData = await fn();
+    const queryData = await fnFilterBuilder();
       return [queryData.data as Equipment[], queryData.count!, txtkeywords, opkeywords];
   }
 

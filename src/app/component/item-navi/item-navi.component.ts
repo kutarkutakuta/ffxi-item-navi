@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { SupabaseService } from 'src/app/service/supabase.service';
 import { Equipment } from 'src/app/model/equipment';
 import { ItemDetailComponent } from '../item-detail/item-detail.component';
+import { EquipmentAug } from 'src/app/model/equipment_aug';
 
 @Component({
   selector: 'app-item-navi',
@@ -44,12 +45,12 @@ export class ItemNaviComponent {
   /** HTML変換（ハイライト付加） */
   replacer(source: string ,keycolumn: string) {
 
-    var returnHtml = source;
+    var returnHtml = " " + source;
 
     // ハイライト変換
     var fnHighlight = (str: string, reg: string) :string => {
       var regularExp = new RegExp(reg, "g" );
-      var replaceString = '<span class="highlight">$1</span>';
+      var replaceString = ' <span class="highlight">$1</span>';
       return str.replace( regularExp , replaceString );
     }
 
@@ -60,7 +61,7 @@ export class ItemNaviComponent {
         if(arr_tmp[0].toUpperCase() != keycolumn) break;
         keyword = keyword.substring(arr_tmp[0].length+1, keyword.length);
       }
-      returnHtml = fnHighlight(returnHtml, '(' + keyword + '[:：][0-9]+)');
+      returnHtml = fnHighlight(returnHtml, ' (' + keyword + '[:：][0-9]+)');
    }
 
    for (let keyword of this.txtKeywords) {
@@ -70,12 +71,37 @@ export class ItemNaviComponent {
       if(arr_tmp[0].toUpperCase() != keycolumn) break;
       keyword = keyword.substring(arr_tmp[0].length+1, keyword.length);
     }
-    returnHtml = fnHighlight(returnHtml, '(' + keyword +')');
+    returnHtml = fnHighlight(returnHtml, ' (' + keyword +')');
   }
 
-    return returnHtml;
+    return returnHtml.trim();
   }
 
+  getStatusValue(equip: Equipment, keyword: string, aug?: EquipmentAug){
+    var ret = 0;
+    var status_target = "PC";
+    var status_key = keyword;
+    var arr_tmp  =keyword.split(":");
+    if(arr_tmp.length > 1){
+      status_target = arr_tmp[0];
+      status_key = arr_tmp[1];
+    }
+    if(status_target == "PET"){
+      ret = equip.pet_status[status_key];
+      if(aug) {
+        var aug_ret = aug.pet_status[status_key];
+        ret += aug_ret ? aug_ret : 0;
+      }
+    }
+    else{
+      ret = equip.pc_status[status_key];
+      if(aug) {
+        var aug_ret = aug.pc_status[status_key];
+        ret += aug_ret ? aug_ret : 0;
+      }
+    }
+    return ret;
+  }
 
   showItemDetail(equip: Equipment){
     this.itemDetail.show(equip);

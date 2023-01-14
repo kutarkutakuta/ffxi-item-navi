@@ -5,3 +5,6 @@
 .status_value {
   font-weight: bolder;
 }
+td {
+  vertical-align: top;
+}

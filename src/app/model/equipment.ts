@@ -1,3 +1,5 @@
+import { EquipmentAug } from "./equipment_aug";
+
 export interface Equipment {
   id: number;
   slot: string;
@@ -18,4 +20,6 @@ export interface Equipment {
   install_date: Date;
   page_title: string;
   original_text: string;
+  equipment_augs: EquipmentAug[];
+  expanded: boolean;
 }

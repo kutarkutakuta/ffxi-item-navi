@@ -90,34 +90,59 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let data of basicTable.data">
-        <td>
-          <a aria-label="Name1" (click)="showItemDetail(data)" style="font-size: larger;font-weight: bolder;">
-            <span [innerHTML]="replacer(data.name,'NAME')"></span>
-          </a>
-          <div>
-            {{ data.slot }}
-            <br />
-            Lv{{ data.lv }} {{ data.job }}
-          </div>
-        </td>
-        <td><div [innerHTML]="replacer(data.pc_text,'PC')"></div></td>
-        <td>
-          <div
-            *ngIf="data.pet_status_target"
-            [innerHTML]="
-              '(' + data.pet_status_target + ') ' + replacer(data.pet_text,'PET')
-            "
-          ></div>
-        </td>
-        <ng-container *ngFor="let keyword of opKeywords">
-          <td class="status_value">{{ data.pc_status[keyword] }}</td>
+      <ng-container  *ngFor="let data of basicTable.data">
+        <tr>
+          <td [nzShowExpand]="data.equipment_augs.length>0" (nzExpandChange)="data.expanded = $event;">
+            <a aria-label="Name1" (click)="showItemDetail(data)" style="font-size: larger;font-weight: bolder;">
+              <span [innerHTML]="replacer(data.name,'NAME')"></span>
+            </a>
+            <div style="padding-left: 10px;">
+              {{ data.slot }}
+              <br />
+              Lv{{ data.lv }} {{ data.job }}
+            </div>
+          </td>
+          <td><div [innerHTML]="replacer(data.pc_text,'PC')"></div></td>
+          <td>
+            <div *ngIf="data.pet_status_target">
+              {{data.pet_status_target != 'ペット' ? '(' + data.pet_status_target + ') ' : ''}}
+              <div  [innerHTML]="replacer(data.pet_text,'PET')"></div>
+            </div>
+          </td>
+          <ng-container *ngFor="let keyword of opKeywords">
+            <td class="status_value">{{ getStatusValue(data, keyword) }}</td>
+          </ng-container>
+          <td>
+            <div [innerHTML]="replacer(data.other_text,'OTHER')"></div>
+          </td>
+          <td>
+          </td>
+        </tr>
+        <ng-container *ngFor="let aug of data.equipment_augs">
+          <tr *ngIf="data.expanded">
+            <td [nzIndentSize]="5">
+              {{aug.aug_type}} Rank:{{aug.rank}}
+            </td>
+            <td><div [innerHTML]="replacer(aug.pc_text,'PC')"></div></td>
+            <td>
+              <div *ngIf="aug.pet_status_target">
+                {{aug.pet_status_target != 'ペット' ? '(' + aug.pet_status_target + ') ' : ''}}
+                <div  [innerHTML]="replacer(aug.pet_text,'PET')"></div>
+              </div>
+            </td>
+            <ng-container *ngFor="let keyword of opKeywords">
+              <td class="status_value">{{ getStatusValue(data, keyword, aug) }}</td>
+            </ng-container>
+            <td>
+              <div [innerHTML]="replacer(aug.other_text,'OTHER')"></div>
+            </td>
+            <td>
+            </td>
+          </tr>
         </ng-container>
-        <td>
-          <div [innerHTML]="replacer(data.other_text,'OTHER')"></div>
-        </td>
-        <td></td>
-      </tr>
+
+      </ng-container>
+
     </tbody>
   </nz-table>
 </div>

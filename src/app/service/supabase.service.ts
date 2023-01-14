@@ -5,8 +5,6 @@ import { Observable, EMPTY, of, from, BehaviorSubject, firstValueFrom, map, filt
 import { HttpClient  } from '@angular/common/http';
 import type { PostgrestFilterBuilder } from "@supabase/postgrest-js";
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { Job } from '../model/job';
-import { Wepon } from '../model/wepon';
 import { Equipment } from '../model/equipment';
 import { Status } from '../model/status';
 
@@ -54,7 +52,7 @@ export class SupabaseService {
 
     // フィルタビルダ
     var fnFilterBuilder = (): PostgrestFilterBuilder<any, any, any> =>{
-      var query = this.supabase.from('equipments').select();
+      var query = this.supabase.from('equipments').select('*,equipment_augs(*)');
 
       if(jobs.length > 0){
         var jobFilter = "job.eq.All Jobs";
@@ -147,7 +145,7 @@ export class SupabaseService {
       return query;
     }
     const queryData = await fnFilterBuilder();
-      return [queryData.data as Equipment[], queryData.count!, txtkeywords, opkeywords];
+    return [queryData.data as Equipment[], queryData.count!, txtkeywords, opkeywords];
   }
 
 

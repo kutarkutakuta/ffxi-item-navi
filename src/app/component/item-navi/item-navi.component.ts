@@ -77,7 +77,7 @@ export class ItemNaviComponent {
     return returnHtml.trim();
   }
 
-  getStatusValue(equip: Equipment, keyword: string, aug?: EquipmentAug){
+  getStatusValue(equip: Equipment | EquipmentAug, keyword: string){
     var ret = 0;
     var status_target = "PC";
     var status_key = keyword;
@@ -88,17 +88,9 @@ export class ItemNaviComponent {
     }
     if(status_target == "PET"){
       ret = equip.pet_status[status_key];
-      if(aug) {
-        var aug_ret = aug.pet_status[status_key];
-        ret += aug_ret ? aug_ret : 0;
-      }
     }
     else{
       ret = equip.pc_status[status_key];
-      if(aug) {
-        var aug_ret = aug.pc_status[status_key];
-        ret += aug_ret ? aug_ret : 0;
-      }
     }
     return ret;
   }

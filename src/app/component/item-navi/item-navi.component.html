@@ -123,15 +123,15 @@
             <td [nzIndentSize]="5">
               {{aug.aug_type}} Rank:{{aug.rank}}
             </td>
-            <td><div [innerHTML]="replacer(aug.pc_text,'PC')"></div></td>
+            <td><div [innerHTML]="replacer(aug.pc_aug_text,'PC')"></div></td>
             <td>
               <div *ngIf="aug.pet_status_target">
                 {{aug.pet_status_target != 'ペット' ? '(' + aug.pet_status_target + ') ' : ''}}
-                <div  [innerHTML]="replacer(aug.pet_text,'PET')"></div>
+                <div  [innerHTML]="replacer(aug.pet_aug_text,'PET')"></div>
               </div>
             </td>
             <ng-container *ngFor="let keyword of opKeywords">
-              <td class="status_value">{{ getStatusValue(data, keyword, aug) }}</td>
+              <td class="status_value">{{ getStatusValue(aug, keyword) }}</td>
             </ng-container>
             <td>
               <div [innerHTML]="replacer(aug.other_text,'OTHER')"></div>

@@ -53,7 +53,7 @@
       placeholder="(例) PC:命中>20 PET:攻>20"
       [(ngModel)]="inputValue"
       nzAllowClear="true"
-      (ngModelChange)="inputChange()"
+      (change)="inputChange()"
     />
   </nz-input-group>
 </div>
@@ -71,12 +71,8 @@
   </ng-template>
 </div>
 <div>
-  <nz-table
-    #basicTable
-    [nzData]="equipments"
-    [nzPageSize]="50"
-    nzSize="small" [nzScroll]="{x: '100%', y: '80vh'}"
-  >
+  <nz-table #basicTable [nzData]="equipments" [nzPageSize]="50" [nzLoading]="loading"
+    nzSize="small" [nzScroll]="{x: '100%', y: '80vh'}">
     <thead>
       <tr>
         <th style="width: 180px">NAME</th>
@@ -121,20 +117,20 @@
         <ng-container *ngFor="let aug of data.equipment_augs">
           <tr *ngIf="data.expanded">
             <td [nzIndentSize]="5">
-              {{aug.aug_type}} Rank:{{aug.rank}}
+              {{aug.aug_type}} Rank:{{aug.aug_rank}}
             </td>
-            <td><div [innerHTML]="replacer(aug.pc_aug_text,'PC')"></div></td>
+            <td><div [innerHTML]="replacer(aug.aug_pc_text,'PC')"></div></td>
             <td>
-              <div *ngIf="aug.pet_status_target">
-                {{aug.pet_status_target != 'ペット' ? '(' + aug.pet_status_target + ') ' : ''}}
-                <div  [innerHTML]="replacer(aug.pet_aug_text,'PET')"></div>
+              <div *ngIf="aug.aug_pet_status_target">
+                {{aug.aug_pet_status_target != 'ペット' ? '(' + aug.aug_pet_status_target + ') ' : ''}}
+                <div  [innerHTML]="replacer(aug.aug_pet_text,'PET')"></div>
               </div>
             </td>
             <ng-container *ngFor="let keyword of opKeywords">
               <td class="status_value">{{ getStatusValue(aug, keyword) }}</td>
             </ng-container>
             <td>
-              <div [innerHTML]="replacer(aug.other_text,'OTHER')"></div>
+              <div [innerHTML]="replacer(aug.aug_other_text,'OTHER')"></div>
             </td>
             <td>
             </td>

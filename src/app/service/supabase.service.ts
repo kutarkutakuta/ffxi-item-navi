@@ -52,7 +52,7 @@ export class SupabaseService {
 
     // フィルタビルダ
     var fnFilterBuilder = (): PostgrestFilterBuilder<any, any, any> =>{
-      var query = this.supabase.from('equipments').select('*,equipment_augs(*)');
+      var query = this.supabase.from('equipments').select('*,equipment_augs(*)').limit(100);
 
       if(jobs.length > 0){
         var jobFilter = "job.eq.All Jobs";

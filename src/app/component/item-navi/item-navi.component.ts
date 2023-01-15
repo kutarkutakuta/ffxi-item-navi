@@ -23,6 +23,7 @@ export class ItemNaviComponent {
   selectedArmors: string[] = [];
   inputValue: string = "";
 
+  loading = false;
   equipments: Equipment[] = [];
 
   txtKeywords: string[] = [];
@@ -34,12 +35,13 @@ export class ItemNaviComponent {
 
   /** 入力変更時 */
   inputChange(){
+    this.loading = true;
     this.supabaseService.getEquipment(this.selectedJobs, this.selectedWepons.concat(this.selectedArmors), this.inputValue.trimEnd())
     .then((res: [Equipment[], number, string[], string[]])=>{
       this.equipments = res[0];
       this.txtKeywords = res[2];
       this.opKeywords = res[3];
-    });
+    }).finally(()=>this.loading = false);
   }
 
   /** HTML変換（ハイライト付加） */
@@ -87,10 +89,22 @@ export class ItemNaviComponent {
       status_key = arr_tmp[1];
     }
     if(status_target == "PET"){
-      ret = equip.pet_status[status_key];
+      if("full_pet_status" in equip){
+        ret = equip.full_pet_status[status_key];
+      }
+      else{
+        ret = equip.pet_status[status_key];
+      }
+
     }
     else{
-      ret = equip.pc_status[status_key];
+      if("full_pc_status" in equip){
+        ret = equip.full_pc_status[status_key];
+      }
+      else{
+        ret = equip.pc_status[status_key];
+      }
+
     }
     return ret;
   }

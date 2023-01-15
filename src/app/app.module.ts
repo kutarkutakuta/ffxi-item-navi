@@ -12,6 +12,7 @@ import ja from '@angular/common/locales/ja';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ClipboardModule } from '@angular/cdk/clipboard'
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzMessageModule } from 'ng-zorro-antd/message';
@@ -38,6 +39,7 @@ registerLocaleData(ja);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    ClipboardModule,
     NzTableModule,
     NzDividerModule,
     NzMessageModule,

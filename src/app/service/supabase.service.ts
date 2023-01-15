@@ -194,7 +194,7 @@ export class SupabaseService {
             pc_text: d.aug_pc_text,
             pc_status: d.full_pc_status,
             pet_status_target: d.aug_pet_status_target,
-            pet_text: d.aug_pc_text,
+            pet_text: d.aug_pet_text,
             pet_status: d.full_pet_status,
             other_text: d.aug_other_text,
           });

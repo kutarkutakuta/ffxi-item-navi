@@ -89,14 +89,14 @@ export class ItemNaviComponent {
 
   getStatusValue(equip: Equipment | EquipmentAug, keyword: string){
     var ret = "";
-    var status_target = "PC";
     var status_key = keyword;
     var arr_tmp  =keyword.split(":");
+    var status_target = "PC"
     if(arr_tmp.length > 1){
       status_target = arr_tmp[0];
       status_key = arr_tmp[1];
     }
-    if(status_target == "PET"){
+    if(status_target != "PC"){
       var value = equip.pet_status[status_key];
       var max = value;
       var min =  value;

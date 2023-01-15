@@ -71,7 +71,7 @@
   </ng-template>
 </div>
 <div>
-  <nz-table #basicTable [nzData]="equipments" [nzPageSize]="50" [nzLoading]="loading"
+  <nz-table #basicTable [nzData]="equipments" [nzLoading]="loading" [nzShowPagination]="false" [nzPageSize]="100"
     nzSize="small" [nzScroll]="{x: '100%', y: '80vh'}">
     <thead>
       <tr>

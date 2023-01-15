@@ -1,36 +1,69 @@
 <div *ngIf="equip">
-  <nz-drawer [nzVisible]="visible" nzPlacement="bottom" [nzTitle]="title" (nzOnClose)="onclose()">
+  <nz-drawer
+    [nzVisible]="visible"
+    nzPlacement="bottom"
+    [nzTitle]="title"
+    (nzOnClose)="onclose()"
+  >
     <ng-container *nzDrawerContent>
-<div style="min-width: 1020px;">
-      <nz-descriptions nzBordered nzLayout="vertical" [nzColumn]="24" nzSize="small">
-        <nz-descriptions-item [nzTitle]="data.short_name" *ngFor="let data of getStauses('BASE')">
-          <span class="status_value">{{equip.pc_status[data.name]}}</span>
-        </nz-descriptions-item>
-      </nz-descriptions>
-      <nz-descriptions nzBordered nzLayout="vertical" [nzColumn]="24" nzSize="small">
-        <nz-descriptions-item [nzTitle]="data.short_name" *ngFor="let data of getStauses('ATACK')">
-          <span class="status_value">{{equip.pc_status[data.name]}}</span>
-        </nz-descriptions-item>
-      </nz-descriptions>
-      <nz-descriptions nzBordered nzLayout="vertical" [nzColumn]="24" nzSize="small">
-        <nz-descriptions-item [nzTitle]="data.short_name" *ngFor="let data of getStauses('DEFENSE')">
-          <span class="status_value">{{equip.pc_status[data.name]}}</span>
-        </nz-descriptions-item>
-      </nz-descriptions>
-    </div>
+      <div style="min-width: 1020px">
+        <nz-descriptions
+          nzBordered
+          nzLayout="vertical"
+          [nzColumn]="24"
+          nzSize="small"
+        >
+          <nz-descriptions-item
+            [nzTitle]="data.short_name"
+            *ngFor="let data of getStauses('BASE')"
+          >
+            <span class="status_value">{{ equip.pc_status[data.name] }}</span>
+          </nz-descriptions-item>
+        </nz-descriptions>
+        <nz-descriptions
+          nzBordered
+          nzLayout="vertical"
+          [nzColumn]="24"
+          nzSize="small"
+        >
+          <nz-descriptions-item
+            [nzTitle]="data.short_name"
+            *ngFor="let data of getStauses('ATACK')"
+          >
+            <span class="status_value">{{ equip.pc_status[data.name] }}</span>
+          </nz-descriptions-item>
+        </nz-descriptions>
+        <nz-descriptions
+          nzBordered
+          nzLayout="vertical"
+          [nzColumn]="24"
+          nzSize="small"
+        >
+          <nz-descriptions-item
+            [nzTitle]="data.short_name"
+            *ngFor="let data of getStauses('DEFENSE')"
+          >
+            <span class="status_value">{{ equip.pc_status[data.name] }}</span>
+          </nz-descriptions-item>
+        </nz-descriptions>
+      </div>
     </ng-container>
   </nz-drawer>
   <ng-template #title>
-    <a [href]="getWikiURL(equip.page_title)" target="_blank">{{equip.name}}</a>
+    <a [href]="getWikiURL(equip.page_title)" target="_blank">{{
+      equip.name
+    }}</a>
     <span *ngIf="equip.yomi">
-      （{{equip.yomi}}<span *ngIf="equip.english"> / {{equip.english}}</span>）
+      （{{ equip.yomi }}<span *ngIf="equip.english"> / {{ equip.english }}</span
+      >）
     </span>
-    [{{equip.slot}}]
-    Lv{{equip.lv}} {{equip.job}}
+    [{{ equip.slot }}] Lv{{ equip.lv }} {{ equip.job }}
     <span *ngIf="equip.ex">(Ex)</span>
     <span *ngIf="equip.rare">(Rare)</span>
+    <button nz-button nzType="text" (click)="getClipboard(equip)"><span nz-icon nzType="copy" nzTheme="outline"></span></button>
+
     <div *ngIf="equip.install_date" class="absolute top-0 right-0 p-2 mt-2">
-      Ver. {{equip.install_date}}
+      Ver. {{ equip.install_date }}
     </div>
   </ng-template>
 </div>

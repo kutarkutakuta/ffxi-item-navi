@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { SupabaseService } from 'src/app/service/supabase.service';
 import { Equipment } from 'src/app/model/equipment';
 import { ItemDetailComponent } from '../item-detail/item-detail.component';

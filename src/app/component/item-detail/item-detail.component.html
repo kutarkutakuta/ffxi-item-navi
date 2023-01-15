@@ -11,12 +11,8 @@
           nzBordered
           nzLayout="vertical"
           [nzColumn]="24"
-          nzSize="small"
-        >
-          <nz-descriptions-item
-            [nzTitle]="data.short_name"
-            *ngFor="let data of getStauses('BASE')"
-          >
+          nzSize="small">
+          <nz-descriptions-item [nzTitle]="data.short_name" *ngFor="let data of getStauses('BASE')">
             <span class="status_value">{{ equip.pc_status[data.name] }}</span>
           </nz-descriptions-item>
         </nz-descriptions>

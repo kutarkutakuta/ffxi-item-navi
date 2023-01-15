@@ -24,6 +24,7 @@ import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 
 registerLocaleData(ja);
 
@@ -51,6 +52,7 @@ registerLocaleData(ja);
     NzDrawerModule,
     NzDescriptionsModule,
     NzGridModule,
+    NzToolTipModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: ja_JP }

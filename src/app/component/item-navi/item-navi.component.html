@@ -1,87 +1,48 @@
 <div>
-  <nz-select
-    [(ngModel)]="selectedJobs"
-    nzSize="default"
-    nzMode="multiple"
-    nzPlaceHolder="ジョブ"
-    nzAllowClear="true"
-    style="width: 180px"
-    (ngModelChange)="inputChange()"
-  >
-    <nz-option
-      *ngFor="let option of jobs"
-      [nzLabel]="option"
-      [nzValue]="option"
-    ></nz-option>
+  <nz-select [(ngModel)]="selectedJobs" nzSize="default" nzMode="multiple"
+    nzPlaceHolder="ジョブ" nzAllowClear="true"
+    style="width: 150px" (ngModelChange)="inputChange()">
+    <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
   </nz-select>
-  <nz-select
-    [(ngModel)]="selectedWepons"
-    nzSize="default"
-    nzMode="multiple"
-    nzPlaceHolder="武器"
-    nzAllowClear="true"
-    style="width: 260px"
-    (ngModelChange)="inputChange()"
-  >
-    <nz-option
-      *ngFor="let option of wepons"
-      [nzLabel]="option"
-      [nzValue]="option"
-    ></nz-option>
+  <nz-select [(ngModel)]="selectedWepons" nzSize="default" nzMode="multiple"
+    nzPlaceHolder="武器" nzAllowClear="true"
+    style="width: 250px" (ngModelChange)="inputChange()">
+    <nz-option *ngFor="let option of wepons" [nzLabel]="option" [nzValue]="option"></nz-option>
   </nz-select>
-  <nz-select
-    [(ngModel)]="selectedArmors"
-    nzSize="default"
-    nzMode="multiple"
-    nzPlaceHolder="防具"
-    nzAllowClear="true"
-    style="width: 260px"
-    (ngModelChange)="inputChange()"
-  >
-    <nz-option
-      *ngFor="let option of armors"
-      [nzLabel]="option"
-      [nzValue]="option"
-    ></nz-option>
+  <nz-select [(ngModel)]="selectedArmors" nzSize="default"
+    nzMode="multiple" nzPlaceHolder="防具" nzAllowClear="true"
+    style="width: 250px" (ngModelChange)="inputChange()">
+    <nz-option *ngFor="let option of armors" [nzLabel]="option" [nzValue]="option"></nz-option>
   </nz-select>
 </div>
-<div style="width: 440px">
+<div style="width: 650px">
   <nz-input-group [nzSuffix]="suffixIconSearch">
-    <input
-      type="text"
-      nz-input
-      placeholder="(例) PC:命中>20 PET:攻>20"
-      [(ngModel)]="inputValue"
-      nzAllowClear="true"
-      (change)="inputChange()"
+    <input type="text" nz-input placeholder="(例) PC:命中>20 PET:攻>20"
+      [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()"
     />
   </nz-input-group>
 </div>
 <div>
   <ng-template #suffixIconSearch>
-    <span
-      nz-icon
-      class="ant-input-clear-icon"
-      nzTheme="fill"
-      nzType="close-circle"
-      *ngIf="inputValue"
-      (click)="inputValue = ''; inputChange()"
-    ></span>
+    <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
+      nzType="close-circle" *ngIf="inputValue" (click)="inputValue = ''; inputChange()"></span>
     <span nz-icon nzType="search" *ngIf="!inputValue"></span>
   </ng-template>
 </div>
-<div>
+<div style="height: 100%;">
   <nz-table #basicTable [nzData]="equipments" [nzLoading]="loading" [nzShowPagination]="false" [nzPageSize]="100"
-    nzSize="small" [nzScroll]="{x: '100%', y: '80vh'}">
+    nzSize="small" nzBordered="true" [nzScroll]="{x: '100%', y: 'calc(100vh - 150px)'}">
     <thead>
       <tr>
-        <th style="width: 180px">NAME</th>
-        <th style="width: 340px">PC</th>
-        <th style="width: 180px">PET</th>
+        <th nzWidth="180px">NAME</th>
+        <th nzWidth="300px">PC</th>
+        <th nzWidth="200px">PET</th>
         <ng-container *ngFor="let key of opKeywords">
-          <th style="width: 40px">{{ key }}</th>
+          <th nzWidth="50px" style="text-overflow: ellipsis;white-space: nowrap;">
+            <span [nzTooltipTitle]="key" nzTooltipPlacement="topLeft" nz-tooltip>{{ key }}</span>
+          </th>
         </ng-container>
-        <th style="width: 200px">OTHER</th>
+        <th nzWidth="200px">OTHER</th>
         <th></th>
       </tr>
     </thead>

@@ -52,7 +52,7 @@ export class SupabaseService {
 
     // フィルタビルダ
     var fnFilterBuilder = (): PostgrestFilterBuilder<any, any, any> =>{
-      var query = this.supabase.from('equipments').select('*,equipment_augs(*)').limit(100);
+      var query = this.supabase.from('equipment_summary').select().limit(100);
 
       if(jobs.length > 0){
         var jobFilter = "job.eq.All Jobs";
@@ -89,8 +89,8 @@ export class SupabaseService {
             var value = fnToHnakakuPlusMinus(matches[3]);
 
             // デフォルトはPCステータスで検索するがPET指定時は変更
-            var column = "pc_status->" + keyword;
-            if(keycolumn == "PET") column = "pet_status->" + keyword;
+            var column = "full_pc_status->" + keyword;
+            if(keycolumn == "PET") column = "full_pet_status->" + keyword;
             switch(operator){
               case "!=":
                 query = query.neq(column, value);
@@ -103,6 +103,10 @@ export class SupabaseService {
                 break;
               case ">":
                 query = query.gt(column, value);
+                // query = query.gt("equipment_augs.full_pc_status->" + keyword, value);
+                // これができない・・・
+                // query.or(column + ".gt." + value + ",equipment_augs.full_" + column + ".gt." + value);
+                query.not(column, "lte", value)
                 break;
               case "<":
                 query = query.lt(column, value);
@@ -145,9 +149,60 @@ export class SupabaseService {
       return query;
     }
     const queryData = await fnFilterBuilder();
-    return [queryData.data as Equipment[], queryData.count!, txtkeywords, opkeywords];
+
+    var equipments: Equipment[] = [];
+    queryData.data!.forEach(d=>{
+      if(equipments.findIndex(r=>r.id == d.id) < 0){
+        equipments.push({
+          id: d.id,
+          show_expand: false,
+          slot: d.slot,
+          name: d.name,
+          yomi: d.yomi,
+          english: d.english,
+          rare: d.rare,
+          ex: d.ex,
+          lv: d.lv,
+          item_lv: d.item_lv,
+          pc_text: d.pc_text,
+          pc_status: d.pc_status,
+          pet_status_target: d.pet_status_target,
+          pet_text: d.pet_text,
+          pet_status: d.pet_status,
+          other_text: d.other_text,
+          job: d.job,
+          install_date: d.install_date,
+          page_title: d.page_title,
+          equipment_augs: [],
+          expanded: false,
+        });
+      }
+    })
+
+    equipments.forEach(equipment=>{
+      var items = queryData.data!.filter(d=>d.id == equipment.id && d.aug_id > 0).sort((a: any,b: any)=>{
+        return a.aug_id - b.aug_id;
+      });
+      if(items.length > 0){
+        equipment.show_expand = true;
+        items.forEach(d=>{
+          equipment.equipment_augs.push({
+            id: d.aug_id,
+            name: d.name,
+            aug_type: d.aug_type,
+            aug_rank: d.aug_rank,
+            pc_text: d.aug_pc_text,
+            pc_status: d.full_pc_status,
+            pet_status_target: d.aug_pet_status_target,
+            pet_text: d.aug_pc_text,
+            pet_status: d.full_pet_status,
+            other_text: d.aug_other_text,
+          });
+        });
+      }
+    })
+
+    return [equipments, queryData.count!, txtkeywords, opkeywords];
   }
-
-
 
 }

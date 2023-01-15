@@ -79,8 +79,16 @@ export class ItemNaviComponent {
     return returnHtml.trim();
   }
 
+  expandChange(id: number, expanded: boolean){
+    this.equipments.forEach(d=>{
+      if(d.id == id){
+        d.expanded = expanded;
+      }
+    })
+  }
+
   getStatusValue(equip: Equipment | EquipmentAug, keyword: string){
-    var ret = 0;
+    var ret = "";
     var status_target = "PC";
     var status_key = keyword;
     var arr_tmp  =keyword.split(":");
@@ -89,22 +97,36 @@ export class ItemNaviComponent {
       status_key = arr_tmp[1];
     }
     if(status_target == "PET"){
-      if("full_pet_status" in equip){
-        ret = equip.full_pet_status[status_key];
+      var value = equip.pet_status[status_key];
+      var max = value;
+      var min =  value;
+      if("show_expand" in equip && equip.show_expand){
+        equip.equipment_augs.forEach(n=> {
+          if(n.pet_status[status_key] > max){
+            max = n.pet_status[status_key]
+          }
+          if(n.pet_status[status_key] < min){
+            min = n.pet_status[status_key]
+          }
+        });
       }
-      else{
-        ret = equip.pet_status[status_key];
-      }
-
+      ret = (value > min ? "(" + min + ") ": "") + value + (value < max ? " (" + max + ")": "");
     }
     else{
-      if("full_pc_status" in equip){
-        ret = equip.full_pc_status[status_key];
+      var value = equip.pc_status[status_key];
+      var max = value;
+      var min =  value;
+      if("show_expand" in equip && equip.show_expand){
+        equip.equipment_augs.forEach(n=> {
+          if(n.pc_status[status_key] > max){
+            max = n.pc_status[status_key]
+          }
+          if(n.pc_status[status_key] < min){
+            min = n.pc_status[status_key]
+          }
+        });
       }
-      else{
-        ret = equip.pc_status[status_key];
-      }
-
+      ret = (value > min ? "(" + min + ") ": "") + value + (value < max ? " (" + max + ")": "");
     }
     return ret;
   }

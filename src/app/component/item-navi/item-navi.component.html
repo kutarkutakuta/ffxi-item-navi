@@ -47,7 +47,7 @@
       </tr>
     </thead>
     <tbody>
-      <ng-container  *ngFor="let data of basicTable.data">
+      <ng-template nz-virtual-scroll let-data let-index="index">
         <tr>
           <td [nzShowExpand]="data.show_expand" (nzExpandChange)="expandChange(data.id, $event);">
             <a aria-label="Name1" (click)="showItemDetail(data)" style="font-size: larger;font-weight: bolder;">
@@ -97,7 +97,7 @@
             </td>
           </tr>
         </ng-container>
-      </ng-container>
+      </ng-template>
 
     </tbody>
   </nz-table>

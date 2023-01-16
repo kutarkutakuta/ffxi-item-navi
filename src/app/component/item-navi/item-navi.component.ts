@@ -3,6 +3,7 @@ import { SupabaseService } from 'src/app/service/supabase.service';
 import { Equipment } from 'src/app/model/equipment';
 import { ItemDetailComponent } from '../item-detail/item-detail.component';
 import { EquipmentAug } from 'src/app/model/equipment_aug';
+import { NzTableComponent } from 'ng-zorro-antd/table';
 
 @Component({
   selector: 'app-item-navi',
@@ -13,6 +14,8 @@ export class ItemNaviComponent {
 
   @ViewChild(ItemDetailComponent)
   private itemDetail!: ItemDetailComponent;
+  @ViewChild('basicTable', { static: false })
+  private nzTableComponent!: NzTableComponent<Equipment>;
 
   jobs: readonly string[] = ["戦","暗","侍","竜","モ","か","シ","踊","忍","コ","狩","青","赤","吟","剣","ナ","風","黒","召","白","学","獣","All Jobs"];
   wepons: readonly string[] = ["格闘","短剣","片手剣","両手剣","片手斧","両手斧","両手鎌","両手槍","片手刀","両手刀","片手棍","両手棍","弓術","射撃","楽器","投擲","矢・弾","グリップ"];
@@ -41,7 +44,10 @@ export class ItemNaviComponent {
       this.equipments = res[0];
       this.txtKeywords = res[2];
       this.opKeywords = res[3];
-    }).finally(()=>this.loading = false);
+    }).finally(()=>{
+      this.loading = false;
+      this.nzTableComponent.cdkVirtualScrollViewport?.scrollToIndex(0);
+    });
   }
 
   /** HTML変換（ハイライト付加） */

@@ -13,6 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClipboardModule } from '@angular/cdk/clipboard'
+import {ScrollingModule} from '@angular/cdk/scrolling';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzMessageModule } from 'ng-zorro-antd/message';
@@ -41,6 +42,7 @@ registerLocaleData(ja);
     HttpClientModule,
     BrowserAnimationsModule,
     ClipboardModule,
+    ScrollingModule,
     NzTableModule,
     NzDividerModule,
     NzMessageModule,

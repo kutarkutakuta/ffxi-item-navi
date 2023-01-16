@@ -42,6 +42,14 @@ export class ItemDetailComponent {
     return this.statuses.filter(data=>data.type == type).sort((a,b)=>a.id-b.id);
   }
 
+  getStausValue(key: string) : string{
+    var ret = this.equip.pc_status[key];
+    if(key == "Ｄ隔" && ret){
+      ret = (Number(ret) / 1000).toString();
+    }
+    return ret;
+  }
+
   getWikiURL(param: string | undefined): string {
     return "http://wiki.ffo.jp/search.cgi?imageField.x=0&imageField.y=0&CCC=%E6%84%9B&Command=Search&qf=" + param + "&order=match&ffotype=title&type=title";
   }

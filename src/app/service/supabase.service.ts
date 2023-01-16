@@ -28,8 +28,8 @@ export class SupabaseService {
     this._statuses.next(statusQuery.data as Status[]);
 }
 
-  getStatus(): Observable<Status[]> {
-    return this._statuses.asObservable();
+  getStatus(): BehaviorSubject<Status[]> {
+    return this._statuses;
   }
 
   async getEquipment(jobs: string[], wepons:string[], inputText: string): Promise<[Equipment[], number, string[], string[]]> {
@@ -88,11 +88,18 @@ export class SupabaseService {
             var operator = matches[2];
             var value = Number(fnToHnakakuPlusMinus(matches[3]));
 
+            // Ｄ隔変換
             if(keyword=="D") keyword = "Ｄ";
             if(keyword=="D/隔" || keyword=="D／隔" || keyword=="D隔") {
               keyword = "Ｄ隔"
               value = value * 1000; // Ｄ隔は1000倍
             }
+
+            // 省略名から本名を取得
+            var formShortName = this._statuses.getValue().find(s=>
+              this.hankana2Zenkana(s.short_name) == this.hankana2Zenkana(keyword))
+            keyword = formShortName ? formShortName.name : keyword;
+
             // デフォルトはPCステータスで検索するがPET指定時は変更
             var column = "full_pc_status->" + keyword;
             if(keycolumn == "PET") column = "full_pet_status->" + keyword;
@@ -214,6 +221,38 @@ export class SupabaseService {
     })
 
     return [equipments, queryData.count!, txtkeywords, opkeywords];
+  }
+
+  hankana2Zenkana(str : string) {
+    var kanaMap: any = {
+        'ｶﾞ': 'ガ', 'ｷﾞ': 'ギ', 'ｸﾞ': 'グ', 'ｹﾞ': 'ゲ', 'ｺﾞ': 'ゴ',
+        'ｻﾞ': 'ザ', 'ｼﾞ': 'ジ', 'ｽﾞ': 'ズ', 'ｾﾞ': 'ゼ', 'ｿﾞ': 'ゾ',
+        'ﾀﾞ': 'ダ', 'ﾁﾞ': 'ヂ', 'ﾂﾞ': 'ヅ', 'ﾃﾞ': 'デ', 'ﾄﾞ': 'ド',
+        'ﾊﾞ': 'バ', 'ﾋﾞ': 'ビ', 'ﾌﾞ': 'ブ', 'ﾍﾞ': 'ベ', 'ﾎﾞ': 'ボ',
+        'ﾊﾟ': 'パ', 'ﾋﾟ': 'ピ', 'ﾌﾟ': 'プ', 'ﾍﾟ': 'ペ', 'ﾎﾟ': 'ポ',
+        'ｳﾞ': 'ヴ', 'ﾜﾞ': 'ヷ', 'ｦﾞ': 'ヺ',
+        'ｱ': 'ア', 'ｲ': 'イ', 'ｳ': 'ウ', 'ｴ': 'エ', 'ｵ': 'オ',
+        'ｶ': 'カ', 'ｷ': 'キ', 'ｸ': 'ク', 'ｹ': 'ケ', 'ｺ': 'コ',
+        'ｻ': 'サ', 'ｼ': 'シ', 'ｽ': 'ス', 'ｾ': 'セ', 'ｿ': 'ソ',
+        'ﾀ': 'タ', 'ﾁ': 'チ', 'ﾂ': 'ツ', 'ﾃ': 'テ', 'ﾄ': 'ト',
+        'ﾅ': 'ナ', 'ﾆ': 'ニ', 'ﾇ': 'ヌ', 'ﾈ': 'ネ', 'ﾉ': 'ノ',
+        'ﾊ': 'ハ', 'ﾋ': 'ヒ', 'ﾌ': 'フ', 'ﾍ': 'ヘ', 'ﾎ': 'ホ',
+        'ﾏ': 'マ', 'ﾐ': 'ミ', 'ﾑ': 'ム', 'ﾒ': 'メ', 'ﾓ': 'モ',
+        'ﾔ': 'ヤ', 'ﾕ': 'ユ', 'ﾖ': 'ヨ',
+        'ﾗ': 'ラ', 'ﾘ': 'リ', 'ﾙ': 'ル', 'ﾚ': 'レ', 'ﾛ': 'ロ',
+        'ﾜ': 'ワ', 'ｦ': 'ヲ', 'ﾝ': 'ン',
+        'ｧ': 'ァ', 'ｨ': 'ィ', 'ｩ': 'ゥ', 'ｪ': 'ェ', 'ｫ': 'ォ',
+        'ｯ': 'ッ', 'ｬ': 'ャ', 'ｭ': 'ュ', 'ｮ': 'ョ',
+        '｡': '。', '､': '、', 'ｰ': 'ー', '｢': '「', '｣': '」', '･': '・'
+    };
+
+    var reg = new RegExp('(' + Object.keys(kanaMap).join('|') + ')', 'g');
+    return str
+            .replace(reg, (match) =>{
+                return kanaMap[match]
+            })
+            .replace(/ﾞ/g, '゛')
+            .replace(/ﾟ/g, '゜');
   }
 
 }

@@ -69,7 +69,7 @@ export class ItemNaviComponent {
         if(arr_tmp[0].toUpperCase() != keycolumn) break;
         keyword = keyword.substring(arr_tmp[0].length+1, keyword.length);
       }
-      returnHtml = fnHighlight(returnHtml, ' (' + keyword + '[:：][0-9]+(?:\\.\\d+)?)');
+      returnHtml = fnHighlight(returnHtml, ' (' + keyword + '[:：][-]?[0-9]+(?:\\.\\d+)?)');
    }
 
    for (let keyword of this.txtKeywords) {
@@ -93,6 +93,18 @@ export class ItemNaviComponent {
     })
   }
 
+  getShrotStatusName(str: string) :string{
+    var arr_tmp  =str.split(":");
+    var status_target = ""
+    var status_key = str;
+    if(arr_tmp.length > 1){
+      status_target = arr_tmp[0] + ":";
+      status_key = arr_tmp[1];
+    }
+    var status = this.supabaseService.getStatus().value.find(s=>s.name == status_key);
+    return status ? status_target + status.short_name : str;
+  }
+
   getStatusValue(equip: Equipment | EquipmentAug, keyword: string){
     var ret = "";
     var status_key = keyword;
@@ -103,7 +115,7 @@ export class ItemNaviComponent {
       status_key = arr_tmp[1];
     }
     if(status_target != "PC"){
-      var value = equip.pet_status[status_key];
+      var value = equip.pet_status[status_key] || 0;
       var max = value;
       var min =  value;
       if("show_expand" in equip && equip.show_expand){
@@ -124,7 +136,7 @@ export class ItemNaviComponent {
       ret = (value > min ? "(" + min + ") ": "") + value + (value < max ? " (" + max + ")": "");
     }
     else{
-      var value = equip.pc_status[status_key];
+      var value = equip.pc_status[status_key] || 0;
       var max = value;
       var min =  value;
       if("show_expand" in equip && equip.show_expand){

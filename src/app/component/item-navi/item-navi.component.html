@@ -15,13 +15,14 @@
     <nz-option *ngFor="let option of armors" [nzLabel]="option" [nzValue]="option"></nz-option>
   </nz-select>
 </div>
-<div style="width: 650px">
-  <nz-input-group [nzSuffix]="suffixIconSearch">
-    <input type="text" nz-input placeholder="(例) PC:命中>20 PET:攻>20"
-      [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()"
-    />
+<div>
+  <nz-input-group [nzSuffix]="suffixIconSearch" style="max-width:650px">
+    <input type="text" nz-input placeholder="(例) 被ダメージ<-2 PET:攻>20"
+      [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
   </nz-input-group>
 </div>
+
+
 <div>
   <ng-template #suffixIconSearch>
     <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
@@ -39,7 +40,9 @@
         <th nzWidth="200px">PET</th>
         <ng-container *ngFor="let key of opKeywords">
           <th nzWidth="50px" style="text-overflow: ellipsis;white-space: nowrap;">
-            <span [nzTooltipTitle]="key" nzTooltipPlacement="topLeft" nz-tooltip>{{ key }}</span>
+            <span [nzTooltipTitle]="key" nzTooltipPlacement="topLeft" nz-tooltip>
+              {{ getShrotStatusName(key) }}
+            </span>
           </th>
         </ng-container>
         <th nzWidth="200px">OTHER</th>

@@ -63,7 +63,7 @@ export class ItemNaviComponent {
         if(arr_tmp[0].toUpperCase() != keycolumn) break;
         keyword = keyword.substring(arr_tmp[0].length+1, keyword.length);
       }
-      returnHtml = fnHighlight(returnHtml, ' (' + keyword + '[:：][0-9]+)');
+      returnHtml = fnHighlight(returnHtml, ' (' + keyword + '[:：][0-9]+(?:\\.\\d+)?)');
    }
 
    for (let keyword of this.txtKeywords) {
@@ -110,6 +110,11 @@ export class ItemNaviComponent {
           }
         });
       }
+      if(status_key == "Ｄ隔"){
+        value = value / 1000;
+        max = max / 1000;
+        min = min / 1000;
+      }
       ret = (value > min ? "(" + min + ") ": "") + value + (value < max ? " (" + max + ")": "");
     }
     else{
@@ -125,6 +130,11 @@ export class ItemNaviComponent {
             min = n.pc_status[status_key]
           }
         });
+      }
+      if(status_key == "Ｄ隔"){
+        value = value / 1000;
+        max = max / 1000;
+        min = min / 1000;
       }
       ret = (value > min ? "(" + min + ") ": "") + value + (value < max ? " (" + max + ")": "");
     }

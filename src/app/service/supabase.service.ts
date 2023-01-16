@@ -39,7 +39,7 @@ export class SupabaseService {
 
     // 全角→半角変換
     var fnToHnakaku = (str: string) :string => {
-      return str.replace(/[Ａ-Ｚａ-ｚ０-９！＜＞＝：]/g, (s) => {
+      return str.replace(/[Ａ-Ｚａ-ｚ０-９！＜＞＝：／．]/g, (s) => {
           return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
       });
     }
@@ -81,45 +81,50 @@ export class SupabaseService {
             keycolumn = arr_tmp[0].toUpperCase();
             keyword = itemText.substring(arr_tmp[0].length+1, keyword.length);
           }
-          const regex  = /(?<keyword>[^\=\>\<\!]+)(?<operator>[\=\>\<]|[\>\<!][=])(?<value>[\+\-＋－﹣−‐⁃‑‒–—﹘―⎯⏤ーｰ─━]?[0-9]+)/g;
+          const regex  = /(?<keyword>[^\=\>\<\!]+)(?<operator>[\=\>\<]|[\>\<!][=])(?<value>[\+\-＋－﹣−‐⁃‑‒–—﹘―⎯⏤ーｰ─━]?\d+(?:\.\d+)?)/g;
           var matches = regex.exec(keyword);
           if(matches){
-            keyword = matches[1];
+            keyword = matches[1]
             var operator = matches[2];
-            var value = fnToHnakakuPlusMinus(matches[3]);
+            var value = Number(fnToHnakakuPlusMinus(matches[3]));
 
+            if(keyword=="D") keyword = "Ｄ";
+            if(keyword=="D/隔" || keyword=="D／隔" || keyword=="D隔") {
+              keyword = "Ｄ隔"
+              value = value * 1000; // Ｄ隔は1000倍
+            }
             // デフォルトはPCステータスで検索するがPET指定時は変更
             var column = "full_pc_status->" + keyword;
             if(keycolumn == "PET") column = "full_pet_status->" + keyword;
             switch(operator){
-              case "!=":
-                query = query.neq(column, value);
-                break;
-              case ">=":
-                query = query.gte(column, value);
-                break;
-              case "<=":
-                query = query.lte(column, value);
-                break;
-              case ">":
-                query = query.gt(column, value);
-                // query = query.gt("equipment_augs.full_pc_status->" + keyword, value);
-                // これができない・・・
-                // query.or(column + ".gt." + value + ",equipment_augs.full_" + column + ".gt." + value);
-                query.not(column, "lte", value)
-                break;
-              case "<":
-                query = query.lt(column, value);
-                break;
               case "=":
                 query = query.eq(column, value);
                 break;
+              case "!=":
+                query = query.neq(column, value);
+                break;
+              case ">":
+                query = query.gt(column, value);
+                query = query.order(column, {ascending:false, nullsFirst:false});
+                break;
+              case ">=":
+                query = query.gte(column, value);
+                query = query.order(column, {ascending:false, nullsFirst:false});
+                break;
+              case "<":
+                query = query.lt(column, value);
+                query = query.order(column, {ascending:true, nullsFirst:false});
+                break;
+              case "<=":
+                query = query.lte(column, value);
+                query = query.order(column, {ascending:true, nullsFirst:false});
+                break;
             }
-            query = query.order(column, {ascending:false, nullsFirst:false});
-            opkeywords.push((keycolumn ? keycolumn + ":" : "") + keyword);
+            var word = (keycolumn ? keycolumn + ":" : "") + keyword;
+            if(opkeywords.includes(word) == false) opkeywords.push(word);
           }
           else{
-            txtkeywords.push(itemText);
+            if(txtkeywords.includes(itemText) == false )txtkeywords.push(itemText);
           }
 
           switch(keycolumn){
@@ -149,7 +154,13 @@ export class SupabaseService {
       return query;
     }
     const queryData = await fnFilterBuilder();
+    if(queryData.error){
+      this.message.error(queryData.error.message);
+      return [[],0,[],[]];
+    }
 
+    // オーグメントの順番が合わない※ので並び順を揃えて親子関係を構築
+    // ※オーグメント付加後でソートしているので仕方ない
     var equipments: Equipment[] = [];
     queryData.data!.forEach(d=>{
       if(equipments.findIndex(r=>r.id == d.id) < 0){

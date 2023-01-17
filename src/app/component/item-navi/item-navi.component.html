@@ -78,7 +78,7 @@
         <ng-container  *ngFor="let aug of data.equipment_augs">
           <tr *ngIf="data.expanded">
             <td [nzIndentSize]="5">
-              {{aug.aug_type}} Rank:{{aug.aug_rank}}
+              {{aug.aug_type}}{{aug.aug_rank ? ' Rank:' + aug.aug_rank : ''}}
             </td>
             <ng-container *ngFor="let keyword of opKeywords">
               <td class="status_value">{{ getStatusValue(aug, keyword) }}</td>

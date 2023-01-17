@@ -47,20 +47,14 @@ export class ItemNaviComponent {
     }).finally(()=>{
       this.loading = false;
       this.nzTableComponent.cdkVirtualScrollViewport?.scrollToIndex(0);
+      this.nzTableComponent.nzWidthConfig
     });
   }
 
   /** HTML変換（ハイライト付加） */
   replacer(source: string ,keycolumn: string) {
 
-    var returnHtml = " " + source;
-
-    // ハイライト変換
-    var fnHighlight = (str: string, reg: string) :string => {
-      var regularExp = new RegExp(reg, "g" );
-      var replaceString = ' <span class="highlight">$1</span>';
-      return str.replace( regularExp , replaceString );
-    }
+    var returnHtml = " " + source;  //\bが使えないのでスペースで代用
 
     for (let keyword of this.opKeywords) {
       var arr_tmp = keyword.split(":");
@@ -69,18 +63,20 @@ export class ItemNaviComponent {
         if(arr_tmp[0].toUpperCase() != keycolumn) break;
         keyword = keyword.substring(arr_tmp[0].length+1, keyword.length);
       }
-      returnHtml = fnHighlight(returnHtml, ' (' + keyword + '[:：][-]?[0-9]+(?:\\.\\d+)?)');
+      var reg = new RegExp(' (' + keyword + '[:：][-]?[0-9]+(?:\\.\\d+)?)', 'g');
+      returnHtml = returnHtml.replace(reg, ' <span class="highlight">$1</span>');
    }
 
-   for (let keyword of this.txtKeywords) {
-    var arr_tmp = keyword.split(":");
-    if(arr_tmp.length > 1){
-      // キー列が一致しない場合は変換しない
-      if(arr_tmp[0].toUpperCase() != keycolumn) break;
-      keyword = keyword.substring(arr_tmp[0].length+1, keyword.length);
+    for (let keyword of this.txtKeywords) {
+      var arr_tmp = keyword.split(":");
+      if(arr_tmp.length > 1){
+        // キー列が一致しない場合は変換しない
+        if(arr_tmp[0].toUpperCase() != keycolumn) break;
+        keyword = keyword.substring(arr_tmp[0].length+1, keyword.length);
+      }
+      var reg = new RegExp('(' + keyword +')', 'g');
+      returnHtml = returnHtml.replace(reg, '<span class="highlight">$1</span>');
     }
-    returnHtml = fnHighlight(returnHtml, ' (' + keyword +')');
-  }
 
     return returnHtml.trim();
   }

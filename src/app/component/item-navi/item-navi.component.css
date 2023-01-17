@@ -4,8 +4,11 @@
 }
 .status_value {
   font-weight: bolder;
+  text-align: center;
+  background-color: aliceblue;
 }
 td {
   vertical-align: top;
   font-size: smaller;
 }
+

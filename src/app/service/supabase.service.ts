@@ -75,7 +75,7 @@ export class SupabaseService {
       if(inputText.length > 0){
         fnToHnakaku(inputText).split(/[,\s]+/).forEach(itemText => {
           var keycolumn = "";
-          var keyword = itemText;
+          var keyword = itemText.toUpperCase();
           var arr_tmp = itemText.split(":");
           if(arr_tmp.length > 1){
             keycolumn = arr_tmp[0].toUpperCase();

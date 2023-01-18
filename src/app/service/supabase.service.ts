@@ -148,7 +148,9 @@ export class SupabaseService {
               query = query.ilike("other_text", "%"+keyword+"%");
               break;
             default:
-              query = query.or("name.ilike.%"+keyword+"%, pc_text.ilike.%"+keyword+"%, pet_text.ilike.%"+keyword+"%, other_text.ilike.%"+keyword+"%" );
+              query = query.or("name.ilike.%" + keyword + "%,"+
+                "pc_text.ilike.%" + keyword+"%, pet_text.ilike.%" + keyword + "%, other_text.ilike.%" + keyword + "%," +
+                "aug_pc_text.ilike.%" + keyword+"%, aug_pet_text.ilike.%" + keyword + "%, aug_other_text.ilike.%" + keyword + "%" );
               break;
           }
 

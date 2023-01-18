@@ -103,6 +103,8 @@ export class SupabaseService {
             // デフォルトはPCステータスで検索するがPET指定時は変更
             var column = "full_pc_status->" + keyword;
             if(keycolumn == "PET") column = "full_pet_status->" + keyword;
+            if(keyword == "LV") column = "lv"
+            if(keyword == "IL") column = "item_lv"
             switch(operator){
               case "=":
                 query = query.eq(column, value);
@@ -131,29 +133,29 @@ export class SupabaseService {
             if(opkeywords.includes(word) == false) opkeywords.push(word);
           }
           else{
-            if(txtkeywords.includes(itemText) == false )txtkeywords.push(itemText);
+            if(txtkeywords.includes(itemText) == false ){
+              txtkeywords.push(itemText);
+              switch(keycolumn){
+                case "NAME":
+                  query = query.ilike("name", "%"+keyword+"%");
+                  break;
+                case "PC":
+                  query = query.ilike("pc_text", "%"+keyword+"%");
+                  break;
+                case "PET":
+                  query = query.ilike("pet_text", "%"+keyword+"%");
+                  break;
+                case "OTHER":
+                  query = query.ilike("other_text", "%"+keyword+"%");
+                  break;
+                default:
+                  query = query.or("name.ilike.%" + keyword + "%,"+
+                    "pc_text.ilike.%" + keyword+"%, pet_text.ilike.%" + keyword + "%, other_text.ilike.%" + keyword + "%," +
+                    "aug_pc_text.ilike.%" + keyword+"%, aug_pet_text.ilike.%" + keyword + "%, aug_other_text.ilike.%" + keyword + "%" );
+                  break;
+              }
+            }
           }
-
-          switch(keycolumn){
-            case "NAME":
-              query = query.ilike("name", "%"+keyword+"%");
-              break;
-            case "PC":
-              query = query.ilike("pc_text", "%"+keyword+"%");
-              break;
-            case "PET":
-              query = query.ilike("pet_text", "%"+keyword+"%");
-              break;
-            case "OTHER":
-              query = query.ilike("other_text", "%"+keyword+"%");
-              break;
-            default:
-              query = query.or("name.ilike.%" + keyword + "%,"+
-                "pc_text.ilike.%" + keyword+"%, pet_text.ilike.%" + keyword + "%, other_text.ilike.%" + keyword + "%," +
-                "aug_pc_text.ilike.%" + keyword+"%, aug_pet_text.ilike.%" + keyword + "%, aug_other_text.ilike.%" + keyword + "%" );
-              break;
-          }
-
         });
       }
 
@@ -211,6 +213,8 @@ export class SupabaseService {
             name: d.name,
             aug_type: d.aug_type,
             aug_rank: d.aug_rank,
+            lv: d.lv,
+            item_lv: d.item_lv,
             pc_text: d.aug_pc_text,
             pc_status: d.full_pc_status,
             pet_status_target: d.aug_pet_status_target,

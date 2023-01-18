@@ -104,6 +104,14 @@ export class ItemNaviComponent {
   getStatusValue(equip: Equipment | EquipmentAug, keyword: string){
     var ret = "";
     var status_key = keyword;
+
+    if(keyword.toUpperCase() == "LV"){
+      return equip.lv;
+    }
+    else if(keyword.toUpperCase() == "IL"){
+      return equip.item_lv;
+    }
+
     var arr_tmp  =keyword.split(":");
     var status_target = "PC"
     if(arr_tmp.length > 1){

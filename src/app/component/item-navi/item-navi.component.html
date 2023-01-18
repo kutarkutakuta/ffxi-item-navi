@@ -56,7 +56,7 @@
               <span [innerHTML]="replacer(data.name,'NAME')"></span>
             </a>
             <div style="padding-left: 10px;">
-              {{ data.slot }}
+              {{ data.slot }} {{ data.item_lv ? "＜IL:" + data.item_lv + "＞" : "" }}
               <br />
               Lv{{ data.lv }} {{ data.job }}
             </div>

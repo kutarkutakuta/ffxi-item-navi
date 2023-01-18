@@ -4,9 +4,10 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api/v1',
-  supabaseUrl: "https://hkzdpcmzpclyhkmyyzcf.supabase.co",
-  supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhremRwY216cGNseWhrbXl5emNmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY3NDc4NDIsImV4cCI6MTk4MjMyMzg0Mn0.zSM_CxW5n0TFJTTtNJAkt5XZyT2XF5FrTxZE7OAKe5A",
+  // supabaseUrl: "https://hkzdpcmzpclyhkmyyzcf.supabase.co",
+  // supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhremRwY216cGNseWhrbXl5emNmIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjY3NDc4NDIsImV4cCI6MTk4MjMyMzg0Mn0.zSM_CxW5n0TFJTTtNJAkt5XZyT2XF5FrTxZE7OAKe5A",
+  supabaseUrl: "https://jwhbjnuljveqmluqvyho.supabase.co",
+  supabaseKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp3aGJqbnVsanZlcW1sdXF2eWhvIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjQ4NzEwMzksImV4cCI6MTk4MDQ0NzAzOX0.7IMKARzRUgfzsPKCIKMcUNOydhmmTtwvBgrA_4Ll3cE",
   nextCommentMinutes: 1,
 };
 

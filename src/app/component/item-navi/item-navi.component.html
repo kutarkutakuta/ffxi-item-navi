@@ -51,7 +51,7 @@
     <tbody>
       <ng-template nz-virtual-scroll let-data let-index="index">
         <tr>
-          <td [nzShowExpand]="data.show_expand" (nzExpandChange)="expandChange(data.id, $event);">
+          <td [nzShowExpand]="data.show_expand" (nzExpandChange)="expandChange(data.id, $event);" [nzExpand]="data.expanded">
             <a aria-label="Name1" (click)="showItemDetail(data)" style="font-size: larger;font-weight: bolder;">
               <span [innerHTML]="replacer(data.name,'NAME')"></span>
             </a>

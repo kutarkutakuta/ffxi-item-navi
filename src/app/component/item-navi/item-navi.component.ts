@@ -39,7 +39,8 @@ export class ItemNaviComponent {
   /** 入力変更時 */
   inputChange(){
     this.loading = true;
-    this.supabaseService.getEquipment(this.selectedJobs, this.selectedWepons.concat(this.selectedArmors), this.inputValue.trimEnd())
+    this.supabaseService.getEquipment(this.selectedJobs,
+       this.selectedWepons.concat(this.selectedArmors.map(n=> "防具:" + n)), this.inputValue.trimEnd())
     .then((res: [Equipment[], number, string[], string[]])=>{
       this.equipments = res[0];
       this.txtKeywords = res[2];

@@ -16,20 +16,21 @@
   </nz-select>
 </div>
 <div>
-  <nz-input-group [nzSuffix]="suffixIconSearch" style="max-width:650px">
+  <nz-input-group [nzPrefix]="prefixIconSearch" [nzSuffix]="suffixIconSearch" style="max-width:650px">
     <input type="text" nz-input placeholder="(例) 被ダメージ<-2 PET:攻>20"
       [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
   </nz-input-group>
-</div>
-
-
-<div>
+  <ng-template #prefixIconSearch>
+    <span nz-icon nzType="form" nzTheme="outline" (click)="showIQueryBuilder()"
+      nz-tooltip="Query Builder" nzTooltipPlacement="topLeft"></span>
+  </ng-template>
   <ng-template #suffixIconSearch>
     <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
       nzType="close-circle" *ngIf="inputValue" (click)="inputValue = ''; inputChange()"></span>
     <span nz-icon nzType="search" *ngIf="!inputValue"></span>
   </ng-template>
 </div>
+
 <div style="height: 100%;">
   <nz-table #basicTable [nzData]="equipments" [nzLoading]="loading" [nzShowPagination]="false" [nzPageSize]="100"
     nzSize="small" nzBordered="true" [nzScroll]="{x: '100%', y: 'calc(100vh - 150px)'}">
@@ -101,3 +102,4 @@
   </nz-table>
 </div>
 <app-item-detail #ItemDetail></app-item-detail>
+<app-query-builder #QueryBuilder (created)="addQuery($event)"></app-query-builder>

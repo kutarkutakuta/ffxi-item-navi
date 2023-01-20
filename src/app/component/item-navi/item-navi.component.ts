@@ -4,6 +4,7 @@ import { Equipment } from 'src/app/model/equipment';
 import { ItemDetailComponent } from '../item-detail/item-detail.component';
 import { EquipmentAug } from 'src/app/model/equipment_aug';
 import { NzTableComponent } from 'ng-zorro-antd/table';
+import { QueryBuilderComponent } from '../query-builder/query-builder.component';
 
 @Component({
   selector: 'app-item-navi',
@@ -14,6 +15,8 @@ export class ItemNaviComponent {
 
   @ViewChild(ItemDetailComponent)
   private itemDetail!: ItemDetailComponent;
+  @ViewChild(QueryBuilderComponent)
+  private queryBuilder!: QueryBuilderComponent;
   @ViewChild('basicTable', { static: false })
   private nzTableComponent!: NzTableComponent<Equipment>;
 
@@ -41,7 +44,7 @@ export class ItemNaviComponent {
   inputChange(){
     this.loading = true;
     this.supabaseService.getEquipment(this.selectedJobs,
-       this.selectedWepons.concat(this.selectedArmors.map(n=> "防具:" + n)), this.inputValue.trimEnd())
+       this.selectedWepons.concat(this.selectedArmors.map(n=> "防具:" + n)), this.inputValue.trim())
     .then((res: [Equipment[], number, string[], string[]])=>{
       this.equipments = res[0];
       this.txtKeywords = res[2];
@@ -167,6 +170,15 @@ export class ItemNaviComponent {
 
   showItemDetail(equip: Equipment){
     this.itemDetail.show(equip);
+  }
+
+  showIQueryBuilder(){
+    this.queryBuilder.show();
+  }
+
+  addQuery(query: string){
+    this.inputValue = this.inputValue + " " + query;
+    this.inputChange();
   }
 
 }

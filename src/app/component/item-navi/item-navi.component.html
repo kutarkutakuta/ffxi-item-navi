@@ -21,8 +21,7 @@
       [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
   </nz-input-group>
   <ng-template #prefixIconSearch>
-    <span nz-icon nzType="form" nzTheme="outline" (click)="showIQueryBuilder()"
-      nz-tooltip="Query Builder" nzTooltipPlacement="topLeft"></span>
+    <span nz-icon nzType="form" nzTheme="outline" (click)="showIQueryBuilder()"></span>
   </ng-template>
   <ng-template #suffixIconSearch>
     <span nz-icon class="ant-input-clear-icon" nzTheme="fill"

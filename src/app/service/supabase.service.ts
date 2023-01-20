@@ -38,9 +38,16 @@ export class SupabaseService {
     var opkeywords: string[] = [];
 
     // 全角→半角変換
-    var fnToHnakaku = (str: string) :string => {
+    var fnToHankaku = (str: string) :string => {
       return str.replace(/[Ａ-Ｚａ-ｚ０-９！＜＞＝：／．]/g, (s) => {
           return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+      });
+    }
+
+    // 半角→全角変換
+    var fnToZenkaku = (str: string) :string => {
+      return str.replace(/[A-Za-z\.]/g, (s) => {
+          return String.fromCharCode(s.charCodeAt(0) + 0xFEE0);
       });
     }
 
@@ -73,7 +80,7 @@ export class SupabaseService {
       }
 
       if(inputText.length > 0){
-        fnToHnakaku(inputText).split(/[,\s]+/).forEach(itemText => {
+        inputText.split(/[,\s]+/).forEach(itemText => {
           var keycolumn = "";
           var keyword = itemText.toUpperCase();
           var arr_tmp = itemText.split(":");
@@ -82,7 +89,7 @@ export class SupabaseService {
             keyword = itemText.substring(arr_tmp[0].length+1, keyword.length);
           }
           const regex  = /(?<keyword>[^\=\>\<\!]+)(?<operator>[\=\>\<]|[\>\<!][=])(?<value>[\+\-＋－﹣−‐⁃‑‒–—﹘―⎯⏤ーｰ─━]?\d+(?:\.\d+)?)/g;
-          var matches = regex.exec(keyword);
+          var matches = regex.exec(fnToHankaku(keyword));  // 式は半角になおしてから
           if(matches){
             keyword = matches[1]
             var operator = matches[2];
@@ -139,8 +146,9 @@ export class SupabaseService {
             if(opkeywords.includes(word) == false) opkeywords.push(word);
           }
           else{
-            if(txtkeywords.includes(itemText) == false ){
-              txtkeywords.push(itemText);
+            keyword = fnToZenkaku(keyword);  // 式じゃなければ全角に変換
+            if(txtkeywords.includes(keyword) == false ){
+              txtkeywords.push(keyword);
               switch(keycolumn){
                 case "NAME":
                   query = query.ilike("name", "%"+keyword+"%");

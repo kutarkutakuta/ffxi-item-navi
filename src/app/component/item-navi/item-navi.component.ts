@@ -18,7 +18,8 @@ export class ItemNaviComponent {
   private nzTableComponent!: NzTableComponent<Equipment>;
 
   jobs: readonly string[] = ["戦","暗","侍","竜","モ","か","シ","踊","忍","コ","狩","青","赤","吟","剣","ナ","風","黒","召","白","学","獣","All Jobs"];
-  wepons: readonly string[] = ["格闘","短剣","片手剣","両手剣","片手斧","両手斧","両手鎌","両手槍","片手刀","両手刀","片手棍","両手棍","弓術","射撃","楽器","投擲","矢・弾","グリップ"];
+  wepons: readonly string[] = ["格闘","短剣","片手剣","両手剣","片手斧","両手斧","両手鎌","両手槍","片手刀","両手刀","片手棍","両手棍",
+                              "弓術","射撃","楽器","グリップ","投擲","矢・弾","ストリンガー"];
   armors: readonly string[] = ["盾","頭","胴","両手","両脚","両足","首","耳","指","腰","背"];
 
   selectedJobs: string[] = [];

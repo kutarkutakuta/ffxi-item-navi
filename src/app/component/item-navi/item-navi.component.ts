@@ -42,6 +42,10 @@ export class ItemNaviComponent {
 
   /** 入力変更時 */
   inputChange(){
+
+    // 無害化
+    this.inputValue = this.fnSanitize(this.inputValue);
+
     this.loading = true;
     this.supabaseService.getEquipment(this.selectedJobs,
        this.selectedWepons.concat(this.selectedArmors.map(n=> "防具:" + n)), this.inputValue.trim())
@@ -56,6 +60,29 @@ export class ItemNaviComponent {
     });
   }
 
+  // 無害化
+  fnSanitize (str:string): string {
+    return str.replace(/["#$%&'()\*,\/;?@\[\\\]^_`{|}~]/g, '');
+  }
+
+  htmlSanitize (str: string): string {
+    return str.replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  regxSanitize (str: string): string {
+    return str.replace('\\', '\\\\')
+      .replace(/\*/g, '\\*').replace(/\+/g, '\\+')
+      .replace(/\./g, '\\.').replace(/\?/g, '\\?')
+      .replace(/\{/g, '\\{').replace(/\}/g, '\\}')
+      .replace(/\(/g, '\\(').replace(/\)/g, '\\)')
+      .replace(/\[/g, '\\[').replace(/\]/g, '\\]')
+      .replace(/\^/g, '\\^').replace(/\$/g, '\\$')
+      .replace(/\|/g, '\\|').replace(/\-/g, '\\-')
+      .replace(/\|/g, '\\/');
+  }
+
   /** HTML変換（ハイライト付加） */
   replacer(source: string ,keycolumn: string) {
 
@@ -68,8 +95,8 @@ export class ItemNaviComponent {
         if(arr_tmp[0].toUpperCase() != keycolumn) break;
         keyword = keyword.substring(arr_tmp[0].length+1, keyword.length);
       }
-      var reg = new RegExp(' (' + keyword + '[:：][-]?[0-9]+(?:\\.\\d+)?)', 'g');
-      returnHtml = returnHtml.replace(reg, ' <span class="highlight">$1</span>');
+      var reg = new RegExp(' (' + this.regxSanitize(keyword) + '[:：][-]?[0-9]+(?:\\.\\d+)?)', 'g');
+      returnHtml = returnHtml.replace(reg, ' <span class="highlight">' + this.htmlSanitize(keyword) +'</span>');
    }
 
     for (let keyword of this.txtKeywords) {
@@ -79,8 +106,8 @@ export class ItemNaviComponent {
         if(arr_tmp[0].toUpperCase() != keycolumn) break;
         keyword = keyword.substring(arr_tmp[0].length+1, keyword.length);
       }
-      var reg = new RegExp('(' + keyword +')', 'g');
-      returnHtml = returnHtml.replace(reg, '<span class="highlight">$1</span>');
+      var reg = new RegExp('(' + this.regxSanitize(keyword) +')', 'g');
+      returnHtml = returnHtml.replace(reg, '<span class="highlight">' + this.htmlSanitize(keyword) +'</span>');
     }
 
     return returnHtml.trim();

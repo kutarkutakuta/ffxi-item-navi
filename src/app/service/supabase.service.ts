@@ -39,7 +39,7 @@ export class SupabaseService {
 
     // 全角→半角変換
     var fnToHankaku = (str: string) :string => {
-      return str.replace(/[Ａ-Ｚａ-ｚ０-９！＜＞＝：／．]/g, (s) => {
+      return str.replace(/[Ａ-Ｚａ-ｚ０-９！＜＞＝．]/g, (s) => {
           return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
       });
     }
@@ -55,6 +55,11 @@ export class SupabaseService {
     var fnToHnakakuPlusMinus = (str: string) :string => {
       return str.replace(/[＋]/g, '+')
         .replace(/[－﹣−‐⁃‑‒–—﹘―⎯⏤ーｰ─━]/g, '-');
+    }
+
+    // 無害化
+    var fnSanitize = (str:string): string =>{
+      return str.replace(/[!"#$%&'()\*,\/:;<=>?@\[\\\]^_`{|}~]/g, '');
     }
 
     // フィルタビルダ
@@ -90,13 +95,13 @@ export class SupabaseService {
             keycolumn = fnToHankaku(arr_tmp[0]).toUpperCase();
             keyword = keyword.substring(arr_tmp[0].length+1, keyword.length);
           }
-          var keyword_han = fnToHankaku(keyword).toUpperCase();  // 式は半角変換
-          var keyword_zen = fnToZenkaku(keyword);  // 式じゃなければ全角に変換
+          var keyword_han = this.hankana2Zenkana(fnToHankaku(keyword).toUpperCase());  // 式は半角変換
+          var keyword_zen = fnToZenkaku(keyword).toUpperCase();  // 式じゃなければ全角に変換
 
           const regex  = /(?<keyword>[^\=\>\<\!]+)(?<operator>[\=\>\<]|[\>\<!][=])(?<value>[\+\-＋－﹣−‐⁃‑‒–—﹘―⎯⏤ーｰ─━]?\d+(?:\.\d+)?)/g;
           var matches = regex.exec(keyword_han);
           if(matches){
-            keyword_han = matches[1]
+            keyword_han = fnSanitize(matches[1]);
             var operator = matches[2];
             var value = Number(fnToHnakakuPlusMinus(matches[3]));
 
@@ -109,7 +114,7 @@ export class SupabaseService {
 
             // 省略名から本名を取得
             var formShortName = this._statuses.getValue().find(s=>
-              this.hankana2Zenkana(s.short_name) == this.hankana2Zenkana(keyword_han))
+              this.hankana2Zenkana(s.short_name).toUpperCase() == keyword_han)
               keyword_han = formShortName ? formShortName.name : keyword_han;
 
             // デフォルトはPCステータスで検索するがPET指定時は変更
@@ -151,7 +156,9 @@ export class SupabaseService {
             if(opkeywords.includes(word) == false) opkeywords.push(word);
           }
           else{
-            if(txtkeywords.includes(keyword_han) == false|| txtkeywords.includes(keyword_zen) == false ){
+            keyword_han = fnSanitize(keyword_han);
+            keyword_zen = fnSanitize(keyword_zen);
+            if(keyword_han && txtkeywords.includes(keyword_han) == false || keyword_zen && txtkeywords.includes(keyword_zen) == false ){
               if(txtkeywords.includes(keyword_han) == false ) txtkeywords.push(keyword_han);
               if(txtkeywords.includes(keyword_zen) == false ) txtkeywords.push(keyword_zen);
               switch(keycolumn){
@@ -168,6 +175,7 @@ export class SupabaseService {
                   query = query.ilike("other_text", "%"+keyword_han+"%");
                   break;
                 default:
+                  if(!keyword_han) keyword_han = keyword_zen;  //無害化した結果空白ならとりあえず全角値をセット
                   query = query.or("name.ilike.%" + keyword_zen + "%,"+
                     "pc_text.ilike.%" + keyword_han+"%, pet_text.ilike.%" + keyword_han + "%, other_text.ilike.%" + keyword_han + "%," +
                     "aug_pc_text.ilike.%" + keyword_han+"%, aug_pet_text.ilike.%" + keyword_han + "%, aug_other_text.ilike.%" + keyword_han + "%" );
@@ -185,7 +193,8 @@ export class SupabaseService {
     }
     const queryData = await fnFilterBuilder();
     if(queryData.error){
-      this.message.error(queryData.error.message);
+      // this.message.error(queryData.error.message);
+      console.error(queryData.error.message);
       return [[],0,[],[]];
     }
 

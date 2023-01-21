@@ -24,7 +24,7 @@ export class SupabaseService {
   }
 
   private async loadData() {
-    const statusQuery = await this.supabase.from('statuses').select('*');
+    const statusQuery = await this.supabase.from('statuses').select('*').order("id");
     this._statuses.next(statusQuery.data as Status[]);
 }
 
@@ -188,6 +188,7 @@ export class SupabaseService {
 
       query = query.order("install_date", {ascending:false, nullsFirst:false});
       query = query.order("id");
+      query = query.order("aug_id");
 
       return query;
     }

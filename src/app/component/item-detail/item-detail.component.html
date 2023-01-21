@@ -3,69 +3,108 @@
     [nzVisible]="visible"
     nzPlacement="bottom"
     [nzTitle]="title"
-    (nzOnClose)="onclose()"
-  >
-    <ng-container *nzDrawerContent>
-      <div style="min-width: 1020px">
-        <nz-descriptions
-          nzBordered
-          nzLayout="vertical"
-          [nzColumn]="24"
-          nzSize="small">
-          <nz-descriptions-item [nzTitle]="data.short_name" *ngFor="let data of getStauses('BASE')">
-            <span class="status_value">{{ getStausValue(data.name) }}</span>
-          </nz-descriptions-item>
-        </nz-descriptions>
-        <nz-descriptions
-          nzBordered
-          nzLayout="vertical"
-          [nzColumn]="24"
-          nzSize="small"
-        >
-          <nz-descriptions-item
-            [nzTitle]="data.short_name"
-            *ngFor="let data of getStauses('ATACK')"
-          >
-            <span class="status_value">{{ equip.pc_status[data.name] }}</span>
-          </nz-descriptions-item>
-        </nz-descriptions>
-        <nz-descriptions
-          nzBordered
-          nzLayout="vertical"
-          [nzColumn]="24"
-          nzSize="small"
-        >
-          <nz-descriptions-item
-            [nzTitle]="data.short_name"
-            *ngFor="let data of getStauses('DEFENSE')"
-          >
-            <span class="status_value">{{ equip.pc_status[data.name] }}</span>
-          </nz-descriptions-item>
-        </nz-descriptions>
+    nzHeight="250px"
+    [nzBodyStyle]="{padding:0}"
+    (nzOnClose)="onclose()">
+    <ng-template #title>
+      <div nz-row>
+        <div nz-col>
+          <span style="font-weight: bolder;">{{equip.name}}</span>
+          <span style="font-size: 0.9em;padding-left: 10px;">
+            <a [href]="getWikiURL(equip.page_title)" target="_blank">FF11用語辞典</a> /
+            <a [href]="getFFXIAhURL(equip.name)" target="_blank">FFXIAH</a>
+            <span *ngIf="equip.install_date">
+              Ver. {{ equip.install_date }}
+            </span>
+          </span>
+        </div>
       </div>
+    </ng-template>
+    <ng-container *nzDrawerContent>
+      <div style="padding-left: 15px;font-weight: bolder;">
+        <!-- <span *ngIf="equip.yomi">
+          （{{ equip.yomi }}<span *ngIf="equip.english"> / {{ equip.english }}</span>）
+        </span> -->
+        [{{ equip.slot }}] Lv{{ equip.lv }} {{ equip.job }}
+        <span *ngIf="equip.rare">(Rare)</span>
+        <span *ngIf="equip.ex">(Ex)</span>
+        {{ equip.item_lv ? "＜IL:" + equip.item_lv + "＞" : "" }}
+        <a nz-button nzType="text" (click)="getClipboard(equip)">
+          <span nz-icon nzType="copy" nzTheme="outline"></span>
+        </a>
+      </div>
+
+      <nz-tabset  nzTabPosition="left" style="min-width: 1200px;">
+        <nz-tab n nzTitle="物理">
+          <table>
+            <tr>
+              <th *ngFor="let data of getStauses('BASE')">{{data.short_name}}</th>
+            </tr>
+            <tr>
+              <td *ngFor="let data of getStauses('BASE')">
+                {{ getStausValue(data.name) }}
+              </td>
+            </tr>
+          </table>
+
+          <table>
+            <tr>
+              <th *ngFor="let data of getStauses('ATACK')">{{data.short_name}}</th>
+            </tr>
+            <tr>
+              <td *ngFor="let data of getStauses('ATACK')">
+                {{ getStausValue(data.name) }}
+              </td>
+            </tr>
+          </table>
+
+          <table>
+            <tr>
+              <th *ngFor="let data of getStauses('DEFENSE')">{{data.short_name}}</th>
+            </tr>
+            <tr>
+              <td *ngFor="let data of getStauses('DEFENSE')">
+                {{ getStausValue(data.name) }}
+              </td>
+            </tr>
+          </table>
+        </nz-tab>
+        <nz-tab n nzTitle="魔法">
+          <table>
+            <tr>
+              <th *ngFor="let data of getStauses('BASE')">{{data.short_name}}</th>
+            </tr>
+            <tr>
+              <td *ngFor="let data of getStauses('BASE')">
+                {{ getStausValue(data.name) }}
+              </td>
+            </tr>
+          </table>
+
+          <table>
+            <tr>
+              <th *ngFor="let data of getStauses('MAGIC')">{{data.short_name}}</th>
+            </tr>
+            <tr>
+              <td *ngFor="let data of getStauses('MAGIC')">
+                {{ getStausValue(data.name) }}
+              </td>
+            </tr>
+          </table>
+
+          <table>
+            <tr>
+              <th *ngFor="let data of getStauses('MAGIC-SKILL')">{{data.short_name}}</th>
+            </tr>
+            <tr>
+              <td *ngFor="let data of getStauses('MAGIC-SKILL')">
+                {{ getStausValue(data.name) }}
+              </td>
+            </tr>
+          </table>
+
+        </nz-tab>
+      </nz-tabset>
     </ng-container>
   </nz-drawer>
-  <ng-template #title>
-    <div nz-row>
-      <div nz-col nzFlex="auto">
-        <a [href]="getWikiURL(equip.page_title)" target="_blank">{{
-          equip.name
-        }}</a>
-        <span *ngIf="equip.yomi">
-          （{{ equip.yomi }}<span *ngIf="equip.english"> / {{ equip.english }}</span
-          >）
-        </span>
-        [{{ equip.slot }}] Lv{{ equip.lv }} {{ equip.job }}
-        <span *ngIf="equip.ex">(Ex)</span>
-        <span *ngIf="equip.rare">(Rare)</span>
-        <button nz-button nzType="text" (click)="getClipboard(equip)"><span nz-icon nzType="copy" nzTheme="outline"></span></button>
-      </div>
-      <div nz-col nzFlex="120px">
-        <span *ngIf="equip.install_date" style="font-size:0.9em;">
-          Ver. {{ equip.install_date }}
-        </span>
-      </div>
-    </div>
-
-  </ng-template>
 </div>

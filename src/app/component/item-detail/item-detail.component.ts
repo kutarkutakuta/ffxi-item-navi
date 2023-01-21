@@ -50,8 +50,12 @@ export class ItemDetailComponent {
     return ret;
   }
 
-  getWikiURL(param: string | undefined): string {
+  getWikiURL(param: string): string {
     return "http://wiki.ffo.jp/search.cgi?imageField.x=0&imageField.y=0&CCC=%E6%84%9B&Command=Search&qf=" + param + "&order=match&ffotype=title&type=title";
+  }
+
+  getFFXIAhURL(param: string): string {
+    return "https://jp.ffxiah.com/search/item?q=" + encodeURIComponent(param);
   }
 
   getClipboard(data: Equipment) {

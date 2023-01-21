@@ -1,22 +1,26 @@
-<div>
-  <nz-select [(ngModel)]="selectedJobs" nzSize="default" nzMode="multiple"
-    nzPlaceHolder="ジョブ" nzAllowClear="true" maxlength="100"
-    style="width: 150px" (ngModelChange)="inputChange()">
-    <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
-  </nz-select>
-  <nz-select [(ngModel)]="selectedWepons" nzSize="default" nzMode="multiple"
-    nzPlaceHolder="武器" nzAllowClear="true" maxlength="100"
-    style="width: 250px" (ngModelChange)="inputChange()">
-    <nz-option *ngFor="let option of wepons" [nzLabel]="option" [nzValue]="option"></nz-option>
-  </nz-select>
-  <nz-select [(ngModel)]="selectedArmors" nzSize="default"
-    nzMode="multiple" nzPlaceHolder="防具" nzAllowClear="true" maxlength="100"
-    style="width: 250px" (ngModelChange)="inputChange()">
-    <nz-option *ngFor="let option of armors" [nzLabel]="option" [nzValue]="option"></nz-option>
-  </nz-select>
+<div nz-row>
+  <div nz-col>
+    <nz-select [(ngModel)]="selectedJobs" nzSize="default" nzMode="multiple"
+      nzPlaceHolder="ジョブ" nzAllowClear="true" maxlength="100"
+      style="width: 150px" (ngModelChange)="inputChange()">
+      <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
+    </nz-select>
+  </div>
+  <div nz-col>
+    <nz-select [(ngModel)]="selectedWepons" nzSize="default" nzMode="multiple"
+      nzPlaceHolder="武器" nzAllowClear="true" maxlength="100"
+      style="width: 240px" (ngModelChange)="inputChange()">
+      <nz-option *ngFor="let option of wepons" [nzLabel]="option" [nzValue]="option"></nz-option>
+    </nz-select>
+    <nz-select [(ngModel)]="selectedArmors" nzSize="default"
+      nzMode="multiple" nzPlaceHolder="防具" nzAllowClear="true" maxlength="100"
+      style="width: 240px" (ngModelChange)="inputChange()">
+      <nz-option *ngFor="let option of armors" [nzLabel]="option" [nzValue]="option"></nz-option>
+    </nz-select>
+  </div>
 </div>
-<div>
-  <nz-input-group [nzPrefix]="prefixIconSearch" [nzSuffix]="suffixIconSearch" style="max-width:650px">
+<div nz-row>
+  <nz-input-group [nzPrefix]="prefixIconSearch" [nzSuffix]="suffixIconSearch" style="max-width:630px">
     <input type="text" nz-input placeholder="(例) 被ダメージ<-2 PET:攻>20" maxlength="200"
       [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
   </nz-input-group>

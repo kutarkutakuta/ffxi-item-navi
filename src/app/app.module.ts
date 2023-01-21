@@ -24,13 +24,12 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
-import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzToolTipModule } from 'ng-zorro-antd/tooltip';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
-import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
 registerLocaleData(ja);
 
@@ -58,13 +57,12 @@ registerLocaleData(ja);
     NzIconModule,
     NzImageModule,
     NzDrawerModule,
-    NzDescriptionsModule,
     NzGridModule,
     NzToolTipModule,
     NzTreeSelectModule,
     NzInputNumberModule,
     NzSpaceModule,
-    NzPopconfirmModule
+    NzTabsModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: ja_JP }

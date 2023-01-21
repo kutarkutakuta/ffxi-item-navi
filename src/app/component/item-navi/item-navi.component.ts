@@ -96,7 +96,7 @@ export class ItemNaviComponent {
         keyword = keyword.substring(arr_tmp[0].length+1, keyword.length);
       }
       var reg = new RegExp(' (' + this.regxSanitize(keyword) + '[:：][-]?[0-9]+(?:\\.\\d+)?)', 'g');
-      returnHtml = returnHtml.replace(reg, ' <span class="highlight">' + this.htmlSanitize(keyword) +'</span>');
+      returnHtml = returnHtml.replace(reg, ' <span class="highlight">$1</span>');
    }
 
     for (let keyword of this.txtKeywords) {
@@ -107,7 +107,7 @@ export class ItemNaviComponent {
         keyword = keyword.substring(arr_tmp[0].length+1, keyword.length);
       }
       var reg = new RegExp('(' + this.regxSanitize(keyword) +')', 'g');
-      returnHtml = returnHtml.replace(reg, '<span class="highlight">' + this.htmlSanitize(keyword) +'</span>');
+      returnHtml = returnHtml.replace(reg, '<span class="highlight">$1</span>');
     }
 
     return returnHtml.trim();

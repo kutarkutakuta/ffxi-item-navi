@@ -24,8 +24,9 @@ export class QueryBuilderComponent {
 
   target: string = "PC";
   statusKey: string = "";
-  statusValue: Number = 0;
-  operator: string = ">"
+  statusValue: number = 0;
+  operator: string = ">";
+  statusStep: number = 1;
 
   // #region implementsMethods
   constructor(private supabaseService: SupabaseService,
@@ -62,6 +63,17 @@ export class QueryBuilderComponent {
 
   onclose(){
     this.visible = false;
+  }
+
+  changeStatus(){
+    if(this.statusKey == "Ｄ隔"){
+      this.statusValue = 0;
+      this.statusStep = 0.1;
+    }
+    else{
+      this.statusValue =  Math.round(this.statusValue);
+      this.statusStep = 1;
+    }
   }
 
   addQuery(){

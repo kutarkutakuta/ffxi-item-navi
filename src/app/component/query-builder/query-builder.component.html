@@ -3,47 +3,43 @@
     [nzVisible]="visible"
     nzPlacement="right"
     [nzTitle]="'Query Builder'"
-    (nzOnClose)="onclose()"
-  >
+    (nzOnClose)="onclose()">
     <ng-container *nzDrawerContent>
       <div nz-row>
-      <nz-select [(ngModel)]="target" style="width: 70px">
-        <nz-option nzValue="PC" nzLabel="PC"></nz-option>
-        <nz-option nzValue="PET" nzLabel="PET"></nz-option>
-      </nz-select>
-      <nz-tree-select
-        style="width: 250px"
-        [nzNodes]="nodes"
-        nzShowSearch
-        nzPlaceHolder="ステータス"
-        [(ngModel)]="statusKey"
-      ></nz-tree-select>
-    </div>
-    <div  nz-row>
-      <div nz-col nzSpan="16">
-        <nz-space nzDirection="vertical" style="width: 100%">
-          <nz-input-number-group *nzSpaceItem nzAddOnBefore="が" [nzAddOnAfter]="addOnAfterTemplate">
-            <nz-input-number [(ngModel)]="statusValue" [nzStep]="1" style="width: 70px"></nz-input-number>
-          </nz-input-number-group>
-          <ng-template #addOnAfterTemplate>
-            <nz-select [(ngModel)]="operator" style="width: 120px;">
-              <nz-option nzValue=">" nzLabel="より大きい"></nz-option>
-              <nz-option nzValue="<" nzLabel="より小さい"></nz-option>
-              <nz-option nzValue=">=" nzLabel="以上"></nz-option>
-              <nz-option nzValue="<=" nzLabel="以下"></nz-option>
-              <nz-option nzValue="=" nzLabel="と等しい"></nz-option>
-              <nz-option nzValue="!=" nzLabel="と等しくない"></nz-option>
-            </nz-select>
-          </ng-template>
-        </nz-space>
+        <nz-select [(ngModel)]="target" style="width: 70px">
+          <nz-option nzValue="PC" nzLabel="PC"></nz-option>
+          <nz-option nzValue="PET" nzLabel="PET"></nz-option>
+        </nz-select>
+        <nz-tree-select
+          style="width: 250px"
+          [nzNodes]="nodes"
+          nzShowSearch
+          nzPlaceHolder="ステータス"
+          [(ngModel)]="statusKey"
+          (ngModelChange)="changeStatus()"></nz-tree-select>
       </div>
-      <div nz-col nzSpan="8">
-        <button nz-button nzType="primary" (click)="addQuery()">Add</button>
+      <div nz-row>
+        <div nz-col>
+          <nz-space nzDirection="vertical" style="width: 100%">
+            <nz-input-number-group *nzSpaceItem nzAddOnBefore="が" [nzAddOnAfter]="addOnAfterTemplate">
+              <nz-input-number [(ngModel)]="statusValue" [nzStep]="statusStep" style="width: 70px"></nz-input-number>
+            </nz-input-number-group>
+            <ng-template #addOnAfterTemplate>
+              <nz-select [(ngModel)]="operator" style="width: 140px;text-align: left;">
+                <nz-option nzValue=">" nzLabel="より大きい"></nz-option>
+                <nz-option nzValue="<" nzLabel="より小さい"></nz-option>
+                <nz-option nzValue=">=" nzLabel="以上"></nz-option>
+                <nz-option nzValue="<=" nzLabel="以下"></nz-option>
+                <nz-option nzValue="=" nzLabel="と等しい"></nz-option>
+                <nz-option nzValue="!=" nzLabel="と等しくない"></nz-option>
+              </nz-select>
+            </ng-template>
+          </nz-space>
+        </div>
+        <div nz-col>
+          <button nz-button nzType="primary" (click)="addQuery()">Add</button>
+        </div>
       </div>
-    </div>
-
-
     </ng-container>
-
   </nz-drawer>
 </div>

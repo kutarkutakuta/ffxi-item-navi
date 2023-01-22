@@ -3,7 +3,7 @@
     [nzVisible]="visible"
     nzPlacement="bottom"
     [nzTitle]="title"
-    nzHeight="250px"
+    nzHeight="255px"
     [nzBodyStyle]="{padding:0}"
     (nzOnClose)="onclose()">
     <ng-template #title>
@@ -13,18 +13,13 @@
           <span style="font-size: 0.9em;padding-left: 10px;">
             <a [href]="getWikiURL(equip.page_title)" target="_blank">FF11用語辞典</a> /
             <a [href]="getFFXIAhURL(equip.name)" target="_blank">FFXIAH</a>
-            <span *ngIf="equip.install_date">
-              Ver. {{ equip.install_date }}
-            </span>
           </span>
         </div>
       </div>
     </ng-template>
     <ng-container *nzDrawerContent>
+
       <div style="padding-left: 15px;font-weight: bolder;">
-        <!-- <span *ngIf="equip.yomi">
-          （{{ equip.yomi }}<span *ngIf="equip.english"> / {{ equip.english }}</span>）
-        </span> -->
         [{{ equip.slot }}] Lv{{ equip.lv }} {{ equip.job }}
         <span *ngIf="equip.rare">(Rare)</span>
         <span *ngIf="equip.ex">(Ex)</span>
@@ -33,6 +28,14 @@
           <span nz-icon nzType="copy" nzTheme="outline"></span>
         </a>
       </div>
+      <!-- <div style="padding-left: 15px;">
+        <span *ngIf="equip.yomi">
+            （{{ equip.yomi }}<span *ngIf="equip.english"> / {{ equip.english }}</span>）
+        </span>
+        <span *ngIf="equip.install_date" style="padding-right: 20px;">
+          Ver. {{ equip.install_date }}
+        </span>
+      </div> -->
 
       <nz-tabset  nzTabPosition="left" style="min-width: 1200px;">
         <nz-tab n nzTitle="物理">

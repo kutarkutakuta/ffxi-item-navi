@@ -25,7 +25,9 @@
       [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
   </nz-input-group>
   <ng-template #prefixIconSearch>
-    <span nz-icon nzType="form" nzTheme="outline" (click)="showIQueryBuilder()"></span>
+    <a style="color: rgba(0,0,0,0.85)" (click)="showIQueryBuilder()">
+      <span nz-icon nzType="form" nzTheme="outline"></span>
+    </a>
   </ng-template>
   <ng-template #suffixIconSearch>
     <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
@@ -39,9 +41,9 @@
     nzSize="small" nzBordered="true" [nzScroll]="{x: '100%', y: 'calc(100vh - 150px)'}">
     <thead>
       <tr>
-        <th nzWidth="180px">NAME</th>
+        <th nzWidth="175px">NAME</th>
         <ng-container *ngFor="let key of opKeywords">
-          <th nzWidth="50px" style="text-overflow: ellipsis;white-space: nowrap;">
+          <th nzWidth="48px" style="text-overflow: ellipsis;white-space: nowrap;">
             <span [nzTooltipTitle]="key" nzTooltipPlacement="topLeft" nz-tooltip>
               {{ getShrotStatusName(key) }}
             </span>

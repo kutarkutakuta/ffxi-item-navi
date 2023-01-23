@@ -9,7 +9,7 @@ table {
 }
 
 th{
-  width: 60px;
+  width: 55px;
   border: 1px solid #777;
   background-color: #eee;;
   font-size: smaller;
@@ -18,7 +18,7 @@ th{
 }
 
 td{
-  width: 60px;
+  width: 55px;
   height: 25px;
   border: 1px solid #777;
   text-align: center;

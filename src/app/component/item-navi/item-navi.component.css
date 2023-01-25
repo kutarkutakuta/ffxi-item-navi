@@ -11,4 +11,6 @@ td {
   vertical-align: top;
   font-size: smaller;
 }
-
+.active.ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  border-top: 3px solid black;
+}

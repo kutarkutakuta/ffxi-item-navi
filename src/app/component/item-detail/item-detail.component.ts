@@ -4,6 +4,7 @@ import { Equipment } from 'src/app/model/equipment';
 import { Status } from 'src/app/model/status';
 import { SupabaseService } from 'src/app/service/supabase.service';
 import { Clipboard } from '@angular/cdk/clipboard'
+import { EquipmentAug } from 'src/app/model/equipment_aug';
 
 @Component({
   selector: 'app-item-detail',
@@ -12,7 +13,8 @@ import { Clipboard } from '@angular/cdk/clipboard'
 })
 export class ItemDetailComponent {
 
-  equip!: Equipment;
+  equip!: Equipment ;
+  equipAug: EquipmentAug | null = null;
   visible: boolean = false;
   loading: boolean = false;
 
@@ -28,8 +30,9 @@ export class ItemDetailComponent {
     }
 
 
-  show(equip: Equipment){
-    this.equip = equip
+  show(equip: Equipment, equipAug: EquipmentAug | null){
+    this.equip = equip;
+    this.equipAug = equipAug;
     this.visible = true;
     this.loading = false;
   }
@@ -44,8 +47,25 @@ export class ItemDetailComponent {
 
   getStausValue(key: string) : string{
     var ret = this.equip.pc_status[key];
+    if(this.equipAug) ret = this.equipAug.pc_status[key];
     if(key == "Ｄ隔" && ret){
       ret = (Number(ret) / 1000).toString();
+    }
+    return ret;
+  }
+
+  getAugName(): string {
+    var ret = "";
+    if(this.equipAug){
+      if(!this.equipAug.aug_type && !this.equipAug.aug_rank){
+        ret = "Aug."
+      }else{
+        if(this.equipAug.aug_type) ret = this.equipAug.aug_type;
+        if(this.equipAug.aug_rank){
+          if(ret != "") ret += " ";
+          ret += 'Rank:' + this.equipAug.aug_rank;
+        }
+      }
     }
     return ret;
   }
@@ -58,8 +78,11 @@ export class ItemDetailComponent {
     return "https://jp.ffxiah.com/search/item?q=" + encodeURIComponent(param);
   }
 
-  getClipboard(data: Equipment) {
-    this.clipboard.copy(JSON.stringify(data));
+  getClipboard() {
+    var clipData = "NAME\tｵｸﾞﾒ\t部位\t" + this.statuses.map(s=>s.short_name).join("\t") + "\n";
+    clipData += this.equip.name + "\t" + this.getAugName() + "\t" + this.equip.slot + "\t"
+     + this.statuses.map(s=>this.getStausValue(s.name)).join("\t");
+    this.clipboard.copy(clipData);
     this.message.info("クリップボードにコピーしました。");
   }
 

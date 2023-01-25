@@ -10,7 +10,10 @@
       <div nz-row>
         <div nz-col style="white-space: nowrap;">
           <span style="font-weight: bolder;">{{equip.name}}</span>
-          <span style="font-size: 0.9em;padding-left: 10px;">
+          <span *ngIf="equipAug" style="font-size: 0.9em;padding-left: 5px;background: linear-gradient(transparent 70%, #FFCCFF 70%);">
+            {{getAugName()}}
+          </span>
+          <span style="font-size: 0.8em;padding-left: 5px;">
             <a [href]="getWikiURL(equip.page_title)" target="_blank">FF11用語辞典</a> /
             <a [href]="getFFXIAhURL(equip.name)" target="_blank">FFXIAH</a>
           </span>
@@ -24,7 +27,7 @@
         <span *ngIf="equip.rare">(Rare)</span>
         <span *ngIf="equip.ex">(Ex)</span>
         {{ equip.item_lv ? "＜IL:" + equip.item_lv + "＞" : "" }}
-        <a nz-button nzType="text" (click)="getClipboard(equip)">
+        <a nz-button nzType="text" (click)="getClipboard()">
           <span nz-icon nzType="copy" nzTheme="outline"></span>
         </a>
       </div>

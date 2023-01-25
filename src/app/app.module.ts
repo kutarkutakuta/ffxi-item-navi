@@ -30,6 +30,7 @@ import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 
 registerLocaleData(ja);
 
@@ -63,6 +64,7 @@ registerLocaleData(ja);
     NzInputNumberModule,
     NzSpaceModule,
     NzTabsModule,
+    NzCollapseModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: ja_JP }

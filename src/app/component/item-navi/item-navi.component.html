@@ -1,40 +1,60 @@
-<div nz-row>
-  <div nz-col>
-    <nz-select [(ngModel)]="selectedJobs" nzSize="default" nzMode="multiple"
-      nzPlaceHolder="ジョブ" nzAllowClear="true" maxlength="100"
-      style="width: 150px" (ngModelChange)="inputChange()">
-      <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
-    </nz-select>
-  </div>
-  <div nz-col>
-    <nz-select [(ngModel)]="selectedWepons" nzSize="default" nzMode="multiple"
-      nzPlaceHolder="武器" nzAllowClear="true" maxlength="100"
-      style="width: 240px" (ngModelChange)="inputChange()">
-      <nz-option *ngFor="let option of wepons" [nzLabel]="option" [nzValue]="option"></nz-option>
-    </nz-select>
-    <nz-select [(ngModel)]="selectedArmors" nzSize="default"
-      nzMode="multiple" nzPlaceHolder="防具" nzAllowClear="true" maxlength="100"
-      style="width: 240px" (ngModelChange)="inputChange()">
-      <nz-option *ngFor="let option of armors" [nzLabel]="option" [nzValue]="option"></nz-option>
-    </nz-select>
-  </div>
-</div>
-<div nz-row>
-  <nz-input-group [nzPrefix]="prefixIconSearch" [nzSuffix]="suffixIconSearch" style="max-width:630px">
-    <input type="text" nz-input placeholder="(例) 被ダメージ<-2 PET:攻>20" maxlength="200"
-      [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
-  </nz-input-group>
-  <ng-template #prefixIconSearch>
-    <a style="color: rgba(0,0,0,0.85)" (click)="showIQueryBuilder()">
-      <span nz-icon nzType="form" nzTheme="outline"></span>
-    </a>
-  </ng-template>
-  <ng-template #suffixIconSearch>
-    <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
-      nzType="close-circle" *ngIf="inputValue" (click)="inputValue = ''; inputChange()"></span>
-    <span nz-icon nzType="search" *ngIf="!inputValue"></span>
-  </ng-template>
-</div>
+<nz-collapse nzGhost [ngStyle]="{ margin:0, padding:0 }">
+  <nz-collapse-panel #p [nzHeader]="title" [nzExpandedIcon]="expandedIcon"
+    [ngStyle]="{ margin:0, padding:0 }" [nzActive]="true">
+    <div style="margin-top: -15px;">
+      <div nz-row>
+        <div nz-col nzFlex="150px">
+          <nz-select [(ngModel)]="selectedJobs" nzSize="default" nzMode="multiple" style="width: 100%;"
+            nzPlaceHolder="ジョブ" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
+            <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </div>
+        <div nz-col nzFlex="480px">
+          <nz-select [(ngModel)]="selectedWepons" nzSize="default" nzMode="multiple" style="width: 50%;"
+            nzPlaceHolder="武器" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
+            <nz-option *ngFor="let option of wepons" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+          <nz-select [(ngModel)]="selectedArmors" nzSize="default" style="width: 50%;"
+            nzMode="multiple" nzPlaceHolder="防具" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
+            <nz-option *ngFor="let option of armors" [nzLabel]="option" [nzValue]="option"></nz-option>
+          </nz-select>
+        </div>
+      </div>
+      <div nz-row>
+        <nz-input-group [nzPrefix]="prefixIconSearch" [nzSuffix]="suffixIconSearch" style="max-width:630px">
+          <input type="text" nz-input placeholder="(例) 被ダメージ<-2 PET:攻>20" maxlength="200"
+            [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
+        </nz-input-group>
+        <ng-template #prefixIconSearch>
+          <a style="color: rgba(0,0,0,0.85)" (click)="showIQueryBuilder()">
+            <span nz-icon nzType="form" nzTheme="outline"></span>
+          </a>
+        </ng-template>
+        <ng-template #suffixIconSearch>
+          <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
+            nzType="close-circle" *ngIf="inputValue" (click)="inputValue = ''; inputChange()"></span>
+          <span nz-icon nzType="search" *ngIf="!inputValue"></span>
+        </ng-template>
+      </div>
+    </div>
+  </nz-collapse-panel>
+</nz-collapse>
+<ng-template #title>
+  <span style="margin-top: -3px;">
+  <img
+        nz-image
+        nzDisablePreview="true"
+        nzSrc="/assets/images/logo.png"
+        alt="FF11装備Navi"
+        height="24px"
+      /></span>
+</ng-template>
+<ng-template #expandedIcon let-active>
+  {{ active }}
+  <span nz-icon nzType="double-right" class="ant-collapse-arrow" [nzRotate]="p.nzActive ? 90 : 0"></span>
+</ng-template>
+
+
 
 <div style="height: 100%;">
   <nz-table #basicTable [nzData]="equipments" [nzLoading]="loading" [nzShowPagination]="false" [nzPageSize]="100"
@@ -58,7 +78,7 @@
       <ng-template nz-virtual-scroll let-data let-index="index">
         <tr>
           <td [nzShowExpand]="data.show_expand" (nzExpandChange)="expandChange(data.id, $event);" [nzExpand]="data.expanded">
-            <a aria-label="Name1" (click)="showItemDetail(data)" style="font-size: larger;font-weight: bolder;">
+            <a aria-label="Name1" (click)="showItemDetail(data, null)" style="font-size: larger;font-weight: bolder;">
               <span [innerHTML]="replacer(data.name,'NAME')"></span>
             </a>
             <div style="padding-left: 10px;">
@@ -84,7 +104,9 @@
         <ng-container  *ngFor="let aug of data.equipment_augs">
           <tr *ngIf="data.expanded">
             <td [nzIndentSize]="5">
-              {{aug.aug_type}}{{aug.aug_rank ? ' Rank:' + aug.aug_rank : ''}}
+              <a (click)="showItemDetail(data, aug)" style="color: black; text-decoration: underline;">
+                {{getAugName(aug)}}
+              </a>
             </td>
             <ng-container *ngFor="let keyword of opKeywords">
               <td class="status_value">{{ getStatusValue(aug, keyword) }}</td>

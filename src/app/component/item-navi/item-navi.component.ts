@@ -121,7 +121,7 @@ export class ItemNaviComponent {
     })
   }
 
-  getShrotStatusName(str: string) :string{
+  getShrotStatusName(str: string): string{
     var arr_tmp  =str.split(":");
     var status_target = ""
     var status_key = str;
@@ -133,15 +133,15 @@ export class ItemNaviComponent {
     return status ? status_target + status.short_name : str;
   }
 
-  getStatusValue(equip: Equipment | EquipmentAug, keyword: string){
+  getStatusValue(equip: Equipment | EquipmentAug, keyword: string): string{
     var ret = "";
     var status_key = keyword;
 
     if(keyword.toUpperCase() == "LV"){
-      return equip.lv;
+      return equip.lv.toString();
     }
     else if(keyword.toUpperCase() == "IL"){
-      return equip.item_lv;
+      return equip.item_lv.toString();
     }
 
     var arr_tmp  =keyword.split(":");
@@ -195,8 +195,22 @@ export class ItemNaviComponent {
     return ret;
   }
 
-  showItemDetail(equip: Equipment){
-    this.itemDetail.show(equip);
+  getAugName(equipAug: EquipmentAug): string {
+    var ret = "";
+    if(!equipAug.aug_type && !equipAug.aug_rank){
+      ret = "Augment"
+    }else{
+      if(equipAug.aug_type) ret = equipAug.aug_type;
+      if(equipAug.aug_rank){
+        if(ret != "") ret += " ";
+        ret += 'Rank:' + equipAug.aug_rank;
+      }
+    }
+    return ret;
+  }
+
+  showItemDetail(equip: Equipment, equipAug: EquipmentAug | null){
+    this.itemDetail.show(equip, equipAug);
   }
 
   showIQueryBuilder(){

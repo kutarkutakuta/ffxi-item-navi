@@ -67,12 +67,12 @@ export class SupabaseService {
       var query = this.supabase.from('equipment_summary').select().limit(100);
 
       if(jobs.length > 0){
-        var jobFilter = "job.eq.All Jobs";
+        var jobFilter = "";
         jobs.forEach(n=>{
           if(jobFilter.length > 0) jobFilter += ","
           jobFilter += "job.like.%"+n+"%";
         })
-        query = query.or(jobFilter);
+        query = query.or('job.eq.All Jobs,and('+ jobFilter +')');
       }
 
       if(wepons.length > 0){

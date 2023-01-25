@@ -22,10 +22,14 @@ export class QueryBuilderComponent {
   statuses : Status[] = [];
   nodes: NzTreeNodeOptions[] = [];
 
+  lvType: string = "IL";
+  lvValue: number = 119;
+  lvOperator: string = "=";
+
   target: string = "PC";
   statusKey: string = "";
   statusValue: number = 0;
-  operator: string = ">";
+  statusOperator: string = ">";
   statusStep: number = 1;
 
   // #region implementsMethods
@@ -65,6 +69,17 @@ export class QueryBuilderComponent {
     this.visible = false;
   }
 
+  changeLvType(){
+    if(this.lvType == "IL"){
+      this.lvValue = 119;
+      this.lvOperator = "=";
+    }
+    else{
+      this.lvValue = 99;
+      this.lvOperator = "<=";
+    }
+  }
+
   changeStatus(){
     if(this.statusKey == "Ｄ隔"){
       this.statusValue = 0;
@@ -76,12 +91,15 @@ export class QueryBuilderComponent {
     }
   }
 
-  addQuery(){
+  addQuery1(){
+    this.created.emit(this.lvType + this.lvOperator + this.lvValue);
+  }
+
+  addQuery2(){
     if(this.statusKey){
       this.created.emit((this.target == "PET" ? "PET:" : "") +
-        this.statusKey + this.operator + this.statusValue);
+        this.statusKey + this.statusOperator + this.statusValue);
     }
-
   }
 
   // #endregion

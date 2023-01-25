@@ -5,7 +5,33 @@
     [nzTitle]="'Query Builder'"
     (nzOnClose)="onclose()">
     <ng-container *nzDrawerContent>
+      <nz-select [(ngModel)]="lvType" style="width: 70px" (ngModelChange)="changeLvType()">
+        <nz-option nzValue="IL" nzLabel="IL"></nz-option>
+        <nz-option nzValue="LV" nzLabel="LV"></nz-option>
+      </nz-select>
       <div nz-row>
+        <div nz-col>
+          <nz-space nzDirection="vertical" style="width: 100%">
+            <nz-input-number-group *nzSpaceItem nzAddOnBefore="が" [nzAddOnAfter]="addOnAfterTemplate1">
+              <nz-input-number [(ngModel)]="lvValue" [nzStep]="1" [nzMin]="0" [nzMax]="119" style="width: 70px"></nz-input-number>
+            </nz-input-number-group>
+            <ng-template #addOnAfterTemplate1>
+              <nz-select [(ngModel)]="lvOperator" style="width: 140px;text-align: left;">
+                <nz-option nzValue=">" nzLabel="より大きい"></nz-option>
+                <nz-option nzValue="<" nzLabel="より小さい"></nz-option>
+                <nz-option nzValue=">=" nzLabel="以上"></nz-option>
+                <nz-option nzValue="<=" nzLabel="以下"></nz-option>
+                <nz-option nzValue="=" nzLabel="と等しい"></nz-option>
+                <nz-option nzValue="!=" nzLabel="と等しくない"></nz-option>
+              </nz-select>
+            </ng-template>
+          </nz-space>
+        </div>
+        <div nz-col>
+          <button nz-button nzType="primary" (click)="addQuery1()">Add</button>
+        </div>
+      </div>
+      <div nz-row style="padding-top: 10px;">
         <nz-select [(ngModel)]="target" style="width: 70px">
           <nz-option nzValue="PC" nzLabel="PC"></nz-option>
           <nz-option nzValue="PET" nzLabel="PET"></nz-option>
@@ -21,11 +47,11 @@
       <div nz-row>
         <div nz-col>
           <nz-space nzDirection="vertical" style="width: 100%">
-            <nz-input-number-group *nzSpaceItem nzAddOnBefore="が" [nzAddOnAfter]="addOnAfterTemplate">
+            <nz-input-number-group *nzSpaceItem nzAddOnBefore="が" [nzAddOnAfter]="addOnAfterTemplate2">
               <nz-input-number [(ngModel)]="statusValue" [nzStep]="statusStep" style="width: 70px"></nz-input-number>
             </nz-input-number-group>
-            <ng-template #addOnAfterTemplate>
-              <nz-select [(ngModel)]="operator" style="width: 140px;text-align: left;">
+            <ng-template #addOnAfterTemplate2>
+              <nz-select [(ngModel)]="statusOperator" style="width: 140px;text-align: left;">
                 <nz-option nzValue=">" nzLabel="より大きい"></nz-option>
                 <nz-option nzValue="<" nzLabel="より小さい"></nz-option>
                 <nz-option nzValue=">=" nzLabel="以上"></nz-option>
@@ -37,7 +63,7 @@
           </nz-space>
         </div>
         <div nz-col>
-          <button nz-button nzType="primary" (click)="addQuery()">Add</button>
+          <button nz-button nzType="primary" (click)="addQuery2()">Add</button>
         </div>
       </div>
     </ng-container>

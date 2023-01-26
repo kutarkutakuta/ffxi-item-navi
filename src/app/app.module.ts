@@ -32,6 +32,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { RouterModule } from '@angular/router';
 
 registerLocaleData(ja);
 
@@ -43,7 +44,7 @@ registerLocaleData(ja);
     QueryBuilderComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
@@ -72,6 +73,7 @@ registerLocaleData(ja);
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
+    RouterModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: ja_JP }

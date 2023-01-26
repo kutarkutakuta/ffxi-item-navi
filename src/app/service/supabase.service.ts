@@ -7,6 +7,7 @@ import type { PostgrestFilterBuilder } from "@supabase/postgrest-js";
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Equipment } from '../model/equipment';
 import { Status } from '../model/status';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root',
@@ -190,6 +191,9 @@ export class SupabaseService {
       query = query.order("id");
       query = query.order("aug_id");
 
+      // 履歴
+      if(inputText) this.createEquipHitories(jobs, wepons, inputText);
+
       return query;
     }
     const queryData = await fnFilterBuilder();
@@ -258,7 +262,26 @@ export class SupabaseService {
     return [equipments, queryData.count!, txtkeywords, opkeywords];
   }
 
-  hankana2Zenkana(str : string) {
+  private createEquipHitories(jobs: string[], wepons:string[], inputText: string){
+      return firstValueFrom(this.http.get<any>("https://api.ipify.org/?format=json")).then(async res =>{
+        const dt = moment();
+        const useragent = navigator?.userAgentData || navigator?.userAgent;
+        const { error } = await this.supabase.from("equipment_histories").insert({
+          jobs: jobs,
+          wepons: wepons,
+          input_text: inputText,
+          useragent: useragent,
+          ipaddress : res.ip,
+          created_at: dt.format(),
+        });
+        if (error) {
+          console.error(error);
+          this.message.error(error.message);
+        }
+    });
+  }
+
+  private hankana2Zenkana(str : string) {
     var kanaMap: any = {
         'ｶﾞ': 'ガ', 'ｷﾞ': 'ギ', 'ｸﾞ': 'グ', 'ｹﾞ': 'ゲ', 'ｺﾞ': 'ゴ',
         'ｻﾞ': 'ザ', 'ｼﾞ': 'ジ', 'ｽﾞ': 'ズ', 'ｾﾞ': 'ゼ', 'ｿﾞ': 'ゾ',

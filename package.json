@@ -6,7 +6,13 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "create-public": "run-script-os",
+    "create-public:darwin:linux": "ln -s -f dist/ffxi_item_navi/browser public",
+    "create-public:win32": "",
+    "copy1": "cpx ./src/privacy.html ./dist/ffxi_item_navi/browser",
+    "preinstall": "npm i run-script-os && npm run create-public",
+    "heroku-postbuild": "ng run ffxi_item_navi:app-shell && npm run copy1"
   },
   "private": true,
   "dependencies": {
@@ -21,8 +27,10 @@
     "@angular/router": "^15.1.2",
     "@angular/service-worker": "^15.1.2",
     "@supabase/supabase-js": "^2.2.3",
+    "cpx": "^1.5.0",
     "ng-zorro-antd": "^15.0.3",
     "primeflex": "^3.3.0",
+    "run-script-os": "^1.1.6",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.12.0"

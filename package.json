@@ -1,6 +1,9 @@
 {
   "name": "ffxi-item-navi",
   "version": "0.0.0",
+  "engines": {
+    "node": "16.15.1"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -12,7 +15,7 @@
     "create-public:win32": "",
     "copy1": "cpx ./src/privacy.html ./dist/ffxi_item_navi/browser",
     "preinstall": "npm i run-script-os && npm run create-public",
-    "heroku-postbuild": "ng run ffxi_item_navi:app-shell && npm run copy1"
+    "postbuild": "ng run ffxi_item_navi:app-shell && npm run copy1"
   },
   "private": true,
   "dependencies": {

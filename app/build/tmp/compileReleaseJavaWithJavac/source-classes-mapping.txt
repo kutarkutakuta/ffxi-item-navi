@@ -1,0 +1,8 @@
+com/onrender/item_navi/twa/DelegationService.java
+ com.onrender.item_navi.twa.DelegationService
+com/onrender/item_navi/twa/LauncherActivity.java
+ com.onrender.item_navi.twa.LauncherActivity
+com/onrender/item_navi/twa/BuildConfig.java
+ com.onrender.item_navi.twa.BuildConfig
+com/onrender/item_navi/twa/Application.java
+ com.onrender.item_navi.twa.Application

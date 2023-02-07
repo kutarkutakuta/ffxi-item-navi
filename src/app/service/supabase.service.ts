@@ -236,7 +236,14 @@ export class SupabaseService {
 
     equipments.forEach(equipment=>{
       var items = queryData.data!.filter(d=>d.id == equipment.id && d.aug_id > 0).sort((a: any,b: any)=>{
-        return a.aug_id - b.aug_id;
+        if(a.aug_type != b.aug_type){
+          if(a.aug_type > b.aug_type) return 1
+          if(a.aug_type < b.aug_type) return -1
+        }
+        if(a.aug_rank != b.aug_rank){
+          return a.aug_rank - b.aug_rank
+        }
+        return 0;
       });
       if(items.length > 0){
         equipment.show_expand = true;

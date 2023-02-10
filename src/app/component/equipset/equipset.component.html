@@ -1,0 +1,172 @@
+
+<div nz-row nzJustify="space-between">
+  <div nz-col nzSpan="12">
+    <nz-select [(ngModel)]="selectedJob" nzSize="default" style="width: 90px;" nzPlaceHolder="ジョブ">
+      <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
+    </nz-select>
+    <button nz-button nzType="primary" (click)="newTab()">Add</button>
+  </div>
+  <div nz-col nzSpan="12" align="right" style="margin-top: -10px;" >
+    <div >{{savedAt ? 'Saved: ' + savedAt : ''}}</div>
+    <nz-space>
+      <button nz-button nzType="primary" *nzSpaceItem (click)="redo()">
+        <span nz-icon nzType="redo" nzTheme="outline"></span>
+      </button>
+      <button nz-button nzType="primary" *nzSpaceItem (click)="save()">
+        <span nz-icon nzType="check" nzTheme="outline"></span>Save
+      </button>
+    </nz-space>
+  </div>
+</div>
+
+<nz-tabset  nzTabPosition="left"  [(nzSelectedIndex)]="selectedJobTabIndex">
+  <nz-tab *ngFor="let equipsetgroup of equipsetgroups;" [nzTitle]="equipsetgroup.job">
+    <nz-tabset
+      [(nzSelectedIndex)]="selectedEquipsetTabIndex"
+      nzType="editable-card"
+      (nzAdd)="newTab(equipsetgroup)"
+      (nzClose)="closeTab($event.index , equipsetgroup.equipsets)"
+    >
+      <nz-tab *ngFor="let equipset of equipsetgroup.equipsets;let i = index" nzClosable [nzTitle]="equipset.name">
+        <div nz-row nzJustify="space-between">
+          <div nz-col nzSpan="12">
+            <input nz-input placeholder="タイトル" [(ngModel)]="equipset.name" style="width: 150px;" maxlength="10" />
+            <textarea  nz-input placeholder="メモ" [(ngModel)]="equipset.memo" style="width: 400px;" maxlength="100" nzAutosize></textarea>
+          </div>
+          <div nz-col nzSpan="12" align="right" style="margin-top: -12px;" >
+            <div >Shared ID [10]: 23/01/09 13:00:21</div>
+            <nz-space>
+              <button nz-button nzType="primary"  *nzSpaceItem>Copy</button>
+              <button nz-button nzType="primary" nzDanger *nzSpaceItem>
+                <span nz-icon nzType="tags"></span>Share</button>
+            </nz-space>
+          </div>
+        </div>
+
+        <!-- 装備セット一覧 -->
+        <nz-table #equipsetTable nzBordered [nzData]="equipset.equip_items"
+          nzSize="small" nzShowPagination="false" class="equipset-table"  [nzPageSize]="20">
+          <thead>
+            <tr>
+              <th nzWidth="50px">Slot</th>
+              <th nzWidth="90px">Type</th>
+              <th nzWidth="200px">Name</th>
+              <th nzWidth="200px">Augment</th>
+              <th nzWidth="200px">Memo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let equipitem of equipsetTable.data" class="editable-row">
+              <th class="slot-cell">{{ equipitem.slot }}</th>
+              <td>
+                <nz-select *ngIf="equipitem.slot=='メイン' || equipitem.slot=='サブ' || equipitem.slot=='レンジ' || equipitem.slot=='矢弾'"
+                [(ngModel)]="equipitem.type" nzSize="default" style="width: 100%;" nzSize="small" nzAllowClear
+                (ngModelChange)="equipitem.equipment = null" nzPlaceHolder="武器種">
+                  <nz-option *ngFor="let option of slot_types[equipitem.slot]" [nzLabel]="option" [nzValue]="option"></nz-option>
+                </nz-select>
+              </td>
+              <td>
+                <nz-select
+                  nzShowSearch nzServerSearch nzPlaceHolder="装備名称"
+                  [(ngModel)]="equipitem.equipment" [nzShowArrow]="false" [nzFilterOption]="nzFilterOption"
+                  (nzOnSearch)="searchEquipment($event, equipsetgroup, equipitem)" (nzFocus)="searchEquipment('', equipsetgroup, equipitem)"
+                   style="width: 70%;" nzSize="small" nzAllowClear>
+                  <nz-option *ngFor="let o of equipments" [nzLabel]="o.name" [nzValue]="o"></nz-option>
+                  <nz-option [nzLabel]="equipitem.equipment?.name!" [nzValue]="equipitem.equipment" nzHide></nz-option>
+                </nz-select>
+                <nz-select *ngIf="equipitem.equipment?.equipment_augs?.length!>0"
+                  nzShowSearch nzServerSearch nzPlaceHolder="オグメ名称"
+                  [(ngModel)]="equipitem.equipment_aug" [nzShowArrow]="false" [nzFilterOption]="nzFilterOption"
+                   style="width: 30%;" nzSize="small"  nzAllowClear>
+                  <nz-option *ngFor="let o of equipitem.equipment?.equipment_augs" [nzLabel]="getAugName(o)" [nzValue]="o"></nz-option>
+                </nz-select>
+              </td>
+              <td>{{ equipitem.aug }}</td>
+              <td>{{ equipitem.memo }}</td>
+            </tr>
+          </tbody>
+        </nz-table>
+
+        <br/>
+
+        <!-- ステータス一覧 -->
+        <nz-tabset  nzTabPosition="left" style="min-width: 1200px;">
+          <nz-tab n nzTitle="物理">
+            <table class="status-table">
+              <tr>
+                <th *ngFor="let status of getStauses('BASE')">{{status.short_name}}</th>
+              </tr>
+              <tr>
+                <td *ngFor="let status of getStauses('BASE')">
+                  {{ getStausValue(equipset, status.name) }}
+                </td>
+              </tr>
+            </table>
+
+            <table class="status-table">
+              <tr>
+                <th *ngFor="let data of getStauses('ATACK')">{{data.short_name}}</th>
+              </tr>
+              <tr>
+                <td *ngFor="let data of getStauses('ATACK')">
+                  {{ getStausValue(equipset, data.name) }}
+                </td>
+              </tr>
+            </table>
+
+            <table class="status-table">
+              <tr>
+                <th *ngFor="let data of getStauses('DEFENSE')">{{data.short_name}}</th>
+              </tr>
+              <tr>
+                <td *ngFor="let data of getStauses('DEFENSE')">
+                  {{ getStausValue(equipset, data.name) }}
+                </td>
+              </tr>
+            </table>
+          </nz-tab>
+          <nz-tab n nzTitle="魔法">
+            <table class="status-table">
+              <tr>
+                <th *ngFor="let data of getStauses('BASE')">{{data.short_name}}</th>
+              </tr>
+              <tr>
+                <td *ngFor="let data of getStauses('BASE')">
+                  {{ getStausValue(equipset, data.name) }}
+                </td>
+              </tr>
+            </table>
+
+            <table class="status-table">
+              <tr>
+                <th *ngFor="let data of getStauses('MAGIC')">{{data.short_name}}</th>
+              </tr>
+              <tr>
+                <td *ngFor="let data of getStauses('MAGIC')">
+                  {{ getStausValue(equipset, data.name) }}
+                </td>
+              </tr>
+            </table>
+
+            <table class="status-table">
+              <tr>
+                <th *ngFor="let data of getStauses('MAGIC-SKILL')">{{data.short_name}}</th>
+              </tr>
+              <tr>
+                <td *ngFor="let data of getStauses('MAGIC-SKILL')">
+                  {{ getStausValue(equipset, data.name) }}
+                </td>
+              </tr>
+            </table>
+
+          </nz-tab>
+        </nz-tabset>
+
+      </nz-tab>
+    </nz-tabset>
+  </nz-tab>
+</nz-tabset>
+
+
+
+

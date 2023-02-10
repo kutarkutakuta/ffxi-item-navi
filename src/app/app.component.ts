@@ -7,5 +7,6 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   logoSrc = "/assets/images/logo.png";
+  isCollapsed = false;
 }
 

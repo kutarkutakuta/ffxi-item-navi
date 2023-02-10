@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { ItemNaviComponent } from './component/item-navi/item-navi.component';
 import { ItemDetailComponent } from './component/item-detail/item-detail.component';
 import { QueryBuilderComponent } from './component/query-builder/query-builder.component';
+import { EquipsetComponent } from './component/equipset/equipset.component';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { ja_JP } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
@@ -31,8 +32,12 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
+import { NzAffixModule } from 'ng-zorro-antd/affix';
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { RouterModule } from '@angular/router';
+import { RouteReuseStrategy, RouterModule } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 registerLocaleData(ja);
 
@@ -41,7 +46,8 @@ registerLocaleData(ja);
     AppComponent,
     ItemNaviComponent,
     ItemDetailComponent,
-    QueryBuilderComponent
+    QueryBuilderComponent,
+    EquipsetComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),
@@ -67,6 +73,9 @@ registerLocaleData(ja);
     NzSpaceModule,
     NzTabsModule,
     NzCollapseModule,
+    NzAffixModule,
+    NzDropDownModule,
+    NzMenuModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable
@@ -76,7 +85,8 @@ registerLocaleData(ja);
     RouterModule,
   ],
   providers: [
-    { provide: NZ_I18N, useValue: ja_JP }
+    { provide: NZ_I18N, useValue: ja_JP },
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

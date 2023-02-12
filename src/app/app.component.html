@@ -25,10 +25,10 @@
         <span nz-icon nzType="heart"></span>My Set
       </ng-template>
       <ng-template #titleTemplate3>
-        <span nz-icon nzType="tags"></span>Share List
+        <span nz-icon nzType="bars"></span>公開List
       </ng-template>
       <nz-tab [nzTitle]="titleTemplate3">
-        TODO: 公開装備セット一覧
+        <app-publish-list (equipsetCopy)="equipsetCopy($event)"></app-publish-list>
       </nz-tab>
     </nz-tabset>
     <!-- <router-outlet></router-outlet> -->

@@ -1,0 +1,76 @@
+<nz-select [(ngModel)]="selectedJob" nzSize="default" style="width: 90px;" nzPlaceHolder="ジョブ">
+  <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
+</nz-select>
+<nz-input-group [nzPrefix]="prefixIconSearch" style="max-width:630px">
+  <input type="text" nz-input placeholder="(例) 被ダメージ<-2 PET:攻>20" maxlength="200"
+    nzAllowClear="true" />
+</nz-input-group>
+<ng-template #prefixIconSearch>
+  <a style="color: rgba(0,0,0,0.85)">
+    <span nz-icon nzType="form" nzTheme="outline"></span>
+  </a>
+</ng-template>
+
+<!-- 装備セット一覧 -->
+<nz-table #equipsetTable nzBordered [nzData]="publish_equipsets"
+  class="equipset-table"  [nzPageSize]="20"
+  [nzScroll]="{x: '100%'}">
+  <thead>
+    <tr>
+      <th nzWidth="160px">Title</th>
+      <th nzWidth="70px">User</th>
+      <th nzWidth="70px">Date</th>
+      <th nzWidth="70px"></th>
+      <th >Equips</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngFor="let data of equipsetTable.data">
+      <tr>
+        <td [nzShowExpand]="true" (nzExpandChange)="data.expanded = !data.expanded" [nzExpand]="data.expanded">
+          <div>{{ data.id }}.{{ data.job }} - {{ data.equipset.name }}</div>
+          <div style="padding-left:12px">{{ data.equipset.memo }}</div>
+        </td>
+        <td>{{ data.equipset.publish_user }}</td>
+        <td class="center-cell">{{ data.equipset.publish_date | date:'yy/MM/dd HH:mm/ss'}}</td>
+        <td>
+          <a (click)="copy(data)" nz-tooltip nzTooltipTitle="My Set にコピー">
+            <span nz-tooltip nzTitle="Like" nz-icon nzType="copy"></span>Copy
+          </a>
+        </td>
+        <td style="font-size: smaller;">
+          <span *ngFor="let item of data.equipset.equip_items">
+            {{ item.equipment?.name }}/
+          </span>
+        </td>
+      </tr>
+      <tr *ngIf="data.expanded ">
+        <td [nzIndentSize]="1">
+          PC
+        </td>
+        <td colspan="4" style="font-size: smaller;">
+          <span *ngFor="let st of data.full_pc_status | keyvalue">
+            {{st.key}}:{{st.value}}
+          </span>
+        </td>
+      </tr>
+      <tr *ngIf="data.expanded ">
+        <td [nzIndentSize]="1">
+          PET
+        </td>
+        <td colspan="4" style="font-size: smaller;">
+          <span *ngFor="let st of data.full_pet_status | keyvalue">
+            {{st.key}}:{{st.value}}
+          </span>
+        </td>
+      </tr>
+    </ng-container>
+
+  </tbody>
+</nz-table>
+
+<app-item-detail #ItemDetail></app-item-detail>
+
+
+
+

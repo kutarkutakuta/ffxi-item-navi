@@ -1,0 +1,11 @@
+.center-cell {
+  text-align: center;
+}
+
+.equipset-table .ant-table-cell {
+  padding: 5px;
+  vertical-align: top;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+

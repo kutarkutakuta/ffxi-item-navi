@@ -10,22 +10,24 @@
   padding: 4px 11px;
 }
 
-
 .equipset-table .ant-table-cell {
   padding: 0;
-  height: 30px;
-  font-size: smaller;
+  vertical-align: top;
 }
 
-.equipset-table th {
-  font-weight: bolder;
+.equipset-table th.ant-table-cell {
   background-color: #eee;
   text-align: center;
+  vertical-align: middle;
+  font-weight: normal;
 }
 
 .status-table table {
   border-collapse: collapse;
   table-layout: fixed;
+  margin: 5px;
+  width: 90%;
+  flex-shrink: 0;
 }
 
 .status-table th{
@@ -43,5 +45,15 @@
   border: 1px solid #777;
   text-align: center;
   font-size: smaller;
+  font-weight: bolder;
+}
+
+::ng-deep .highlight-plus {
+  color: red;
+  font-weight: bolder;
+}
+
+::ng-deep .highlight-minus {
+  color: blue;
   font-weight: bolder;
 }

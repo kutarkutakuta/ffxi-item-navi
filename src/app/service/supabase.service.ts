@@ -8,6 +8,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { Equipment } from '../model/equipment';
 import { Status } from '../model/status';
 import * as moment from 'moment';
+import { Equipset } from '../model/equipset';
+import { PublishEquipset } from '../model/publish_equipset';
 
 @Injectable({
   providedIn: 'root',
@@ -29,11 +31,11 @@ export class SupabaseService {
     this._statuses.next(statusQuery.data as Status[]);
 }
 
-  getStatus(): BehaviorSubject<Status[]> {
+  public getStatus(): BehaviorSubject<Status[]> {
     return this._statuses;
   }
 
-  async getEquipment(jobs: string[], wepons:string[], inputText: string): Promise<[Equipment[], number, string[], string[]]> {
+  public async getEquipment(jobs: string[], wepons:string[], inputText: string): Promise<[Equipment[], number, string[], string[]]> {
 
     var txtkeywords: string[] = [];
     var opkeywords: string[] = [];
@@ -318,6 +320,76 @@ export class SupabaseService {
             })
             .replace(/ﾞ/g, '゛')
             .replace(/ﾟ/g, '゜');
+  }
+
+  public async publishEquipset(job: string, equipset: Equipset): Promise<Equipset> {
+
+    // ステータスのサマリー
+    var full_pc_status: any = {};
+    var full_pet_status: any = {};
+    equipset.equip_items.forEach(item=>{
+      var pc_status = item.equipment?.pc_status;
+      if(pc_status){
+        for (const key in pc_status) {
+          if(!full_pc_status[key]) full_pc_status[key] = 0;
+          full_pc_status[key] += pc_status[key];
+        }
+      }
+      var pet_status = item.equipment?.pet_status;
+      if(pet_status){
+        for (const key in pet_status) {
+          if(!full_pet_status[key]) full_pet_status[key] = 0;
+          full_pet_status[key] += pet_status[key];
+        }
+      }
+
+      // オグメテキストも反映
+      var pc_aug_status = item.custom_pc_aug_status;
+      if(pc_aug_status){
+        for (const key in pc_aug_status) {
+          if(!full_pc_status[key]) full_pc_status[key] = 0;
+          full_pc_status[key] += pc_aug_status[key];
+        }
+      }
+      var pet_aug_status = item.custom_pet_aug_status;
+      if(pet_aug_status){
+        for (const key in pet_aug_status) {
+          if(!full_pet_status[key]) full_pet_status[key] = 0;
+          full_pet_status[key] += pet_aug_status[key];
+        }
+      }
+    })
+
+    return firstValueFrom(this.http.get<any>("https://api.ipify.org/?format=json")).then(async res =>{
+      const dt = moment();
+      const useragent = navigator?.userAgentData || navigator?.userAgent;
+      const { data, error } = await this.supabase.from("publish_equipsets").upsert({
+        id: equipset.publish_id,
+        job: job,
+        equipset: equipset,
+        full_pc_status: full_pc_status,
+        full_pet_status: full_pet_status,
+        created_useragent: useragent,
+        created_ipaddress : res.ip,
+        created_at: dt.format(),
+        updated_useragent: useragent,
+        updated_ipaddress : res.ip,
+        updated_at: dt.format(),
+      }).select();
+      if (error) {
+        console.error(error);
+        this.message.error(error.message);
+      }
+      var newEquipset = <Equipset>data![0].equipset;
+      newEquipset.publish_id = data![0].id;
+      newEquipset.publish_date = data![0].updated_at;
+      return newEquipset;
+  });
+  }
+
+  public async GetPublishEquipsert() : Promise<PublishEquipset[]>{
+    const statusQuery = await this.supabase.from('publish_equipsets').select('*').order("id", {ascending: false});
+    return statusQuery.data as PublishEquipset[];
   }
 
 }

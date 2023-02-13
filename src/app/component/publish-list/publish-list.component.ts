@@ -8,6 +8,7 @@ import { EquipmentAug } from 'src/app/model/equipment_aug';
 import { ItemDetailComponent } from '../item-detail/item-detail.component';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { PublishEquipset } from 'src/app/model/publish_equipset';
+import { NzTableComponent } from 'ng-zorro-antd/table';
 
 @Component({
   selector: 'app-publish-list',
@@ -19,28 +20,48 @@ export class PublishListComponent {
   @ViewChild(ItemDetailComponent)
   private itemDetail!: ItemDetailComponent;
 
+  @ViewChild('equipsetTable', { static: false })
+  private nzTableComponent!: NzTableComponent<Equipment>;
+
   @Output()
   equipsetCopy = new EventEmitter<PublishEquipset>();
 
   jobs: readonly string[] = ["戦","暗","侍","竜","モ","か","シ","踊","忍","コ","狩","青","赤","吟","剣","ナ","風","黒","召","白","学","獣"];
 
   publish_equipsets: PublishEquipset[] = [];
-  statuses : Status[] = [];
+  selectedJobs: string[] = [];
+  inputValue: string = "";
 
-  selectedJob: string = "";
 
-  constructor(private supabaseService: SupabaseService,
-    private message: NzMessageService,
-    private datePipe: DatePipe,
-    private modal: NzModalService) {
-    supabaseService.getStatus().subscribe(data=>{
-      this.statuses = data;
-    });
+  loading = false;
+
+  constructor(private supabaseService: SupabaseService) {
   }
 
   ngOnInit (): void {
-    this.supabaseService.GetPublishEquipsert()
-    .then(res=>this.publish_equipsets = res);
+    this.inputChange();
+  }
+
+  /** 入力変更時 */
+  inputChange(){
+
+    // 無害化
+    this.inputValue = this.fnSanitize(this.inputValue);
+
+    this.loading = true;
+    this.supabaseService.getPublishEquipsert(this.selectedJobs, this.inputValue.trim())
+    .then((res)=>{
+      this.publish_equipsets = res;
+    }).finally(()=>{
+      this.loading = false;
+      this.nzTableComponent.cdkVirtualScrollViewport?.scrollToIndex(0);
+      this.nzTableComponent.nzWidthConfig
+    });
+  }
+
+      // 無害化
+  fnSanitize (str:string): string {
+    return str.replace(/["#$%&'()\*,\/;?@\[\\\]^_`{|}~]/g, '');
   }
 
   like(eq: PublishEquipset){
@@ -49,6 +70,23 @@ export class PublishListComponent {
 
   copy(eq: PublishEquipset){
     this.equipsetCopy.emit(eq);
+  }
+
+  /** オグメ名取得 */
+  getAugName(equipAug: EquipmentAug): string {
+    var ret = "";
+    if(equipAug){
+      if(!equipAug.aug_type && !equipAug.aug_rank){
+        ret = "Aug."
+      }else{
+        if(equipAug.aug_type) ret = equipAug.aug_type;
+        if(equipAug.aug_rank){
+          if(ret != "") ret += " ";
+          ret += 'R' + equipAug.aug_rank;
+        }
+      }
+    }
+    return ret;
   }
 
   /** 装備詳細表示 */

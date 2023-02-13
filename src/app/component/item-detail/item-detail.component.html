@@ -110,6 +110,40 @@
           </table>
 
         </nz-tab>
+        <nz-tab n nzTitle="ペット">
+          <table>
+            <tr>
+              <th *ngFor="let data of getStauses('PET-BASE')">{{data.short_name}}</th>
+            </tr>
+            <tr>
+              <td *ngFor="let data of getStauses('PET-BASE')">
+                {{ getStausValue(data.name, true) }}
+              </td>
+            </tr>
+          </table>
+
+          <table>
+            <tr>
+              <th *ngFor="let data of getStauses('PET-ATACK')">{{data.short_name}}</th>
+            </tr>
+            <tr>
+              <td *ngFor="let data of getStauses('PET-ATACK')">
+                {{ getStausValue(data.name, true) }}
+              </td>
+            </tr>
+          </table>
+
+          <table>
+            <tr>
+              <th *ngFor="let data of getStauses('PET-DEFENSE')">{{data.short_name}}</th>
+            </tr>
+            <tr>
+              <td *ngFor="let data of getStauses('PET-DEFENSE')">
+                {{ getStausValue(data.name, true) }}
+              </td>
+            </tr>
+          </table>
+        </nz-tab>
       </nz-tabset>
     </ng-container>
   </nz-drawer>

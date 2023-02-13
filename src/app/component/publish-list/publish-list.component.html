@@ -1,20 +1,18 @@
-<nz-select [(ngModel)]="selectedJob" nzSize="default" style="width: 90px;" nzPlaceHolder="ジョブ">
+<nz-select [(ngModel)]="selectedJobs" nzSize="default" nzMode="multiple" style="width: 135px;"
+  nzPlaceHolder="ジョブ" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
   <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
 </nz-select>
 <nz-input-group [nzPrefix]="prefixIconSearch" style="max-width:630px">
-  <input type="text" nz-input placeholder="(例) 被ダメージ<-2 PET:攻>20" maxlength="200"
-    nzAllowClear="true" />
+  <input type="text" nz-input [(ngModel)]="inputValue"  maxlength="200"
+    nzAllowClear="true" (change)="inputChange()" placeholder="Title or User" />
 </nz-input-group>
 <ng-template #prefixIconSearch>
-  <a style="color: rgba(0,0,0,0.85)">
-    <span nz-icon nzType="form" nzTheme="outline"></span>
-  </a>
+  <span nz-icon nzType="search" nzTheme="outline"></span>
 </ng-template>
 
 <!-- 装備セット一覧 -->
-<nz-table #equipsetTable nzBordered [nzData]="publish_equipsets"
-  class="equipset-table"  [nzPageSize]="20"
-  [nzScroll]="{x: '100%'}">
+<nz-table #equipsetTable nzBordered [nzData]="publish_equipsets"  [nzLoading]="loading"
+  class="equipset-table" [nzPageSize]="20" [nzScroll]="{x: '100%'}">
   <thead>
     <tr>
       <th nzWidth="160px">Title</th>
@@ -32,15 +30,17 @@
           <div style="padding-left:12px">{{ data.equipset.memo }}</div>
         </td>
         <td>{{ data.equipset.publish_user }}</td>
-        <td class="center-cell">{{ data.equipset.publish_date | date:'yy/MM/dd HH:mm/ss'}}</td>
+        <td class="center-cell">{{ data.updated_at | date:'yy/MM/dd HH:mm/ss'}}</td>
         <td>
-          <a (click)="copy(data)" nz-tooltip nzTooltipTitle="My Set にコピー">
+          <a (click)="copy(data)" nz-tooltip nzTooltipTitle="My Set にコピー" style="color: black;">
             <span nz-tooltip nzTitle="Like" nz-icon nzType="import"></span>Copy
           </a>
         </td>
-        <td style="font-size: smaller;">
+        <td>
           <span *ngFor="let item of data.equipset.equip_items">
-            {{ item.equipment?.name }}/
+            <a (click)="showItemDetail(item.equipment!, item.equipment_aug!)">
+              {{ item.equipment?.name }}{{ item.equipment_aug ? getAugName(item.equipment_aug) : "" }}
+            </a>
           </span>
         </td>
       </tr>
@@ -48,7 +48,7 @@
         <td [nzIndentSize]="1">
           PC
         </td>
-        <td colspan="4" style="font-size: smaller;">
+        <td colspan="4">
           <span *ngFor="let st of data.full_pc_status | keyvalue">
             {{st.key}}:{{st.value}}
           </span>
@@ -58,7 +58,7 @@
         <td [nzIndentSize]="1">
           PET
         </td>
-        <td colspan="4" style="font-size: smaller;">
+        <td colspan="4">
           <span *ngFor="let st of data.full_pet_status | keyvalue">
             {{st.key}}:{{st.value}}
           </span>

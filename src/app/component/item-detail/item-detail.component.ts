@@ -45,12 +45,20 @@ export class ItemDetailComponent {
     return this.statuses.filter(data=>data.type == type).sort((a,b)=>a.id-b.id);
   }
 
-  getStausValue(key: string) : string{
-    var ret = this.equip.pc_status[key];
-    if(this.equipAug) ret = this.equipAug.pc_status[key];
-    if(key == "Ｄ隔" && ret){
-      ret = (Number(ret) / 1000).toString();
+  getStausValue(key: string, pet: boolean = false) : string{
+    var ret = "";
+    if(pet){
+      ret = this.equip.pet_status[key];
+      if(this.equipAug) ret = this.equipAug.pet_status[key];
     }
+    else{
+      ret = this.equip.pc_status[key];
+      if(this.equipAug) ret = this.equipAug.pc_status[key];
+      if(key == "Ｄ隔" && ret){
+        ret = (Number(ret) / 1000).toString();
+      }
+    }
+
     return ret;
   }
 

@@ -71,7 +71,7 @@ export class EquipsetComponent {
   /** タブAdd */
   newTab(job: string, copied: Equipset | null = null){
 
-    this.equipsetgroup?.pipe(tap(n=>{
+    this.equipsetgroup?.pipe(map(n=>{
       if(!n) n = {job: job, equipsets: []};
       if(copied){
         n?.equipsets.push(copied);
@@ -99,8 +99,11 @@ export class EquipsetComponent {
           ]
         });
       }
+      return n;
+    })).subscribe(n=>{
+      this.equipsetgroup = of(n);
       this.selectedEquipsetTabIndex = n?.equipsets.length! -1;
-    })).subscribe();
+    });
   }
 
   /** タブClose */
@@ -132,7 +135,9 @@ export class EquipsetComponent {
 
   /** コピー */
   copy(job: string, equipset: Equipset): void{
-    const copied = <Equipset>JSON.parse(JSON.stringify(equipset));
+
+    const { decycle, encycle  } = require('json-cyclic');
+    const copied = <Equipset>encycle(JSON.parse(JSON.stringify(decycle(equipset))));
 
     // 名称変更＆公開情報をクリア
     copied.name = copied.name + "_copy";
@@ -268,6 +273,12 @@ export class EquipsetComponent {
       }
     }
     return ret;
+  }
+
+  /** 装備変更時 */
+  changeEquipment(equipsetItem: EquipsetItem){
+    equipsetItem.equipment_aug = null;
+    this.changeAugName(equipsetItem);
   }
 
   /** オグメ名変更時 */

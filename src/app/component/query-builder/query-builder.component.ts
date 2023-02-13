@@ -41,19 +41,21 @@ export class QueryBuilderComponent {
 
         this.statuses.forEach(s=>{
           if(this.nodes.findIndex(n=>n.title == s.type) < 0){
-            this.nodes.push({
-              title: s.type,
-              key: s.type,
-              children: this.statuses.filter(ss=>ss.type == s.type).map(sss=>{
-                return {
-                  title: sss.name,
-                  key: sss.short_name,
-                  children: [],
-                  isLeaf : true
-                }
-              }),
-              selectable: false
-            });
+            if(!s.type.startsWith("PET")){
+              this.nodes.push({
+                title: s.type,
+                key: s.type,
+                children: this.statuses.filter(ss=>ss.type == s.type).map(sss=>{
+                  return {
+                    title: sss.name,
+                    key: sss.short_name,
+                    children: [],
+                    isLeaf : true
+                  }
+                }),
+                selectable: false
+              });
+            }
           }
         })
 

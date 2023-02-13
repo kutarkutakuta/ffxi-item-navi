@@ -363,10 +363,13 @@ export class SupabaseService {
     return firstValueFrom(this.http.get<any>("https://api.ipify.org/?format=json")).then(async res =>{
       const dt = moment();
       const useragent = navigator?.userAgentData || navigator?.userAgent;
+      const { decycle, encycle } = require('json-cyclic');
+      const copied_equipset = <Equipset>encycle(JSON.parse(JSON.stringify(decycle(equipset))));
+      copied_equipset.compareEquipset = undefined;
       const { data, error } = await this.supabase.from("publish_equipsets").upsert({
-        id: equipset.publish_id,
+        id: equipset.publish_id || undefined,
         job: job,
-        equipset: equipset,
+        equipset: copied_equipset,
         full_pc_status: full_pc_status,
         full_pet_status: full_pet_status,
         created_useragent: useragent,
@@ -380,16 +383,32 @@ export class SupabaseService {
         console.error(error);
         this.message.error(error.message);
       }
-      var newEquipset = <Equipset>data![0].equipset;
-      newEquipset.publish_id = data![0].id;
-      newEquipset.publish_date = data![0].updated_at;
-      return newEquipset;
+      var new_equipset = <Equipset>data![0].equipset;
+      new_equipset.publish_id = data![0].id;
+      new_equipset.publish_date = data![0].updated_at;
+      return new_equipset;
   });
   }
 
-  public async GetPublishEquipsert() : Promise<PublishEquipset[]>{
-    const statusQuery = await this.supabase.from('publish_equipsets').select('*').order("id", {ascending: false});
-    return statusQuery.data as PublishEquipset[];
+  public async getPublishEquipsert(jobs: string[], inpuText: string) : Promise<PublishEquipset[]>{
+    var query = this.supabase.from('publish_equipsets')
+    .select("*")
+    .order("updated_at", {ascending: false});
+
+    if(jobs.length > 0){
+      query = query.in("job", jobs);
+    }
+
+    if(inpuText){
+      // query = query.ilike("equipset->>publish_user", "%"+inpuText+"%");
+
+      query = query.or("equipset->>publish_user.ilike.%" + inpuText + "%" +
+                  ",equipset->>name.ilike.%" + inpuText + "%" +
+                  ",equipset->>memo.ilike.%" + inpuText +"%");
+
+    }
+
+    return (await query).data as PublishEquipset[];
   }
 
 }

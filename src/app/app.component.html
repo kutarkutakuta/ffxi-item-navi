@@ -19,7 +19,9 @@
         <span nz-icon nzType="search"></span>Search
       </ng-template>
       <nz-tab [nzTitle]="titleTemplate2">
-        <app-equipset></app-equipset>
+        <div  style="margin-top: -10px;">
+          <app-equipset></app-equipset>
+        </div>
       </nz-tab>
       <ng-template #titleTemplate2>
         <span nz-icon nzType="heart"></span>My Set
@@ -28,7 +30,11 @@
         <span nz-icon nzType="bars"></span>公開List
       </ng-template>
       <nz-tab [nzTitle]="titleTemplate3">
-        <app-publish-list (equipsetCopy)="equipsetCopy($event)"></app-publish-list>
+        <ng-template nz-tab>
+          <div  style="margin-top: -10px;">
+            <app-publish-list (equipsetCopy)="equipsetCopy($event)"></app-publish-list>
+          </div>
+        </ng-template>
       </nz-tab>
     </nz-tabset>
     <!-- <router-outlet></router-outlet> -->

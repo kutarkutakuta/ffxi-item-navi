@@ -10,6 +10,8 @@ import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { EquipsetGroup } from 'src/app/model/equipset_group';
 import { Equipset } from 'src/app/model/equipset';
 import { EquipsetItem } from 'src/app/model/equipset_item';
+import { EquipsetDBService } from 'src/app/service/equipsetdb.service';
+import { map, Observable, of, tap } from 'rxjs';
 
 @Component({
   selector: 'app-equipset',
@@ -31,7 +33,7 @@ export class EquipsetComponent {
     矢弾: ["矢・弾","投擲"]
   }
 
-  equipsetgroups: EquipsetGroup[] =[];
+  equipsetgroup?: Observable<EquipsetGroup | undefined>;
   statuses : Status[] = [];
 
   // SELECTボックス用
@@ -43,138 +45,126 @@ export class EquipsetComponent {
   selectedJobTabIndex = 0;
   selectedEquipsetTabIndex = 0;
 
-  // 保存日時
-  savedAt : string = "";
-
   constructor(private supabaseService: SupabaseService,
+    private equipsetDBService: EquipsetDBService,
     private message: NzMessageService,
     private datePipe: DatePipe,
     private modal: NzModalService) {
     supabaseService.getStatus().subscribe(data=>{
       this.statuses = data;
     });
-  }
 
-  ngOnInit (): void {
-    var savedAt = localStorage.getItem('savedAt');
-    if(savedAt){
-      this.savedAt = savedAt;
-    }
+    this.equipsetgroup = equipsetDBService.getEquipsetGroup(this.selectedJob)
   }
 
   /** 装備品検索 */
-  searchEquipment(value: string, equipsetgroup:EquipsetGroup, equipitem: EquipsetItem): void {
+  searchEquipment(value: string, equipitem: EquipsetItem): void {
     var wepon = equipitem.type || (equipitem.slot == "両手" ? "防具:両手" : equipitem.slot);
     if(wepon.startsWith("右") || wepon.startsWith("左")) wepon = wepon.substring(1);
     var inpuText = value;
-    this.supabaseService.getEquipment([equipsetgroup.job],[wepon], inpuText)
+    this.supabaseService.getEquipment([this.selectedJob],[wepon], inpuText)
       .then((res: [Equipment[], number, string[], string[]])=>{
         this.equipments = res[0];
       })
   }
 
   /** タブAdd */
-  newTab(equipsetgroup?: EquipsetGroup){
+  newTab(job: string, copied: Equipset | null = null){
 
-    // タブを特定
-    if(equipsetgroup == null){
-      var idx = this.equipsetgroups.findIndex(n=> n.job == this.selectedJob)
-      if(idx < 0){
-        if(!this.selectedJob) {
-          this.message.error("ジョブを選択してください。");
-          return;
-        }
-        else{
-          equipsetgroup = {
-            job: this.selectedJob,
-            equipsets: []
-          };
-          this.equipsetgroups.push(equipsetgroup);
-          this.selectedJobTabIndex = this.equipsetgroups.length - 1;
-        }
+    this.equipsetgroup?.pipe(tap(n=>{
+      if(!n) n = {job: job, equipsets: []};
+      if(copied){
+        n?.equipsets.push(copied);
       }
       else{
-        equipsetgroup = this.equipsetgroups[idx];
-        this.selectedJobTabIndex = idx;
+        n?.equipsets.push({
+          name: "装備セット" + (n?.equipsets.length + 1).toString(),
+          equip_items:[
+            {id: 1, slot: "メイン"},
+            {id: 2, slot: "サブ"},
+            {id: 3, slot: "頭"},
+            {id: 4, slot: "胴"},
+            {id: 5, slot: "両手"},
+            {id: 6, slot: "両脚"},
+            {id: 7, slot: "両足"},
+            {id: 8, slot: "レンジ"},
+            {id: 9, slot: "矢弾"},
+            {id: 10, slot: "首"},
+            {id: 11, slot: "左耳"},
+            {id: 12, slot: "右耳"},
+            {id: 13, slot: "左指"},
+            {id: 14, slot: "右指"},
+            {id: 15, slot: "背"},
+            {id: 16, slot: "腰"}
+          ]
+        });
       }
-    }
-
-    equipsetgroup.equipsets.push({
-      name: (equipsetgroup.equipsets.length + 1).toString(),
-      equip_items:[
-        {id: 1, slot: "メイン"},
-        {id: 2, slot: "サブ"},
-        {id: 3, slot: "頭"},
-        {id: 4, slot: "胴"},
-        {id: 5, slot: "両手"},
-        {id: 6, slot: "両脚"},
-        {id: 7, slot: "両足"},
-        {id: 8, slot: "レンジ"},
-        {id: 9, slot: "矢弾"},
-        {id: 10, slot: "首"},
-        {id: 11, slot: "左耳"},
-        {id: 12, slot: "右耳"},
-        {id: 13, slot: "左指"},
-        {id: 14, slot: "右指"},
-        {id: 15, slot: "背"},
-        {id: 16, slot: "腰"}
-      ]
-    });
-    this.selectedEquipsetTabIndex = equipsetgroup.equipsets.length -1;
+      this.selectedEquipsetTabIndex = n?.equipsets.length! -1;
+    })).subscribe();
   }
 
   /** タブClose */
-  closeTab(index: number, equipsets: Equipset[]): void {
-    equipsets.splice(index, 1);
-    if(equipsets.length == 0){
-      this.equipsetgroups.splice(this.selectedJobTabIndex, 1);
-    }
+  closeTab(index: number): void {
+    this.equipsetgroup?.pipe(
+      tap(n=>n?.equipsets.splice(index, 1))
+    ).subscribe();
   }
 
   /** 保存 */
   save(): void{
-    localStorage.setItem('equipsetgroups', JSON.stringify(this.equipsetgroups));
-    var savedAt =this.datePipe.transform(new Date(), "yy/MM/dd HH:mm:ss")!;
-    localStorage.setItem('savedAt', savedAt);
-    this.savedAt = savedAt;
+    // localStorage.setItem('equipsetgroups', JSON.stringify(this.equipsetgroups));
+
+    this.equipsetgroup?.pipe(
+      tap(n=> this.equipsetDBService.putEquipsetGroup(this.selectedJob, n!))
+    ).subscribe();
+
     this.message.info("データを保存しました。");
   }
 
   /** 読込 */
   redo(): void{
-    var saveData = localStorage.getItem('equipsetgroups');
-    if(saveData){
-      this.equipsetgroups = JSON.parse(saveData);
-    }
-    var savedAt = localStorage.getItem('savedAt');
-    if(savedAt){
-      this.savedAt = savedAt;
-    }
+    this.equipsetDBService.getEquipsetGroup(this.selectedJob).pipe(
+      map(data=>this.equipsetgroup = of(data))
+    ).subscribe();
+
     this.message.info("データを読み込みました。");
   }
 
   /** コピー */
   copy(job: string, equipset: Equipset): void{
-    const copyed = <Equipset>JSON.parse(JSON.stringify(equipset));
+    const copied = <Equipset>JSON.parse(JSON.stringify(equipset));
 
     // 名称変更＆公開情報をクリア
-    copyed.name = copyed.name + "_copy";
-    copyed.publish_user = null;
-    copyed.publish_id = null;
-    copyed.publish_date = null;
+    copied.name = copied.name + "_copy";
+    copied.publish_user = null;
+    copied.publish_id = null;
+    copied.publish_date = null;
 
-    // 未Loadの場合Load
-    if(this.equipsetgroups.length == 0) this.redo();
+    if(this.selectedJob != job){
+      // 未Loadの場合Load
+      this.confirmModal = this.modal.confirm({
+        nzTitle: 'My Set のジョブと異なります',
+        nzContent: '編集中のデータはクリアされますがよろしいですか？',
+        nzOnOk: () => {
+          this.selectedJob = job;
+          this.equipsetDBService.getEquipsetGroup(this.selectedJob).pipe(
+            map(data=>this.equipsetgroup = of(data))
+          ).subscribe(()=>{
+            this.newTab(job, copied);
+            this.message.info("コピーしました。");
+          })
+        }
+      });
+    }
+    else{
+      this.newTab(job, copied);
+      this.message.info("コピーしました。");
+    }
 
-    var equipsetgroup = this.equipsetgroups.find(n=>n.job == job);
-    if(!equipsetgroup) equipsetgroup = {job: job, equipsets: []};
-    equipsetgroup.equipsets.push(copyed);
-    this.selectedEquipsetTabIndex = equipsetgroup.equipsets.length -1;
-    this.message.info("コピーしました。");
   }
 
   /** 公開する */
-  publish(job: string ,equipset: Equipset){
+  publish(equipset: Equipset){
     if(!equipset.publish_user){
       this.message.error("公開ユーザー名を入力してください。");
       return;
@@ -183,7 +173,7 @@ export class EquipsetComponent {
       nzTitle: '現在の装備セットを公開します。',
       nzContent: 'よろしいですか？',
       nzOnOk: () =>
-      this.supabaseService.publishEquipset(job, equipset)
+      this.supabaseService.publishEquipset(this.selectedJob, equipset)
       .then(res=> {
         equipset.publish_id = res.publish_id;
         equipset.publish_date = res.publish_date;

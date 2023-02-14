@@ -34,7 +34,6 @@ export class EquipsetComponent {
   }
 
   equipsetgroup?: Observable<EquipsetGroup | undefined>;
-  statuses : Status[] = [];
 
   // SELECTボックス用
   equipments: Equipment[] = [];
@@ -50,10 +49,6 @@ export class EquipsetComponent {
     private message: NzMessageService,
     private datePipe: DatePipe,
     private modal: NzModalService) {
-    supabaseService.getStatus().subscribe(data=>{
-      this.statuses = data;
-    });
-
     this.equipsetgroup = equipsetDBService.getEquipsetGroup(this.selectedJob)
   }
 
@@ -193,76 +188,6 @@ export class EquipsetComponent {
         this.message.info("公開しました。");
       })
     });
-  }
-  /** ステータスリスト取得 */
-  getStauses(type: string) : Status[]{
-    return this.statuses.filter(data=>data.type == type).sort((a,b)=>a.id-b.id);
-  }
-
-  /** ステータス値取得 */
-  getStausValue(equipset:Equipset, key: string) : string{
-    var ret = "";
-    if(key == "Ｄ隔"){
-      var equip_item = equipset.equip_items.find(n=>n.slot == "メイン")!;
-      var d = <number>equip_item.equipment?.pc_status["Ｄ"];
-      if(equip_item.custom_pc_aug_status && equip_item.custom_pc_aug_status["Ｄ"]){
-        d += <number>equip_item.custom_pc_aug_status["Ｄ"];
-      }
-      var kaku = <number>equip_item.equipment?.pc_status["隔"];
-      ret = (d / kaku).toFixed(2).toString();
-    }
-    else{
-      ret = equipset.equip_items.map(n=>{
-        var ret = 0;
-        if(n.equipment && n.equipment.pc_status[key]){
-          ret = <number>n.equipment?.pc_status[key]
-        }
-
-        // オグメテキストからも取得
-        if(n.custom_pc_aug_status && n.custom_pc_aug_status[key]){
-          ret += n.custom_pc_aug_status[key];
-        }
-
-        // 二刀流のサブ武器は、D・隔は無効とする
-        // TODO:RMEAはほとんど無効みたいだがとりあえず・・・
-        if(n.slot == "サブ" && (n.type == "短剣" || n.type?.startsWith("片手"))){
-          if(key.startsWith("Ｄ") || key == "隔"){
-            ret = 0;
-          }
-        }
-        return ret;
-      }).reduce((p,c)=>p+c).toString();
-    }
-    return ret == "0" ? "" : ret;
-  }
-
-  /** 比較ステータス値取得 */
-  getStausValue2(equipset:Equipset, key: string) : string{
-
-    var a = Number(this.getStausValue(equipset, key));
-    var b = Number(this.getStausValue(equipset.compareEquipset!, key));
-
-    if(isNaN(a) && isNaN(b)){
-      return "";
-    }
-    else{
-      a = isNaN(a) ? 0 : a;
-      b = isNaN(b) ? 0 : b;
-
-      if(a == b){
-        return "";
-      }
-      else{
-        var result = key == "Ｄ隔" ? (a - b).toFixed(2).toString() : (a - b).toString();
-        if(a > b){
-          return "<span class='highlight-plus'>+" + result + "</span>";
-        }
-        else{
-          return "<span class='highlight-minus'>" + result + "</span>";
-        }
-      }
-
-    }
   }
 
   /** オグメ名取得 */

@@ -132,77 +132,7 @@
 
       <!-- ステータス一覧 -->
       <div style="display: flex;overflow-x: auto;">
-        <nz-tabset  nzTabPosition="left" style="min-width: 1200px;">
-          <nz-tab n nzTitle="物理">
-              <table class="status-table">
-                <tr>
-                  <th *ngFor="let status of getStauses('BASE')">{{status.short_name}}</th>
-                </tr>
-                <tr>
-                  <td *ngFor="let status of getStauses('BASE')">
-                    {{ getStausValue(equipset, status.name) }}
-                  </td>
-                </tr>
-              </table>
-
-              <table class="status-table">
-                <tr>
-                  <th *ngFor="let data of getStauses('ATACK')">{{data.short_name}}</th>
-                </tr>
-                <tr>
-                  <td *ngFor="let data of getStauses('ATACK')">
-                    {{ getStausValue(equipset, data.name) }}
-                  </td>
-                </tr>
-              </table>
-
-              <table class="status-table">
-                <tr>
-                  <th *ngFor="let data of getStauses('DEFENSE')">{{data.short_name}}</th>
-                </tr>
-                <tr>
-                  <td *ngFor="let data of getStauses('DEFENSE')">
-                    {{ getStausValue(equipset, data.name) }}
-                  </td>
-                </tr>
-              </table>
-          </nz-tab>
-          <nz-tab n nzTitle="魔法">
-            <table class="status-table">
-              <tr>
-                <th *ngFor="let data of getStauses('BASE')">{{data.short_name}}</th>
-              </tr>
-              <tr>
-                <td *ngFor="let data of getStauses('BASE')">
-                  {{ getStausValue(equipset, data.name) }}
-                </td>
-              </tr>
-            </table>
-
-            <table class="status-table">
-              <tr>
-                <th *ngFor="let data of getStauses('MAGIC')">{{data.short_name}}</th>
-              </tr>
-              <tr>
-                <td *ngFor="let data of getStauses('MAGIC')">
-                  {{ getStausValue(equipset, data.name) }}
-                </td>
-              </tr>
-            </table>
-
-            <table class="status-table">
-              <tr>
-                <th *ngFor="let data of getStauses('MAGIC-SKILL')">{{data.short_name}}</th>
-              </tr>
-              <tr>
-                <td *ngFor="let data of getStauses('MAGIC-SKILL')">
-                  {{ getStausValue(equipset, data.name) }}
-                </td>
-              </tr>
-            </table>
-
-          </nz-tab>
-        </nz-tabset>
+        <app-status-table [equipset]="equipset"></app-status-table>
       </div>
 
       <br/>
@@ -218,78 +148,8 @@
         </ng-container>
       </nz-select>
 
-      <div style="display: flex;overflow-x: auto;">
-        <nz-tabset *ngIf="equipset.compareEquipset" nzTabPosition="left" style="min-width: 1200px;">
-          <nz-tab n nzTitle="物理">
-            <table class="status-table">
-              <tr>
-                <th *ngFor="let status of getStauses('BASE')">{{status.short_name}}</th>
-              </tr>
-              <tr>
-                <td *ngFor="let status of getStauses('BASE')">
-                  <div [innerHTML]='getStausValue2(equipset, status.name)'></div>
-                </td>
-              </tr>
-            </table>
-
-            <table class="status-table">
-              <tr>
-                <th *ngFor="let status of getStauses('ATACK')">{{status.short_name}}</th>
-              </tr>
-              <tr>
-                <td *ngFor="let status of getStauses('ATACK')">
-                  <div [innerHTML]='getStausValue2(equipset, status.name)'></div>
-                </td>
-              </tr>
-            </table>
-
-            <table class="status-table">
-              <tr>
-                <th *ngFor="let status of getStauses('DEFENSE')">{{status.short_name}}</th>
-              </tr>
-              <tr>
-                <td *ngFor="let status of getStauses('DEFENSE')">
-                  <div [innerHTML]='getStausValue2(equipset, status.name)'></div>
-                </td>
-              </tr>
-            </table>
-          </nz-tab>
-          <nz-tab n nzTitle="魔法">
-            <table class="status-table">
-              <tr>
-                <th *ngFor="let status of getStauses('BASE')">{{status.short_name}}</th>
-              </tr>
-              <tr>
-                <td *ngFor="let status of getStauses('BASE')">
-                  <div [innerHTML]='getStausValue2(equipset, status.name)'></div>
-                </td>
-              </tr>
-            </table>
-
-            <table class="status-table">
-              <tr>
-                <th *ngFor="let status of getStauses('MAGIC')">{{status.short_name}}</th>
-              </tr>
-              <tr>
-                <td *ngFor="let status of getStauses('MAGIC')">
-                  <div [innerHTML]='getStausValue2(equipset, status.name)'></div>
-                </td>
-              </tr>
-            </table>
-
-            <table class="status-table">
-              <tr>
-                <th *ngFor="let status of getStauses('MAGIC-SKILL')">{{status.short_name}}</th>
-              </tr>
-              <tr>
-                <td *ngFor="let status of getStauses('MAGIC-SKILL')">
-                  <div [innerHTML]='getStausValue2(equipset, status.name)'></div>
-                </td>
-              </tr>
-            </table>
-
-          </nz-tab>
-        </nz-tabset>
+      <div style="display: flex;overflow-x: auto;" *ngIf="equipset.compareEquipset">
+        <app-status-table [equipset]="equipset" [compareEquipset]="equipset.compareEquipset"></app-status-table>
       </div>
     </ng-template>
   </nz-tab>

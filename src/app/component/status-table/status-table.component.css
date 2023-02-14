@@ -1,0 +1,32 @@
+table {
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+th{
+  width: 55px;
+  border: 1px solid #777;
+  background-color: #eee;;
+  font-size: smaller;
+  font-weight: normal;
+  white-space: nowrap;
+}
+
+td{
+  width: 55px;
+  height: 25px;
+  border: 1px solid #777;
+  text-align: center;
+  font-size: smaller;
+  font-weight: bolder;
+}
+
+::ng-deep .highlight-plus {
+  color: red;
+  font-weight: bolder;
+}
+
+::ng-deep .highlight-minus {
+  color: blue;
+  font-weight: bolder;
+}

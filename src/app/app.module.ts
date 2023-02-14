@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ItemNaviComponent } from './component/item-navi/item-navi.component';
 import { ItemDetailComponent } from './component/item-detail/item-detail.component';
+import { StatusTableComponent } from './component/status-table/status-table.component';
 import { QueryBuilderComponent } from './component/query-builder/query-builder.component';
 import { EquipsetComponent } from './component/equipset/equipset.component';
 import { PublishListComponent } from './component/publish-list/publish-list.component';
@@ -48,6 +49,7 @@ registerLocaleData(ja);
     AppComponent,
     ItemNaviComponent,
     ItemDetailComponent,
+    StatusTableComponent,
     QueryBuilderComponent,
     EquipsetComponent,
     PublishListComponent

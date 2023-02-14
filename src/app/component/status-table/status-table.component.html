@@ -1,0 +1,105 @@
+<nz-tabset  nzTabPosition="left" style="min-width: 1200px;">
+  <nz-tab n nzTitle="物理">
+    <table>
+      <tr>
+        <th *ngFor="let data of getStauses('BASE')">{{data.short_name}}</th>
+      </tr>
+      <tr>
+        <td *ngFor="let data of getStauses('BASE')">
+          <div [innerHTML]='getStausValue(data.name)'></div>
+        </td>
+      </tr>
+    </table>
+
+    <table>
+      <tr>
+        <th *ngFor="let data of getStauses('ATACK')">{{data.short_name}}</th>
+      </tr>
+      <tr>
+        <td *ngFor="let data of getStauses('ATACK')">
+          <div [innerHTML]='getStausValue(data.name)'></div>
+        </td>
+      </tr>
+    </table>
+
+    <table>
+      <tr>
+        <th *ngFor="let data of getStauses('DEFENSE')">{{data.short_name}}</th>
+      </tr>
+      <tr>
+        <td *ngFor="let data of getStauses('DEFENSE')">
+          <div [innerHTML]='getStausValue(data.name)'></div>
+        </td>
+      </tr>
+    </table>
+  </nz-tab>
+  <nz-tab n nzTitle="魔法">
+    <table>
+      <tr>
+        <th *ngFor="let data of getStauses('BASE')">{{data.short_name}}</th>
+      </tr>
+      <tr>
+        <td *ngFor="let data of getStauses('BASE')">
+          <div [innerHTML]='getStausValue(data.name)'></div>
+        </td>
+      </tr>
+    </table>
+
+    <table>
+      <tr>
+        <th *ngFor="let data of getStauses('MAGIC')">{{data.short_name}}</th>
+      </tr>
+      <tr>
+        <td *ngFor="let data of getStauses('MAGIC')">
+          <div [innerHTML]='getStausValue(data.name)'></div>
+        </td>
+      </tr>
+    </table>
+
+    <table>
+      <tr>
+        <th *ngFor="let data of getStauses('MAGIC-SKILL')">{{data.short_name}}</th>
+      </tr>
+      <tr>
+        <td *ngFor="let data of getStauses('MAGIC-SKILL')">
+          <div [innerHTML]='getStausValue(data.name)'></div>
+        </td>
+      </tr>
+    </table>
+
+  </nz-tab>
+  <nz-tab n nzTitle="ペット">
+    <table>
+      <tr>
+        <th *ngFor="let data of getStauses('PET-BASE')">{{data.short_name}}</th>
+      </tr>
+      <tr>
+        <td *ngFor="let data of getStauses('PET-BASE')">
+          <div [innerHTML]='getStausValue(data.name, true)'></div>
+        </td>
+      </tr>
+    </table>
+
+    <table>
+      <tr>
+        <th *ngFor="let data of getStauses('PET-ATACK')">{{data.short_name}}</th>
+      </tr>
+      <tr>
+        <td *ngFor="let data of getStauses('PET-ATACK')">
+          <div [innerHTML]='getStausValue(data.name, true)'></div>
+        </td>
+      </tr>
+    </table>
+
+    <table>
+      <tr>
+        <th *ngFor="let data of getStauses('PET-DEFENSE')">{{data.short_name}}</th>
+      </tr>
+      <tr>
+        <td *ngFor="let data of getStauses('PET-DEFENSE')">
+          <div [innerHTML]='getStausValue(data.name, true)'></div>
+        </td>
+      </tr>
+    </table>
+  </nz-tab>
+</nz-tabset>

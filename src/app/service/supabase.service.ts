@@ -9,6 +9,7 @@ import { Equipment } from '../model/equipment';
 import { Status } from '../model/status';
 import * as moment from 'moment';
 import { Equipset } from '../model/equipset';
+import { EquipsetItem } from '../model/equipset_item';
 import { PublishEquipset } from '../model/publish_equipset';
 
 @Injectable({
@@ -255,14 +256,12 @@ export class SupabaseService {
             name: d.name,
             aug_type: d.aug_type,
             aug_rank: d.aug_rank,
-            lv: d.lv,
-            item_lv: d.item_lv,
-            pc_text: d.aug_pc_text,
-            pc_status: d.full_pc_status,
-            pet_status_target: d.aug_pet_status_target,
-            pet_text: d.aug_pet_text,
-            pet_status: d.full_pet_status,
-            other_text: d.aug_other_text,
+            aug_pc_text: d.aug_pc_text,
+            full_pc_status: d.full_pc_status,
+            aug_pet_status_target: d.aug_pet_status_target,
+            aug_pet_text: d.aug_pet_text,
+            full_pet_status: d.full_pet_status,
+            aug_other_text: d.aug_other_text
           });
         });
       }
@@ -322,7 +321,8 @@ export class SupabaseService {
             .replace(/ﾟ/g, '゜');
   }
 
-  public async publishEquipset(job: string, equipset: Equipset): Promise<Equipset> {
+  /** 公開リスト登録 */
+  public async publishEquipset(job: string, equipset: Equipset, publish_key: string): Promise<Equipset> {
 
     // ステータスのサマリー
     var full_pc_status: any = {};
@@ -363,35 +363,66 @@ export class SupabaseService {
     return firstValueFrom(this.http.get<any>("https://api.ipify.org/?format=json")).then(async res =>{
       const dt = moment();
       const useragent = navigator?.userAgentData || navigator?.userAgent;
-      const { decycle, encycle } = require('json-cyclic');
-      const copied_equipset = <Equipset>encycle(JSON.parse(JSON.stringify(decycle(equipset))));
-      copied_equipset.compareEquipset = undefined;
-      const { data, error } = await this.supabase.from("publish_equipsets").upsert({
+      var { data, error } = await this.supabase.from("published_sets").upsert({
         id: equipset.publish_id || undefined,
         job: job,
-        equipset: copied_equipset,
+        name: equipset.name,
+        memo: equipset.memo,
         full_pc_status: full_pc_status,
         full_pet_status: full_pet_status,
+        publish_user: equipset.publish_user,
+        publish_key: publish_key,
+        publish_comment: equipset.publish_comment,
         created_useragent: useragent,
         created_ipaddress : res.ip,
         created_at: dt.format(),
         updated_useragent: useragent,
         updated_ipaddress : res.ip,
         updated_at: dt.format(),
-      }).select();
+      }, { 'onConflict': 'id' }).select();
+
       if (error) {
         console.error(error);
         this.message.error(error.message);
       }
-      var new_equipset = <Equipset>data![0].equipset;
-      new_equipset.publish_id = data![0].id;
-      new_equipset.publish_date = data![0].updated_at;
-      return new_equipset;
+
+      var publish_id = data![0].id;
+
+      // 子を削除
+      await this.supabase.from("published_items").delete()
+        .eq("published_set_id", publish_id);
+
+      // 子を登録
+      var { error } = await this.supabase.from("published_items").insert(
+        equipset.equip_items.map(n=>{
+        return {
+          published_set_id: publish_id,
+          slot_no: n.id,
+          slot_name: n.slot,
+          type: n.type,
+          equipment_name: n.equipment?.name,
+          equipment_aug_type: n.equipment_aug?.aug_type,
+          equipment_aug_rank: n.equipment_aug?.aug_rank,
+          pc_aug_text: n.custom_pc_aug,
+          pet_aug_text: n.custom_pet_aug,
+          memo: n.memo,
+        }
+      }));
+
+      if (error) {
+        console.error(error);
+        this.message.error(error.message);
+      }
+
+      equipset.publish_id = data![0].id;
+      equipset.publish_date = data![0].updated_at;
+      return equipset;
   });
   }
 
+  /** 公開リスト取得 */
   public async getPublishEquipsert(jobs: string[], inpuText: string) : Promise<PublishEquipset[]>{
-    var query = this.supabase.from('publish_equipsets')
+    var query = this.supabase.from('published_list')
     .select("*")
     .order("updated_at", {ascending: false});
 
@@ -400,15 +431,63 @@ export class SupabaseService {
     }
 
     if(inpuText){
-      // query = query.ilike("equipset->>publish_user", "%"+inpuText+"%");
-
-      query = query.or("equipset->>publish_user.ilike.%" + inpuText + "%" +
-                  ",equipset->>name.ilike.%" + inpuText + "%" +
-                  ",equipset->>memo.ilike.%" + inpuText +"%");
-
+      query = query.or("publish_user.ilike.%" + inpuText + "%" +
+                  ",name.ilike.%" + inpuText + "%" +
+                  ",memo.ilike.%" + inpuText +"%");
+    }
+    var { data, error } = await query;
+    if (error) {
+      console.error(error);
+      this.message.error(error.message);
     }
 
-    return (await query).data as PublishEquipset[];
+    var publish_equipsets: PublishEquipset[] = [];
+
+    data!.forEach(d=>{
+
+      if(publish_equipsets.findIndex(p=>p.id == d.id) < 0){
+
+        var equipset_items : EquipsetItem[] = data!.filter(d2=> d2.id == d.id).sort((a: any,b: any) =>{
+          return a.slot_no - b.slot_no;
+        }).map(d2=> {
+          return {
+            id: d2.slot_no,
+            slot: d2.slot_name,
+            type: d2.type,
+            equipment: d2.equipment,
+            equipment_aug: d2.equipment_aug,
+            custom_pc_aug: d2.pc_aug_text,
+            custom_pet_aug: d2.pet_aug_text,
+            memo: d2.item_memo,
+          }
+        })
+
+        var euipset: Equipset = {
+          name: d.name,
+          equip_items: equipset_items,
+          memo: d.memo,
+          publish_id: d.id,
+          publish_user: d.publish_user,
+          publish_comment: d.publish_comment,
+          publish_date: d.updated_at,
+        };
+
+        publish_equipsets.push({
+          id: d.id,
+          job: d.job,
+          equipset: euipset,
+          full_pc_status: d.full_pc_status,
+          full_pet_status: d.full_pet_status,
+          created_ipaddress: d.created_ipaddress,
+          created_at: d.created_at,
+          updated_ipaddress: d.updated_ipaddress,
+          updated_at: d.updated_at,
+          expanded: false,
+        });
+      }
+    })
+
+    return publish_equipsets;
   }
 
 }

@@ -5,7 +5,6 @@ export interface EquipsetItem {
   id: number;
   slot: string;
   type?: string;
-  aug?: string;
   equipment?: Equipment | null;
   equipment_aug?: EquipmentAug | null;
   custom_pc_aug?: string;

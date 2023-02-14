@@ -39,7 +39,7 @@
         <td>
           <span *ngFor="let item of data.equipset.equip_items">
             <a (click)="showItemDetail(item.equipment!, item.equipment_aug!)">
-              {{ item.equipment?.name }}{{ item.equipment_aug ? getAugName(item.equipment_aug) : "" }}
+              {{ item.equipment?.name }}{{ getAugName(item.equipment_aug!) }}
             </a>
           </span>
         </td>

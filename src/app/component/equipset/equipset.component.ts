@@ -156,6 +156,12 @@ export class EquipsetComponent {
             map(data=>this.equipsetgroup = of(data))
           ).subscribe(()=>{
             this.newTab(job, copied);
+
+            // オグメテキスト変更時処理を呼んでエラーとステータスを更新
+            copied.equip_items.forEach(n=>{
+              this.changeAugText(n);
+            })
+
             this.message.info("コピーしました。");
           })
         }
@@ -178,7 +184,8 @@ export class EquipsetComponent {
       nzTitle: '現在の装備セットを公開します。',
       nzContent: 'よろしいですか？',
       nzOnOk: () =>
-      this.supabaseService.publishEquipset(this.selectedJob, equipset)
+      // TODO:公開キー
+      this.supabaseService.publishEquipset(this.selectedJob, equipset, "")
       .then(res=> {
         equipset.publish_id = res.publish_id;
         equipset.publish_date = res.publish_date;
@@ -283,8 +290,8 @@ export class EquipsetComponent {
 
   /** オグメ名変更時 */
   changeAugName(equipsetItem: EquipsetItem){
-    equipsetItem.custom_pc_aug = equipsetItem.equipment_aug?.pc_text;
-    equipsetItem.custom_pet_aug = equipsetItem.equipment_aug?.pet_text;
+    equipsetItem.custom_pc_aug = equipsetItem.equipment_aug?.aug_pc_text;
+    equipsetItem.custom_pet_aug = equipsetItem.equipment_aug?.aug_pet_text;
     this.changeAugText(equipsetItem);
   }
 

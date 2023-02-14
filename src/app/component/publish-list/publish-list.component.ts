@@ -81,8 +81,7 @@ export class PublishListComponent {
       }else{
         if(equipAug.aug_type) ret = equipAug.aug_type;
         if(equipAug.aug_rank){
-          if(ret != "") ret += " ";
-          ret += 'R' + equipAug.aug_rank;
+          ret += '-R' + equipAug.aug_rank;
         }
       }
     }

@@ -67,7 +67,7 @@
             </div>
           </td>
           <ng-container *ngFor="let keyword of opKeywords">
-            <td class="status_value">{{ getStatusValue(data, keyword) }}</td>
+            <td class="status_value">{{ getStatusValue(data, null, keyword) }}</td>
           </ng-container>
           <td><div [innerHTML]="replacer(data.pc_text,'PC')"></div></td>
           <td>
@@ -88,7 +88,7 @@
               </a>
             </td>
             <ng-container *ngFor="let keyword of opKeywords">
-              <td class="status_value">{{ getStatusValue(aug, keyword) }}</td>
+              <td class="status_value">{{ getStatusValue(data, aug, keyword) }}</td>
             </ng-container>
             <td><div [innerHTML]="replacer(aug.pc_text,'PC')"></div></td>
             <td>

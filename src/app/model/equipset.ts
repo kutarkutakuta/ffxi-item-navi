@@ -7,5 +7,6 @@ export interface Equipset {
   compareEquipset?: Equipset | null;
   publish_id?: string | null;
   publish_user?: string | null;
+  publish_comment?: string | null;
   publish_date?: Date | null;
 }

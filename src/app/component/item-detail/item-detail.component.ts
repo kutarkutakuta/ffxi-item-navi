@@ -49,11 +49,11 @@ export class ItemDetailComponent {
     var ret = "";
     if(pet){
       ret = this.equip.pet_status[key];
-      if(this.equipAug) ret = this.equipAug.pet_status[key];
+      if(this.equipAug) ret = this.equipAug.full_pet_status[key];
     }
     else{
       ret = this.equip.pc_status[key];
-      if(this.equipAug) ret = this.equipAug.pc_status[key];
+      if(this.equipAug) ret = this.equipAug.full_pc_status[key];
       if(key == "Ｄ隔" && ret){
         ret = (Number(ret) / 1000).toString();
       }

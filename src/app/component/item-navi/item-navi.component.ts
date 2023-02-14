@@ -133,7 +133,7 @@ export class ItemNaviComponent {
     return status ? status_target + status.short_name : str;
   }
 
-  getStatusValue(equip: Equipment | EquipmentAug, keyword: string): string{
+  getStatusValue(equip: Equipment, equip_aug: EquipmentAug | null = null, keyword: string): string{
     var ret = "";
     var status_key = keyword;
 
@@ -151,16 +151,16 @@ export class ItemNaviComponent {
       status_key = arr_tmp[1];
     }
     if(status_target != "PC"){
-      var value = equip.pet_status[status_key] || 0;
+      var value = (equip_aug ? equip_aug.full_pet_status[status_key] : equip.pet_status[status_key]) || 0;
       var max = value;
       var min =  value;
       if("show_expand" in equip && equip.show_expand){
         equip.equipment_augs.forEach(n=> {
-          if(n.pet_status[status_key] > max){
-            max = n.pet_status[status_key]
+          if(n.full_pet_status[status_key] > max){
+            max = n.full_pet_status[status_key]
           }
-          if(n.pet_status[status_key] < min){
-            min = n.pet_status[status_key]
+          if(n.full_pet_status[status_key] < min){
+            min = n.full_pet_status[status_key]
           }
         });
       }
@@ -172,16 +172,16 @@ export class ItemNaviComponent {
       ret = (value > min ? "(" + min + ") ": "") + value + (value < max ? " (" + max + ")": "");
     }
     else{
-      var value = equip.pc_status[status_key] || 0;
+      var value = (equip_aug ? equip_aug.full_pc_status[status_key] : equip.pc_status[status_key]) || 0;
       var max = value;
       var min =  value;
       if("show_expand" in equip && equip.show_expand){
         equip.equipment_augs.forEach(n=> {
-          if(n.pc_status[status_key] > max){
-            max = n.pc_status[status_key]
+          if(n.full_pc_status[status_key] > max){
+            max = n.full_pc_status[status_key]
           }
-          if(n.pc_status[status_key] < min){
-            min = n.pc_status[status_key]
+          if(n.full_pc_status[status_key] < min){
+            min = n.full_pc_status[status_key]
           }
         });
       }

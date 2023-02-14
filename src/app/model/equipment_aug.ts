@@ -3,13 +3,10 @@ export interface EquipmentAug {
   name: string;
   aug_type: string;
   aug_rank: number;
-  lv: number;
-  item_lv: number;
-  pc_text: string;
-  pc_status: any;
-  pet_status_target: string;
-  pet_text: string;
-  pet_status: any;
-  other_text: string;
-
+  aug_pc_text: string;
+  full_pc_status: any;
+  aug_pet_status_target: string;
+  aug_pet_text: string;
+  full_pet_status: any;
+  aug_other_text: string;
 }

@@ -9,6 +9,7 @@ import { ItemDetailComponent } from '../item-detail/item-detail.component';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { PublishEquipset } from 'src/app/model/publish_equipset';
 import { NzTableComponent } from 'ng-zorro-antd/table';
+import { EquipsetItem } from 'src/app/model/equipset_item';
 
 @Component({
   selector: 'app-publish-list',
@@ -31,7 +32,6 @@ export class PublishListComponent {
   publish_equipsets: PublishEquipset[] = [];
   selectedJobs: string[] = [];
   inputValue: string = "";
-
 
   loading = false;
 
@@ -89,8 +89,21 @@ export class PublishListComponent {
   }
 
   /** 装備詳細表示 */
-  showItemDetail(equip: Equipment, equipAug: EquipmentAug | null){
-    this.itemDetail.show(equip, equipAug);
+  showItemDetail(equipset_item: EquipsetItem){
+
+    if(equipset_item.equipment_aug){
+      // マスタではなく手入力したオグメを表示したい
+      const { decycle, encycle  } = require('json-cyclic');
+      const copied = <EquipmentAug>encycle(JSON.parse(JSON.stringify(decycle(equipset_item.equipment_aug))));
+      copied.aug_pc_text =equipset_item.custom_pc_aug!;
+      copied.aug_pet_text =equipset_item.custom_pet_aug!;
+      this.itemDetail.show(equipset_item.equipment!, copied);
+    }
+    else{
+
+    this.itemDetail.show(equipset_item.equipment!, null);
+    }
+
   }
 
 }

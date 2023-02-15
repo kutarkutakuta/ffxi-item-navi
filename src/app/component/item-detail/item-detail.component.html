@@ -1,4 +1,4 @@
-<div *ngIf="equip" style="font-size: 0.8em">
+<div *ngIf="equip" >
   <nz-drawer
     [nzVisible]="visible"
     nzPlacement="bottom"
@@ -7,38 +7,13 @@
     [nzBodyStyle]="{padding:0}"
     (nzOnClose)="onclose()">
     <ng-template #title>
-      <div nz-row>
-        <div nz-col style="white-space: nowrap;">
-          <span style="font-weight: bolder;">{{equip.name}}</span>
-          <span *ngIf="equipAug" style="font-size: 0.9em;padding-left: 5px;background: linear-gradient(transparent 70%, #FFCCFF 70%);">
-            {{getAugName()}}
-          </span>
-          <span style="font-size: 0.8em;padding-left: 5px;">
-            <a [href]="getWikiURL(equip.page_title)" target="_blank">FF11用語辞典</a> /
-            <a [href]="getFFXIAhURL(equip.name)" target="_blank">FFXIAH</a>
-          </span>
-        </div>
-      </div>
+      Item Information
+      <span style="font-size: smaller;padding-left: 10px;">
+        <a [href]="getWikiURL(equip.page_title)" target="_blank">FF11用語辞典</a> /
+        <a [href]="getFFXIAhURL(equip.name)" target="_blank">FFXIAH</a>
+      </span>
     </ng-template>
     <ng-container *nzDrawerContent>
-
-      <div style="padding-left: 15px;font-weight: bolder;white-space: nowrap;">
-        [{{ equip.slot }}] Lv{{ equip.lv }} {{ equip.job }}
-        <span *ngIf="equip.rare">(Rare)</span>
-        <span *ngIf="equip.ex">(Ex)</span>
-        {{ equip.item_lv ? "＜IL:" + equip.item_lv + "＞" : "" }}
-        <a nz-button nzType="text" (click)="getClipboard()">
-          <span nz-icon nzType="copy" nzTheme="outline"></span>
-        </a>
-      </div>
-      <!-- <div style="padding-left: 15px;">
-        <span *ngIf="equip.yomi">
-            （{{ equip.yomi }}<span *ngIf="equip.english"> / {{ equip.english }}</span>）
-        </span>
-        <span *ngIf="equip.install_date" style="padding-right: 20px;">
-          Ver. {{ equip.install_date }}
-        </span>
-      </div> -->
       <app-status-table [equip]="equip" [equipAug]="equipAug!"></app-status-table>
     </ng-container>
   </nz-drawer>

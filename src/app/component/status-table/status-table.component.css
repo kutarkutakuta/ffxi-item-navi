@@ -1,10 +1,37 @@
-table {
+.base_table table {
   border-collapse: collapse;
   table-layout: fixed;
 }
 
-th{
-  width: 55px;
+.base_table th{
+  width: 70px;
+  border: 1px solid #777;
+  background-color: #eee;
+  font-weight: bolder;
+  font-size: smaller;
+  white-space: nowrap;
+}
+
+.base_table .aug-header{
+  background-color: white;
+  font-weight: normal;
+}
+
+.base_table td{
+  min-width: 500px;
+  border: 1px solid #777;
+  font-size: smaller;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.status_table table {
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.status_table th{
+  width: 52px;
   border: 1px solid #777;
   background-color: #eee;;
   font-size: smaller;
@@ -12,8 +39,8 @@ th{
   white-space: nowrap;
 }
 
-td{
-  width: 55px;
+.status_table td{
+  width: 52px;
   height: 25px;
   border: 1px solid #777;
   text-align: center;

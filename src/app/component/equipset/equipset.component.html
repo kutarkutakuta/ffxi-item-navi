@@ -128,29 +128,27 @@
         </tbody>
       </nz-table>
 
-      <br/>
-
       <!-- ステータス一覧 -->
       <div style="display: flex;overflow-x: auto;">
         <app-status-table [equipset]="equipset"></app-status-table>
       </div>
 
-      <br/>
-
       <!-- 比較 -->
-      <span style="font-weight: bolder;padding-right: 5px;">比較</span>
-      <nz-select nzShowSearch nzServerSearch nzPlaceHolder="比較対象"
-        [nzFilterOption]="nzFilterOption" style="width: 250px;" nzAllowClear
-        [(ngModel)]="equipset.compareEquipset">
-        <ng-container  *ngFor="let o of (equipsetgroup | async)?.equipsets">
-          <nz-option *ngIf="o != equipset" [nzLabel]="o.name" [nzValue]="o"></nz-option>
-          <nz-option [nzLabel]="equipset.compareEquipset?.name!" [nzValue]="equipset.compareEquipset" nzHide></nz-option>
-        </ng-container>
-      </nz-select>
-
-      <div style="display: flex;overflow-x: auto;" *ngIf="equipset.compareEquipset">
-        <app-status-table [equipset]="equipset" [compareEquipset]="equipset.compareEquipset"></app-status-table>
+      <div style="padding-top: 10px;padding-bottom: 10px;">
+        <span style="font-weight: bolder;padding-right: 5px; ">比較</span>
+        <nz-select nzShowSearch nzServerSearch nzPlaceHolder="比較対象"
+          [nzFilterOption]="nzFilterOption" style="width: 250px;" nzAllowClear
+          [(ngModel)]="equipset.compareEquipset">
+          <ng-container  *ngFor="let o of (equipsetgroup | async)?.equipsets">
+            <nz-option *ngIf="o != equipset" [nzLabel]="o.name" [nzValue]="o"></nz-option>
+            <nz-option [nzLabel]="equipset.compareEquipset?.name!" [nzValue]="equipset.compareEquipset" nzHide></nz-option>
+          </ng-container>
+        </nz-select>
+        <div style="display: flex;overflow-x: auto;" *ngIf="equipset.compareEquipset">
+          <app-status-table [equipset]="equipset" [compareEquipset]="equipset.compareEquipset"></app-status-table>
+        </div>
       </div>
+
     </ng-template>
   </nz-tab>
 </nz-tabset>

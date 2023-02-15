@@ -22,7 +22,9 @@ export class StatusTableComponent {
   statuses : Status[] = [];
 
   // #region implementsMethods
-  constructor(private supabaseService: SupabaseService) {
+  constructor(private supabaseService: SupabaseService,
+    private message: NzMessageService,
+    private clipboard: Clipboard) {
       supabaseService.getStatus().subscribe(data=>{
         this.statuses = data;
       });
@@ -137,6 +139,30 @@ export class StatusTableComponent {
       }
 
     }
+  }
+
+  getClipboard(status_type: string) {
+    var clipData = "NAME\tｵｸﾞﾒ\t部位\t" + this.statuses.map(s=>s.short_name).join("\t") + "\n";
+    clipData += this.equip?.name + "\t" + this.getAugName() + "\t" + this.equip?.slot + "\t"
+     + this.statuses.map(s=>this.getStausValue(s.name)).join("\t");
+    this.clipboard.copy(clipData);
+    this.message.info("クリップボードにコピーしました。");
+  }
+
+  getAugName(): string {
+    var ret = "";
+    if(this.equipAug){
+      if(!this.equipAug.aug_type && !this.equipAug.aug_rank){
+        ret = "Aug."
+      }else{
+        if(this.equipAug.aug_type) ret = this.equipAug.aug_type;
+        if(this.equipAug.aug_rank){
+          if(ret != "") ret += " ";
+          ret += 'Rank:' + this.equipAug.aug_rank;
+        }
+      }
+    }
+    return ret;
   }
 
 }

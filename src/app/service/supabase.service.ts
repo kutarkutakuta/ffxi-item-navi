@@ -191,7 +191,7 @@ export class SupabaseService {
       }
 
       query = query.order("install_date", {ascending:false, nullsFirst:false});
-      query = query.order("id");
+      query = query.order("id", {ascending:false});
       query = query.order("aug_id");
 
       // 履歴

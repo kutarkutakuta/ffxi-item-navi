@@ -110,8 +110,6 @@ export class EquipsetComponent {
 
   /** 保存 */
   save(): void{
-    // localStorage.setItem('equipsetgroups', JSON.stringify(this.equipsetgroups));
-
     this.equipsetgroup?.pipe(
       tap(n=> this.equipsetDBService.putEquipsetGroup(this.selectedJob, n!))
     ).subscribe();

@@ -3,7 +3,8 @@
     *nzSpaceItem (ngModelChange)="redo()">
     <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
   </nz-select>
-  <button nz-button nzType="primary" *nzSpaceItem (click)="redo()" [disabled]="!selectedJob">
+  <button nz-button nzType="primary" *nzSpaceItem (click)="redo()" [disabled]="!selectedJob"
+    [nzLoading]="isLoading| async">
     <span nz-icon nzType="reload" nzTheme="outline"></span>Reload
   </button>
   <button nz-button nzType="primary" *nzSpaceItem (click)="save()" [disabled]="!selectedJob">
@@ -12,186 +13,187 @@
   <div *nzSpaceItem [hidden]="!(equipsetgroup | async )?.updated" style="padding-top: 10px; padding-left: 5px;">
     Saved: {{(equipsetgroup | async )?.updated | date: 'yy/MM/dd HH:mm:ss' }}
   </div>
+
 </nz-space>
 
 <nz-tabset *ngIf="selectedJob"
-  [(nzSelectedIndex)]="selectedEquipsetTabIndex"
-  nzType="editable-card"
-  (nzAdd)="newTab(this.selectedJob)"
-  (nzClose)="closeTab($event.index)"
+[(nzSelectedIndex)]="selectedEquipsetTabIndex"
+nzType="editable-card"
+(nzAdd)="newTab(this.selectedJob)"
+(nzClose)="closeTab($event.index)"
 >
-  <nz-tab *ngFor="let equipset of (equipsetgroup | async )?.equipsets;let i = index" nzClosable [nzTitle]="equipset.name">
-    <ng-template nz-tab>
-      <div nz-row nzJustify="space-between">
-        <div nz-col nzSpan="16">
-            <input nz-input placeholder="タイトル" [(ngModel)]="equipset.name" style="width: 150px;" maxlength="10" />
-            <button nz-button nzType="primary" (click)="copy(this.selectedJob, equipset)">Copy</button>
-            <textarea  nz-input placeholder="メモ" [(ngModel)]="equipset.memo" style="width: 400px;" maxlength="100" nzAutosize></textarea>
-        </div>
-        <div nz-col nzSpan="8" align="right" style="margin-top: -12px;" >
-          <nz-space>
-            <button nz-button nzType="primary" nzDanger *nzSpaceItem (click)="visible_publish = true; publish_key = ''">
-              <span nz-icon nzType="cloud-upload"></span>公開
-            </button>
-          </nz-space>
-          <div >
-            {{equipset.publish_id ? 'Published: ' + (equipset.publish_date | date:'yy/MM/dd HH:mm:ss') : ''}}
-          </div>
-        </div>
+<nz-tab *ngFor="let equipset of (equipsetgroup | async )?.equipsets;let i = index" nzClosable [nzTitle]="equipset.name">
+  <ng-template nz-tab>
+    <div nz-row nzJustify="space-between">
+      <div nz-col nzSpan="16">
+          <input nz-input placeholder="タイトル" [(ngModel)]="equipset.name" style="width: 150px;" maxlength="10" />
+          <button nz-button nzType="primary" (click)="copy(this.selectedJob, equipset, false)">Copy</button>
+          <textarea  nz-input placeholder="メモ" [(ngModel)]="equipset.memo" style="width: 400px;" maxlength="100" nzAutosize></textarea>
       </div>
-
-      <!-- 装備セット一覧 -->
-      <nz-table #equipsetTable [nzData]="equipset.equip_items"
-        nzShowPagination="false" class="equipset-table"  [nzPageSize]="20"
-        [nzScroll]="{x: '100%'}">
-        <thead>
-          <tr>
-            <th nzLeft nzWidth="60px">Slot</th>
-            <th nzWidth="110px">Type</th>
-            <th nzWidth="322px">
-              Equip
-              <span nz-icon nzType="question-circle" nzTheme="outline"
-              nz-tooltip nzTooltipTitle="装備名はクエリ検索も可能です。(例)DEX>10"></span>
-            </th>
-            <th nzWidth="18px"></th>
-            <th nzWidth="280px">
-              PC Augment
-              <span nz-icon nzType="question-circle" nzTheme="outline"
-              nz-tooltip nzTooltipTitle="スペース区切りでオグメを指定します。(例)攻:20 命中:50"></span>
-            </th>
-            <th nzWidth="18px"></th>
-            <th nzWidth="220px">
-              PET Augment
-              <span nz-icon nzType="question-circle" nzTheme="outline"
-              nz-tooltip nzTooltipTitle="スペース区切りでオグメを指定します。(例)攻:20 命中:50"></span>
-            </th>
-            <th nzWidth="18px"></th>
-            <th nzWidth="280px">Memo</th>
-            <th style="background-color: transparent ;border:none;"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let equipitem of equipsetTable.data">
-            <th nzLeft class="slot-cell">{{ equipitem.slot }}</th>
-            <td>
-              <nz-select *ngIf="equipitem.slot=='メイン' || equipitem.slot=='サブ' || equipitem.slot=='レンジ' || equipitem.slot=='矢弾'"
-              [(ngModel)]="equipitem.type" nzSize="default" style="width: 100%;" nzSize="small" nzAllowClear
-              (ngModelChange)="equipitem.equipment = null" nzPlaceHolder="武器種">
-                <nz-option *ngFor="let option of slot_types[equipitem.slot]" [nzLabel]="option" [nzValue]="option"></nz-option>
-              </nz-select>
-            </td>
-            <td>
-              <nz-select *ngIf="!(equipitem.slot=='メイン' || equipitem.slot=='サブ' || equipitem.slot=='レンジ' || equipitem.slot=='矢弾') || equipitem.type"
-                nzShowSearch nzServerSearch nzPlaceHolder="装備名"
-                [(ngModel)]="equipitem.equipment" [nzFilterOption]="nzFilterOption"
-                (nzOnSearch)="searchEquipment($event, equipitem)" (nzFocus)="searchEquipment('', equipitem)"
-                style="width: 180px;" nzSize="small" nzAllowClear (ngModelChange)="changeEquipment(equipitem)">
-                <nz-option *ngFor="let o of equipments" [nzLabel]="o.name" [nzValue]="o"></nz-option>
-                <nz-option [nzLabel]="equipitem.equipment?.name!" [nzValue]="equipitem.equipment" nzHide></nz-option>
-              </nz-select>
-              <nz-select *ngIf="equipitem.equipment?.equipment_augs?.length!>0"
-                nzShowSearch nzServerSearch nzPlaceHolder="オグメ名称"
-                [(ngModel)]="equipitem.equipment_aug" [nzFilterOption]="nzFilterOption"
-                style="width: 140px;" nzSize="small"
-                nzAllowClear (ngModelChange)="changeAugName(equipitem)">
-                <nz-option *ngFor="let o of equipitem.equipment?.equipment_augs" [nzLabel]="getAugName(o)" [nzValue]="o"></nz-option>
-                <nz-option [nzLabel]="getAugName(equipitem.equipment_aug!)" [nzValue]="equipitem.equipment_aug" nzHide></nz-option>
-              </nz-select>
-            </td>
-            <td style="text-align: center;">
-              <a *ngIf="equipitem.equipment" (click)="showItemDetail(equipitem.equipment, equipitem.equipment_aug!)">
-                <span nz-icon nzType="info-circle" nzTheme="outline"></span>
-              </a>
-            </td>
-            <td>
-              <textarea nz-input placeholder="オーグメント" [(ngModel)]="equipitem.custom_pc_aug" (ngModelChange)="changeAugText(equipitem)"
-              nzSize="small" style="min-height:24px !important;height:24px !important;"></textarea>
-            </td>
-            <td style="text-align: center;">
-              <span *ngIf="equipitem.custom_pc_aug_error" nz-tooltip nz-tooltip [nzTooltipTitle]="'[無効] ' + equipitem.custom_pc_aug_error"
-                nzTooltipColor="orange" nz-icon [nzType]="'warning'" [nzTheme]="'twotone'" [nzTwotoneColor]="'orange'"></span>
-            </td>
-            <td>
-              <textarea nz-input placeholder="オーグメント" [(ngModel)]="equipitem.custom_pet_aug" (ngModelChange)="changeAugText(equipitem)"
-              nzSize="small" style="min-height:24px !important;height:24px !important;"></textarea>
-            </td>
-
-            <td style="text-align: center;">
-              <span *ngIf="equipitem.custom_pet_aug_error" nz-tooltip nz-tooltip [nzTooltipTitle]="'[無効] ' + equipitem.custom_pet_aug_error"
-                nzTooltipColor="orange" nz-icon [nzType]="'warning'" [nzTheme]="'twotone'" [nzTwotoneColor]="'orange'"></span>
-            </td>
-            <td>
-              <input nz-input placeholder="メモ" [(ngModel)]="equipitem.memo" nzAllowClear nzSize="small" />
-            </td>
-          </tr>
-        </tbody>
-      </nz-table>
-
-      <!-- ステータス一覧 -->
-      <div style="display: flex;overflow-x: auto;">
-        <app-status-table [equipset]="equipset"></app-status-table>
-      </div>
-
-      <!-- 比較 -->
-      <div style="padding-top: 10px;padding-bottom: 10px;">
-        <span style="font-weight: bolder;padding-right: 5px; ">比較</span>
-        <nz-select nzShowSearch nzServerSearch nzPlaceHolder="比較対象"
-          [nzFilterOption]="nzFilterOption" style="width: 250px;" nzAllowClear
-          [(ngModel)]="equipset.compareEquipset">
-          <ng-container  *ngFor="let o of (equipsetgroup | async)?.equipsets">
-            <nz-option *ngIf="o != equipset" [nzLabel]="o.name" [nzValue]="o"></nz-option>
-            <nz-option [nzLabel]="equipset.compareEquipset?.name!" [nzValue]="equipset.compareEquipset" nzHide></nz-option>
-          </ng-container>
-        </nz-select>
-        <div style="display: flex;overflow-x: auto;" *ngIf="equipset.compareEquipset">
-          <app-status-table [equipset]="equipset" [compareEquipset]="equipset.compareEquipset"></app-status-table>
+      <div nz-col nzSpan="8" align="right" style="margin-top: -12px;" >
+        <nz-space>
+          <button nz-button nzType="primary" nzDanger *nzSpaceItem (click)="visible_publish = true; publish_key = ''">
+            <span nz-icon nzType="cloud-upload"></span>公開
+          </button>
+        </nz-space>
+        <div >
+          {{equipset.publish_id ? 'Published: ' + (equipset.publish_date | date:'yy/MM/dd HH:mm:ss') : ''}}
         </div>
       </div>
+    </div>
 
-      <nz-drawer
-        [nzVisible]="visible_publish"
-        nzPlacement="left"
-        [nzTitle]="'装備セット公開'"
-        (nzOnClose)="visible_publish = false">
-        <ng-container *nzDrawerContent>
-          現在の装備セットを公開リストに公開します。<br/><br/>
-          <div nz-row >
-            <div nz-col style="width: 100px;">公開ユーザ名</div>
-            <div nz-col>
-              <input nz-input placeholder="公開ﾕｰｻﾞ名" [(ngModel)]="equipset.publish_user" maxlength="20" />
-            </div>
-          </div>
-          <div nz-row>
-            <div nz-col style="width: 100px;">編集キー</div>
-            <div nz-col>
-              <input nz-input placeholder="編集キー" [(ngModel)]="publish_key" maxlength="20" />
-            </div>
-          </div>
-          <div nz-row>
-            コメント
-          </div>
-          <div nz-row>
-            <textarea nz-input placeholder="コメント" [(ngModel)]="equipset.publish_comment" style="width: 100%;" maxlength="100">
-            </textarea>
-          </div>
-          <div nz-row >
-            {{equipset.publish_id ? 'Published ID [' + equipset.publish_id + ']: ' + (equipset.publish_date | date:'yy/MM/dd HH:mm:ss') : ''}}
-          </div><br/>
-          <div nz-row nzJustify="space-between">
-            <button nz-button nzType="primary" (click)="publish(equipset)">
-              <span nz-icon nzType="cloud-upload"></span>
-              <span *ngIf="!equipset.publish_id">公開する</span>
-              <span *ngIf="equipset.publish_id">公開を更新</span>
-            </button>
-            <button *ngIf="equipset.publish_id" nz-button nzType="primary" nzDanger (click)="unpublish(equipset)">
-              <span nz-icon nzType="close-circle"></span>公開を取消
-            </button>
-          </div>
+    <!-- 装備セット一覧 -->
+    <nz-table #equipsetTable [nzData]="equipset.equip_items"
+      nzShowPagination="false" class="equipset-table"  [nzPageSize]="20"
+      [nzScroll]="{x: '100%'}">
+      <thead>
+        <tr>
+          <th nzLeft nzWidth="60px">Slot</th>
+          <th nzWidth="110px">Type</th>
+          <th nzWidth="322px">
+            Equip
+            <span nz-icon nzType="question-circle" nzTheme="outline"
+            nz-tooltip nzTooltipTitle="装備名はクエリ検索も可能です。(例)DEX>10"></span>
+          </th>
+          <th nzWidth="18px"></th>
+          <th nzWidth="280px">
+            PC Augment
+            <span nz-icon nzType="question-circle" nzTheme="outline"
+            nz-tooltip nzTooltipTitle="スペース区切りでオグメを指定します。(例)攻:20 命中:50"></span>
+          </th>
+          <th nzWidth="18px"></th>
+          <th nzWidth="220px">
+            PET Augment
+            <span nz-icon nzType="question-circle" nzTheme="outline"
+            nz-tooltip nzTooltipTitle="スペース区切りでオグメを指定します。(例)攻:20 命中:50"></span>
+          </th>
+          <th nzWidth="18px"></th>
+          <th nzWidth="280px">Memo</th>
+          <th style="background-color: transparent ;border:none;"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let equipitem of equipsetTable.data">
+          <th nzLeft class="slot-cell">{{ equipitem.slot }}</th>
+          <td>
+            <nz-select *ngIf="equipitem.slot=='メイン' || equipitem.slot=='サブ' || equipitem.slot=='レンジ' || equipitem.slot=='矢弾'"
+            [(ngModel)]="equipitem.type" nzSize="default" style="width: 100%;" nzSize="small" nzAllowClear
+            (ngModelChange)="equipitem.equipment = null" nzPlaceHolder="武器種">
+              <nz-option *ngFor="let option of slot_types[equipitem.slot]" [nzLabel]="option" [nzValue]="option"></nz-option>
+            </nz-select>
+          </td>
+          <td>
+            <nz-select *ngIf="!(equipitem.slot=='メイン' || equipitem.slot=='サブ' || equipitem.slot=='レンジ' || equipitem.slot=='矢弾') || equipitem.type"
+              nzShowSearch nzServerSearch nzPlaceHolder="装備名"
+              [(ngModel)]="equipitem.equipment" [nzFilterOption]="nzFilterOption"
+              (nzOnSearch)="searchEquipment($event, equipitem)" (nzFocus)="searchEquipment('', equipitem)"
+              style="width: 180px;" nzSize="small" nzAllowClear (ngModelChange)="changeEquipment(equipitem)">
+              <nz-option *ngFor="let o of equipments" [nzLabel]="o.name" [nzValue]="o"></nz-option>
+              <nz-option [nzLabel]="equipitem.equipment?.name!" [nzValue]="equipitem.equipment" nzHide></nz-option>
+            </nz-select>
+            <nz-select *ngIf="equipitem.equipment?.equipment_augs?.length!>0"
+              nzShowSearch nzServerSearch nzPlaceHolder="オグメ名称"
+              [(ngModel)]="equipitem.equipment_aug" [nzFilterOption]="nzFilterOption"
+              style="width: 140px;" nzSize="small"
+              nzAllowClear (ngModelChange)="changeAugName(equipitem)">
+              <nz-option *ngFor="let o of equipitem.equipment?.equipment_augs" [nzLabel]="getAugName(o)" [nzValue]="o"></nz-option>
+              <nz-option [nzLabel]="getAugName(equipitem.equipment_aug!)" [nzValue]="equipitem.equipment_aug" nzHide></nz-option>
+            </nz-select>
+          </td>
+          <td style="text-align: center;">
+            <a *ngIf="equipitem.equipment" (click)="showItemDetail(equipitem.equipment, equipitem.equipment_aug!)">
+              <span nz-icon nzType="info-circle" nzTheme="outline"></span>
+            </a>
+          </td>
+          <td>
+            <textarea nz-input placeholder="オーグメント" [(ngModel)]="equipitem.custom_pc_aug" (ngModelChange)="changeAugText(equipitem)"
+            nzSize="small" style="min-height:24px !important;height:24px !important;"></textarea>
+          </td>
+          <td style="text-align: center;">
+            <span *ngIf="equipitem.custom_pc_aug_error" nz-tooltip nz-tooltip [nzTooltipTitle]="'[無効] ' + equipitem.custom_pc_aug_error"
+              nzTooltipColor="orange" nz-icon [nzType]="'warning'" [nzTheme]="'twotone'" [nzTwotoneColor]="'orange'"></span>
+          </td>
+          <td>
+            <textarea nz-input placeholder="オーグメント" [(ngModel)]="equipitem.custom_pet_aug" (ngModelChange)="changeAugText(equipitem)"
+            nzSize="small" style="min-height:24px !important;height:24px !important;"></textarea>
+          </td>
+
+          <td style="text-align: center;">
+            <span *ngIf="equipitem.custom_pet_aug_error" nz-tooltip nz-tooltip [nzTooltipTitle]="'[無効] ' + equipitem.custom_pet_aug_error"
+              nzTooltipColor="orange" nz-icon [nzType]="'warning'" [nzTheme]="'twotone'" [nzTwotoneColor]="'orange'"></span>
+          </td>
+          <td>
+            <input nz-input placeholder="メモ" [(ngModel)]="equipitem.memo" nzAllowClear nzSize="small" />
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+
+    <!-- ステータス一覧 -->
+    <div style="display: flex;overflow-x: auto;">
+      <app-status-table [equipset]="equipset"></app-status-table>
+    </div>
+
+    <!-- 比較 -->
+    <div style="padding-top: 10px;padding-bottom: 10px;">
+      <span style="font-weight: bolder;padding-right: 5px; ">比較</span>
+      <nz-select nzShowSearch nzServerSearch nzPlaceHolder="比較対象"
+        [nzFilterOption]="nzFilterOption" style="width: 250px;" nzAllowClear
+        [(ngModel)]="equipset.compareEquipset">
+        <ng-container  *ngFor="let o of (equipsetgroup | async)?.equipsets">
+          <nz-option *ngIf="o != equipset" [nzLabel]="o.name" [nzValue]="o"></nz-option>
+          <nz-option [nzLabel]="equipset.compareEquipset?.name!" [nzValue]="equipset.compareEquipset" nzHide></nz-option>
         </ng-container>
-      </nz-drawer>
+      </nz-select>
+      <div style="display: flex;overflow-x: auto;" *ngIf="equipset.compareEquipset">
+        <app-status-table [equipset]="equipset" [compareEquipset]="equipset.compareEquipset"></app-status-table>
+      </div>
+    </div>
 
-    </ng-template>
-  </nz-tab>
+    <nz-drawer
+      [nzVisible]="visible_publish"
+      nzPlacement="left"
+      [nzTitle]="'装備セット公開'"
+      (nzOnClose)="visible_publish = false">
+      <ng-container *nzDrawerContent>
+        現在の装備セットを公開リストに公開します。<br/><br/>
+        <div nz-row >
+          <div nz-col style="width: 100px;">公開ユーザ名</div>
+          <div nz-col>
+            <input nz-input placeholder="公開ﾕｰｻﾞ名" [(ngModel)]="equipset.publish_user" maxlength="20" />
+          </div>
+        </div>
+        <div nz-row>
+          <div nz-col style="width: 100px;">編集キー</div>
+          <div nz-col>
+            <input nz-input placeholder="編集キー" [(ngModel)]="publish_key" maxlength="20" />
+          </div>
+        </div>
+        <div nz-row>
+          コメント
+        </div>
+        <div nz-row>
+          <textarea nz-input placeholder="コメント" [(ngModel)]="equipset.publish_comment" style="width: 100%;" maxlength="100">
+          </textarea>
+        </div>
+        <div nz-row >
+          {{equipset.publish_id ? 'Published ID [' + equipset.publish_id + ']: ' + (equipset.publish_date | date:'yy/MM/dd HH:mm:ss') : ''}}
+        </div><br/>
+        <div nz-row nzJustify="space-between">
+          <button nz-button nzType="primary" (click)="publish(equipset)">
+            <span nz-icon nzType="cloud-upload"></span>
+            <span *ngIf="!equipset.publish_id">公開する</span>
+            <span *ngIf="equipset.publish_id">公開を更新</span>
+          </button>
+          <button *ngIf="equipset.publish_id" nz-button nzType="primary" nzDanger (click)="unpublish(equipset)">
+            <span nz-icon nzType="close-circle"></span>公開を取消
+          </button>
+        </div>
+      </ng-container>
+    </nz-drawer>
+
+  </ng-template>
+</nz-tab>
 </nz-tabset>
 <app-item-detail #ItemDetail></app-item-detail>
 

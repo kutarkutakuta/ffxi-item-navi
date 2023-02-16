@@ -38,6 +38,7 @@ import { NzAffixModule } from 'ng-zorro-antd/affix';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { DatePipe } from '@angular/common';
@@ -82,6 +83,7 @@ registerLocaleData(ja);
     NzDropDownModule,
     NzMenuModule,
     NzModalModule,
+    NzSpinModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable

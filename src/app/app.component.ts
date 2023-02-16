@@ -11,11 +11,14 @@ export class AppComponent {
   logoSrc = "/assets/images/logo.png";
   isCollapsed = false;
 
+  selectedIndex = 0;
+
   @ViewChild(EquipsetComponent)
   private equipsetComponent?: EquipsetComponent;
 
   equipsetCopy(publishEquipset: PublishEquipset) {
-    this.equipsetComponent?.copy(publishEquipset.job, publishEquipset.equipset);
+    this.equipsetComponent?.copy(publishEquipset.job, publishEquipset.equipset, publishEquipset.edit);
+    this.selectedIndex = 1;
   }
 }
 

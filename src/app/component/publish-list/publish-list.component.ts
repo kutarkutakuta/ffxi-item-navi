@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Equipment } from 'src/app/model/equipment';
 import { Status } from 'src/app/model/status';
@@ -8,7 +8,7 @@ import { EquipmentAug } from 'src/app/model/equipment_aug';
 import { ItemDetailComponent } from '../item-detail/item-detail.component';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { PublishEquipset } from 'src/app/model/publish_equipset';
-import { NzTableComponent } from 'ng-zorro-antd/table';
+import { NzTableComponent, NzTableFilterFn, NzTableFilterList, NzTableSortFn, NzTableSortOrder } from 'ng-zorro-antd/table';
 import { EquipsetItem } from 'src/app/model/equipset_item';
 
 @Component({
@@ -34,8 +34,63 @@ export class PublishListComponent {
   inputValue: string = "";
 
   loading = false;
+  publish_key = "";
 
-  constructor(private supabaseService: SupabaseService) {
+
+  listOfColumns: ColumnItem[] = [
+    {
+      name: 'Title',
+      width: '250px',
+      showSort : true,
+      sortOrder: null,
+      sortFn: (a: PublishEquipset, b: PublishEquipset) => a.id - b.id,
+      sortDirections: ['ascend', 'descend', null],
+    },
+    {
+      name: 'User',
+      width: '100px',
+      showSort : true,
+      sortOrder: null,
+      sortFn: (a: PublishEquipset, b: PublishEquipset) => a.equipset?.publish_user!.localeCompare(b.equipset?.publish_user!),
+      sortDirections: ['ascend', 'descend', null],
+    },
+    {
+      name: 'Date',
+      width: '90px',
+      showSort : true,
+      sortOrder: null,
+      sortFn: (a: PublishEquipset, b: PublishEquipset) => a.equipset?.publish_date! > b.equipset?.publish_date! ? 1 : -1,
+      sortDirections: ['ascend', 'descend', null],
+    },
+    {
+      name: 'Comment',
+      width: 'auto',
+      showSort : false,
+      sortOrder: null,
+      sortFn: null,
+      sortDirections: ['ascend', 'descend', null],
+    },
+    {
+      name: '',
+      width: '70px',
+      showSort : true,
+      sortOrder: null,
+      sortFn: (a: PublishEquipset, b: PublishEquipset) => a.likes_count - b.likes_count,
+      sortDirections: ['ascend', 'descend', null],
+    },
+    {
+      name: '',
+      width: '80px',
+      showSort : false,
+      sortOrder: null,
+      sortFn: null,
+      sortDirections: [],
+    }
+  ];
+
+  constructor(private supabaseService: SupabaseService,
+    private modal: NzModalService,
+    private message: NzMessageService,) {
   }
 
   ngOnInit (): void {
@@ -64,12 +119,32 @@ export class PublishListComponent {
     return str.replace(/["#$%&'()\*,\/;?@\[\\\]^_`{|}~]/g, '');
   }
 
-  like(eq: PublishEquipset){
-
+  async like(publish_equipset: PublishEquipset){
+    this.supabaseService.createLike(publish_equipset.id).then(n=> publish_equipset.likes_count = n);
   }
 
-  copy(eq: PublishEquipset){
-    this.equipsetCopy.emit(eq);
+  copy(publish_equipset: PublishEquipset, edit:boolean, tplContent: TemplateRef<{}>,){
+
+    if(edit){
+      this.publish_key = "";
+      this.modal.create({
+        nzTitle: "編集確認",
+        nzContent: tplContent,
+        nzOnOk: async () => {
+          if(!await this.supabaseService.enableEditEquipset(publish_equipset.id.toString(), this.publish_key)){
+            this.message.error("編集キーが不正です。");
+          }
+          else{
+            publish_equipset.edit = edit;
+            this.equipsetCopy.emit(publish_equipset);
+          }
+        }
+      });
+    }
+    else{
+      publish_equipset.edit = edit;
+      this.equipsetCopy.emit(publish_equipset);
+    }
   }
 
   /** オグメ名取得 */
@@ -97,6 +172,9 @@ export class PublishListComponent {
       const copied = <EquipmentAug>encycle(JSON.parse(JSON.stringify(decycle(equipset_item.equipment_aug))));
       copied.aug_pc_text =equipset_item.custom_pc_aug!;
       copied.aug_pet_text =equipset_item.custom_pet_aug!;
+
+      //TODO:ステータスも手入力のほうに
+
       this.itemDetail.show(equipset_item.equipment!, copied);
     }
     else{
@@ -106,6 +184,15 @@ export class PublishListComponent {
 
   }
 
+}
+
+interface ColumnItem {
+  name: string;
+  width: string;
+  showSort: boolean;
+  sortOrder: NzTableSortOrder | null;
+  sortFn: NzTableSortFn<PublishEquipset> | null;
+  sortDirections: NzTableSortOrder[];
 }
 
 

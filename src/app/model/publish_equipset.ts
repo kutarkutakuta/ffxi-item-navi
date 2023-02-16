@@ -10,5 +10,7 @@ export interface PublishEquipset {
   created_at: string;
   updated_ipaddress: Date;
   updated_at: Date;
+  likes_count: number;
   expanded: boolean;
+  edit: boolean;
 }

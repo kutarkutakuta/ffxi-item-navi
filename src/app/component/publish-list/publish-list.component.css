@@ -2,12 +2,17 @@
   text-align: center;
 }
 
-.equipset-table .ant-table-cell {
+
+.detail-header{
+  background-color: #fafafa;;
+}
+
+.detail-cell {
   padding: 5px;
   vertical-align: top;
   padding-left: 5px;
   padding-right: 5px;
-  font-size: smaller;
+  font-size: 0.9em;
 }
 
 a:hover{

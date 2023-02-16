@@ -9,7 +9,7 @@ import { EquipsetGroup } from 'src/app/model/equipset_group';
 import { Equipset } from 'src/app/model/equipset';
 import { EquipsetItem } from 'src/app/model/equipset_item';
 import { EquipsetDBService } from 'src/app/service/equipsetdb.service';
-import { map, Observable, of, tap } from 'rxjs';
+import { map, Observable, of, Subject, tap } from 'rxjs';
 
 @Component({
   selector: 'app-equipset',
@@ -44,6 +44,8 @@ export class EquipsetComponent {
 
   visible_publish = false;
   publish_key = "";
+
+  public isLoading: Subject<boolean> = new Subject<boolean>();
 
   constructor(private supabaseService: SupabaseService,
     private equipsetDBService: EquipsetDBService,
@@ -119,24 +121,29 @@ export class EquipsetComponent {
 
   /** 読込 */
   redo(): void{
+    this.isLoading.next(true);
+
     this.equipsetDBService.getEquipsetGroup(this.selectedJob).pipe(
       map(data=>this.equipsetgroup = of(data))
-    ).subscribe();
+    ).subscribe(()=>this.isLoading.next(false));
+
 
     this.message.info("データを読み込みました。");
   }
 
   /** コピー */
-  copy(job: string, equipset: Equipset): void{
+  copy(job: string, equipset: Equipset, edit: boolean): void{
 
     const { decycle, encycle  } = require('json-cyclic');
     const copied = <Equipset>encycle(JSON.parse(JSON.stringify(decycle(equipset))));
 
     // 名称変更＆公開情報をクリア
-    copied.name = copied.name + "_copy";
-    copied.publish_user = null;
-    copied.publish_id = null;
-    copied.publish_date = null;
+    if(!edit){
+      copied.name = copied.name + "_copy";
+      copied.publish_user = null;
+      copied.publish_id = null;
+      copied.publish_date = null;
+    }
 
     if(this.selectedJob != job){
       // 未Loadの場合Load

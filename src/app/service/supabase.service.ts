@@ -366,14 +366,8 @@ export class SupabaseService {
       const useragent = navigator?.userAgentData || navigator?.userAgent;
 
       if(equipset.publish_id){
-        var { data, error, count } = await this.supabase.from("published_sets").select('*', {count: 'exact'})
-          .eq("id", equipset.publish_id).eq("publish_key", publish_key)
-        if (error) {
-          console.error(error);
-          throw new Error(error.message);
-        }
-        if(!count || count == 0){
-          throw new Error("編集キーが無効です。");
+        if(!await this.enableEditEquipset(equipset.publish_id, publish_key)){
+          throw new Error("IDが存在しないか、編集キーが無効です。");
         }
       }
 
@@ -436,15 +430,22 @@ export class SupabaseService {
 
   /** 公開リスト削除 */
   public async unppublishEquipset(publish_id: string, publish_key: string): Promise<void> {
+
     var { error, count } = await this.supabase.from("published_sets").select('*', {count: 'exact'})
-      .eq("id", publish_id).eq("publish_key", publish_key)
+      .eq("id", publish_id)
     if (error) {
       console.error(error);
       throw new Error(error.message);
     }
     if(!count || count == 0){
+      // IDがないので削除済み
+      return;
+    }
+
+    if(!await this.enableEditEquipset(publish_id, publish_key)){
       throw new Error("編集キーが無効です。");
     }
+
     var { error } =await this.supabase.from("published_items").delete()
       .eq("published_set_id", publish_id);
     if (error) {
@@ -457,6 +458,19 @@ export class SupabaseService {
       console.error(error);
       throw new Error(error.message);
     }
+  }
+
+  public async enableEditEquipset(publish_id: string, publish_key: string): Promise<boolean>{
+    var { error, count } = await this.supabase.from("published_sets").select('*', {count: 'exact'})
+      .eq("id", publish_id).eq("publish_key", publish_key)
+    if (error) {
+      console.error(error);
+      return false;
+    }
+    if(!count || count == 0){
+      return false;
+    }
+    return true;
   }
 
   /** 公開リスト取得 */
@@ -521,12 +535,59 @@ export class SupabaseService {
           created_at: d.created_at,
           updated_ipaddress: d.updated_ipaddress,
           updated_at: d.updated_at,
+          likes_count: d.likes_count,
           expanded: false,
+          edit: false,
         });
       }
     })
 
     return publish_equipsets;
+  }
+
+  public async createLike(comment_id: number): Promise<number> {
+    await this.createLikeOrDislike(comment_id, 'likes');
+    const { error, count } = await this.supabase.from('likes').select('*', {count: 'exact'})
+      .eq("comment_id", comment_id);
+    if (error) {
+      console.error(error);
+      this.message.error(error.message);
+    }
+    return count || 0;
+  }
+
+  private createLikeOrDislike(comment_id: number, table_name: string) : Promise<void>{
+    return firstValueFrom(this.http.get<any>("https://api.ipify.org/?format=json")).then(async res =>{
+
+      const {data} = await this.supabase.from(table_name).select().match({
+        comment_id: comment_id,
+        ipaddress : res.ip,
+       });
+
+      var dt = moment();
+      if(data && data.length > 0){
+        const { error } = await this.supabase.from(table_name).delete().match({
+          comment_id: comment_id,
+          ipaddress : res.ip,
+         });
+        if (error) {
+          console.error(error);
+          this.message.error(error.message);
+        }
+       }
+       else{
+        const { error } = await this.supabase.from(table_name).insert({
+          comment_id: comment_id,
+          ipaddress : res.ip,
+          created_at: dt.format(),
+          updated_at: dt.format(),
+        });
+        if (error) {
+          console.error(error);
+          this.message.error(error.message);
+        }
+       }
+    });
   }
 
 }

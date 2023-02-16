@@ -15,28 +15,54 @@
   class="equipset-table" [nzPageSize]="20" [nzScroll]="{x: '100%'}">
   <thead>
     <tr>
-      <th nzWidth="160px">Title</th>
-      <th nzWidth="70px">User</th>
-      <th nzWidth="70px">Date</th>
-      <th nzWidth="70px"></th>
-      <th >Equips</th>
+      <th *ngFor="let column of listOfColumns"
+        [nzWidth]="column.width" [nzShowSort]="column.showSort"
+        [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn"
+        [nzSortDirections]="column.sortDirections">
+        {{ column.name }}
+      </th>
     </tr>
   </thead>
   <tbody>
     <ng-container *ngFor="let data of equipsetTable.data">
       <tr>
-        <td [nzShowExpand]="true" (nzExpandChange)="data.expanded = !data.expanded" [nzExpand]="data.expanded">
-          <div>{{ data.id }}.{{ data.job }} - {{ data.equipset.name }}</div>
+        <td [nzShowExpand]="true" (nzExpandChange)="data.expanded = !data.expanded" [nzExpand]="data.expanded" class="detail-header">
+          <div>[{{ data.id }}] {{ data.job }} - {{ data.equipset.name }}</div>
           <div style="padding-left:12px">{{ data.equipset.memo }}</div>
         </td>
         <td>{{ data.equipset.publish_user }}</td>
         <td class="center-cell">{{ data.updated_at | date:'yy/MM/dd HH:mm/ss'}}</td>
         <td>
-          <a (click)="copy(data)" nz-tooltip nzTooltipTitle="My Set にコピー" style="color: black;">
-            <span nz-tooltip nzTitle="Like" nz-icon nzType="import"></span>Copy
-          </a>
+          {{ data.equipset.publish_comment }}
         </td>
         <td>
+          <a (click)="like(data)" nz-tooltip nzTooltipTitle="いいね">
+            <span nz-icon nzType="like" ></span>
+          </a>
+          {{ data.likes_count }}
+        </td>
+        <td>
+          <a (click)="copy(data, false, tplContent)" nz-tooltip nzTooltipTitle="My Set にコピー" style="color: black;">
+            <span nz-tooltip nzTitle="Like" nz-icon nzType="import"></span>Copy
+          </a><br/>
+          <a (click)="copy(data, true, tplContent)" nz-tooltip nzTooltipTitle="編集用にMy Set にコピー" style="color: black;">
+            <span nz-tooltip nzTitle="Like" nz-icon nzType="form"></span>Edit
+          </a>
+          <ng-template #tplContent>
+            <div nz-row>
+              <div nz-col style="width: 100px;">編集キー</div>
+              <div nz-col>
+                <input nz-input placeholder="編集キー" [(ngModel)]="publish_key" maxlength="20" />
+              </div>
+            </div>
+          </ng-template>
+        </td>
+      </tr>
+      <tr *ngIf="data.expanded">
+        <td [nzIndentSize]="1" class="detail-header">
+          装備Set
+        </td>
+        <td colspan="4" class="detail-cell">
           <span *ngFor="let item of data.equipset.equip_items">
             <a (click)="showItemDetail(item)">
               {{ item.equipment?.name }}{{ getAugName(item.equipment_aug!) }}
@@ -44,32 +70,24 @@
           </span>
         </td>
       </tr>
-      <tr *ngIf="data.expanded ">
-        <td [nzIndentSize]="1">
-          PC
+      <tr *ngIf="data.expanded">
+        <td [nzIndentSize]="1" class="detail-header">
+          PCステータス合計
         </td>
-        <td colspan="4">
+        <td colspan="4" class="detail-cell">
           <span *ngFor="let st of data.full_pc_status | keyvalue">
             {{st.key}}:{{st.value}}
           </span>
         </td>
       </tr>
-      <tr *ngIf="data.expanded ">
-        <td [nzIndentSize]="1">
-          PET
+      <tr *ngIf="data.expanded">
+        <td [nzIndentSize]="1" class="detail-header">
+          PETステータス合計
         </td>
-        <td colspan="4">
+        <td colspan="4" class="detail-cell">
           <span *ngFor="let st of data.full_pet_status | keyvalue">
             {{st.key}}:{{st.value}}
           </span>
-        </td>
-      </tr>
-      <tr *ngIf="data.expanded && data.equipset.publish_comment">
-        <td [nzIndentSize]="1">
-          コメント
-        </td>
-        <td colspan="4">
-          {{ data.equipset.publish_comment }}
         </td>
       </tr>
     </ng-container>

@@ -62,7 +62,7 @@
         <td [nzIndentSize]="1" class="detail-header">
           装備Set
         </td>
-        <td colspan="4" class="detail-cell">
+        <td colspan="5" class="detail-cell">
           <span *ngFor="let item of data.equipset.equip_items">
             <a (click)="showItemDetail(item)">
               {{ item.equipment?.name }}{{ getAugName(item.equipment_aug!) }}
@@ -74,7 +74,7 @@
         <td [nzIndentSize]="1" class="detail-header">
           PCステータス合計
         </td>
-        <td colspan="4" class="detail-cell">
+        <td colspan="5" class="detail-cell">
           <span *ngFor="let st of data.full_pc_status | keyvalue">
             {{st.key}}:{{st.value}}
           </span>
@@ -84,7 +84,7 @@
         <td [nzIndentSize]="1" class="detail-header">
           PETステータス合計
         </td>
-        <td colspan="4" class="detail-cell">
+        <td colspan="5" class="detail-cell">
           <span *ngFor="let st of data.full_pet_status | keyvalue">
             {{st.key}}:{{st.value}}
           </span>

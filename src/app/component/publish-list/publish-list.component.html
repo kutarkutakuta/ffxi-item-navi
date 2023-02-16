@@ -64,8 +64,15 @@
           </span>
         </td>
       </tr>
+      <tr *ngIf="data.expanded && data.equipset.publish_comment">
+        <td [nzIndentSize]="1">
+          コメント
+        </td>
+        <td colspan="4">
+          {{ data.equipset.publish_comment }}
+        </td>
+      </tr>
     </ng-container>
-
   </tbody>
 </nz-table>
 

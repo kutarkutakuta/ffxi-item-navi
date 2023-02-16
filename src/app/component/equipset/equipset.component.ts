@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Equipment } from 'src/app/model/equipment';
-import { Status } from 'src/app/model/status';
 import { SupabaseService } from 'src/app/service/supabase.service'
-import { DatePipe } from '@angular/common';
 import { EquipmentAug } from 'src/app/model/equipment_aug';
 import { ItemDetailComponent } from '../item-detail/item-detail.component';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
@@ -44,10 +42,12 @@ export class EquipsetComponent {
   selectedJobTabIndex = 0;
   selectedEquipsetTabIndex = 0;
 
+  visible_publish = false;
+  publish_key = "";
+
   constructor(private supabaseService: SupabaseService,
     private equipsetDBService: EquipsetDBService,
     private message: NzMessageService,
-    private datePipe: DatePipe,
     private modal: NzModalService) {
     this.equipsetgroup = equipsetDBService.getEquipsetGroup(this.selectedJob)
   }
@@ -169,21 +169,50 @@ export class EquipsetComponent {
 
   /** 公開する */
   publish(equipset: Equipset){
-    if(!equipset.publish_user){
+    if(!equipset.publish_user?.trim()){
       this.message.error("公開ユーザー名を入力してください。");
+      return;
+    }
+    if(!this.publish_key.trim()){
+      this.message.error("編集キーを入力してください。");
       return;
     }
     this.confirmModal = this.modal.confirm({
       nzTitle: '現在の装備セットを公開します。',
       nzContent: 'よろしいですか？',
       nzOnOk: () =>
-      // TODO:公開キー
-      this.supabaseService.publishEquipset(this.selectedJob, equipset, "")
+      this.supabaseService.publishEquipset(this.selectedJob, equipset, this.publish_key)
       .then(res=> {
+        // 公開情報を保存
         equipset.publish_id = res.publish_id;
         equipset.publish_date = res.publish_date;
         this.save();
         this.message.info("公開しました。");
+      }).catch(reason =>{
+        this.message.error(reason);
+      })
+    });
+  }
+
+ /** 公開取り消し */
+  unpublish(equipset: Equipset){
+    if(!this.publish_key.trim()){
+      this.message.error("編集キーを入力してください。");
+      return;
+    }
+    this.confirmModal = this.modal.confirm({
+      nzTitle: '現在の装備セットの公開を取消します。',
+      nzContent: 'よろしいですか？',
+      nzOnOk: () =>
+      this.supabaseService.unppublishEquipset(equipset?.publish_id!, this.publish_key)
+      .then(()=> {
+        // 公開情報を保存
+        equipset.publish_id = undefined;
+        equipset.publish_date = undefined;
+        this.save();
+        this.message.info("公開を取り消しました");
+      }).catch(reason =>{
+        this.message.error(reason);
       })
     });
   }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from "../../environments/environment";
-import { Observable, EMPTY, of, from, BehaviorSubject, firstValueFrom, map, filter  } from 'rxjs';
+import { Observable, EMPTY, of, from, BehaviorSubject, firstValueFrom, map, filter, throwError  } from 'rxjs';
 import { HttpClient  } from '@angular/common/http';
 import type { PostgrestFilterBuilder } from "@supabase/postgrest-js";
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -361,8 +361,22 @@ export class SupabaseService {
     })
 
     return firstValueFrom(this.http.get<any>("https://api.ipify.org/?format=json")).then(async res =>{
+
       const dt = moment();
       const useragent = navigator?.userAgentData || navigator?.userAgent;
+
+      if(equipset.publish_id){
+        var { data, error, count } = await this.supabase.from("published_sets").select('*', {count: 'exact'})
+          .eq("id", equipset.publish_id).eq("publish_key", publish_key)
+        if (error) {
+          console.error(error);
+          throw new Error(error.message);
+        }
+        if(!count || count == 0){
+          throw new Error("編集キーが無効です。");
+        }
+      }
+
       var { data, error } = await this.supabase.from("published_sets").upsert({
         id: equipset.publish_id || undefined,
         job: job,
@@ -383,7 +397,7 @@ export class SupabaseService {
 
       if (error) {
         console.error(error);
-        this.message.error(error.message);
+        throw new Error(error.message);
       }
 
       var publish_id = data![0].id;
@@ -411,13 +425,38 @@ export class SupabaseService {
 
       if (error) {
         console.error(error);
-        this.message.error(error.message);
+        throw new Error(error.message);
       }
 
       equipset.publish_id = data![0].id;
       equipset.publish_date = data![0].updated_at;
       return equipset;
   });
+  }
+
+  /** 公開リスト削除 */
+  public async unppublishEquipset(publish_id: string, publish_key: string): Promise<void> {
+    var { error, count } = await this.supabase.from("published_sets").select('*', {count: 'exact'})
+      .eq("id", publish_id).eq("publish_key", publish_key)
+    if (error) {
+      console.error(error);
+      throw new Error(error.message);
+    }
+    if(!count || count == 0){
+      throw new Error("編集キーが無効です。");
+    }
+    var { error } =await this.supabase.from("published_items").delete()
+      .eq("published_set_id", publish_id);
+    if (error) {
+      console.error(error);
+      throw new Error(error.message);
+    }
+    var { error } =await this.supabase.from("published_sets").delete()
+      .eq("id", publish_id);
+    if (error) {
+      console.error(error);
+      throw new Error(error.message);
+    }
   }
 
   /** 公開リスト取得 */

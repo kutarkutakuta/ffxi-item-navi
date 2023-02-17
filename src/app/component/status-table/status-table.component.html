@@ -1,26 +1,37 @@
-<nz-tabset style="min-width: 900px;padding-left: 10px;padding-right: 10px;" nzSize="small">
+<nz-tabset style="padding-left: 10px;padding-right: 10px;" nzSize="small">
   <nz-tab *ngIf="equip" nzTitle="基本情報">
     <ng-template nz-tab>
-      <div style="margin-top: -10px;">
-        <div>
-          <span style="font-weight: bolder;">{{equip.name}}</span>
-          <span *ngIf="equipAug" style="font-size: 0.9em;padding-left: 5px;background: linear-gradient(transparent 70%, #FFCCFF 70%);">
-            {{getAugName()}}
-          </span>
-          <span *ngIf="equip.yomi">
+      <div style="margin-top: -10px;padding-bottom: 5px;">
+        <div nz-row style="font-weight: bolder;">
+          <div nz-col>
+            [{{ equip.slot }}] {{equip.name}}
+          </div>
+          <div nz-col>
+            <span *ngIf="equipAug" style="font-size: 0.9em;padding-left: 5px;background: linear-gradient(transparent 70%, #FFCCFF 70%);">
+              {{getAugName()}}
+            </span>
+          </div>
+          <div nz-col style="font-weight: normal;">
+            <span *ngIf="equip.yomi">
               （{{ equip.yomi }}<span *ngIf="equip.english"> / {{ equip.english }}</span>）
-          </span>
+            </span>
+          </div>
+          <div nz-col style="font-weight: normal;padding-left: 5px;">
+            Lv{{ equip.lv }} {{ equip.job }}
+          </div>
+          <div nz-col style="padding-left: 10px;white-space: nowrap;">
+            <div *ngIf="equip.rare" class="rare">Rare</div>
+            <div *ngIf="equip.ex" class="ex">Ex</div>
+          </div>
+          <div nz-col>
+            {{ equip.item_lv ? "＜IL:" + equip.item_lv + "＞" : "" }}
+          </div>
+          <div nz-col style="padding-left: 10px;font-weight: normal;">
+            <span *ngIf="equip.install_date" >
+              Ver. {{ equip.install_date }}
+            </span>
+          </div>
         </div>
-      </div>
-      <div style="padding-left: 5px;font-size: 0.9em;padding-bottom: 2px;">
-        [{{ equip.slot }}]
-        {{ equip.item_lv ? "＜IL:" + equip.item_lv + "＞" : "" }}
-        Lv{{ equip.lv }} {{ equip.job }}
-        <span *ngIf="equip.rare">(Rare)</span>
-        <span *ngIf="equip.ex">(Ex)</span>
-        <span *ngIf="equip.install_date" style="padding-left: 10px;">
-          Ver. {{ equip.install_date }}
-        </span>
       </div>
       <table class="base_table">
         <tr>
@@ -48,7 +59,7 @@
   </nz-tab>
   <nz-tab n nzTitle="物理ステータス">
     <ng-template nz-tab>
-      <div style="margin-top: -10px;">
+      <div class="status_tab">
         <table class="status_table">
           <tr>
             <td rowspan="2">
@@ -89,7 +100,7 @@
   </nz-tab>
   <nz-tab n nzTitle="魔法ステータス">
     <ng-template nz-tab>
-      <div style="margin-top: -10px;">
+      <div class="status_tab">
         <table class="status_table">
           <tr>
             <td rowspan="2">
@@ -130,7 +141,7 @@
   </nz-tab>
   <nz-tab n nzTitle="ペットステータス">
     <ng-template nz-tab>
-      <div style="margin-top: -10px;">
+      <div class="status_tab">
         <table class="status_table">
           <tr>
             <td rowspan="2">

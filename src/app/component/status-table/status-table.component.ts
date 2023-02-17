@@ -44,17 +44,19 @@ export class StatusTableComponent {
       ret = this.getStausSummary(this.equipset, key, pet);
     }else if(this.equip){
       // 1つの装備から取得
+      var ret_number = 0;
       if(pet){
-        ret = this.equip.pet_status[key];
-        if(this.equipAug) ret = this.equipAug.full_pet_status[key];
+        ret_number = this.equip.pet_status[key];
+        if(this.equipAug) ret_number = this.equipAug.full_pet_status[key];
       }
       else{
-        ret = this.equip.pc_status[key];
-        if(this.equipAug) ret = this.equipAug.full_pc_status[key];
-        if(key == "Ｄ隔" && ret){
-          ret = (Number(ret) / 1000).toString();
+        ret_number = this.equip.pc_status[key];
+        if(this.equipAug) ret_number = this.equipAug.full_pc_status[key];
+        if(key == "Ｄ隔" && ret_number){
+          ret_number = (Number(ret_number) / 1000);
         }
       }
+      ret = ret_number?.toString();
     }
 
     return ret == "0" ? "" : ret;
@@ -74,46 +76,46 @@ export class StatusTableComponent {
     }
     else if(!pet){
       ret = equipset.equip_items.map(n=>{
-        var ret = 0;
+        var ret_number = 0;
         if(n.equipment && n.equipment.pc_status[key]){
-          ret = <number>n.equipment?.pc_status[key]
+          ret_number = <number>n.equipment?.pc_status[key]
         }
 
         // オグメテキストからも取得
         if(n.custom_pc_aug_status && n.custom_pc_aug_status[key]){
-          ret += n.custom_pc_aug_status[key];
+          ret_number += n.custom_pc_aug_status[key];
         }
 
         // 二刀流のサブ武器は、D・隔は無効とする
         // TODO:RMEAはほとんど無効みたいだがとりあえず・・・
         if(n.slot == "サブ" && (n.type == "短剣" || n.type?.startsWith("片手"))){
           if(key.startsWith("Ｄ") || key == "隔"){
-            ret = 0;
+            ret_number = 0;
           }
         }
-        return ret;
+        return ret_number;
       }).reduce((p,c)=>p+c).toString();
     }
     else
     {
       ret = equipset.equip_items.map(n=>{
-        var ret = 0;
+        var ret_number = 0;
         if(n.equipment && n.equipment.pet_status[key]){
-          ret = <number>n.equipment?.pet_status[key]
+          ret_number = <number>n.equipment?.pet_status[key]
         }
 
         // オグメテキストからも取得
         if(n.custom_pet_aug_status && n.custom_pet_aug_status[key]){
-          ret += n.custom_pet_aug_status[key];
+          ret_number += n.custom_pet_aug_status[key];
         }
 
-        return ret;
+        return ret_number;
       }).reduce((p,c)=>p+c).toString();
     }
     return ret == "0" ? "" : ret;
   }
 
-  getStausSummary2(equipset:Equipset, compareEquipset:Equipset, key: string, pet: boolean ) : string{
+  getStausSummary2(equipset:Equipset, compareEquipset:Equipset, key: string, pet: boolean) : string{
 
     var a = Number(this.getStausSummary(equipset, key, pet));
     var b = Number(this.getStausSummary(compareEquipset, key, pet));
@@ -137,14 +139,38 @@ export class StatusTableComponent {
           return "<span class='highlight-minus'>" + result + "</span>";
         }
       }
-
     }
   }
 
   getClipboard(status_type: string) {
-    var clipData = "NAME\tｵｸﾞﾒ\t部位\t" + this.statuses.map(s=>s.short_name).join("\t") + "\n";
-    clipData += this.equip?.name + "\t" + this.getAugName() + "\t" + this.equip?.slot + "\t"
-     + this.statuses.map(s=>this.getStausValue(s.name)).join("\t");
+
+    var status: Status[] = [];
+    switch (status_type) {
+      case "物理":
+        status = this.statuses.filter(s=>["BASE", "ATACK", "DEFENSE"].includes(s.type));
+        break;
+      case "魔法":
+        status =this.statuses.filter(s=>["BASE", "MAGIC", "MAGIC-SKILL"].includes(s.type));
+        break;
+      case "ペット":
+        status =this.statuses.filter(s=>s.type.startsWith("PET"));
+        break;
+    }
+    status = status.sort((a,b)=>a.id - b.id);
+
+    var clipData = "";
+    if(this.equip?.name){
+      clipData = "NAME\tｵｸﾞﾒ\t部位\t";
+    }
+    clipData += status.map(s=>s.short_name).join("\t") + "\n";
+    if(this.equip?.name){
+      clipData += this.equip?.name + "\t" + this.getAugName() + "\t" + this.equip?.slot + "\t"
+    }
+    clipData += status.map(s=>{
+      var ret = this.getStausValue(s.name, status_type == "ペット")
+      if(ret) ret = ret.replace(/(<([^>]+)>)/gi, '');
+      return ret;
+    }).join("\t");
     this.clipboard.copy(clipData);
     this.message.info("クリップボードにコピーしました。");
   }

@@ -412,7 +412,11 @@ export class SupabaseService {
           equipment_aug_type: n.equipment_aug?.aug_type,
           equipment_aug_rank: n.equipment_aug?.aug_rank,
           pc_aug_text: n.custom_pc_aug,
+          pc_aug_error: n.custom_pc_aug_error,
+          pc_aug_status: n.custom_pc_aug_status,
           pet_aug_text: n.custom_pet_aug,
+          pet_aug_error: n.custom_pet_aug_error,
+          pet_aug_status: n.custom_pet_aug_status,
           memo: n.memo,
         }
       }));
@@ -510,7 +514,11 @@ export class SupabaseService {
             equipment: d2.equipment,
             equipment_aug: d2.equipment_aug,
             custom_pc_aug: d2.pc_aug_text,
+            custom_pc_aug_error: d2.pc_aug_error,
+            custom_pc_aug_status: d2.pc_aug_status,
             custom_pet_aug: d2.pet_aug_text,
+            custom_pet_aug_error: d2.pet_aug_error,
+            custom_pet_aug_status: d2.pet_aug_status,
             memo: d2.item_memo,
           }
         })

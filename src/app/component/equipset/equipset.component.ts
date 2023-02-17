@@ -127,8 +127,6 @@ export class EquipsetComponent {
       map(data=>this.equipsetgroup = of(data))
     ).subscribe(()=>this.isLoading.next(false));
 
-
-    this.message.info("データを読み込みました。");
   }
 
   /** コピー */
@@ -156,20 +154,12 @@ export class EquipsetComponent {
             map(data=>this.equipsetgroup = of(data))
           ).subscribe(()=>{
             this.newTab(job, copied);
-
-            // オグメテキスト変更時処理を呼んでエラーとステータスを更新
-            copied.equip_items.forEach(n=>{
-              this.changeAugText(n);
-            })
-
-            this.message.info("コピーしました。");
           })
         }
       });
     }
     else{
       this.newTab(job, copied);
-      this.message.info("コピーしました。");
     }
 
   }

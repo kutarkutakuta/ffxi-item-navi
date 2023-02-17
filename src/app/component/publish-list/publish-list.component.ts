@@ -173,7 +173,23 @@ export class PublishListComponent {
       copied.aug_pc_text =equipset_item.custom_pc_aug!;
       copied.aug_pet_text =equipset_item.custom_pet_aug!;
 
-      //TODO:ステータスも手入力のほうに
+      // ステータスも手入力のほうに
+      var pc_status: any = {}
+      for (var key in equipset_item.equipment?.pc_status) {
+        pc_status[key] = equipset_item.equipment?.pc_status[key];
+      }
+      for (var key in equipset_item.custom_pc_aug_status) {
+        pc_status[key] = (pc_status[key] || 0) + equipset_item.custom_pc_aug_status[key];
+      }
+      copied.full_pc_status = pc_status;
+      var pet_status: any = {}
+      for (var key in equipset_item.equipment?.pet_status) {
+        pet_status[key] = equipset_item.equipment?.pet_status[key];
+      }
+      for (var key in equipset_item.custom_pet_aug_status) {
+        pet_status[key] = (pet_status[key] || 0) + equipset_item.custom_pet_aug_status[key];
+      }
+      copied.full_pet_status = pet_status;
 
       this.itemDetail.show(equipset_item.equipment!, copied);
     }

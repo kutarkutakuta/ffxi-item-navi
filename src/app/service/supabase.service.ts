@@ -102,20 +102,22 @@ export class SupabaseService {
           var keyword_han = this.hankana2Zenkana(fnToHankaku(keyword).toUpperCase());  // 式は半角変換
           var keyword_zen = fnToZenkaku(keyword).toUpperCase();  // 式じゃなければ全角に変換
 
-          // Statusに存在すれば式に変換
-          if( this._statuses.getValue().findIndex(
-              s=>s.name == keyword_han || this.hankana2Zenkana(s.short_name) == keyword_han ||
-              keyword_han == "D" || keyword_han == "D/隔" || keyword_han == "D／隔"|| keyword_han=="D隔"
-            ) > -1){
-              if(["被物理ダメージ", "被魔法ダメージ", "被ダメージ", "被クリティカルヒット", "詠唱中断率" ].includes(keyword_han) ||
-                ["被物理", "被魔法", "被ダメ", "被クリ", "詠中断" ].includes(keyword_han)){
-                  // 被物理 被魔法 被ﾀﾞﾒ 被Cri 詠中断は<0
-                  keyword_han = keyword_han + "<0";
-              }
-              else{
-                keyword_han = keyword_han + ">0";
-              }
-          }
+          // 「二刀流」で検索時に「二刀流効果アップ」がヒットしなくなる
+          // むりやりヒットさせると「二刀流>0」でも変なのがひっかかる
+          // // Statusに存在すれば式に変換
+          // if( this._statuses.getValue().findIndex(
+          //     s=>s.name == keyword_han || this.hankana2Zenkana(s.short_name) == keyword_han ||
+          //     keyword_han == "D" || keyword_han == "D/隔" || keyword_han == "D／隔"|| keyword_han=="D隔"
+          //   ) > -1){
+          //     if(["被物理ダメージ", "被魔法ダメージ", "被ダメージ", "被クリティカルヒット", "詠唱中断率" ].includes(keyword_han) ||
+          //       ["被物理", "被魔法", "被ダメ", "被クリ", "詠中断" ].includes(keyword_han)){
+          //         // 被物理 被魔法 被ﾀﾞﾒ 被Cri 詠中断は<0
+          //         keyword_han = keyword_han + "<0";
+          //     }
+          //     else{
+          //       keyword_han = keyword_han + ">0";
+          //     }
+          // }
 
           const regex  = /(?<keyword>[^\=\>\<\!]+)(?<operator>[\=\>\<]|[\>\<!][=])(?<value>[\+\-＋－﹣−‐⁃‑‒–—﹘―⎯⏤ーｰ─━]?\d+(?:\.\d+)?)/g;
           var matches = regex.exec(keyword_han);

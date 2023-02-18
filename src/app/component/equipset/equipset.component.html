@@ -179,7 +179,11 @@ nzType="editable-card"
           </div>
         </div>
         <div nz-row>
-          <div nz-col style="width: 100px;">編集キー</div>
+          <div nz-col style="width: 100px;">
+            編集キー
+            <span nz-icon nzType="question-circle" nzTheme="outline"
+            nz-tooltip nzTooltipTitle="公開後の更新や取消に必要です。暗号化していないので大事なパスワードの流用はしないで下さい。"></span>
+          </div>
           <div nz-col>
             <input nz-input placeholder="編集キー" [(ngModel)]="publish_key" maxlength="20" />
           </div>
@@ -188,7 +192,7 @@ nzType="editable-card"
           コメント
         </div>
         <div nz-row>
-          <textarea nz-input placeholder="コメント" [(ngModel)]="equipset.publish_comment" style="width: 100%;" maxlength="100">
+          <textarea nz-input placeholder="コメント" [(ngModel)]="equipset.publish_comment" style="width: 100%;" maxlength="100" rows="5">
           </textarea>
         </div>
         <div nz-row >

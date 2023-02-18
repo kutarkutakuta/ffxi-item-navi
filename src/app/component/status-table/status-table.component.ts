@@ -72,7 +72,7 @@ export class StatusTableComponent {
         d += <number>equip_item.custom_pc_aug_status["Ｄ"];
       }
       var kaku = <number>equip_item.equipment?.pc_status["隔"];
-      ret = (d / kaku).toFixed(2).toString();
+      ret = (d / kaku).toFixed(3).toString();
     }
     else if(!pet){
       ret = equipset.equip_items.map(n=>{
@@ -131,7 +131,7 @@ export class StatusTableComponent {
         return "";
       }
       else{
-        var result = key == "Ｄ隔" ? (a - b).toFixed(2).toString() : (a - b).toString();
+        var result = key == "Ｄ隔" ? (a - b).toFixed(3).toString() : (a - b).toString();
         if(a > b){
           return "<span class='highlight-plus'>+" + result + "</span>";
         }

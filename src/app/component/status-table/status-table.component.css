@@ -16,6 +16,12 @@
   display: inline-block;
 }
 
+.aug_name{
+  font-size: 0.9em;
+  padding-left: 5px;
+  background: linear-gradient(transparent 70%, #FFCCFF 70%);
+}
+
 .base_table table {
   border-collapse: collapse;
 }
@@ -27,18 +33,18 @@
   font-weight: bolder;
   font-size: smaller;
   white-space: nowrap;
+  padding: 3px 5px 3px 5px ;
 }
 
 .base_table .aug-header{
-  background-color: white;
   font-weight: normal;
+  background-color: #fef9fb;
 }
 
 .base_table td{
   border: 1px solid #777;
   font-size: smaller;
-  padding-left: 5px;
-  padding-right: 5px;
+  padding: 3px 5px 3px 5px ;
 }
 
 .status_tab {

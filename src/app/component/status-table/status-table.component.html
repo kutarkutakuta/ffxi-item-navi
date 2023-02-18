@@ -7,15 +7,15 @@
             [{{ equip.slot }}] {{equip.name}}
           </div>
           <div nz-col>
-            <span *ngIf="equipAug" style="font-size: 0.9em;padding-left: 5px;background: linear-gradient(transparent 70%, #FFCCFF 70%);">
+            <span *ngIf="equipAug" class="aug_name">
               {{getAugName()}}
             </span>
           </div>
-          <div nz-col style="font-weight: normal;">
+          <!-- <div nz-col style="font-weight: normal;">
             <span *ngIf="equip.yomi">
               （{{ equip.yomi }}<span *ngIf="equip.english"> / {{ equip.english }}</span>）
             </span>
-          </div>
+          </div> -->
           <div nz-col style="font-weight: normal;padding-left: 5px;">
             Lv{{ equip.lv }} {{ equip.job }}
           </div>
@@ -26,7 +26,7 @@
           <div nz-col>
             {{ equip.item_lv ? "＜IL:" + equip.item_lv + "＞" : "" }}
           </div>
-          <div nz-col style="padding-left: 10px;font-weight: normal;">
+          <div nz-col style="padding-left: 10px;font-weight: normal;font-style: italic;">
             <span *ngIf="equip.install_date" >
               Ver. {{ equip.install_date }}
             </span>

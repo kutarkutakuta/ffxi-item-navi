@@ -28,9 +28,9 @@
       <tr>
         <td [nzShowExpand]="true" (nzExpandChange)="data.expanded = !data.expanded" [nzExpand]="data.expanded" class="detail-header">
           <div>[{{ data.id }}] {{ data.job }} - {{ data.equipset.name }}</div>
-          <div style="padding-left:12px">{{ data.equipset.memo }}</div>
+          <div class="memo">{{ data.equipset.memo }}</div>
         </td>
-        <td>{{ data.equipset.publish_user }}</td>
+        <td class="center-cell">{{ data.equipset.publish_user }}</td>
         <td class="center-cell">{{ data.updated_at | date:'yy/MM/dd HH:mm/ss'}}</td>
         <td>
           {{ data.equipset.publish_comment }}
@@ -60,7 +60,7 @@
       </tr>
       <tr *ngIf="data.expanded">
         <td [nzIndentSize]="1" class="detail-header">
-          装備Set
+          装備
         </td>
         <td colspan="5" class="detail-cell">
           <span *ngFor="let item of data.equipset.equip_items">
@@ -72,7 +72,7 @@
       </tr>
       <tr *ngIf="data.expanded">
         <td [nzIndentSize]="1" class="detail-header">
-          PCステータス合計
+          PCステータス
         </td>
         <td colspan="5" class="detail-cell">
           <span *ngFor="let st of data.full_pc_status | keyvalue">
@@ -82,7 +82,7 @@
       </tr>
       <tr *ngIf="data.expanded">
         <td [nzIndentSize]="1" class="detail-header">
-          PETステータス合計
+          PETステータス
         </td>
         <td colspan="5" class="detail-cell">
           <span *ngFor="let st of data.full_pet_status | keyvalue">

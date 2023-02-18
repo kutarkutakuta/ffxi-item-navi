@@ -2,9 +2,20 @@
   text-align: center;
 }
 
+td.ant-table-cell {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.memo {
+  padding-left:12px;
+  font-size: 0.9em;
+}
 
 .detail-header{
-  background-color: #fafafa;;
+  background-color: #fffff9;;
 }
 
 .detail-cell {

@@ -39,11 +39,27 @@ export class PublishListComponent {
 
   listOfColumns: ColumnItem[] = [
     {
-      name: 'Title',
-      width: '250px',
+      name: 'ID',
+      width: '60px',
       showSort : true,
       sortOrder: null,
       sortFn: (a: PublishEquipset, b: PublishEquipset) => a.id - b.id,
+      sortDirections: ['ascend', 'descend', null],
+    },
+    {
+      name: '',
+      width: '30px',
+      showSort : true,
+      sortOrder: null,
+      sortFn: (a: PublishEquipset, b: PublishEquipset) => a.job.localeCompare(b.job),
+      sortDirections: ['ascend', 'descend', null],
+    },
+    {
+      name: 'Title',
+      width: '280px',
+      showSort : false,
+      sortOrder: null,
+      sortFn: null,
       sortDirections: ['ascend', 'descend', null],
     },
     {
@@ -56,7 +72,7 @@ export class PublishListComponent {
     },
     {
       name: 'Date',
-      width: '90px',
+      width: '85px',
       showSort : true,
       sortOrder: null,
       sortFn: (a: PublishEquipset, b: PublishEquipset) => a.equipset?.publish_date! > b.equipset?.publish_date! ? 1 : -1,
@@ -72,7 +88,7 @@ export class PublishListComponent {
     },
     {
       name: '',
-      width: '70px',
+      width: '50px',
       showSort : true,
       sortOrder: null,
       sortFn: (a: PublishEquipset, b: PublishEquipset) => a.likes_count - b.likes_count,
@@ -80,7 +96,7 @@ export class PublishListComponent {
     },
     {
       name: '',
-      width: '80px',
+      width: '60px',
       showSort : false,
       sortOrder: null,
       sortFn: null,

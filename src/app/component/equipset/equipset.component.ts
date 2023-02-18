@@ -140,6 +140,7 @@ export class EquipsetComponent {
       copied.name = copied.name + "_copy";
       copied.publish_user = null;
       copied.publish_id = null;
+      copied.publish_comment = null;
       copied.publish_date = null;
     }
 

@@ -56,7 +56,7 @@ export class PublishListComponent {
     },
     {
       name: 'Title',
-      width: '280px',
+      width: 'auto',
       showSort : false,
       sortOrder: null,
       sortFn: null,

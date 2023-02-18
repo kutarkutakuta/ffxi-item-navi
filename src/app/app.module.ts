@@ -41,7 +41,9 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
+import { LayoutModule } from '@angular/cdk/layout';
 import { DatePipe } from '@angular/common';
+
 
 registerLocaleData(ja);
 
@@ -91,6 +93,7 @@ registerLocaleData(ja);
       registrationStrategy: 'registerWhenStable:30000'
     }),
     RouterModule,
+    LayoutModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: ja_JP },

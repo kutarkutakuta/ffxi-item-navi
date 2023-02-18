@@ -1,20 +1,29 @@
-<nz-space>
-  <nz-select [(ngModel)]="selectedJob" nzSize="default" style="width: 90px;" nzPlaceHolder="ジョブ"
-    *nzSpaceItem (ngModelChange)="redo()">
+<div nz-row nzJustify="end">
+  <div nz-col>
+    <div [hidden]="!(equipsetgroup | async )?.updated" style="font-size: smaller;margin-top: -4px;" >
+      Saved: {{(equipsetgroup | async )?.updated | date: 'yy/MM/dd HH:mm:ss' }}
+    </div>
+  </div>
+</div>
+<div nz-row nzGutter="5">
+  <div nz-col>
+    <nz-select [(ngModel)]="selectedJob" nzSize="default" style="width: 88px;"
+      nzPlaceHolder="ジョブ" (ngModelChange)="redo()">
     <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
   </nz-select>
-  <button nz-button nzType="primary" *nzSpaceItem (click)="redo()" [disabled]="!selectedJob"
-    [nzLoading]="isLoading| async">
-    <span nz-icon nzType="reload" nzTheme="outline"></span>Reload
-  </button>
-  <button nz-button nzType="primary" *nzSpaceItem (click)="save()" [disabled]="!selectedJob">
-    <span nz-icon nzType="check" nzTheme="outline"></span>Save
-  </button>
-  <div *nzSpaceItem [hidden]="!(equipsetgroup | async )?.updated" style="padding-top: 10px; padding-left: 5px;">
-    Saved: {{(equipsetgroup | async )?.updated | date: 'yy/MM/dd HH:mm:ss' }}
   </div>
-
-</nz-space>
+  <div nz-col>
+    <button nz-button nzType="primary" (click)="redo()" [disabled]="!selectedJob"
+      [nzLoading]="isLoading| async">
+      <span nz-icon nzType="reload" nzTheme="outline"></span>Reload
+    </button>
+  </div>
+  <div nz-col>
+    <button nz-button nzType="primary" (click)="save()" [disabled]="!selectedJob">
+      <span nz-icon nzType="check" nzTheme="outline"></span>Save
+    </button>
+  </div>
+</div>
 
 <nz-tabset *ngIf="selectedJob"
 [(nzSelectedIndex)]="selectedEquipsetTabIndex"
@@ -24,21 +33,23 @@ nzType="editable-card"
 >
 <nz-tab *ngFor="let equipset of (equipsetgroup | async )?.equipsets;let i = index" nzClosable [nzTitle]="equipset.name">
   <ng-template nz-tab>
+    <div nz-row nzJustify="end">
+      <div nz-col>
+        <div [hidden]="!equipset.publish_id" style="font-size: smaller;margin-top: -4px;" >
+          {{'Published: ' + (equipset.publish_date | date:'yy/MM/dd HH:mm:ss')}}
+        </div>
+      </div>
+    </div>
     <div nz-row nzJustify="space-between">
       <div nz-col nzSpan="16">
           <input nz-input placeholder="タイトル" [(ngModel)]="equipset.name" style="width: 150px;" maxlength="10" />
           <button nz-button nzType="primary" (click)="copy(this.selectedJob, equipset, false)">Copy</button>
           <textarea  nz-input placeholder="メモ" [(ngModel)]="equipset.memo" style="width: 400px;" maxlength="40" nzAutosize></textarea>
       </div>
-      <div nz-col nzSpan="8" align="right" style="margin-top: -12px;" >
-        <nz-space>
-          <button nz-button nzType="primary" nzDanger *nzSpaceItem (click)="visible_publish = true; publish_key = ''">
-            <span nz-icon nzType="cloud-upload"></span>公開
-          </button>
-        </nz-space>
-        <div >
-          {{equipset.publish_id ? 'Published: ' + (equipset.publish_date | date:'yy/MM/dd HH:mm:ss') : ''}}
-        </div>
+      <div nz-col nzSpan="8" align="right">
+        <button nz-button nzType="primary" nzDanger (click)="visible_publish = true; publish_key = ''">
+          <span nz-icon nzType="cloud-upload"></span>公開
+        </button>
       </div>
     </div>
 

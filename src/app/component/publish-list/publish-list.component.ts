@@ -36,11 +36,12 @@ export class PublishListComponent {
   loading = false;
   publish_key = "";
 
+  all_expanded = false;
 
   listOfColumns: ColumnItem[] = [
     {
       name: 'ID',
-      width: '60px',
+      width: '80px',
       showSort : true,
       sortOrder: null,
       sortFn: (a: PublishEquipset, b: PublishEquipset) => a.id - b.id,
@@ -111,6 +112,11 @@ export class PublishListComponent {
 
   ngOnInit (): void {
     this.inputChange();
+  }
+
+  changeAllExpanded(){
+    this.all_expanded = !this.all_expanded;
+    this.publish_equipsets.forEach(n=>n.expanded = this.all_expanded);
   }
 
   /** 入力変更時 */

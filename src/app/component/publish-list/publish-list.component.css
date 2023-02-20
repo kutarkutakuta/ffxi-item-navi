@@ -1,3 +1,10 @@
+a {
+  color: black;
+}
+a :hover {
+  color: #1890ff;
+}
+
 .center-cell {
   text-align: center;
 }

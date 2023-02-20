@@ -19,6 +19,10 @@
         [nzWidth]="column.width" [nzShowSort]="column.showSort"
         [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn"
         [nzSortDirections]="column.sortDirections">
+        <a *ngIf="column.name=='ID'" (click)="$event.stopPropagation();changeAllExpanded()">
+          <span *ngIf="!all_expanded" nz-icon nzType="plus-square" nzTheme="outline"></span>
+          <span *ngIf="all_expanded" nz-icon nzType="minus-square" nzTheme="outline"></span>
+        </a>
         {{ column.name }}
       </th>
     </tr>
@@ -48,10 +52,10 @@
           {{ data.likes_count }}
         </td>
         <td class="detail-cell">
-          <a (click)="copy(data, false, tplContent)" nz-tooltip nzTooltipTitle="My Set にコピー" style="color: black;">
+          <a (click)="copy(data, false, tplContent)" nz-tooltip nzTooltipTitle="My Set にコピー">
             <span nz-tooltip nzTitle="Like" nz-icon nzType="import"></span>Copy
           </a><br/>
-          <a (click)="copy(data, true, tplContent)" nz-tooltip nzTooltipTitle="編集用にMy Set にコピー" style="color: black;">
+          <a (click)="copy(data, true, tplContent)" nz-tooltip nzTooltipTitle="編集用にMy Set にコピー">
             <span nz-tooltip nzTitle="Like" nz-icon nzType="form"></span>Edit
           </a>
           <ng-template #tplContent>

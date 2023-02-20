@@ -26,7 +26,8 @@
   border-top: 1px solid #CCCCCC;
 	border-left: 1px solid #CCCCCC;
 	border-collapse: separate;
-  width: 485px;
+  width: 380px;
+  font-size: 0.8em;
 }
 
 .equip-table td.ant-table-cell {
@@ -36,7 +37,8 @@
 	border-left: 1px solid #FFFFFF;
 	border-top: 1px solid #FFFFFF;
   background-color: #f9f9ff;
-  width: 120px;
+  width: 100px;
+  height: 46px;
 }
 
 

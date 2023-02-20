@@ -216,6 +216,20 @@ export class PublishListComponent {
 
   }
 
+  showItem(equip_items:EquipsetItem[],  slot: string){
+    var equip_item = equip_items.find(n=>n.slot == slot)!;
+    this.showItemDetail(equip_item);
+  }
+
+  getEquip(equip_items:EquipsetItem[],  slot: string) : string {
+    var equip_item = equip_items.find(n=>n.slot == slot)!;
+
+    var ret = equip_item.equipment?.name!;
+    if(equip_item.equipment_aug){
+      ret += "" + this.getAugName(equip_item.equipment_aug!);
+    }
+    return ret;
+  }
 }
 
 interface ColumnItem {

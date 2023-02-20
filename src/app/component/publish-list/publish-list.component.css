@@ -2,7 +2,7 @@
   text-align: center;
 }
 
-td.ant-table-cell {
+.publish-table td.ant-table-cell {
   padding-top: 3px;
   padding-bottom: 3px;
   padding-left: 4px;
@@ -26,6 +26,18 @@ td.ant-table-cell {
   font-size: 0.9em;
 }
 
-a:hover{
-  text-decoration: underline;
+.equip-table {
+  border-top: 1px solid #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+	border-collapse: separate;
+  width: 485px;
+}
+.equip-table td.ant-table-cell {
+  padding: 2px 5px;
+	border-right: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px solid #FFFFFF;
+	border-top: 1px solid #FFFFFF;
+  background-color: #f9f9ff;
+  width: 120px;;
 }

@@ -10,9 +10,9 @@
   <span nz-icon nzType="search" nzTheme="outline"></span>
 </ng-template>
 
-<!-- 装備セット一覧 -->
+<!-- 公開List一覧 -->
 <nz-table #equipsetTable nzBordered [nzData]="publish_equipsets"  [nzLoading]="loading"
-  class="equipset-table" [nzPageSize]="20" [nzScroll]="{x: '800px'}">
+  class="publish-table" [nzPageSize]="20" [nzScroll]="{x: '800px'}">
   <thead>
     <tr>
       <th *ngFor="let column of listOfColumns"
@@ -26,28 +26,28 @@
   <tbody>
     <ng-container *ngFor="let data of equipsetTable.data">
       <tr>
-        <td [nzShowExpand]="true" (nzExpandChange)="data.expanded = !data.expanded" [nzExpand]="data.expanded"  class="detail-header">
+        <td [nzShowExpand]="true" (nzExpandChange)="data.expanded = !data.expanded" [nzExpand]="data.expanded" >
           <div>{{ data.id }}</div>
         </td>
-        <td class="center-cell detail-header">
+        <td class="center-cell">
           <div>{{ data.job }}</div>
         </td>
         <td>
           <div>{{ data.equipset.name }}</div>
           <div class="memo">{{ data.equipset.memo }}</div>
         </td>
-        <td class="center-cell">{{ data.equipset.publish_user }}</td>
-        <td class="center-cell">{{ data.updated_at | date:'yy/MM/dd HH:mm/ss'}}</td>
-        <td>
+        <td class="detail-cell center-cell">{{ data.equipset.publish_user }}</td>
+        <td class="detail-cell center-cell">{{ data.updated_at | date:'yy/MM/dd HH:mm/ss'}}</td>
+        <td class="detail-cell">
           {{ data.equipset.publish_comment }}
         </td>
-        <td>
+        <td class="detail-cell">
           <a (click)="like(data)" nz-tooltip nzTooltipTitle="いいね">
             <span nz-icon nzType="like" ></span>
           </a>
           {{ data.likes_count }}
         </td>
-        <td>
+        <td class="detail-cell">
           <a (click)="copy(data, false, tplContent)" nz-tooltip nzTooltipTitle="My Set にコピー" style="color: black;">
             <span nz-tooltip nzTitle="Like" nz-icon nzType="import"></span>Copy
           </a><br/>
@@ -65,37 +65,108 @@
         </td>
       </tr>
       <tr *ngIf="data.expanded">
-        <td colspan="2" [nzIndentSize]="1" class="detail-header">
-          Equips
-        </td>
-        <td colspan="6" class="detail-cell">
-          <span *ngFor="let item of data.equipset.equip_items">
-            <a (click)="showItemDetail(item)">
-              {{ item.equipment?.name }}{{ getAugName(item.equipment_aug!) }}
-            </a>
-          </span>
+
+        <td  [nzIndentSize]="1" colspan="8" class="detail-cell">
+          <div nz-row>
+            <div nz-col>
+              <table class="equip-table">
+                <tr>
+                  <td>
+                    <a (click)="showItem(data.equipset.equip_items, 'メイン')">
+                      {{getEquip(data.equipset.equip_items, 'メイン')}}
+                    </a>
+                  </td>
+                  <td>
+                    <a (click)="showItem(data.equipset.equip_items, 'サブ')">
+                      {{getEquip(data.equipset.equip_items, 'サブ')}}
+                    </a>
+                  </td>
+                  <td>
+                    <a (click)="showItem(data.equipset.equip_items, 'レンジ')">
+                      {{getEquip(data.equipset.equip_items, 'レンジ')}}
+                    </a>
+                  </td>
+                  <td>
+                    <a (click)="showItem(data.equipset.equip_items, '矢弾')">
+                      {{getEquip(data.equipset.equip_items, '矢弾')}}
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a (click)="showItem(data.equipset.equip_items, '頭')">
+                      {{getEquip(data.equipset.equip_items, '頭')}}
+                    </a>
+                  </td>
+                  <td>
+                    <a (click)="showItem(data.equipset.equip_items, '首')">
+                      {{getEquip(data.equipset.equip_items, '首')}}
+                    </a>
+                  </td>
+                  <td>
+                    <a (click)="showItem(data.equipset.equip_items, '左耳')">
+                      {{getEquip(data.equipset.equip_items, '左耳')}}
+                    </a>
+                  </td>
+                  <td>
+                    <a (click)="showItem(data.equipset.equip_items, '右耳')">
+                      {{getEquip(data.equipset.equip_items, '右耳')}}
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a (click)="showItem(data.equipset.equip_items, '胴')">
+                      {{getEquip(data.equipset.equip_items, '胴')}}
+                    </a>
+                  </td>
+                  <td>
+                    <a (click)="showItem(data.equipset.equip_items, '両手')">
+                      {{getEquip(data.equipset.equip_items, '両手')}}
+                    </a>
+                  </td>
+                  <td>
+                    <a (click)="showItem(data.equipset.equip_items, '左指')">
+                      {{getEquip(data.equipset.equip_items, '左指')}}
+                    </a>
+                  </td>
+                  <td>
+                    <a (click)="showItem(data.equipset.equip_items, '右指')">
+                      {{getEquip(data.equipset.equip_items, '右指')}}
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <a (click)="showItem(data.equipset.equip_items, '背')">
+                      {{getEquip(data.equipset.equip_items, '背')}}
+                    </a>
+                  </td>
+                  <td>
+                    <a (click)="showItem(data.equipset.equip_items, '腰')">
+                      {{getEquip(data.equipset.equip_items, '腰')}}
+                    </a>
+                  </td>
+                  <td>
+                    <a (click)="showItem(data.equipset.equip_items, '両脚')">
+                      {{getEquip(data.equipset.equip_items, '両脚')}}
+                    </a>
+                  </td>
+                  <td>
+                    <a (click)="showItem(data.equipset.equip_items, '両足')">
+                      {{getEquip(data.equipset.equip_items, '両足')}}
+                    </a>
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div nz-col style="margin-top: -4px;">
+              <app-status-table [equipset]="data.equipset"></app-status-table>
+            </div>
+          </div>
         </td>
       </tr>
-      <tr *ngIf="data.expanded">
-        <td colspan="2" [nzIndentSize]="1" class="detail-header">
-          PC
-        </td>
-        <td colspan="6" class="detail-cell">
-          <span *ngFor="let st of data.full_pc_status | keyvalue">
-            {{st.key}}:{{st.value}}
-          </span>
-        </td>
-      </tr>
-      <tr *ngIf="data.expanded">
-        <td colspan="2" [nzIndentSize]="1" class="detail-header">
-          PET
-        </td>
-        <td colspan="6" class="detail-cell">
-          <span *ngFor="let st of data.full_pet_status | keyvalue">
-            {{st.key}}:{{st.value}}
-          </span>
-        </td>
-      </tr>
+
     </ng-container>
   </tbody>
 </nz-table>

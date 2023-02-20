@@ -122,7 +122,7 @@ nzType="editable-card"
           </td>
           <td>
             <textarea nz-input placeholder="オーグメント" [(ngModel)]="equipitem.custom_pc_aug" (ngModelChange)="changeAugText(equipitem)"
-            nzSize="small" style="min-height:24px !important;height:24px !important;"></textarea>
+            nzSize="small" style="min-height:24px !important;height:24px !important;" maxlength="1000"></textarea>
           </td>
           <td style="text-align: center;">
             <span *ngIf="equipitem.custom_pc_aug_error" nz-tooltip nz-tooltip [nzTooltipTitle]="'[無効] ' + equipitem.custom_pc_aug_error"
@@ -130,7 +130,7 @@ nzType="editable-card"
           </td>
           <td>
             <textarea nz-input placeholder="オーグメント" [(ngModel)]="equipitem.custom_pet_aug" (ngModelChange)="changeAugText(equipitem)"
-            nzSize="small" style="min-height:24px !important;height:24px !important;"></textarea>
+            nzSize="small" style="min-height:24px !important;height:24px !important;" maxlength="1000"></textarea>
           </td>
 
           <td style="text-align: center;">
@@ -138,7 +138,8 @@ nzType="editable-card"
               nzTooltipColor="orange" nz-icon [nzType]="'warning'" [nzTheme]="'twotone'" [nzTwotoneColor]="'orange'"></span>
           </td>
           <td>
-            <input nz-input placeholder="メモ" [(ngModel)]="equipitem.memo" nzAllowClear nzSize="small" />
+            <textarea nz-input placeholder="メモ" [(ngModel)]="equipitem.memo" nzAllowClear
+            nzSize="small" style="min-height:24px !important;height:24px !important;" maxlength="200"></textarea>
           </td>
         </tr>
       </tbody>

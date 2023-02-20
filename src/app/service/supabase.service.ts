@@ -561,7 +561,7 @@ export class SupabaseService {
           updated_ipaddress: d.updated_ipaddress,
           updated_at: d.updated_at,
           likes_count: d.likes_count,
-          expanded: true,
+          expanded: false,
           edit: false,
         });
       }

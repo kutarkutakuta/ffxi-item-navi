@@ -234,6 +234,24 @@ export class EquipsetComponent {
 
   /** 装備変更時 */
   changeEquipment(equipsetItem: EquipsetItem){
+
+    // other_textをmemoにセット
+    if(equipsetItem.equipment?.other_text != equipsetItem.memo){
+      if(!equipsetItem.memo){
+        equipsetItem.memo = equipsetItem.equipment?.other_text;
+      }
+      else{
+        this.confirmModal = this.modal.confirm({
+          nzTitle: '確認',
+          nzContent: 'Memo欄に装備品のテキストをセットしますか？※現在のMemoがクリアされます。',
+          nzOnOk: () => {
+            equipsetItem.memo = equipsetItem.equipment?.other_text;
+          }
+        });
+      }
+    }
+
+    //　オグメ名をリセット
     equipsetItem.equipment_aug = null;
     this.changeAugName(equipsetItem);
   }

@@ -73,8 +73,8 @@
           <td>
             <div *ngIf="data.pet_status_target">
               {{data.pet_status_target != 'ペット' ? '(' + data.pet_status_target + ') ' : ''}}
-              <div  [innerHTML]="replacer(data.pet_text,'PET')"></div>
             </div>
+            <div  [innerHTML]="replacer(data.pet_text,'PET')"></div>
           </td>
           <td>
             <div [innerHTML]="replacer(data.other_text,'OTHER')"></div>
@@ -92,10 +92,10 @@
             </ng-container>
             <td><div [innerHTML]="replacer(aug.aug_pc_text,'PC')"></div></td>
             <td>
-              <div *ngIf="aug.pet_status_target">
+              <div *ngIf="aug.aug_pet_status_target">
                 {{aug.aug_pet_status_target != 'ペット' ? '(' + aug.aug_pet_status_target + ') ' : ''}}
-                <div  [innerHTML]="replacer(aug.aug_pet_text,'PET')"></div>
               </div>
+              <div  [innerHTML]="replacer(aug.aug_pet_text,'PET')"></div>
             </td>
             <td>
               <div [innerHTML]="replacer(aug.aug_other_text,'OTHER')"></div>

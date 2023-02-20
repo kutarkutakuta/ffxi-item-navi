@@ -14,10 +14,6 @@
   font-size: 0.9em;
 }
 
-.detail-header{
-  background-color: #fafafa;
-}
-
 .detail-cell {
   padding: 5px;
   vertical-align: top;
@@ -32,6 +28,7 @@
 	border-collapse: separate;
   width: 485px;
 }
+
 .equip-table td.ant-table-cell {
   padding: 2px 5px;
 	border-right: 1px solid #CCCCCC;
@@ -39,5 +36,7 @@
 	border-left: 1px solid #FFFFFF;
 	border-top: 1px solid #FFFFFF;
   background-color: #f9f9ff;
-  width: 120px;;
+  width: 120px;
 }
+
+

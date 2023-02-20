@@ -22,14 +22,22 @@
   background: linear-gradient(transparent 70%, #FFCCFF 70%);
 }
 
-.base_table table {
-  border-collapse: collapse;
+table.base_table {
+  border-top: 1px solid #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+	border-collapse: separate;
+  border-spacing: 0;
+  table-layout: fixed;
+  width: initial;
 }
 
 .base_table th{
   width: 70px;
-  border: 1px solid #777;
-  background-color: #eee;
+	border-right: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px solid #FFFFFF;
+	border-top: 1px solid #FFFFFF;
+  background-color: #f9f9f9;
   font-weight: bolder;
   font-size: smaller;
   white-space: nowrap;
@@ -42,7 +50,10 @@
 }
 
 .base_table td{
-  border: 1px solid #777;
+	border-right: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px solid #FFFFFF;
+	border-top: 1px solid #FFFFFF;
   font-size: smaller;
   padding: 3px 5px 3px 5px ;
 }
@@ -53,15 +64,21 @@
 }
 
 table.status_table {
-  border-collapse: collapse;
+  border-top: 1px solid #CCCCCC;
+	border-left: 1px solid #CCCCCC;
+	border-collapse: separate;
+  border-spacing: 0;
   table-layout: fixed;
   width: initial;
 }
 
 .status_table th{
   width: 52px;
-  border: 1px solid #777;
-  background-color: #eee;;
+	border-right: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px solid #FFFFFF;
+	border-top: 1px solid #FFFFFF;
+  background-color: #f9f9f9;
   font-size: smaller;
   font-weight: normal;
   white-space: nowrap;
@@ -71,7 +88,10 @@ table.status_table {
 .status_table td{
   width: 52px;
   height: 25px;
-  border: 1px solid #777;
+	border-right: 1px solid #CCCCCC;
+	border-bottom: 1px solid #CCCCCC;
+	border-left: 1px solid #FFFFFF;
+	border-top: 1px solid #FFFFFF;
   text-align: center;
   font-size: smaller;
   font-weight: bolder;

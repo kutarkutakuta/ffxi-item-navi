@@ -122,17 +122,20 @@ export class PublishListComponent {
   }
 
   /** オグメ名取得 */
-  getAugName(equipAug: EquipmentAug): string {
+  getAugName(equipset_item: EquipsetItem): string {
     var ret = "";
-    if(equipAug){
-      if(!equipAug.aug_type && !equipAug.aug_rank){
+    if(equipset_item.equipment_aug){
+      if(!equipset_item.equipment_aug.aug_type && !equipset_item.equipment_aug.aug_rank){
         ret = "Aug."
       }else{
-        if(equipAug.aug_type) ret = equipAug.aug_type;
-        if(equipAug.aug_rank){
-          ret += '(R' + equipAug.aug_rank + ')';
+        if(equipset_item.equipment_aug.aug_type) ret = equipset_item.equipment_aug.aug_type;
+        if(equipset_item.equipment_aug.aug_rank){
+          ret += '(R' + equipset_item.equipment_aug.aug_rank + ')';
         }
       }
+    }
+    else if(equipset_item.custom_pc_aug! || equipset_item.custom_pet_aug!){
+      ret = "Aug."
     }
     return ret;
   }
@@ -140,14 +143,8 @@ export class PublishListComponent {
   /** 装備詳細表示 */
   showItemDetail(equipset_item: EquipsetItem){
 
-    if(equipset_item.equipment_aug){
+    if(equipset_item.custom_pc_aug! || equipset_item.custom_pet_aug!){
       // マスタではなく手入力したオグメを表示したい
-      const { decycle, encycle  } = require('json-cyclic');
-      const copied = <EquipmentAug>encycle(JSON.parse(JSON.stringify(decycle(equipset_item.equipment_aug))));
-      copied.aug_pc_text =equipset_item.custom_pc_aug!;
-      copied.aug_pet_text =equipset_item.custom_pet_aug!;
-
-      // ステータスも手入力のほうに
       var pc_status: any = {}
       for (var key in equipset_item.equipment?.pc_status) {
         pc_status[key] = equipset_item.equipment?.pc_status[key];
@@ -155,7 +152,6 @@ export class PublishListComponent {
       for (var key in equipset_item.custom_pc_aug_status) {
         pc_status[key] = (pc_status[key] || 0) + equipset_item.custom_pc_aug_status[key];
       }
-      copied.full_pc_status = pc_status;
       var pet_status: any = {}
       for (var key in equipset_item.equipment?.pet_status) {
         pet_status[key] = equipset_item.equipment?.pet_status[key];
@@ -163,13 +159,23 @@ export class PublishListComponent {
       for (var key in equipset_item.custom_pet_aug_status) {
         pet_status[key] = (pet_status[key] || 0) + equipset_item.custom_pet_aug_status[key];
       }
-      copied.full_pet_status = pet_status;
 
+      var copied: EquipmentAug = {
+        id: -1,
+        name: equipset_item.equipment?.name!,
+        aug_type: equipset_item.equipment_aug?.aug_type!,
+        aug_rank: equipset_item.equipment_aug?.aug_rank!,
+        aug_pc_text: equipset_item.custom_pc_aug!,
+        full_pc_status: pc_status,
+        aug_pet_status_target: equipset_item.equipment_aug?.aug_pet_status_target!,
+        aug_pet_text: equipset_item.custom_pet_aug!,
+        full_pet_status: pet_status,
+        aug_other_text: equipset_item.equipment_aug?.aug_other_text!,
+      }
       this.itemDetail.show(equipset_item.equipment!, copied);
     }
     else{
-
-    this.itemDetail.show(equipset_item.equipment!, null);
+      this.itemDetail.show(equipset_item.equipment!, null);
     }
 
   }
@@ -183,9 +189,8 @@ export class PublishListComponent {
     var equip_item = equip_items.find(n=>n.slot == slot)!;
 
     var ret = equip_item.equipment?.name!;
-    if(equip_item.equipment_aug){
-      ret += " " + this.getAugName(equip_item.equipment_aug!);
-    }
+    var augName = this.getAugName(equip_item!);
+    if(augName) ret += " " + augName;
     return ret;
   }
 }

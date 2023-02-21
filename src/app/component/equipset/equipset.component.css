@@ -12,3 +12,8 @@
 .equipset-table th.slot-cell {
   background-color: #fafafa;
 }
+
+.date-label {
+  font-size: smaller;
+  color: gray;
+}

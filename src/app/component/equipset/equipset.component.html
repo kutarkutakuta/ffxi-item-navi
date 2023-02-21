@@ -17,7 +17,7 @@
     </button>
   </div>
   <div nz-col>
-    <div [hidden]="!(equipsetgroup | async )?.updated" style="font-size: smaller;" >
+    <div [hidden]="!(equipsetgroup | async )?.updated" class="date-label">
       (Saved: {{ (equipsetgroup | async )?.updated | date: 'yy/MM/dd HH:mm:ss' }})
     </div>
   </div>
@@ -41,12 +41,12 @@ nzType="editable-card"
         </button>
       </div>
       <div nz-col>
-        <button nz-button nzType="primary" nzDanger (click)="visible_publish = true; publish_key = ''">
+        <button nz-button nzType="primary" nzDanger (click)="visible_publish = true;">
           <span nz-icon nzType="cloud-upload"></span>公開
         </button>
       </div>
       <div nz-col>
-        <div [hidden]="!equipset.publish_id" style="font-size: smaller;" >
+        <div [hidden]="!equipset.publish_id" class="date-label">
           (Published: {{ equipset.publish_date | date:'yy/MM/dd HH:mm:ss' }})
         </div>
       </div>
@@ -196,7 +196,7 @@ nzType="editable-card"
           <textarea nz-input placeholder="コメント" [(ngModel)]="equipset.publish_comment" style="width: 100%;" maxlength="100" rows="5">
           </textarea>
         </div>
-        <div nz-row >
+        <div nz-row class="date-label">
           {{equipset.publish_id ? 'Published ID [' + equipset.publish_id + ']: ' + (equipset.publish_date | date:'yy/MM/dd HH:mm:ss') : ''}}
         </div><br/>
         <div nz-row nzJustify="space-between">

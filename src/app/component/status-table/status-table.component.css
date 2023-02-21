@@ -97,6 +97,10 @@ table.status_table {
   font-weight: bolder;
 }
 
+::ng-deep .status-table .ant-tabs-tab-btn {
+  font-size: 0.9em;
+}
+
 ::ng-deep .highlight-plus {
   color: red;
   font-weight: bolder;

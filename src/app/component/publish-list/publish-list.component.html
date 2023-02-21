@@ -70,7 +70,7 @@
       </tr>
       <tr *ngIf="data.expanded">
         <td colspan="8">
-          <div nz-row>
+          <div nz-row nzGutter="5">
             <div nz-col>
               <table class="equip-table">
                 <tr>
@@ -163,7 +163,7 @@
                 </tr>
               </table>
             </div>
-            <div nz-col style="margin-top: -4px;">
+            <div nz-col style="margin-top: -5px;display: flex;overflow-x: auto;">
               <app-status-table [equipset]="data.equipset"></app-status-table>
             </div>
           </div>

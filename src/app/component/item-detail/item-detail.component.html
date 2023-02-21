@@ -14,7 +14,9 @@
       </span>
     </ng-template>
     <ng-container *nzDrawerContent>
-      <app-status-table [equip]="equip" [equipAug]="equipAug!"></app-status-table>
+      <div style="padding-left: 10px;padding-right: 10px;display: flex;overflow-x: auto;">
+        <app-status-table [equip]="equip" [equipAug]="equipAug!"></app-status-table>
+      </div>
     </ng-container>
   </nz-drawer>
 </div>

@@ -14,12 +14,24 @@ import { Equipset } from 'src/app/model/equipset';
 })
 export class StatusTableComponent {
 
+  private _job?: string;
+
   @Input() equip?: Equipment ;
   @Input() equipAug?: EquipmentAug;
   @Input() equipset?: Equipset;
   @Input() compareEquipset?: Equipset;
+  @Input() set job(value: string) {
+    this._job = value;
+    if(["風","黒","白","学"].includes(value)){
+      this.selectedIndex = 1;
+    }
+    else if(["か","召","獣"].includes(value)){
+      this.selectedIndex = 2;
+    }
+  }
 
   statuses : Status[] = [];
+  selectedIndex = 0;
 
   // #region implementsMethods
   constructor(private supabaseService: SupabaseService,

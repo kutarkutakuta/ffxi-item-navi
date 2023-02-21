@@ -147,7 +147,7 @@ nzType="editable-card"
 
     <!-- ステータス一覧 -->
     <div style="display: flex;overflow-x: auto;">
-      <app-status-table [equipset]="equipset"></app-status-table>
+      <app-status-table [equipset]="equipset" [job]="selectedJob"></app-status-table>
     </div>
 
     <!-- 比較 -->
@@ -162,7 +162,7 @@ nzType="editable-card"
         </ng-container>
       </nz-select>
       <div style="display: flex;overflow-x: auto;" *ngIf="equipset.compareEquipset">
-        <app-status-table [equipset]="equipset" [compareEquipset]="equipset.compareEquipset"></app-status-table>
+        <app-status-table [equipset]="equipset" [compareEquipset]="equipset.compareEquipset" [job]="selectedJob"></app-status-table>
       </div>
     </div>
 

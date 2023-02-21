@@ -40,35 +40,11 @@ export class PublishListComponent {
 
   listOfColumns: ColumnItem[] = [
     {
-      name: 'ID',
-      width: '80px',
+      name: 'Title',
+      width: 'Auto',
       showSort : true,
       sortOrder: null,
       sortFn: (a: PublishEquipset, b: PublishEquipset) => a.id - b.id,
-      sortDirections: ['ascend', 'descend', null],
-    },
-    {
-      name: '',
-      width: '30px',
-      showSort : true,
-      sortOrder: null,
-      sortFn: (a: PublishEquipset, b: PublishEquipset) => a.job.localeCompare(b.job),
-      sortDirections: ['ascend', 'descend', null],
-    },
-    {
-      name: 'Title',
-      width: 'auto',
-      showSort : false,
-      sortOrder: null,
-      sortFn: null,
-      sortDirections: ['ascend', 'descend', null],
-    },
-    {
-      name: 'User',
-      width: '100px',
-      showSort : true,
-      sortOrder: null,
-      sortFn: (a: PublishEquipset, b: PublishEquipset) => a.equipset?.publish_user!.localeCompare(b.equipset?.publish_user!),
       sortDirections: ['ascend', 'descend', null],
     },
     {
@@ -79,30 +55,6 @@ export class PublishListComponent {
       sortFn: (a: PublishEquipset, b: PublishEquipset) => a.equipset?.publish_date! > b.equipset?.publish_date! ? 1 : -1,
       sortDirections: ['ascend', 'descend', null],
     },
-    {
-      name: 'Comment',
-      width: 'auto',
-      showSort : false,
-      sortOrder: null,
-      sortFn: null,
-      sortDirections: ['ascend', 'descend', null],
-    },
-    {
-      name: '',
-      width: '50px',
-      showSort : true,
-      sortOrder: null,
-      sortFn: (a: PublishEquipset, b: PublishEquipset) => a.likes_count - b.likes_count,
-      sortDirections: ['ascend', 'descend', null],
-    },
-    {
-      name: '',
-      width: '60px',
-      showSort : false,
-      sortOrder: null,
-      sortFn: null,
-      sortDirections: [],
-    }
   ];
 
   constructor(private supabaseService: SupabaseService,
@@ -232,7 +184,7 @@ export class PublishListComponent {
 
     var ret = equip_item.equipment?.name!;
     if(equip_item.equipment_aug){
-      ret += "" + this.getAugName(equip_item.equipment_aug!);
+      ret += " " + this.getAugName(equip_item.equipment_aug!);
     }
     return ret;
   }

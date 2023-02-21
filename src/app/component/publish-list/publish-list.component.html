@@ -12,14 +12,14 @@
 
 <!-- 公開List一覧 -->
 <nz-table #equipsetTable nzBordered [nzData]="publish_equipsets"  [nzLoading]="loading"
-  class="publish-table" [nzPageSize]="20" [nzScroll]="{x: '800px'}">
+  class="publish-table" [nzPageSize]="20" [nzScroll]="{x: 'calc(100vw-20px)'}">
   <thead>
     <tr>
       <th *ngFor="let column of listOfColumns"
         [nzWidth]="column.width" [nzShowSort]="column.showSort"
         [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn"
         [nzSortDirections]="column.sortDirections">
-        <a *ngIf="column.name=='ID'" (click)="$event.stopPropagation();changeAllExpanded()">
+        <a *ngIf="column.name=='Title'" (click)="$event.stopPropagation();changeAllExpanded()">
           <span *ngIf="!all_expanded" nz-icon nzType="plus-square" nzTheme="outline"></span>
           <span *ngIf="all_expanded" nz-icon nzType="minus-square" nzTheme="outline"></span>
         </a>
@@ -31,46 +31,21 @@
     <ng-container *ngFor="let data of equipsetTable.data">
       <tr>
         <td [nzShowExpand]="true" (nzExpandChange)="data.expanded = !data.expanded" [nzExpand]="data.expanded" >
-          <div>{{ data.id }}</div>
-        </td>
-        <td class="center-cell">
-          <div>{{ data.job }}</div>
-        </td>
-        <td>
-          <div>{{ data.equipset.name }}</div>
+          <div nz-row nzJustify="space-between">
+            <div nz-col class="title">
+              {{ data.id }}. [{{ data.job }}] {{ data.equipset.name }}
+              <span *ngIf="data.equipset.publish_comment" class="comment" nz-icon nzType="comment" nzTheme="outline"
+                nz-tooltip [nzTooltipTitle]="data.equipset.publish_comment"></span>
+            </div>
+            <div nz-col class="user">({{ data.equipset.publish_user }})</div>
+          </div>
           <div class="memo">{{ data.equipset.memo }}</div>
         </td>
-        <td class="detail-cell center-cell">{{ data.equipset.publish_user }}</td>
         <td class="detail-cell center-cell">{{ data.updated_at | date:'yy/MM/dd HH:mm:ss'}}</td>
-        <td class="detail-cell">
-          {{ data.equipset.publish_comment }}
-        </td>
-        <td class="detail-cell">
-          <a (click)="like(data)" nz-tooltip nzTooltipTitle="いいね">
-            <span nz-icon nzType="like" ></span>
-          </a>
-          {{ data.likes_count }}
-        </td>
-        <td class="detail-cell">
-          <a (click)="copy(data, false, tplContent)" nz-tooltip nzTooltipTitle="My Set にコピー">
-            <span nz-tooltip nzTitle="Like" nz-icon nzType="import"></span>Copy
-          </a><br/>
-          <a (click)="copy(data, true, tplContent)" nz-tooltip nzTooltipTitle="編集用にMy Set にコピー">
-            <span nz-tooltip nzTitle="Like" nz-icon nzType="form"></span>Edit
-          </a>
-          <ng-template #tplContent>
-            <div nz-row>
-              <div nz-col style="width: 100px;">編集キー</div>
-              <div nz-col>
-                <input nz-input placeholder="編集キー" [(ngModel)]="publish_key" maxlength="20" />
-              </div>
-            </div>
-          </ng-template>
-        </td>
       </tr>
       <tr *ngIf="data.expanded">
-        <td colspan="8">
-          <div nz-row nzGutter="5">
+        <td colspan="2">
+          <div nz-row nzGutter="5" nzAlign="middle">
             <div nz-col>
               <table class="equip-table">
                 <tr>
@@ -167,12 +142,35 @@
               <app-status-table [equipset]="data.equipset"></app-status-table>
             </div>
           </div>
+          <div nz-row class="action">
+            <a (click)="copy(data, false, tplContent)">
+              <span nz-icon nzType="import" style="padding-right: 2px;"></span>My Set にコピー
+            </a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a (click)="copy(data, true, tplContent)">
+              <span nz-icon nzType="form" style="padding-right: 2px;"></span>編集用にMy Set にコピー
+            </a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a (click)="like(data)">
+              <span nz-icon nzType="like" style="padding-right: 5px;"></span>
+            </a>
+            {{ data.likes_count }}
+          </div>
         </td>
       </tr>
 
     </ng-container>
   </tbody>
 </nz-table>
+
+<ng-template #tplContent>
+  <div nz-row>
+    <div nz-col style="width: 100px;">編集キー</div>
+    <div nz-col>
+      <input nz-input placeholder="編集キー" [(ngModel)]="publish_key" maxlength="20" />
+    </div>
+  </div>
+</ng-template>
 
 <app-item-detail #ItemDetail></app-item-detail>
 

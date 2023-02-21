@@ -1,7 +1,7 @@
-a {
+th a {
   color: black;
 }
-a :hover {
+th a :hover {
   color: #1890ff;
 }
 
@@ -14,11 +14,41 @@ a :hover {
   padding-bottom: 3px;
   padding-left: 4px;
   padding-right: 4px;
+  vertical-align: top;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.user {
+  font-size: 0.9em;
+  color: gray;
 }
 
 .memo {
   padding-left:12px;
   font-size: 0.9em;
+  color: gray;
+  font-weight: lighter;
+}
+
+.comment {
+  color: gray;
+  font-weight: lighter;
+}
+
+.action{
+  color: gray;
+  padding: 5px;
+  font-size: 0.9em;
+}
+.action a{
+  color: gray;
+}
+.action a:hover{
+  color: #1890ff;;
 }
 
 .detail-cell {
@@ -33,23 +63,17 @@ a :hover {
   border-top: 1px solid #CCCCCC;
 	border-left: 1px solid #CCCCCC;
 	border-collapse: separate;
-  width: 380px;
-  font-size: 0.8em;
-  margin-top: -4px;
-  margin-left: -4px;
+  width: auto;
+  font-size: smaller;
 }
 
 .equip-table td.ant-table-cell {
-  padding: 2px 5px;
 	border-right: 1px solid #CCCCCC;
 	border-bottom: 1px solid #CCCCCC;
 	border-left: 1px solid #FFFFFF;
 	border-top: 1px solid #FFFFFF;
-  background-color: #f9f9ff;
-  width: 100px;
-  height: 46px;
+  background-color: #fffffc;
+  min-width: 80px;
 }
-.equip-table a{
-  color: #1890ff;
-}
+
 

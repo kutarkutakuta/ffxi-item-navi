@@ -92,13 +92,14 @@ table.status_table {
 	border-bottom: 1px solid #CCCCCC;
 	border-left: 1px solid #FFFFFF;
 	border-top: 1px solid #FFFFFF;
+  background-color: #ffffff;
   text-align: center;
   font-size: smaller;
   font-weight: bolder;
 }
 
 ::ng-deep .status-table .ant-tabs-tab-btn {
-  font-size: 0.9em;
+  font-size: smaller;
 }
 
 ::ng-deep .highlight-plus {

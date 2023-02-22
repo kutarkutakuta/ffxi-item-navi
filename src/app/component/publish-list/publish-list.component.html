@@ -41,7 +41,7 @@
           </div>
           <div class="memo">{{ data.equipset.memo }}</div>
         </td>
-        <td class="detail-cell center-cell">{{ data.updated_at | date:'yy/MM/dd HH:mm:ss'}}</td>
+        <td class="date-cell">{{ data.updated_at | date:'yy/MM/dd HH:mm:ss'}}</td>
       </tr>
       <tr *ngIf="data.expanded">
         <td colspan="2">
@@ -138,7 +138,7 @@
                 </tr>
               </table>
             </div>
-            <div nz-col style="margin-top: -5px;display: flex;overflow-x: auto;">
+            <div nz-col style="margin-top: -6px;display: flex;overflow-x: auto;">
               <app-status-table [equipset]="data.equipset" [job]="data.job"></app-status-table>
             </div>
           </div>

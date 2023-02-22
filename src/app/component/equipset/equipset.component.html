@@ -152,7 +152,8 @@ nzType="editable-card"
 
     <!-- 比較 -->
     <div style="padding-top: 10px;padding-bottom: 10px;">
-      <span style="font-weight: bolder;padding-right: 5px; ">比較</span>
+      <span nz-icon nzType="diff" nzTheme="outline"></span>
+      <span style="font-weight: bolder;padding-left: 2px;padding-right: 10px; ">比較</span>
       <nz-select nzShowSearch nzServerSearch nzPlaceHolder="比較対象"
         [nzFilterOption]="nzFilterOption" style="width: 250px;" nzAllowClear
         [(ngModel)]="equipset.compareEquipset">

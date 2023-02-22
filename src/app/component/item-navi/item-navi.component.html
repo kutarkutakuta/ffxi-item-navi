@@ -83,7 +83,7 @@
         <ng-container  *ngFor="let aug of data.equipment_augs">
           <tr *ngIf="data.expanded">
             <td [nzIndentSize]="5">
-              <a (click)="showItemDetail(data, aug)" style="color: black; text-decoration: underline;">
+              <a (click)="showItemDetail(data, aug)" style="color: rgba(0, 0, 0, 0.85); text-decoration: underline;">
                 {{getAugName(aug)}}
               </a>
             </td>

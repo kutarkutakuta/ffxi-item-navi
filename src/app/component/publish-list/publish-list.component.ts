@@ -49,7 +49,7 @@ export class PublishListComponent {
     },
     {
       name: 'Date',
-      width: '85px',
+      width: '80px',
       showSort : true,
       sortOrder: null,
       sortFn: (a: PublishEquipset, b: PublishEquipset) => a.equipset?.publish_date! > b.equipset?.publish_date! ? 1 : -1,

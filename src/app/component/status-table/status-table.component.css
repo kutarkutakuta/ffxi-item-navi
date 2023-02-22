@@ -96,6 +96,7 @@ table.status_table {
   text-align: center;
   font-size: smaller;
   font-weight: bolder;
+  color: rgba(0, 0, 0, 0.85);
 }
 
 ::ng-deep .status-table .ant-tabs-tab-btn {

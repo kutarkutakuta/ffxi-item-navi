@@ -45,7 +45,7 @@
       </tr>
       <tr *ngIf="data.expanded">
         <td colspan="2">
-          <div nz-row nzGutter="5" nzAlign="middle">
+          <div nz-row nzGutter="5" nzAlign="bottom">
             <div nz-col>
               <table class="equip-table">
                 <tr>
@@ -138,7 +138,7 @@
                 </tr>
               </table>
             </div>
-            <div nz-col style="margin-top: -6px;display: flex;overflow-x: auto;">
+            <div nz-col style="display: flex;overflow-x: auto;">
               <app-status-table [equipset]="data.equipset" [job]="data.job"></app-status-table>
             </div>
           </div>

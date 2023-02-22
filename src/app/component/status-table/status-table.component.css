@@ -60,7 +60,7 @@ table.base_table {
 
 .status_tab {
   margin-top: -10px;
-  min-width: 850px;
+  min-width: 720px;
 }
 
 table.status_table {
@@ -73,7 +73,7 @@ table.status_table {
 }
 
 .status_table th{
-  width: 52px;
+  width: 44px;
 	border-right: 1px solid #CCCCCC;
 	border-bottom: 1px solid #CCCCCC;
 	border-left: 1px solid #FFFFFF;
@@ -86,8 +86,8 @@ table.status_table {
 }
 
 .status_table td{
-  width: 52px;
-  height: 25px;
+  width: 44px;
+  height: 24px;
 	border-right: 1px solid #CCCCCC;
 	border-bottom: 1px solid #CCCCCC;
 	border-left: 1px solid #FFFFFF;

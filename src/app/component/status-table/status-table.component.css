@@ -60,7 +60,7 @@ table.base_table {
 
 .status_tab {
   margin-top: -10px;
-  min-width: 720px;
+  min-width: 700px;
 }
 
 table.status_table {
@@ -73,7 +73,10 @@ table.status_table {
 }
 
 .status_table th{
-  width: 44px;
+  width: 41px;
+  min-width: 41px;
+  max-width: 41px;
+  height: 18px;
 	border-right: 1px solid #CCCCCC;
 	border-bottom: 1px solid #CCCCCC;
 	border-left: 1px solid #FFFFFF;
@@ -86,8 +89,8 @@ table.status_table {
 }
 
 .status_table td{
-  width: 44px;
-  height: 24px;
+  width: 41px;
+  height: 18px;
 	border-right: 1px solid #CCCCCC;
 	border-bottom: 1px solid #CCCCCC;
 	border-left: 1px solid #FFFFFF;
@@ -97,6 +100,13 @@ table.status_table {
   font-size: smaller;
   font-weight: bolder;
   color: rgba(0, 0, 0, 0.85);
+}
+
+.long-text {
+  display: inline-block;
+  transform: scale(0.7, 1);
+  display: flex;
+  justify-content: center;
 }
 
 ::ng-deep .status-table .ant-tabs-tab-btn {

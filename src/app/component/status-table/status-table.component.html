@@ -57,127 +57,35 @@
       </table>
     </ng-template>
   </nz-tab>
-  <nz-tab n nzTitle="物理ステ">
-    <ng-template nz-tab>
+  <ng-container  *ngFor="let st of status_datas">
+    <nz-tab [nzTitle]="st.name">
       <div class="status_tab">
-        <table class="status_table">
-          <tr>
-            <td rowspan="2">
-              <a nz-button nzType="text" (click)="getClipboard('物理')" nz-tooltip nzTooltipTitle="クリップボードにコピー">
-                <span nz-icon nzType="copy" nzTheme="outline"></span>
-              </a>
-            </td>
-            <th *ngFor="let data of getStauses('BASE')">{{data.short_name}}</th>
-          </tr>
-          <tr>
-            <td *ngFor="let data of getStauses('BASE')">
-              <div [innerHTML]='getStausValue(data.name)'></div>
-            </td>
-          </tr>
-        </table>
-        <table class="status_table">
-          <tr>
-            <th *ngFor="let data of getStauses('ATACK')">{{data.short_name}}</th>
-          </tr>
-          <tr>
-            <td *ngFor="let data of getStauses('ATACK')">
-              <div [innerHTML]='getStausValue(data.name)'></div>
-            </td>
-          </tr>
-        </table>
-        <table class="status_table">
-          <tr>
-            <th *ngFor="let data of getStauses('DEFENSE')">{{data.short_name}}</th>
-          </tr>
-          <tr>
-            <td *ngFor="let data of getStauses('DEFENSE')">
-              <div [innerHTML]='getStausValue(data.name)'></div>
-            </td>
-          </tr>
-        </table>
+        <ng-container  *ngFor="let keys of st.status_keys; index as i">
+          <table class="status_table">
+              <tr>
+                <td *ngIf="i==0" rowspan="2">
+                  <a nz-button nzType="text" (click)="getClipboard(st.name)" nz-tooltip nzTooltipTitle="クリップボードにコピー">
+                    <span nz-icon nzType="copy" nzTheme="outline"></span>
+                  </a>
+                </td>
+                <th *ngFor="let value of keys">
+                  <div  [ngClass]="isLongText(value) ? 'long-text' : ''" >{{value}}</div>
+                </th>
+                <th *ngFor="let value of get_option_keys(st.name, i)">
+                  <div  [ngClass]="isLongText(value) ? 'long-text' : ''" >{{value}}</div>
+                </th>
+              </tr>
+              <tr>
+                <td *ngFor="let value of keys">
+                  <div [innerHTML]='getStausValue(value, st.name == "ペット")'></div>
+                </td>
+                <td *ngFor="let value of get_option_keys(st.name, i)">
+                  <div [innerHTML]='getStausValue(value, st.name == "ペット")'></div>
+                </td>
+              </tr>
+          </table>
+        </ng-container>
       </div>
-    </ng-template>
-  </nz-tab>
-  <nz-tab n nzTitle="魔法ステ">
-    <ng-template nz-tab>
-      <div class="status_tab">
-        <table class="status_table">
-          <tr>
-            <td rowspan="2">
-              <a nz-button nzType="text" (click)="getClipboard('魔法')" nz-tooltip nzTooltipTitle="クリップボードにコピー">
-                <span nz-icon nzType="copy" nzTheme="outline"></span>
-              </a>
-            </td>
-            <th *ngFor="let data of getStauses('BASE')">{{data.short_name}}</th>
-          </tr>
-          <tr>
-            <td *ngFor="let data of getStauses('BASE')">
-              <div [innerHTML]='getStausValue(data.name)'></div>
-            </td>
-          </tr>
-        </table>
-        <table class="status_table">
-          <tr>
-            <th *ngFor="let data of getStauses('MAGIC')">{{data.short_name}}</th>
-          </tr>
-          <tr>
-            <td *ngFor="let data of getStauses('MAGIC')">
-              <div [innerHTML]='getStausValue(data.name)'></div>
-            </td>
-          </tr>
-        </table>
-        <table class="status_table">
-          <tr>
-            <th *ngFor="let data of getStauses('MAGIC-SKILL')">{{data.short_name}}</th>
-          </tr>
-          <tr>
-            <td *ngFor="let data of getStauses('MAGIC-SKILL')">
-              <div [innerHTML]='getStausValue(data.name)'></div>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </ng-template>
-  </nz-tab>
-  <nz-tab n nzTitle="ペットステ">
-    <ng-template nz-tab>
-      <div class="status_tab">
-        <table class="status_table">
-          <tr>
-            <td rowspan="2">
-              <a nz-button nzType="text" (click)="getClipboard('ペット')" nz-tooltip nzTooltipTitle="クリップボードにコピー">
-                <span nz-icon nzType="copy" nzTheme="outline"></span>
-              </a>
-            </td>
-            <th *ngFor="let data of getStauses('PET-BASE')">{{data.short_name}}</th>
-          </tr>
-          <tr>
-            <td *ngFor="let data of getStauses('PET-BASE')">
-              <div [innerHTML]='getStausValue(data.name, true)'></div>
-            </td>
-          </tr>
-        </table>
-        <table class="status_table">
-          <tr>
-            <th *ngFor="let data of getStauses('PET-ATACK')">{{data.short_name}}</th>
-          </tr>
-          <tr>
-            <td *ngFor="let data of getStauses('PET-ATACK')">
-              <div [innerHTML]='getStausValue(data.name, true)'></div>
-            </td>
-          </tr>
-        </table>
-        <table class="status_table">
-          <tr>
-            <th *ngFor="let data of getStauses('PET-DEFENSE')">{{data.short_name}}</th>
-          </tr>
-          <tr>
-            <td *ngFor="let data of getStauses('PET-DEFENSE')">
-              <div [innerHTML]='getStausValue(data.name, true)'></div>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </ng-template>
-  </nz-tab>
+    </nz-tab>
+  </ng-container>
 </nz-tabset>

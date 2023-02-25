@@ -16,10 +16,16 @@
   display: inline-block;
 }
 
-.aug_name{
+.aug_name {
   font-size: 0.9em;
   padding-left: 5px;
   background: linear-gradient(transparent 70%, #FFCCFF 70%);
+}
+
+.version-date {
+  font-size: 0.9em;
+  font-weight: normal;
+  font-style: italic;
 }
 
 table.base_table {

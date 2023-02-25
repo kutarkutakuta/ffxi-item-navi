@@ -26,8 +26,8 @@
           <div nz-col>
             {{ equip.item_lv ? "＜IL:" + equip.item_lv + "＞" : "" }}
           </div>
-          <div nz-col style="padding-left: 10px;font-weight: normal;font-style: italic;">
-            <span *ngIf="equip.install_date" >
+          <div nz-col style="padding-left: 10px;vertical-align: bottom;">
+            <span *ngIf="equip.install_date" class="version-date">
               Ver. {{ equip.install_date }}
             </span>
           </div>

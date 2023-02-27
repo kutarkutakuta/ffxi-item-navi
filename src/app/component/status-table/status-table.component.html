@@ -77,10 +77,10 @@
               </tr>
               <tr>
                 <td *ngFor="let value of keys">
-                  <div [innerHTML]='getStausValue(value, st.name == "ペット")'></div>
+                  <div [innerHTML]='getStausValue(value, st.name)'></div>
                 </td>
                 <td *ngFor="let value of get_option_keys(st.name, i)">
-                  <div [innerHTML]='getStausValue(value, st.name == "ペット")'></div>
+                  <div [innerHTML]='getStausValue(value, st.name)'></div>
                 </td>
               </tr>
           </table>

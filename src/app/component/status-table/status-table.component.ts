@@ -119,19 +119,19 @@ export class StatusTableComponent {
 
   status_datas?: StatusData[];
 
-  get_option_keys(name: string, index: number ): string[] {
-    if(name == "近接" && index == 0){
+  get_option_keys(category: string, index: number ): string[] {
+    if(category == "近接" && index == 0){
       var main = this.equipset?.equip_items.find(n=>n.slot == "メイン");
       var atack_skills = this.statuses.filter(data=>data.type == 'ATACK-SKILL' &&
         (main?.equipment?.pc_status[data.name] || (main?.custom_pc_aug_status && main?.custom_pc_aug_status[data.name])))
         .sort((a,b)=>a.id-b.id).map(n=>n.short_name);
       return atack_skills;
     }
-    else if(name == "遠隔" && index == 0){
+    else if(category == "遠隔" && index == 0){
       var range = this.equipset?.equip_items.find(n=>n.slot == "レンジ");
       return range?.type == "射撃" || range?.type == "弓術" ? [range?.type] : [];
     }
-    else if(name == "回復支援" && index == 0){
+    else if(category == "回復支援" && index == 0){
       if(this.job == "吟"){
         return ["歌唱","管楽","弦楽"];
       }
@@ -185,21 +185,21 @@ export class StatusTableComponent {
       });
   }
 
-  getStausValue(key: string, pet: boolean = false) : string{
+  getStausValue(key: string, category: string) : string{
     var ret = "";
 
     var st = this.statuses.find(n=>n.short_name == key);
     if(st) key = st.name;
 
     if(this.compareEquipset && this.equipset){
-      ret = this.getStausSummary2(this.equipset, this.compareEquipset, key, pet)
+      ret = this.getStausSummary2(this.equipset, this.compareEquipset, key, category)
     }
     else if(this.equipset){
-      ret = this.getStausSummary(this.equipset, key, pet);
+      ret = this.getStausSummary(this.equipset, key, category);
     }else if(this.equip){
       // 1つの装備から取得
       var ret_number = 0;
-      if(pet){
+      if(category == "ペット"){
         ret_number = this.equip.pet_status[key];
         if(this.equipAug) ret_number = this.equipAug.full_pet_status[key];
       }
@@ -217,17 +217,56 @@ export class StatusTableComponent {
   }
 
   /** ステータス値取得 */
-  getStausSummary(equipset:Equipset, key: string, pet: boolean) : string{
+  getStausSummary(equipset:Equipset, key: string, category: string) : string{
     var ret = "";
-    if(["Ｄ","隔","Ｄ隔"].includes(key)){
-      var d = 0;
-      var kaku = 0;
-      var equip_item = equipset.equip_items.find(n=>n.slot == "メイン")!;
-      if(equip_item){
-        d += <number>equip_item.equipment?.pc_status["Ｄ"] || 0;
-        kaku += <number>equip_item.equipment?.pc_status["隔"] || 0;
-        if(equip_item.custom_pc_aug_status){
-          d += <number>equip_item.custom_pc_aug_status["Ｄ"] || 0;
+
+    if(category == "ペット"){
+      ret = equipset.equip_items.map(n=>{
+        var ret_number = 0;
+        if(n.equipment && n.equipment.pet_status[key]){
+          ret_number = <number>n.equipment?.pet_status[key]
+        }
+        // オグメテキストからも取得
+        if(n.custom_pet_aug_status && n.custom_pet_aug_status[key]){
+          ret_number += n.custom_pet_aug_status[key];
+        }
+        return ret_number;
+      }).reduce((p,c)=>p+c).toString();
+    }
+    else{
+      if(["Ｄ","隔","Ｄ隔"].includes(key)){
+        var d = 0;
+        var kaku = 0;
+        if(category == "物理" || category == "近接"){
+          var equip_item = equipset.equip_items.find(n=>n.slot == "メイン")!;
+          if(equip_item){
+            d += <number>equip_item.equipment?.pc_status["Ｄ"] || 0;
+            kaku += <number>equip_item.equipment?.pc_status["隔"] || 0;
+            if(equip_item.custom_pc_aug_status){
+              d += <number>equip_item.custom_pc_aug_status["Ｄ"] || 0;
+              kaku += <number>equip_item.custom_pc_aug_status["隔"] || 0;
+            }
+          }
+        }
+        else if(category == "遠隔"){
+          var equip_item = equipset.equip_items.find(n=>n.slot == "レンジ")!;
+          if(equip_item){
+            d += <number>equip_item.equipment?.pc_status["Ｄ"] || 0;
+            kaku += <number>equip_item.equipment?.pc_status["隔"] || 0;
+            if(equip_item.custom_pc_aug_status){
+              d += <number>equip_item.custom_pc_aug_status["Ｄ"] || 0;
+              kaku += <number>equip_item.custom_pc_aug_status["隔"] || 0;
+            }
+          }
+          var equip_item2 = equipset.equip_items.find(n=>n.slot == "矢弾")!;
+          if(equip_item2){
+            d += <number>equip_item2.equipment?.pc_status["Ｄ"] || 0;
+            kaku += <number>equip_item2.equipment?.pc_status["隔"] || 0;
+            if(equip_item2.custom_pc_aug_status){
+              d += <number>equip_item2.custom_pc_aug_status["Ｄ"] || 0;
+              kaku += <number>equip_item2.custom_pc_aug_status["隔"] || 0;
+            }
+          }
         }
         if(key == "Ｄ") {
           ret = d.toString();
@@ -239,87 +278,64 @@ export class StatusTableComponent {
           ret = (d / kaku).toFixed(3).toString();
         }
       }
-    }
-    else if(["Ｄﾚ","隔ﾚ","Ｄ隔ﾚ"].includes(key)){
-      var d = 0;
-      var equip_item = equipset.equip_items.find(n=>n.slot == "レンジ")!;
-      if(equip_item.equipment?.pc_status["Ｄ"]){
-        d += <number>equip_item.equipment?.pc_status["Ｄ"];
-      }
-      if(equip_item.custom_pc_aug_status && equip_item.custom_pc_aug_status["Ｄ"]){
-        d += <number>equip_item.custom_pc_aug_status["Ｄ"];
-      }
-      var equip_item2 = equipset.equip_items.find(n=>n.slot == "矢弾")!;
-      if(equip_item2.equipment?.pc_status["Ｄ"]){
-        d += <number>equip_item2.equipment?.pc_status["Ｄ"];
-      }
-      if(equip_item2.custom_pc_aug_status && equip_item2.custom_pc_aug_status["Ｄ"]){
-        d += <number>equip_item2.custom_pc_aug_status["Ｄ"];
-      }
-
-      var kaku = 0;
-      if(equip_item.equipment?.pc_status["隔"]){
-        kaku += <number>equip_item.equipment?.pc_status["隔"];
-      }
-      if(equip_item2.equipment?.pc_status["隔"]){
-        kaku += <number>equip_item2.equipment?.pc_status["隔"];
-      }
-
-      if(key == "Ｄﾚ") {
-        ret = d.toString();
-      }
-      else if(key == "隔ﾚ") {
-        ret = kaku.toString();
-      }
       else{
-        ret = (d / kaku).toFixed(3).toString();
-      }
-    }
-    else if(!pet){
-      ret = equipset.equip_items.map(n=>{
-        var ret_number = 0;
-        if(n.equipment && n.equipment.pc_status[key]){
-          ret_number = <number>n.equipment?.pc_status[key]
-        }
+        ret = equipset.equip_items.map(n=>{
+          var ret_number = 0;
 
-        // オグメテキストからも取得
-        if(n.custom_pc_aug_status && n.custom_pc_aug_status[key]){
-          ret_number += n.custom_pc_aug_status[key];
-        }
-
-        // 二刀流のサブ武器はスキルは無効とする
-        // TODO:RMEAはほとんど無効みたいだがとりあえず・・・
-        if(n.slot == "サブ"){
-          if(key.endsWith("スキル")){
-            ret_number = 0;
+          if(key == "TPボーナス" && (
+            (category == "近接" && n.slot != "メイン") || (category == "遠隔" && n.slot != "レンジ"))){
+            // TPボーナスはメイン武器とオグメテキストのみ有効→メイジャンのみ有効
+            if(n.custom_pc_aug_status && n.custom_pc_aug_status[key]){
+              ret_number = n.custom_pc_aug_status[key];
+            }
           }
-        }
-        return ret_number;
-      }).reduce((p,c)=>p+c).toString();
-    }
-    else
-    {
-      ret = equipset.equip_items.map(n=>{
-        var ret_number = 0;
-        if(n.equipment && n.equipment.pet_status[key]){
-          ret_number = <number>n.equipment?.pet_status[key]
-        }
-
-        // オグメテキストからも取得
-        if(n.custom_pet_aug_status && n.custom_pet_aug_status[key]){
-          ret_number += n.custom_pet_aug_status[key];
-        }
-
-        return ret_number;
-      }).reduce((p,c)=>p+c).toString();
+          else if(n.slot == "サブ"){
+            // 二刀流のサブ武器スキル・命中・攻は無効
+            if(key.endsWith("スキル") || ["命中","攻"].includes(key)){
+              ret_number = 0;
+            }
+            else{
+              // RMEAは「魔法ダメージ」「基本ステータス」「ストアTP」のみ有効
+              if(["マンダウ","エクスカリバー","ガトラー","鬼哭","ミョルニル","与一の弓","アナイアレイター",
+                "ヴァジュラ","カルンウェナン","テルプシコラー","ミュルグレス","ブルトガング","ティソーナ","アイムール","凪","ヤグルシュ", "イドリス",
+                "トゥワシュトラ","アルマス","ファルシャ","神無","ガンバンテイン"].includes(n.equipment?.name!)){
+                if(["魔法ダメージ","STR","DEX","AGI","VIT","INT","MND","CHR","HP","MP","ストアTP"].includes(key)){
+                  if(n.equipment && n.equipment.pc_status[key]){
+                    ret_number = <number>n.equipment?.pc_status[key]
+                  }
+                }
+              }
+              else{
+                if(n.equipment && n.equipment.pc_status[key]){
+                  ret_number = <number>n.equipment?.pc_status[key]
+                }
+                // オグメテキストからも取得
+                if(n.custom_pc_aug_status && n.custom_pc_aug_status[key]){
+                  ret_number += n.custom_pc_aug_status[key];
+                }
+              }
+            }
+          }
+          else{
+            if(n.equipment && n.equipment.pc_status[key]){
+              ret_number = <number>n.equipment?.pc_status[key]
+            }
+            // オグメテキストからも取得
+            if(n.custom_pc_aug_status && n.custom_pc_aug_status[key]){
+              ret_number += n.custom_pc_aug_status[key];
+            }
+          }
+          return ret_number;
+        }).reduce((p,c)=>p+c).toString();
+      }
     }
     return ret == "0" ? "" : ret;
   }
 
-  getStausSummary2(equipset:Equipset, compareEquipset:Equipset, key: string, pet: boolean) : string{
+  getStausSummary2(equipset:Equipset, compareEquipset:Equipset, key: string, category: string) : string{
 
-    var a = Number(this.getStausSummary(equipset, key, pet));
-    var b = Number(this.getStausSummary(compareEquipset, key, pet));
+    var a = Number(this.getStausSummary(equipset, key, category));
+    var b = Number(this.getStausSummary(compareEquipset, key, category));
 
     if(isNaN(a) && isNaN(b)){
       return "";
@@ -343,22 +359,22 @@ export class StatusTableComponent {
     }
   }
 
-  getClipboard(name: string) {
+  getClipboard(category: string) {
 
     var clipData = "";
     if(this.equip?.name){
       clipData = "NAME\tｵｸﾞﾒ\t部位\t";
     }
 
-    var status_keys = this.status_datas?.find(n=>n.name == name)?.status_keys.map((n,i)=>{
-      return n.concat(this.get_option_keys(name,i));
+    var status_keys = this.status_datas?.find(n=>n.name == category)?.status_keys.map((n,i)=>{
+      return n.concat(this.get_option_keys(category,i));
     }).join().replaceAll(",","\t")
     clipData += status_keys + "\n";
     if(this.equip?.name){
       clipData += this.equip?.name + "\t" + this.getAugName() + "\t" + this.equip?.slot + "\t"
     }
     clipData += status_keys?.split("\t").map(s=>{
-      var ret = this.getStausValue(s, name == "ペット")
+      var ret = this.getStausValue(s, category)
       if(ret) ret = ret.replace(/(<([^>]+)>)/gi, '');
       return ret;
     }).join("\t");

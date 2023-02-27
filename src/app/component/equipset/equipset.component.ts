@@ -265,26 +265,34 @@ export class EquipsetComponent {
 
   /** オグメテキスト変更時 */
   changeAugText(equipsetItem: EquipsetItem){
-    var pc_status = this.getAugStatus(equipsetItem.custom_pc_aug!);
+    var pc_status = this.getAugStatus(equipsetItem, false);
     equipsetItem.custom_pc_aug_status = pc_status[0];
     equipsetItem.custom_pc_aug_error = pc_status[1];
 
-    var pet_status = this.getAugStatus(equipsetItem.custom_pet_aug!);
+    var pet_status = this.getAugStatus(equipsetItem, true);
     equipsetItem.custom_pet_aug_status = pet_status[0];
     equipsetItem.custom_pet_aug_error = pet_status[1];
   }
 
-  private getAugStatus(augText: string): [any, string] {
+  private getAugStatus(equipsetItem: EquipsetItem, isPet:boolean): [any, string] {
+
+    var augText = isPet ? equipsetItem.custom_pet_aug! : equipsetItem.custom_pc_aug!;
     var result: any = {}
     var err = "";
     if(augText){
+
+      // サブRMEAはすべてのオグメを無効
+      var isRmeaSub = equipsetItem.slot == "サブ" && ["マンダウ","エクスカリバー","ガトラー","鬼哭","ミョルニル","与一の弓","アナイアレイター",
+        "ヴァジュラ","カルンウェナン","テルプシコラー","ミュルグレス","ブルトガング","ティソーナ","アイムール","凪","ヤグルシュ", "イドリス",
+        "トゥワシュトラ","アルマス","ファルシャ","神無","ガンバンテイン"].includes(equipsetItem.equipment?.name!);
+
       augText.split(/[,\s]+/).forEach(itemText => {
 
         var idx = itemText.lastIndexOf(":");
         if(idx > 0){
           var key = itemText.substring(0, idx);
           var value = Number(itemText.substring(idx + 1, itemText.length));
-          if(!isNaN(value) && key != "Ｄ隔"){
+          if(!isNaN(value) && key != "Ｄ隔" && !isRmeaSub){
             if(!result[key]) result[key] = 0;
             result[key] += value;
           }else{

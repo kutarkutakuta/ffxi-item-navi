@@ -283,7 +283,7 @@ export class StatusTableComponent {
           var ret_number = 0;
 
           if(key == "TPボーナス" && (
-            (category == "近接" && n.slot != "メイン") || (category == "遠隔" && n.slot != "レンジ"))){
+            (n.slot == "サブ") || (category == "近接" && n.slot == "レンジ") || (category == "遠隔" && n.slot == "メイン"))){
             // TPボーナスはメイン武器とオグメテキストのみ有効→メイジャンのみ有効
             if(n.custom_pc_aug_status && n.custom_pc_aug_status[key]){
               ret_number = n.custom_pc_aug_status[key];
@@ -298,7 +298,8 @@ export class StatusTableComponent {
               // RMEAは「魔法ダメージ」「基本ステータス」「ストアTP」のみ有効
               if(["マンダウ","エクスカリバー","ガトラー","鬼哭","ミョルニル","与一の弓","アナイアレイター",
                 "ヴァジュラ","カルンウェナン","テルプシコラー","ミュルグレス","ブルトガング","ティソーナ","アイムール","凪","ヤグルシュ", "イドリス",
-                "トゥワシュトラ","アルマス","ファルシャ","神無","ガンバンテイン"].includes(n.equipment?.name!)){
+                "トゥワシュトラ","アルマス","ファルシャ","神無","ガンバンテイン",
+                "エーネアス", "セクエンス","トライエッジ","丙子椒林剣","ティシュトライヤ"].includes(n.equipment?.name!)){
                 if(["魔法ダメージ","STR","DEX","AGI","VIT","INT","MND","CHR","HP","MP","ストアTP"].includes(key)){
                   if(n.equipment && n.equipment.pc_status[key]){
                     ret_number = <number>n.equipment?.pc_status[key]

@@ -282,9 +282,14 @@ export class EquipsetComponent {
     if(augText){
 
       // サブRMEAはすべてのオグメを無効
-      var isRmeaSub = equipsetItem.slot == "サブ" && ["マンダウ","エクスカリバー","ガトラー","鬼哭","ミョルニル","与一の弓","アナイアレイター",
+      var isSub = equipsetItem.slot == "サブ";
+      var isRmeaSub = isSub && ["マンダウ","エクスカリバー","ガトラー","鬼哭","ミョルニル","与一の弓","アナイアレイター",
         "ヴァジュラ","カルンウェナン","テルプシコラー","ミュルグレス","ブルトガング","ティソーナ","アイムール","凪","ヤグルシュ", "イドリス",
-        "トゥワシュトラ","アルマス","ファルシャ","神無","ガンバンテイン"].includes(equipsetItem.equipment?.name!);
+        "トゥワシュトラ","アルマス","ファルシャ","神無","ガンバンテイン",
+        "エーネアス", "セクエンス","トライエッジ","丙子椒林剣","ティシュトライヤ"].includes(equipsetItem.equipment?.name!);
+      if(isRmeaSub){
+        return [result, "サブウェポンがRMEAのオグメは全て無効です。"];
+      }
 
       augText.split(/[,\s]+/).forEach(itemText => {
 
@@ -292,7 +297,7 @@ export class EquipsetComponent {
         if(idx > 0){
           var key = itemText.substring(0, idx);
           var value = Number(itemText.substring(idx + 1, itemText.length));
-          if(!isNaN(value) && key != "Ｄ隔" && !isRmeaSub){
+          if(!isNaN(value) && key != "Ｄ隔" && !(isSub && ["Ｄ","隔","命中","攻"].includes(key))){
             if(!result[key]) result[key] = 0;
             result[key] += value;
           }else{
@@ -304,7 +309,7 @@ export class EquipsetComponent {
         }
       });
     }
-    return [result, err.substring(1)];
+    return [result, err.substring(1) ? "[無効] " + err.substring(1) : ""];
   }
 
   /** 装備詳細表示 */

@@ -125,7 +125,7 @@ nzType="editable-card"
             nzSize="small" style="min-height:24px !important;height:24px !important;" maxlength="1000"></textarea>
           </td>
           <td style="text-align: center;">
-            <span *ngIf="equipitem.custom_pc_aug_error" nz-tooltip nz-tooltip [nzTooltipTitle]="'[無効] ' + equipitem.custom_pc_aug_error"
+            <span *ngIf="equipitem.custom_pc_aug_error" nz-tooltip nz-tooltip [nzTooltipTitle]="equipitem.custom_pc_aug_error"
               nzTooltipColor="orange" nz-icon [nzType]="'warning'" [nzTheme]="'twotone'" [nzTwotoneColor]="'orange'"></span>
           </td>
           <td>
@@ -134,7 +134,7 @@ nzType="editable-card"
           </td>
 
           <td style="text-align: center;">
-            <span *ngIf="equipitem.custom_pet_aug_error" nz-tooltip nz-tooltip [nzTooltipTitle]="'[無効] ' + equipitem.custom_pet_aug_error"
+            <span *ngIf="equipitem.custom_pet_aug_error" nz-tooltip nz-tooltip [nzTooltipTitle]="equipitem.custom_pet_aug_error"
               nzTooltipColor="orange" nz-icon [nzType]="'warning'" [nzTheme]="'twotone'" [nzTwotoneColor]="'orange'"></span>
           </td>
           <td>

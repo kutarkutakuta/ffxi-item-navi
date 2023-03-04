@@ -37,10 +37,11 @@
           <nz-option nzValue="PET" nzLabel="PET"></nz-option>
         </nz-select>
         <nz-tree-select
-          style="width: 250px"
+          style="width: 260px"
           [nzNodes]="nodes"
           nzShowSearch
           nzPlaceHolder="ステータス"
+          nzVirtualHeight="50vh"
           [(ngModel)]="statusKey"
           (ngModelChange)="changeStatus()"></nz-tree-select>
       </div>

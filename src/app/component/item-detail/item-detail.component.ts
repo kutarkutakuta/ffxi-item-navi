@@ -32,7 +32,7 @@ export class ItemDetailComponent {
   }
 
   getWikiURL(param: string): string {
-    return "http://wiki.ffo.jp/search.cgi?imageField.x=0&imageField.y=0&CCC=%E6%84%9B&Command=Search&qf=" + param + "&order=match&ffotype=title&type=title";
+    return "http://wiki.ffo.jp/search.cgi?imageField.x=0&imageField.y=0&CCC=%E6%84%9B&Command=Search&qf=" + encodeURIComponent(param) + "&order=match&ffotype=title&type=title";
   }
 
   getFFXIAhURL(param: string): string {

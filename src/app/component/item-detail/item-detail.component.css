@@ -2,4 +2,10 @@
   height: 40px !important;
 }
 
+.pin-button {
+  width: 40px;
+  max-width: 40px;
+  min-width: 40px;
+  margin-top: 2px;
+}
 

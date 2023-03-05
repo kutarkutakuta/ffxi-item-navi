@@ -313,7 +313,7 @@ export class EquipsetComponent {
   }
 
   /** 装備詳細表示 */
-  showItemDetail(equip: Equipment, equipAug: EquipmentAug | null){
+  showItemDetail(equip: Equipment, equipAug?: EquipmentAug){
     this.itemDetail.show(equip, equipAug);
   }
 

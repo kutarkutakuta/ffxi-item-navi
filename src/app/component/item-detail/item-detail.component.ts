@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { Equipment } from 'src/app/model/equipment';
 import { EquipmentAug } from 'src/app/model/equipment_aug';
 
@@ -10,33 +11,64 @@ import { EquipmentAug } from 'src/app/model/equipment_aug';
 export class ItemDetailComponent {
 
   equip!: Equipment ;
-  equipAug: EquipmentAug | null = null;
+  equipAug?: EquipmentAug;
   visible: boolean = false;
   loading: boolean = false;
-
+  isFullScreen: boolean = false;
+  get height() : string {
+    var ret = "";
+    if(this.isFullScreen) ret = "100vh";
+    else{
+      var tmp = this.fixed_eqpuips.length * 175 + 230;
+      ret = "min(100vh, " + tmp + "px)"
+    }
+    return ret;
+  }
+  get theme(): 'fill'|'outline'|'twotone' {
+    return this.fixed_eqpuips.includes(this.equip) ? "fill" : "outline";
+  }
+  selectedIndex: number = 0;
+  fixed_eqpuips: Equipment[] = [];
+  fixed_equipAugs: EquipmentAug[] = [];
 
   // #region implementsMethods
-  constructor() {
+  constructor(private message: NzMessageService,) {
   }
 
 
-  show(equip: Equipment, equipAug: EquipmentAug | null){
+  show(equip: Equipment, equipAug?: EquipmentAug){
     this.equip = equip;
     this.equipAug = equipAug;
     this.visible = true;
     this.loading = false;
+    this.selectedIndex = 0;
+    this.isFullScreen = false;
   }
 
-  onclose(){
+  onClose(){
     this.visible = false;
   }
 
-  getWikiURL(param: string): string {
-    return "http://wiki.ffo.jp/search.cgi?imageField.x=0&imageField.y=0&CCC=%E6%84%9B&Command=Search&qf=" + encodeURIComponent(param) + "&order=match&ffotype=title&type=title";
+  onFix(){
+    var idx = this.fixed_eqpuips.findIndex(n=>n == this.equip);
+    if(idx < 0){
+      if(this.fixed_eqpuips.length == 2){
+        this.message.error("ピン止めは2つまでです。");
+        return;
+      }
+      this.fixed_eqpuips.push(this.equip);
+      this.fixed_equipAugs.push(this.equipAug!);
+    }
+    else{
+      this.onFixClear(idx);
+      return;
+    }
   }
 
-  getFFXIAhURL(param: string): string {
-    return "https://jp.ffxiah.com/search/item?q=" + encodeURIComponent(param);
+  onFixClear(fixedIndex: number){
+    this.fixed_eqpuips.splice(fixedIndex, 1);
+    this.fixed_equipAugs.splice(fixedIndex, 1);
   }
+
 }
 

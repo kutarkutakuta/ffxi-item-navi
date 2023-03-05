@@ -1,4 +1,4 @@
-import { Component, Input, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Equipment } from 'src/app/model/equipment';
 import { Status } from 'src/app/model/status';
@@ -6,7 +6,6 @@ import { SupabaseService } from 'src/app/service/supabase.service';
 import { Clipboard } from '@angular/cdk/clipboard'
 import { EquipmentAug } from 'src/app/model/equipment_aug';
 import { Equipset } from 'src/app/model/equipset';
-import { retry } from 'rxjs';
 
 @Component({
   selector: 'app-status-table',
@@ -21,6 +20,7 @@ export class StatusTableComponent {
   @Input() equipAug?: EquipmentAug;
   @Input() equipset?: Equipset;
   @Input() compareEquipset?: Equipset;
+  @Input() selectedIndex: number = 0;
   @Input() set job(value: string) {
     this._job = value;
     this.status_datas = [
@@ -68,12 +68,13 @@ export class StatusTableComponent {
     }
   }
 
+  @Output() selectedIndexChanged = new EventEmitter<number>();
+
   get job(): string{
     return this._job!;
   }
 
   statuses : Status[] = [];
-  selectedIndex = 0;
 
   // 近接
   status_key1: string[][] = [
@@ -407,6 +408,17 @@ export class StatusTableComponent {
     return false;
   }
 
+  onSelectedIndexChange(index: number){
+    this.selectedIndexChanged.emit(index);
+  }
+
+  getWikiURL(param: string): string {
+    return "http://wiki.ffo.jp/search.cgi?imageField.x=0&imageField.y=0&CCC=%E6%84%9B&Command=Search&qf=" + encodeURIComponent(param) + "&order=match&ffotype=title&type=title";
+  }
+
+  getFFXIAhURL(param: string): string {
+    return "https://jp.ffxiah.com/search/item?q=" + encodeURIComponent(param);
+  }
 }
 
 interface StatusData {

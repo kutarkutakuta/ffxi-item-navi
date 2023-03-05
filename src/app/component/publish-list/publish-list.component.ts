@@ -175,7 +175,7 @@ export class PublishListComponent {
       this.itemDetail.show(equipset_item.equipment!, copied);
     }
     else{
-      this.itemDetail.show(equipset_item.equipment!, null);
+      this.itemDetail.show(equipset_item.equipment!, undefined);
     }
 
   }

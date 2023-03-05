@@ -209,7 +209,7 @@ export class ItemNaviComponent {
     return ret;
   }
 
-  showItemDetail(equip: Equipment, equipAug: EquipmentAug | null){
+  showItemDetail(equip: Equipment, equipAug?: EquipmentAug){
     this.itemDetail.show(equip, equipAug);
   }
 

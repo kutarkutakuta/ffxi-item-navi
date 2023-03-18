@@ -1,9 +1,7 @@
 import { Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Equipment } from 'src/app/model/equipment';
-import { Status } from 'src/app/model/status';
 import { SupabaseService } from 'src/app/service/supabase.service'
-import { DatePipe } from '@angular/common';
 import { EquipmentAug } from 'src/app/model/equipment_aug';
 import { ItemDetailComponent } from '../item-detail/item-detail.component';
 import { NzModalRef, NzModalService } from 'ng-zorro-antd/modal';

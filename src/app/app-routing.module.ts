@@ -5,7 +5,8 @@ import { ItemNaviComponent } from './component/item-navi/item-navi.component';
 
 const routes: Routes = [
   { path: '',component: ItemNaviComponent},
-  { path: 'equipset',component: EquipsetComponent, children: []}
+  { path: 'myset',component: ItemNaviComponent},
+  { path: 'list',component: ItemNaviComponent},
 ];
 
 @NgModule({

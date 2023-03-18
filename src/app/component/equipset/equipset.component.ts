@@ -20,6 +20,10 @@ export class EquipsetComponent {
 
   @ViewChild(ItemDetailComponent)
   private itemDetail!: ItemDetailComponent;
+
+  @Output()
+  published = new EventEmitter<void>();
+
   private confirmModal?: NzModalRef;
 
   jobs: readonly string[] = ["戦","暗","侍","竜","モ","か","シ","踊","忍","コ","狩","青","赤","吟","剣","ナ","風","黒","召","白","学","獣"];
@@ -185,6 +189,7 @@ export class EquipsetComponent {
         equipset.publish_id = res.publish_id;
         equipset.publish_date = res.publish_date;
         this.save();
+        this.published.emit();
         this.message.info("公開しました。");
       }).catch(reason =>{
         this.message.error(reason);
@@ -208,6 +213,7 @@ export class EquipsetComponent {
         equipset.publish_id = undefined;
         equipset.publish_date = undefined;
         this.save();
+        this.published.emit();
         this.message.info("公開を取り消しました");
       }).catch(reason =>{
         this.message.error(reason);

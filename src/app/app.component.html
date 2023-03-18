@@ -9,7 +9,7 @@
         height="24px"
       />
     </div>
-    <nz-tabset nzSize="small" [(nzSelectedIndex)]="selectedIndex">
+    <nz-tabset nzSize="small" [(nzSelectedIndex)]="selectedIndex" (nzSelectedIndexChange)="onSelectedIndexChange($event)">
       <nz-tab [nzTitle]="titleTemplate1">
         <div  style="margin-top: -10px;">
           <app-item-navi></app-item-navi>
@@ -20,22 +20,20 @@
       </ng-template>
       <nz-tab [nzTitle]="titleTemplate2">
         <div  style="margin-top: -10px;">
-          <app-equipset></app-equipset>
+          <app-equipset (published)="published()"></app-equipset>
         </div>
       </nz-tab>
       <ng-template #titleTemplate2>
         <span nz-icon nzType="heart"></span>My Set
       </ng-template>
+      <nz-tab [nzTitle]="titleTemplate3">
+        <div  style="margin-top: -10px;">
+          <app-publish-list (equipsetCopy)="equipsetCopy($event)"></app-publish-list>
+        </div>
+      </nz-tab>
       <ng-template #titleTemplate3>
         <span nz-icon nzType="bars"></span>公開List
       </ng-template>
-      <nz-tab [nzTitle]="titleTemplate3">
-        <ng-template nz-tab>
-          <div  style="margin-top: -10px;">
-            <app-publish-list (equipsetCopy)="equipsetCopy($event)"></app-publish-list>
-          </div>
-        </ng-template>
-      </nz-tab>
     </nz-tabset>
     <!-- <router-outlet></router-outlet> -->
   </div>

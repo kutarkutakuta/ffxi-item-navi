@@ -201,13 +201,13 @@ nzType="editable-card"
           {{equipset.publish_id ? 'Published ID [' + equipset.publish_id + ']: ' + (equipset.publish_date | date:'yy/MM/dd HH:mm:ss') : ''}}
         </div><br/>
         <div nz-row nzJustify="space-between">
+          <button *ngIf="equipset.publish_id" nz-button nzType="primary" nzDanger (click)="unpublish(equipset)">
+            <span nz-icon nzType="close-circle"></span>公開を取消
+          </button>
           <button nz-button nzType="primary" (click)="publish(equipset)">
             <span nz-icon nzType="cloud-upload"></span>
             <span *ngIf="!equipset.publish_id">公開する</span>
             <span *ngIf="equipset.publish_id">公開を更新</span>
-          </button>
-          <button *ngIf="equipset.publish_id" nz-button nzType="primary" nzDanger (click)="unpublish(equipset)">
-            <span nz-icon nzType="close-circle"></span>公開を取消
           </button>
         </div>
       </ng-container>

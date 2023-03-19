@@ -79,9 +79,9 @@ table.status_table {
 }
 
 .status_table th{
-  width: 42px;
-  min-width: 42px;
-  max-width: 42px;
+  width: 43px;
+  min-width: 43px;
+  max-width: 43px;
   height: 18px;
 	border-right: 1px solid #CCCCCC;
 	border-bottom: 1px solid #CCCCCC;
@@ -95,7 +95,7 @@ table.status_table {
 }
 
 .status_table td{
-  width: 42px;
+  width: 43px;
   height: 18px;
 	border-right: 1px solid #CCCCCC;
 	border-bottom: 1px solid #CCCCCC;

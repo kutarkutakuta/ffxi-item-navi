@@ -61,35 +61,38 @@
       </table>
     </ng-template>
   </nz-tab>
-  <ng-container  *ngFor="let st of status_datas">
+  <ng-container *ngFor="let st of status_datas">
     <nz-tab [nzTitle]="st.name">
-      <div class="status_tab">
-        <ng-container  *ngFor="let keys of st.status_keys; index as i">
-          <table class="status_table">
-              <tr>
-                <td *ngIf="i==0" rowspan="2">
-                  <a nz-button nzType="text" (click)="getClipboard(st.name)" nz-tooltip nzTooltipTitle="クリップボードにコピー">
-                    <span nz-icon nzType="copy" nzTheme="outline"></span>
-                  </a>
-                </td>
-                <th *ngFor="let value of keys">
-                  <div  [ngClass]="isLongText(value) ? 'long-text' : ''" >{{value}}</div>
-                </th>
-                <th *ngFor="let value of get_option_keys(st.name, i)">
-                  <div  [ngClass]="isLongText(value) ? 'long-text' : ''" >{{value}}</div>
-                </th>
-              </tr>
-              <tr>
-                <td *ngFor="let value of keys">
-                  <div [innerHTML]='getStausValue(value, st.name)'></div>
-                </td>
-                <td *ngFor="let value of get_option_keys(st.name, i)">
-                  <div [innerHTML]='getStausValue(value, st.name)'></div>
-                </td>
-              </tr>
-          </table>
-        </ng-container>
-      </div>
+      <ng-template nz-tab>
+        <div class="status_tab">
+          <ng-container  *ngFor="let keys of st.status_keys; index as i">
+            <table class="status_table">
+                <tr>
+                  <td *ngIf="i==0" rowspan="2">
+                    <a nz-button nzType="text" (click)="getClipboard(st.name)" nz-tooltip nzTooltipTitle="クリップボードにコピー">
+                      <span nz-icon nzType="copy" nzTheme="outline"></span>
+                    </a>
+                  </td>
+                  <th *ngFor="let value of keys">
+                    <div  [ngClass]="isLongText(value) ? 'long-text' : ''" >{{value}}</div>
+                  </th>
+                  <th *ngFor="let value of get_option_keys(st.name, i)">
+                    <div  [ngClass]="isLongText(value) ? 'long-text' : ''" >{{value}}</div>
+                  </th>
+                </tr>
+                <tr>
+                  <td *ngFor="let value of keys">
+                    <div [innerHTML]='getStausValue(value, st.name)'></div>
+                  </td>
+                  <td *ngFor="let value of get_option_keys(st.name, i)">
+                    <div [innerHTML]='getStausValue(value, st.name)'></div>
+                  </td>
+                </tr>
+            </table>
+          </ng-container>
+        </div>
+      </ng-template>
+
     </nz-tab>
   </ng-container>
 </nz-tabset>

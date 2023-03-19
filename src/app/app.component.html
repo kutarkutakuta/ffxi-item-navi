@@ -27,9 +27,11 @@
         <span nz-icon nzType="heart"></span>My Set
       </ng-template>
       <nz-tab [nzTitle]="titleTemplate3">
-        <div  style="margin-top: -10px;">
-          <app-publish-list (equipsetCopy)="equipsetCopy($event)"></app-publish-list>
-        </div>
+        <ng-template nz-tab>
+          <div  style="margin-top: -10px;">
+            <app-publish-list (equipsetCopy)="equipsetCopy($event)"></app-publish-list>
+          </div>
+        </ng-template>
       </nz-tab>
       <ng-template #titleTemplate3>
         <span nz-icon nzType="bars"></span>公開List

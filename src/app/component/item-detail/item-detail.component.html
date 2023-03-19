@@ -19,19 +19,19 @@
     </ng-template>
     <ng-container *nzDrawerContent>
       <div style="overflow-x: auto;padding-right: 10px;padding-bottom: 10px;">
-      <div style="display: flex;">
-        <a nz-button nzType="text" (click)="onFix()" class="pin-button">
-          <span nz-icon nzType="pushpin" [nzTheme]="theme"></span>
-        </a>
-        <app-status-table [equip]="equip" [equipAug]="equipAug" (selectedIndexChanged)="selectedIndex = $event"></app-status-table>
+        <div style="display: flex;">
+          <a  nzType="text" (click)="onFix()" class="pin-button">
+            <span nz-icon nzType="pushpin" [nzTheme]="theme"></span>
+          </a>
+          <app-status-table [equip]="equip" [equipAug]="equipAug" (selectedIndexChanged)="selectedIndex = $event"></app-status-table>
+        </div>
+        <div *ngFor="let fixed_eqpuip of fixed_eqpuips; index as i" style="display: flex;">
+          <a  nzType="text" (click)="onFixClear(i)" class="pin-button">
+            <span nz-icon nzType="minus" nzTheme="outline"></span>
+          </a>
+          <app-status-table [equip]="fixed_eqpuip" [equipAug]="fixed_equipAugs[i]" [selectedIndex]="selectedIndex"></app-status-table>
+        </div>
       </div>
-      <div *ngFor="let fixed_eqpuip of fixed_eqpuips; index as i" style="display: flex;">
-        <a nz-button nzType="text" (click)="onFixClear(i)" class="pin-button">
-          <span nz-icon nzType="minus" nzTheme="outline"></span>
-        </a>
-        <app-status-table [equip]="fixed_eqpuip" [equipAug]="fixed_equipAugs[i]" [selectedIndex]="selectedIndex"></app-status-table>
-      </div>
-    </div>
     </ng-container>
   </nz-drawer>
 </div>

@@ -3,9 +3,8 @@
 }
 
 .pin-button {
-  width: 40px;
-  max-width: 40px;
-  min-width: 40px;
-  margin-top: 2px;
+  width: 20px;
+  margin-top: 6px;
+  padding-left: 4px;
 }
 

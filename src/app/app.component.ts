@@ -1,6 +1,6 @@
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Component, ViewChild } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
 import { map } from 'rxjs';
 import { EquipsetComponent } from './component/equipset/equipset.component';
 import { PublishEquipset } from './model/publish_equipset';
@@ -30,7 +30,7 @@ export class AppComponent {
       })).subscribe(n=>
         this.hidden_image = n
       );
-    router.events.pipe(filter(event => event instanceof NavigationEnd))
+    router.events.pipe(filter(event => event instanceof ActivationEnd))
     .subscribe(event => {
       switch  (router.url){
         case "/myset":

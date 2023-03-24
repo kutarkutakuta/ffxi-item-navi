@@ -17,7 +17,7 @@
     "copy2": "cpx ./src/.well-known/assetlinks.json ./dist/ffxi_item_navi/browser/.well-known/",
     "copy3": "cpx ./src/robots.txt ./dist/ffxi_item_navi/browser",
     "copy4": "cpx ./src/sitemap.xml ./dist/ffxi_item_navi/browser",
-    "copy5": "cpx ./src/index.html ./dist/ffxi_item_navi/browser/list",
+    "copy5": "cpx ./dist/ffxi_item_navi/browser/index.html ./dist/ffxi_item_navi/browser/list",
     "preinstall": "npm i run-script-os && npm run create-public",
     "postbuild": "ng run ffxi_item_navi:app-shell && npm run copy1 && npm run copy2 && npm run copy3 && npm run copy4 && npm run copy5"
   },

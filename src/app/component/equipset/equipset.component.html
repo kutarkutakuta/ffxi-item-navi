@@ -89,7 +89,10 @@ nzType="editable-card"
       </thead>
       <tbody>
         <tr *ngFor="let equipitem of equipsetTable.data">
-          <th nzLeft class="slot-cell">{{ equipitem.slot }}</th>
+          <th nzLeft class="slot-cell">{{ equipitem.slot }}
+            <span *ngIf="equipitem.slot == '他'" nz-icon nzType="question-circle" nzTheme="outline"
+            nz-tooltip nzTooltipTitle="ジョブ特性やコンビネーション等、他ステータスを追加したい場合に使用します。"></span>
+          </th>
           <td>
             <nz-select *ngIf="equipitem.slot=='メイン' || equipitem.slot=='サブ' || equipitem.slot=='レンジ' || equipitem.slot=='矢弾'"
             [(ngModel)]="equipitem.type" nzSize="default" style="width: 100%;" nzSize="small" nzAllowClear
@@ -98,7 +101,7 @@ nzType="editable-card"
             </nz-select>
           </td>
           <td>
-            <nz-select *ngIf="!(equipitem.slot=='メイン' || equipitem.slot=='サブ' || equipitem.slot=='レンジ' || equipitem.slot=='矢弾') || equipitem.type"
+            <nz-select *ngIf="!(equipitem.slot=='メイン' || equipitem.slot=='サブ' || equipitem.slot=='レンジ' || equipitem.slot=='矢弾' || equipitem.slot=='他') || equipitem.type"
               nzShowSearch nzServerSearch nzPlaceHolder="装備名"
               [(ngModel)]="equipitem.equipment" [nzFilterOption]="nzFilterOption"
               (nzOnSearch)="searchEquipment($event, equipitem)" (nzFocus)="searchEquipment('', equipitem)"
@@ -114,6 +117,7 @@ nzType="editable-card"
               <nz-option *ngFor="let o of equipitem.equipment?.equipment_augs" [nzLabel]="getAugName(o)" [nzValue]="o"></nz-option>
               <nz-option [nzLabel]="getAugName(equipitem.equipment_aug!)" [nzValue]="equipitem.equipment_aug" nzHide></nz-option>
             </nz-select>
+            <a *ngIf="equipitem.slot == '他'" (click)="visible_jobTrait = true">主なジョブ特性</a>
           </td>
           <td style="text-align: center;">
             <a *ngIf="equipitem.equipment" (click)="showItemDetail(equipitem.equipment, equipitem.equipment_aug!)">
@@ -210,6 +214,32 @@ nzType="editable-card"
             <span *ngIf="equipset.publish_id">公開を更新</span>
           </button>
         </div>
+      </ng-container>
+    </nz-drawer>
+
+    <nz-drawer
+      [nzVisible]="visible_jobTrait"
+      nzPlacement="right"
+      [nzTitle]="'主なジョブ特性'"
+      (nzOnClose)="visible_jobTrait = false">
+      <ng-container *nzDrawerContent>
+
+        <nz-checkbox-wrapper style="width: 100%;" (nzOnChange)="changeTraits($event)">
+        <nz-collapse *ngFor="let group of job_trait_groups" nzGhost>
+          <nz-collapse-panel [nzHeader]="group.status_name">
+              <div nz-row *ngFor="let traits of group.job_traits">
+                <div nz-col><label nz-checkbox [nzValue]="traits.status_name + ':' + traits.status_value">
+                  {{traits.job}} {{traits.border}} {{traits.status_name}}:{{traits.status_value}}
+                </label></div>
+              </div>
+          </nz-collapse-panel>
+        </nz-collapse>
+      </nz-checkbox-wrapper>
+
+        <div nz-col>
+          <button nz-button nzType="primary" (click)="addJobTraits(equipset)">Add</button>
+        </div>
+
       </ng-container>
     </nz-drawer>
 

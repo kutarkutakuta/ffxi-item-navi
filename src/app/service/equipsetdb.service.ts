@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import Dexie from "dexie";
-import { from, Observable } from "rxjs";
+import { from, map, Observable } from "rxjs";
 import { EquipsetGroup } from "../model/equipset_group";
 import { EquipsetDB } from "./equipsetdb";
 
@@ -15,7 +15,15 @@ export class EquipsetDBService {
   }
 
   public getEquipsetGroup(job: string): Observable<EquipsetGroup | undefined> {
-    return from(this.equipsetDB.equipset_group.get(job));
+    return from(this.equipsetDB.equipset_group.get(job))
+    .pipe(map(n=>{
+      n?.equipsets.forEach(m=>{
+        if(m.equip_items.findIndex(l=>l.slot=="他") < 0){
+          m.equip_items.push({id: 17, slot: "他"})
+        }
+      })
+      return n;
+    }));
   }
 
   public putEquipsetGroup(job: string, equipset_group: EquipsetGroup) {

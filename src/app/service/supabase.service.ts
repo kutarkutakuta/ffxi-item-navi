@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import { environment } from "../../environments/environment";
-import { Observable, EMPTY, of, from, BehaviorSubject, firstValueFrom, map, filter, throwError  } from 'rxjs';
+import { Observable, EMPTY, of, from, BehaviorSubject, firstValueFrom, map, filter, throwError, groupBy  } from 'rxjs';
 import { HttpClient  } from '@angular/common/http';
 import type { PostgrestFilterBuilder } from "@supabase/postgrest-js";
 import { NzMessageService } from 'ng-zorro-antd/message';
@@ -11,6 +11,7 @@ import * as moment from 'moment';
 import { Equipset } from '../model/equipset';
 import { EquipsetItem } from '../model/equipset_item';
 import { PublishEquipset } from '../model/publish_equipset';
+import { JobTrait } from '../model/job_traits';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,7 @@ export class SupabaseService {
 
   private supabase: SupabaseClient;
   private _statuses: BehaviorSubject<Status[]> = new BehaviorSubject<Status[]>([]);
+  private _job_traits: BehaviorSubject<JobTrait[]> = new BehaviorSubject<JobTrait[]>([]);
 
   constructor(private http:HttpClient,
     private message: NzMessageService,) {
@@ -28,12 +30,32 @@ export class SupabaseService {
   }
 
   private async loadData() {
-    const statusQuery = await this.supabase.from('statuses').select('*').order("id");
-    this._statuses.next(statusQuery.data as Status[]);
+    const status_query = await this.supabase.from('statuses').select('*').order("id");
+    this._statuses.next(status_query.data as Status[]);
+
+    const job_trait_query = await this.supabase.from('job_traits').select('*').order("id");
+    this._job_traits.next(job_trait_query.data as JobTrait[]);
 }
 
   public getStatus(): BehaviorSubject<Status[]> {
     return this._statuses;
+  }
+
+  public getJobTrait(): Observable<{ status_name: string; job_traits: JobTrait[]; }[]> {
+    return this._job_traits.pipe(
+      map(data=>{
+        let res : {status_name: string; job_traits: JobTrait[]}[] = [];
+        data.forEach(m=> {
+          if(res.findIndex(n=>n.status_name == m.status_name) < 0){
+            res.push({
+              status_name:m.status_name,
+              job_traits: data.filter(n=>n.status_name == m.status_name)
+            });
+          }
+        });
+        return res;
+      })
+    )
   }
 
   public async getEquipment(jobs: string[], wepons:string[], inputText: string): Promise<[Equipment[], number, string[], string[]]> {

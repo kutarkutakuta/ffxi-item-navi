@@ -10,6 +10,7 @@ import { Equipset } from 'src/app/model/equipset';
 import { EquipsetItem } from 'src/app/model/equipset_item';
 import { EquipsetDBService } from 'src/app/service/equipsetdb.service';
 import { map, Observable, of, Subject, tap } from 'rxjs';
+import { JobTrait } from 'src/app/model/job_traits';
 
 @Component({
   selector: 'app-equipset',
@@ -48,6 +49,9 @@ export class EquipsetComponent {
 
   visible_publish = false;
   publish_key = "";
+  visible_jobTrait = false;
+  job_trait_groups: { status_name: string; job_traits: JobTrait[]; }[] = [];
+  selected_job_trait: {status_name: string, status_value: number}[] = [];
 
   public isLoading: Subject<boolean> = new Subject<boolean>();
 
@@ -55,7 +59,10 @@ export class EquipsetComponent {
     private equipsetDBService: EquipsetDBService,
     private message: NzMessageService,
     private modal: NzModalService) {
-    this.equipsetgroup = equipsetDBService.getEquipsetGroup(this.selectedJob)
+    this.equipsetgroup = equipsetDBService.getEquipsetGroup(this.selectedJob);
+    supabaseService.getJobTrait().subscribe(data=>{
+      this.job_trait_groups = data;
+    });
   }
 
   /** 装備品検索 */
@@ -96,7 +103,8 @@ export class EquipsetComponent {
             {id: 13, slot: "左指"},
             {id: 14, slot: "右指"},
             {id: 15, slot: "背"},
-            {id: 16, slot: "腰"}
+            {id: 16, slot: "腰"},
+            {id: 17, slot: "他"}
           ]
         });
       }
@@ -321,6 +329,43 @@ export class EquipsetComponent {
   /** 装備詳細表示 */
   showItemDetail(equip: Equipment, equipAug?: EquipmentAug){
     this.itemDetail.show(equip, equipAug);
+  }
+
+  /** ジョブ特性チェック */
+  changeTraits(value: string[]){
+    var result: {status_name: string, status_value: number}[] = [];
+    value.forEach(n=>{
+      var tmp = n.split(":");
+      var itm = result.find(m=>m.status_name == tmp[0]);
+      if(itm){
+        itm.status_value += Number(tmp[1]);
+      }else{
+        result.push({status_name: tmp[0], status_value: Number(tmp[1])});
+      }
+    });
+    this.selected_job_trait = result;
+  }
+
+  /** ジョブ特性セット */
+  addJobTraits(equipset: Equipset){
+    var result = "";
+
+    var equipsetItem = equipset.equip_items.find(n=>n.slot == "他")!;
+    if(equipsetItem.custom_pc_aug?.length! > 0){
+      equipsetItem.custom_pc_aug?.split(" ").forEach(n=>{
+        var tmp = n.split(":");
+        var itm = this.selected_job_trait.find(m=>m.status_name == tmp[0]);
+        if(itm){
+          n = itm.status_name + ":" + itm.status_value;
+          this.selected_job_trait = this.selected_job_trait.filter(m=>m.status_name != itm?.status_name)
+        }
+        result += (result ? " " : "") + n;
+      })
+    }
+    result +=  " " + this.selected_job_trait.map(m=>m.status_name + ":" + m.status_value).join(" ");
+    equipsetItem.custom_pc_aug = result.trim();
+    this.changeAugText(equipsetItem);
+    this.visible_jobTrait = false;
   }
 
 }

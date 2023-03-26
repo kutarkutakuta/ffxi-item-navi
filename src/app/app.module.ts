@@ -39,6 +39,7 @@ import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { LayoutModule } from '@angular/cdk/layout';
@@ -86,6 +87,7 @@ registerLocaleData(ja);
     NzMenuModule,
     NzModalModule,
     NzSpinModule,
+    NzCheckboxModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable

@@ -14,7 +14,7 @@ import { PublishListComponent } from './component/publish-list/publish-list.comp
 })
 export class AppComponent {
 
-  selectedIndex = 0;
+  selectedIndex = 2;
   hidden_image = false;
 
   @ViewChild(EquipsetComponent)

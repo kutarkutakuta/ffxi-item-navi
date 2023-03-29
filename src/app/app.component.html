@@ -9,7 +9,7 @@
         height="24px"
       />
     </div>
-    <nz-tabset nzSize="small" [(nzSelectedIndex)]="selectedIndex" (nzSelectedIndexChange)="onSelectedIndexChange($event)">
+    <nz-tabset nzSize="small" [(nzSelectedIndex)]="selectedIndex" (nzSelectedIndexChange)="onSelectedIndexChange($event)" [nzAnimated]="false">
       <nz-tab [nzTitle]="titleTemplate1">
         <div  style="margin-top: -10px;">
           <app-item-navi></app-item-navi>

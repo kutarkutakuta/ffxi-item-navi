@@ -1,6 +1,6 @@
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Component, ViewChild } from '@angular/core';
-import { ActivatedRoute, ActivationEnd, Router } from '@angular/router';
+import { ActivatedRoute, ActivationEnd, ActivationStart, NavigationStart, ResolveEnd, Router } from '@angular/router';
 import { map } from 'rxjs';
 import { EquipsetComponent } from './component/equipset/equipset.component';
 import { PublishEquipset } from './model/publish_equipset';
@@ -30,19 +30,19 @@ export class AppComponent {
       })).subscribe(n=>
         this.hidden_image = n
       );
-    router.events.pipe(filter(event => event instanceof ActivationEnd))
-    .subscribe(event => {
-      switch  (router.url){
-        case "/myset":
-          this.selectedIndex = 1;
-          break;
-        case "/list":
-          this.selectedIndex = 2;
-          break;
-        default:
-          this.selectedIndex = 0;
-      }
-    });
+    // router.events.pipe(filter(event => event instanceof NavigationStart ))
+    // .subscribe(event => {
+    //   switch  (router.url){
+    //     case "/myset":
+    //       this.selectedIndex = 1;
+    //       break;
+    //     case "/list":
+    //       this.selectedIndex = 2;
+    //       break;
+    //     default:
+    //       this.selectedIndex = 0;
+    //   }
+    // });
   }
 
   published(){
@@ -54,20 +54,20 @@ export class AppComponent {
     this.router.navigate(["/myset"]);
   }
 
-  onSelectedIndexChange(idx: number){
-    switch  (idx){
-      case 1:
-        // history.replaceState('', '', "myset");
-        this.router.navigate(["/myset"]);
-        break;
-      case 2:
-        // history.replaceState('', '', "list");
-        this.router.navigate(["/list"]);
-        break;
-      default:
-        this.router.navigate(["/"]);
-    }
+  // onSelectedIndexChange(idx: number){
+  //   switch  (idx){
+  //     case 1:
+  //       // history.replaceState('', '', "myset");
+  //       this.router.navigate(["/myset"]);
+  //       break;
+  //     case 2:
+  //       // history.replaceState('', '', "list");
+  //       this.router.navigate(["/list"]);
+  //       break;
+  //     default:
+  //       this.router.navigate(["/"]);
+  //   }
 
-  }
+  // }
 }
 

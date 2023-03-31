@@ -1,11 +1,12 @@
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Component, ViewChild } from '@angular/core';
-import { ActivatedRoute, ActivationEnd, ActivationStart, NavigationStart, ResolveEnd, Router } from '@angular/router';
+import {ActivationEnd, NavigationEnd, Router } from '@angular/router';
 import { map } from 'rxjs';
 import { EquipsetComponent } from './component/equipset/equipset.component';
 import { PublishEquipset } from './model/publish_equipset';
 import {filter} from 'rxjs/operators';
 import { PublishListComponent } from './component/publish-list/publish-list.component';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ import { PublishListComponent } from './component/publish-list/publish-list.comp
 export class AppComponent {
 
   selectedIndex = 2;
-  hidden_image = false;
+  hidden_image = true;
 
   @ViewChild(EquipsetComponent)
   private equipsetComponent?: EquipsetComponent;
@@ -23,26 +24,31 @@ export class AppComponent {
   private publishListComponent?: PublishListComponent;
 
   constructor(private breakpointObserver: BreakpointObserver,
-    private router: Router) {
+    private router: Router,private titleService: Title, private meta: Meta) {
+
+    // ロゴ表示制御
     breakpointObserver.observe(Breakpoints.XSmall).pipe(
-      map((state: BreakpointState) => {
-        return state.matches
-      })).subscribe(n=>
-        this.hidden_image = n
-      );
-    // router.events.pipe(filter(event => event instanceof NavigationStart ))
-    // .subscribe(event => {
-    //   switch  (router.url){
-    //     case "/myset":
-    //       this.selectedIndex = 1;
-    //       break;
-    //     case "/list":
-    //       this.selectedIndex = 2;
-    //       break;
-    //     default:
-    //       this.selectedIndex = 0;
-    //   }
-    // });
+    map((state: BreakpointState) => {
+      return state.matches
+    })).subscribe(n=> this.hidden_image = n);
+
+    // meta制御
+    router.events.pipe(filter(event => event instanceof NavigationEnd ))
+    .subscribe(event => {
+      switch  (router.url){
+        case "/myset":
+          this.titleService.setTitle("My Set - FF11装備Navi");
+          this.meta.updateTag({ name: 'description', content: "FF11の装備セットを登録してステータスの確認や比較ができます。" });
+          break;
+        case "/list":
+          this.titleService.setTitle("公開List - FF11装備Navi");
+          this.meta.updateTag({ name: 'description', content: "FF11装備セットの公開一覧。" });
+          break;
+        default:
+          this.titleService.setTitle("FF11装備Navi");
+          this.meta.updateTag({ name: 'description', content: "FF11の装備品を検索ナビゲート。お探しの装備が見つかります。" });
+      }
+    });
   }
 
   published(){
@@ -54,20 +60,5 @@ export class AppComponent {
     this.router.navigate(["/myset"]);
   }
 
-  // onSelectedIndexChange(idx: number){
-  //   switch  (idx){
-  //     case 1:
-  //       // history.replaceState('', '', "myset");
-  //       this.router.navigate(["/myset"]);
-  //       break;
-  //     case 2:
-  //       // history.replaceState('', '', "list");
-  //       this.router.navigate(["/list"]);
-  //       break;
-  //     default:
-  //       this.router.navigate(["/"]);
-  //   }
-
-  // }
 }
 

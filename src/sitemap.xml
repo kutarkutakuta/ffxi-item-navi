@@ -12,4 +12,8 @@
   <loc>https://item-navi.onrender.com/list</loc>
   <priority>0.8</priority>
 </url>
+<url>
+  <loc>https://item-navi.onrender.com/myset</loc>
+  <priority>0.5</priority>
+</url>
 </urlset>

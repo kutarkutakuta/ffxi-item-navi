@@ -9,10 +9,9 @@
         height="24px"
       />
     </div>
-    <nz-tabset nzSize="small" [(nzSelectedIndex)]="selectedIndex" [nzAnimated]="false"
-      nzLinkRouter>
+    <nz-tabset nzSize="small" [nzAnimated]="false" nzLinkRouter>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['.']">
+        <a *nzTabLink nz-tab-link routerLink="/">
           <span nz-icon nzType="search"></span>Search
         </a>
         <div  style="margin-top: -10px;">
@@ -20,7 +19,7 @@
         </div>
       </nz-tab>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['myset']">
+        <a *nzTabLink nz-tab-link routerLink="/myset">
           <span nz-icon nzType="heart"></span>My Set
         </a>
         <div  style="margin-top: -10px;">
@@ -28,7 +27,7 @@
         </div>
       </nz-tab>
       <nz-tab>
-        <a *nzTabLink nz-tab-link [routerLink]="['list']">
+        <a *nzTabLink nz-tab-link routerLink="/list">
           <span nz-icon nzType="bars"></span>公開List
         </a>
         <ng-template nz-tab>

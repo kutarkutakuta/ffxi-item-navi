@@ -56,7 +56,7 @@ export class ItemNaviComponent {
     }).finally(()=>{
       this.loading = false;
       this.nzTableComponent.cdkVirtualScrollViewport?.scrollToIndex(0);
-      this.nzTableComponent.nzWidthConfig
+      this.nzTableComponent.nzWidthConfig;
     });
   }
 

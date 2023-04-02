@@ -15,7 +15,6 @@ import { Meta, Title } from '@angular/platform-browser';
 })
 export class AppComponent {
 
-  selectedIndex = 2;
   hidden_image = true;
 
   @ViewChild(EquipsetComponent)

@@ -19,8 +19,9 @@
     "copy4": "cpx ./src/sitemap.xml ./dist/ffxi_item_navi/browser",
     "copy5": "cpx ./dist/ffxi_item_navi/browser/index.html ./dist/ffxi_item_navi/browser/list",
     "copy6": "cpx ./dist/ffxi_item_navi/browser/index.html ./dist/ffxi_item_navi/browser/myset",
+    "clean1": "rimraf ./dist/ffxi_item_navi/browser/favicon.ico",
     "preinstall": "npm i run-script-os && npm run create-public",
-    "postbuild": "ng run ffxi_item_navi:app-shell && npm run copy1 && npm run copy2 && npm run copy3 && npm run copy4 && npm run copy5 && npm run copy6"
+    "postbuild": "ng run ffxi_item_navi:app-shell && npm run copy1 && npm run copy2 && npm run copy3 && npm run copy4 && npm run copy5 && npm run copy6 && npm run clean1"
   },
   "private": true,
   "dependencies": {
@@ -42,6 +43,7 @@
     "moment": "^2.29.4",
     "ng-zorro-antd": "^15.0.3",
     "primeflex": "^3.3.0",
+    "rimraf": "^4.4.1",
     "run-script-os": "^1.1.6",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",

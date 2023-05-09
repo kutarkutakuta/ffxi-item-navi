@@ -1,44 +1,50 @@
-<div class="flex align-items-center justify-content-center card-container">
-  <div class="relative p-2 w-12 border-round-md main surface-0">
-    <div class="absolute top-0 right-0 p-1 m-1">
-      <img [hidden]="hidden_image"
-        nz-image
-        nzDisablePreview="true"
-        nzSrc="/assets/images/logo.png"
-        alt="FF11装備Navi"
-        height="24px"
-      />
-    </div>
-    <nz-tabset nzSize="small" [nzAnimated]="false" nzLinkRouter>
-      <nz-tab>
-        <a *nzTabLink nz-tab-link routerLink="/">
-          <span nz-icon nzType="search"></span>Search
-        </a>
-        <div  style="margin-top: -10px;">
-          <app-item-navi></app-item-navi>
-        </div>
-      </nz-tab>
-      <nz-tab>
-        <a *nzTabLink nz-tab-link routerLink="/myset">
-          <span nz-icon nzType="heart"></span>My Set
-        </a>
-        <div  style="margin-top: -10px;">
-          <app-equipset (published)="published()"></app-equipset>
-        </div>
-      </nz-tab>
-      <nz-tab>
-        <a *nzTabLink nz-tab-link routerLink="/list">
-          <span nz-icon nzType="bars"></span>公開List
-        </a>
-        <ng-template nz-tab>
-          <div  style="margin-top: -10px;">
-            <app-publish-list (equipsetCopy)="equipsetCopy($event)"></app-publish-list>
-          </div>
-        </ng-template>
-      </nz-tab>
-    </nz-tabset>
-    <!-- <router-outlet></router-outlet> -->
+<div class="relative p-2 w-12 border-round-md main surface-0">
+  <div class="absolute top-0 right-0 p-1 m-1">
+    <img [hidden]="hidden_image"
+      nz-image
+      nzDisablePreview="true"
+      nzSrc="/assets/images/logo.png"
+      alt="FF11装備Navi"
+      height="24px"
+    />
   </div>
+  <nz-tabset nzSize="small" [nzAnimated]="false" nzLinkRouter>
+    <nz-tab>
+      <a *nzTabLink nz-tab-link routerLink="/">
+        <span nz-icon nzType="search"></span>Search
+      </a>
+      <div  style="margin-top: -10px;">
+        <app-item-navi></app-item-navi>
+      </div>
+    </nz-tab>
+    <nz-tab>
+      <a *nzTabLink nz-tab-link routerLink="/food">
+        <span nz-icon nzType="coffee"></span>Food
+      </a>
+      <div  style="margin-top: -10px;">
+        <app-food-navi></app-food-navi>
+      </div>
+    </nz-tab>
+    <nz-tab>
+      <a *nzTabLink nz-tab-link routerLink="/myset">
+        <span nz-icon nzType="heart"></span>My Set
+      </a>
+      <div  style="margin-top: -10px;">
+        <app-equipset (published)="published()"></app-equipset>
+      </div>
+    </nz-tab>
+    <nz-tab>
+      <a *nzTabLink nz-tab-link routerLink="/list">
+        <span nz-icon nzType="bars"></span>公開List
+      </a>
+      <ng-template nz-tab>
+        <div  style="margin-top: -10px;">
+          <app-publish-list (equipsetCopy)="equipsetCopy($event)"></app-publish-list>
+        </div>
+      </ng-template>
+    </nz-tab>
+  </nz-tabset>
+  <!-- <router-outlet></router-outlet> -->
 </div>
 <div class="flex card-container blue-container overflow-hidden">
   <div class="flex-none flex align-items-center justify-content-center pl-2">

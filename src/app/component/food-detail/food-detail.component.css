@@ -1,0 +1,26 @@
+::ng-deep .ant-drawer-header {
+  height: 40px !important;
+}
+
+.pin-button {
+  width: 20px;
+  margin-top: 6px;
+  padding-left: 4px;
+}
+.rare {
+  border-radius:9999px;
+  background-color:#fff462;
+  margin: 1px;
+  width:40px;
+  text-align: center;
+  display: inline-block;
+}
+
+.ex {
+  border-radius:9999px;
+  background-color:#79c06e;
+  margin: 1px;
+  width:40px;
+  text-align: center;
+  display: inline-block;
+}

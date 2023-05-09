@@ -11,11 +11,6 @@
               {{getAugName()}}
             </span>
           </div>
-          <!-- <div nz-col style="font-weight: normal;">
-            <span *ngIf="equip.yomi">
-              （{{ equip.yomi }}<span *ngIf="equip.english"> / {{ equip.english }}</span>）
-            </span>
-          </div> -->
           <div nz-col style="font-weight: normal;padding-left: 5px;">
             Lv{{ equip.lv }} {{ equip.job }}
           </div>
@@ -61,6 +56,48 @@
       </table>
     </ng-template>
   </nz-tab>
+  <nz-tab *ngIf="food" nzTitle="基本情報">
+    <ng-template nz-tab>
+      <div style="margin-top: -10px;padding-bottom: 5px;">
+          <div nz-row style="font-weight: bolder;">
+            <div nz-col>
+              [{{ food.category }}] {{food.name}}
+            </div>
+            <div nz-col style="padding-left: 10px;white-space: nowrap;">
+              <div *ngIf="food.rare" class="rare">Rare</div>
+              <div *ngIf="food.ex" class="ex">Ex</div>
+            </div>
+            <div nz-col style="padding-left: 10px;vertical-align: bottom;">
+              <span *ngIf="food.install_date" class="version-date">
+                Ver. {{ food.install_date }}
+              </span>
+            </div>
+            <div nz-col style="padding-left: 10px;vertical-align: bottom;font-weight: normal;font-size: 0.9em;margin-top: 1px;">
+              <a [href]="getWikiURL(food.page_title)" target="_blank">FF11用語辞典</a> /
+              <a [href]="getFFXIAhURL(food.name)" target="_blank">FFXIAH</a>
+            </div>
+          </div>
+      </div>
+      <table class="base_table">
+        <tr>
+          <th>効果</th>
+          <td>{{ getTimeText(food.effect_time) }}{{ food.effect_range == "PT" ? "（PT範囲）" : "" }}</td>
+        </tr>
+        <tr>
+          <th>PC</th>
+          <td>{{ food.pc_text }}</td>
+        </tr>
+        <tr *ngIf="food.pet_text">
+          <th>PET</th>
+          <td>{{ food.pet_text }}</td>
+        </tr>
+        <tr *ngIf="food.other_text">
+          <th>NOTE</th>
+          <td>{{ food.other_text }}</td>
+        </tr>
+      </table>
+    </ng-template>
+  </nz-tab>
   <ng-container *ngFor="let st of status_datas">
     <nz-tab [nzTitle]="st.name">
       <ng-template nz-tab>
@@ -92,7 +129,6 @@
           </ng-container>
         </div>
       </ng-template>
-
     </nz-tab>
   </ng-container>
 </nz-tabset>

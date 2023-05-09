@@ -1,37 +1,33 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { SupabaseService } from 'src/app/service/supabase.service';
-import { Equipment } from 'src/app/model/equipment';
 import { ItemDetailComponent } from '../item-detail/item-detail.component';
 import { EquipmentAug } from 'src/app/model/equipment_aug';
 import { NzTableComponent } from 'ng-zorro-antd/table';
 import { QueryBuilderComponent } from '../query-builder/query-builder.component';
+import { Food } from 'src/app/model/food';
+import { FoodDetailComponent } from '../food-detail/food-detail.component';
 
 @Component({
-  selector: 'app-item-navi',
-  templateUrl: './item-navi.component.html',
-  styleUrls: ['./item-navi.component.css']
+  selector: 'app-food-navi',
+  templateUrl: './food-navi.component.html',
+  styleUrls: ['./food-navi.component.css']
 })
-export class ItemNaviComponent {
+export class FoodNaviComponent {
 
-  @ViewChild(ItemDetailComponent)
-  private itemDetail!: ItemDetailComponent;
+  @ViewChild(FoodDetailComponent)
+  private foodDetail!: FoodDetailComponent;
   @ViewChild(QueryBuilderComponent)
   private queryBuilder!: QueryBuilderComponent;
   @ViewChild('basicTable', { static: false })
-  private nzTableComponent!: NzTableComponent<Equipment>;
+  private nzTableComponent!: NzTableComponent<Food>;
 
-  jobs: readonly string[] = ["戦","暗","侍","竜","モ","か","シ","踊","忍","コ","狩","青","赤","吟","剣","ナ","風","黒","召","白","学","獣","All Jobs"];
-  wepons: readonly string[] = ["格闘","短剣","片手剣","両手剣","片手斧","両手斧","両手鎌","両手槍","片手刀","両手刀","片手棍","両手棍",
-                              "弓術","射撃","楽器","グリップ","投擲","矢・弾","ストリンガー"];
-  armors: readonly string[] = ["盾","頭","胴","両手","両脚","両足","首","耳","指","腰","背"];
+  categories: readonly string[] = ["肉・卵","魚介","野菜","スープ","穀物","スィーツ","ドリンク"];
 
-  selectedJobs: string[] = [];
-  selectedWepons: string[] = [];
-  selectedArmors: string[] = [];
+  selectedCategories: string[] = [];
   inputValue: string = "";
 
   loading = false;
-  equipments: Equipment[] = [];
+  foods: Food[] = [];
 
   txtKeywords: string[] = [];
   opKeywords: string[] = [];
@@ -47,16 +43,16 @@ export class ItemNaviComponent {
     this.inputValue = this.fnSanitize(this.inputValue);
 
     this.loading = true;
-    this.supabaseService.getEquipment(this.selectedJobs,
-       this.selectedWepons.concat(this.selectedArmors.map(n=> "防具:" + n)), this.inputValue.trim())
-    .then((res: [Equipment[], string[], string[]])=>{
-      this.equipments = res[0];
+    this.supabaseService.getFood(this.selectedCategories, this.inputValue.trim())
+    .then((res: [Food[], string[], string[]])=>{
+      this.foods = res[0];
       this.txtKeywords = res[1];
       this.opKeywords = res[2];
     }).finally(()=>{
       this.loading = false;
       this.nzTableComponent.cdkVirtualScrollViewport?.scrollToIndex(0);
       this.nzTableComponent.nzWidthConfig;
+
     });
   }
 
@@ -80,7 +76,8 @@ export class ItemNaviComponent {
       .replace(/\[/g, '\\[').replace(/\]/g, '\\]')
       .replace(/\^/g, '\\^').replace(/\$/g, '\\$')
       .replace(/\|/g, '\\|').replace(/\-/g, '\\-')
-      .replace(/\|/g, '\\/');
+      .replace(/\|/g, '\\/')
+      .replace(/\HHP/g, '\\hHP').replace(/\HMP/g, '\\hMP');  // hHP、hMPは先頭小文字に変換
   }
 
   /** HTML変換（ハイライト付加） */
@@ -113,14 +110,6 @@ export class ItemNaviComponent {
     return returnHtml.trim();
   }
 
-  expandChange(id: number, expanded: boolean){
-    this.equipments.forEach(d=>{
-      if(d.id == id){
-        d.expanded = expanded;
-      }
-    })
-  }
-
   getShrotStatusName(str: string): string{
     var arr_tmp  =str.split(":");
     var status_target = ""
@@ -133,15 +122,12 @@ export class ItemNaviComponent {
     return status ? status_target + status.short_name : str;
   }
 
-  getStatusValue(equip: Equipment, equip_aug: EquipmentAug | null = null, keyword: string): string{
+  getStatusValue(food: Food, keyword: string): string{
     var ret = "";
     var status_key = keyword;
 
-    if(keyword.toUpperCase() == "LV"){
-      return equip.lv.toString();
-    }
-    else if(keyword.toUpperCase() == "IL"){
-      return equip.item_lv.toString();
+    if(keyword.toUpperCase() == "TIME"){
+      return this.getTimeText(food.effect_time);
     }
 
     var arr_tmp  =keyword.split(":");
@@ -151,66 +137,33 @@ export class ItemNaviComponent {
       status_key = arr_tmp[1];
     }
     if(status_target != "PC"){
-      var value = (equip_aug ? equip_aug.full_pet_status[status_key] : equip.pet_status[status_key]) || 0;
-      var max = value;
-      var min =  value;
-      if("show_expand" in equip && equip.show_expand){
-        equip.equipment_augs.forEach(n=> {
-          if(n.full_pet_status[status_key] > max){
-            max = n.full_pet_status[status_key]
-          }
-          if(n.full_pet_status[status_key] < min){
-            min = n.full_pet_status[status_key]
-          }
-        });
-      }
-      if(status_key == "Ｄ隔"){
-        value = value / 1000;
-        max = max / 1000;
-        min = min / 1000;
-      }
-      ret = (value > min ? "(" + min + ") ": "") + value + (value < max ? " (" + max + ")": "");
+      ret = food.pet_status[status_key]|| 0;
     }
     else{
-      var value = (equip_aug ? equip_aug.full_pc_status[status_key] : equip.pc_status[status_key]) || 0;
-      var max = value;
-      var min =  value;
-      if("show_expand" in equip && equip.show_expand){
-        equip.equipment_augs.forEach(n=> {
-          if(n.full_pc_status[status_key] > max){
-            max = n.full_pc_status[status_key]
-          }
-          if(n.full_pc_status[status_key] < min){
-            min = n.full_pc_status[status_key]
-          }
-        });
-      }
-      if(status_key == "Ｄ隔"){
-        value = value / 1000;
-        max = max / 1000;
-        min = min / 1000;
-      }
-      ret = (value > min ? "(" + min + ") ": "") + value + (value < max ? " (" + max + ")": "");
+      ret = food.pc_status[status_key] || 0;
     }
     return ret;
   }
 
-  getAugName(equipAug: EquipmentAug): string {
+  getTimeText(num: number){
     var ret = "";
-    if(!equipAug.aug_type && !equipAug.aug_rank){
-      ret = "Augment"
-    }else{
-      if(equipAug.aug_type) ret = equipAug.aug_type;
-      if(equipAug.aug_rank){
-        if(ret != "") ret += " ";
-        ret += 'Rank:' + equipAug.aug_rank;
-      }
+    var tmp = num;
+    if(tmp > 60 * 60){
+      ret += Math.floor(tmp / 60 / 60).toString() + "時間";
+      tmp = tmp - Math.floor(tmp / 60 / 60) * 60 * 60;
+    }
+    if(tmp > 60){
+      ret += Math.floor(tmp / 60).toString() + "分";
+      tmp = tmp - Math.floor(tmp / 60) * 60;
+    }
+    if(tmp > 0){
+      ret += tmp + "秒";
     }
     return ret;
   }
 
-  showItemDetail(equip: Equipment, equipAug?: EquipmentAug){
-    this.itemDetail.show(equip, equipAug);
+  showFoodDetail(food: Food){
+    this.foodDetail.show(food);
   }
 
   showIQueryBuilder(){

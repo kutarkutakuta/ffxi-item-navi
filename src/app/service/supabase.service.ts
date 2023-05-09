@@ -12,6 +12,7 @@ import { Equipset } from '../model/equipset';
 import { EquipsetItem } from '../model/equipset_item';
 import { PublishEquipset } from '../model/publish_equipset';
 import { JobTrait } from '../model/job_traits';
+import { Food } from '../model/food';
 
 @Injectable({
   providedIn: 'root',
@@ -58,7 +59,7 @@ export class SupabaseService {
     )
   }
 
-  public async getEquipment(jobs: string[], wepons:string[], inputText: string): Promise<[Equipment[], number, string[], string[]]> {
+  public async getEquipment(jobs: string[], wepons:string[], inputText: string): Promise<[Equipment[], string[], string[]]> {
 
     var txtkeywords: string[] = [];
     var opkeywords: string[] = [];
@@ -242,7 +243,7 @@ export class SupabaseService {
     if(queryData.error){
       // this.message.error(queryData.error.message);
       console.error(queryData.error.message);
-      return [[],0,[],[]];
+      return [[],[],[]];
     }
 
     // オーグメントの順番が合わない※ので並び順を揃えて親子関係を構築
@@ -306,7 +307,7 @@ export class SupabaseService {
       }
     })
 
-    return [equipments, queryData.count!, txtkeywords, opkeywords];
+    return [equipments, txtkeywords, opkeywords];
   }
 
   private createEquipHitories(jobs: string[], wepons:string[], inputText: string){
@@ -637,4 +638,153 @@ export class SupabaseService {
     });
   }
 
+  /** 食品 */
+  public async getFood(categories: string[], inputText: string): Promise<[Food[], string[], string[]]> {
+
+    var txtkeywords: string[] = [];
+    var opkeywords: string[] = [];
+
+    // 全角→半角変換
+    var fnToHankaku = (str: string) :string => {
+      return str.replace(/[Ａ-Ｚａ-ｚ０-９！＜＞＝．]/g, (s) => {
+          return String.fromCharCode(s.charCodeAt(0) - 0xFEE0);
+      });
+    }
+
+    // 半角→全角変換
+    var fnToZenkaku = (str: string) :string => {
+      return str.replace(/[A-Za-z\.]/g, (s) => {
+          return String.fromCharCode(s.charCodeAt(0) + 0xFEE0);
+      });
+    }
+
+    // +-半角変換
+    var fnToHnakakuPlusMinus = (str: string) :string => {
+      return str.replace(/[＋]/g, '+')
+        .replace(/[－﹣−‐⁃‑‒–—﹘―⎯⏤ーｰ─━]/g, '-');
+    }
+
+    // 無害化
+    var fnSanitize = (str:string): string =>{
+      return str.replace(/[!"#$%&'()\*,\/:;<=>?@\[\\\]^_`{|}~]/g, '');
+    }
+
+    // フィルタビルダ
+    var fnFilterBuilder = (): PostgrestFilterBuilder<any, any, any> =>{
+      var query = this.supabase.from('foods').select().limit(100);
+
+      if(categories.length > 0){
+        var filter = "";
+        categories.forEach(n=>{
+          if(filter.length > 0) filter += ","
+          filter += "category.like.%"+n+"%";
+        })
+        query = query.or(filter);
+      }
+
+      if(inputText.length > 0){
+        inputText.split(/[,\s]+/).forEach(itemText => {
+          var keycolumn = "";
+          var keyword = itemText;
+
+          // ターゲットがあれば取得
+          var arr_tmp = keyword.replace("：",":").split(":");
+          if(arr_tmp.length > 1){
+            keycolumn = fnToHankaku(arr_tmp[0]).toUpperCase();
+            keyword = keyword.substring(arr_tmp[0].length+1, keyword.length);
+          }
+          var keyword_han = this.hankana2Zenkana(fnToHankaku(keyword).toUpperCase());  // 式は半角変換
+          var keyword_zen = fnToZenkaku(keyword).toUpperCase();  // 式じゃなければ全角に変換
+
+          const regex  = /(?<keyword>[^\=\>\<\!]+)(?<operator>[\=\>\<]|[\>\<!][=])(?<value>[\+\-＋－﹣−‐⁃‑‒–—﹘―⎯⏤ーｰ─━]?\d+(?:\.\d+)?)/g;
+          var matches = regex.exec(keyword_han);
+          if(matches){
+            keyword_han = fnSanitize(matches[1]);
+            var operator = matches[2];
+            var value = Number(fnToHnakakuPlusMinus(matches[3]));
+
+            // 省略名から本名を取得
+            var formShortName = this._statuses.getValue().find(s=>
+              this.hankana2Zenkana(s.short_name).toUpperCase() == keyword_han)
+              keyword_han = formShortName ? formShortName.name : keyword_han;
+
+            // デフォルトはPCステータスで検索するがPET指定時は変更
+            var column = "pc_status->" + keyword_han;
+            if(keycolumn == "PET") column = "pet_status->" + keyword_han;
+            if(keyword_han == "TIME"){
+              column = "effect_time";
+              query = query.order(column, {ascending:false, nullsFirst:false});
+            }
+            switch(operator){
+              case "=":
+                query = query.eq(column, value);
+                break;
+              case "!=":
+                query = query.neq(column, value);
+                break;
+              case ">":
+                query = query.gt(column, value);
+                query = query.order(column, {ascending:false, nullsFirst:false});
+                break;
+              case ">=":
+                query = query.gte(column, value);
+                query = query.order(column, {ascending:false, nullsFirst:false});
+                break;
+              case "<":
+                query = query.lt(column, value);
+                query = query.order(column, {ascending:true, nullsFirst:false});
+                break;
+              case "<=":
+                query = query.lte(column, value);
+                query = query.order(column, {ascending:true, nullsFirst:false});
+                break;
+            }
+            var word = (keycolumn ? keycolumn + ":" : "") + keyword_han;
+            if(opkeywords.includes(word) == false) opkeywords.push(word);
+          }
+          else{
+            keyword_han = fnSanitize(keyword_han);
+            keyword_zen = fnSanitize(keyword_zen);
+            if(keyword_han && txtkeywords.includes(keyword_han) == false || keyword_zen && txtkeywords.includes(keyword_zen) == false ){
+              if(txtkeywords.includes(keyword_han) == false ) txtkeywords.push(keyword_han);
+              if(txtkeywords.includes(keyword_zen) == false ) txtkeywords.push(keyword_zen);
+              switch(keycolumn){
+                case "NAME":
+                  query = query.ilike("name", "%"+keyword_zen+"%");
+                  break;
+                case "PC":
+                  query = query.ilike("pc_text", "%"+keyword_han+"%");
+                  break;
+                case "PET":
+                  query = query.ilike("pet_text", "%"+keyword_han+"%");
+                  break;
+                case "OTHER":
+                  query = query.ilike("other_text", "%"+keyword_han+"%");
+                  break;
+                default:
+                  if(!keyword_han) keyword_han = keyword_zen;  //無害化した結果空白ならとりあえず全角値をセット
+                  query = query.or("name.ilike.%" + keyword_zen + "%,"+
+                    "pc_text.ilike.%" + keyword_han+"%, pet_text.ilike.%" + keyword_han + "%, other_text.ilike.%" + keyword_han + "%");
+                  break;
+              }
+            }
+          }
+        });
+      }
+
+      query = query.order("install_date", {ascending:false, nullsFirst:false});
+      query = query.order("id", {ascending:false});
+
+      return query;
+    }
+    const queryData = await fnFilterBuilder();
+    if(queryData.error){
+      // this.message.error(queryData.error.message);
+      console.error(queryData.error.message);
+      return [[],[],[]];
+    }
+
+
+    return [queryData.data as Food[], txtkeywords, opkeywords];
+  }
 }

@@ -5,30 +5,63 @@
     [nzTitle]="'Query Builder'"
     (nzOnClose)="onclose()">
     <ng-container *nzDrawerContent>
-      <nz-select [(ngModel)]="lvType" style="width: 70px" (ngModelChange)="changeLvType()">
-        <nz-option nzValue="IL" nzLabel="IL"></nz-option>
-        <nz-option nzValue="LV" nzLabel="LV"></nz-option>
-      </nz-select>
-      <div nz-row>
-        <div nz-col>
-          <nz-space nzDirection="vertical" style="width: 100%">
-            <nz-input-number-group *nzSpaceItem nzAddOnBefore="が" [nzAddOnAfter]="addOnAfterTemplate1">
-              <nz-input-number [(ngModel)]="lvValue" [nzStep]="1" [nzMin]="0" [nzMax]="119" style="width: 70px"></nz-input-number>
-            </nz-input-number-group>
-            <ng-template #addOnAfterTemplate1>
-              <nz-select [(ngModel)]="lvOperator" style="width: 140px;text-align: left;">
-                <nz-option nzValue=">" nzLabel="より大きい"></nz-option>
-                <nz-option nzValue="<" nzLabel="より小さい"></nz-option>
-                <nz-option nzValue=">=" nzLabel="以上"></nz-option>
-                <nz-option nzValue="<=" nzLabel="以下"></nz-option>
-                <nz-option nzValue="=" nzLabel="と等しい"></nz-option>
-                <nz-option nzValue="!=" nzLabel="と等しくない"></nz-option>
-              </nz-select>
-            </ng-template>
-          </nz-space>
+      <div *ngIf="!isFood">
+        <nz-select [(ngModel)]="lvType" style="width: 70px" (ngModelChange)="changeLvType()">
+          <nz-option nzValue="IL" nzLabel="IL"></nz-option>
+          <nz-option nzValue="LV" nzLabel="LV"></nz-option>
+        </nz-select>
+        <div nz-row>
+          <div nz-col>
+            <nz-space nzDirection="vertical" style="width: 100%">
+              <nz-input-number-group *nzSpaceItem nzAddOnBefore="が" [nzAddOnAfter]="addOnAfterTemplate1">
+                <nz-input-number [(ngModel)]="lvValue" [nzStep]="1" [nzMin]="0" [nzMax]="119" style="width: 70px"></nz-input-number>
+              </nz-input-number-group>
+              <ng-template #addOnAfterTemplate1>
+                <nz-select [(ngModel)]="lvOperator" style="width: 140px;text-align: left;">
+                  <nz-option nzValue=">" nzLabel="より大きい"></nz-option>
+                  <nz-option nzValue="<" nzLabel="より小さい"></nz-option>
+                  <nz-option nzValue=">=" nzLabel="以上"></nz-option>
+                  <nz-option nzValue="<=" nzLabel="以下"></nz-option>
+                  <nz-option nzValue="=" nzLabel="と等しい"></nz-option>
+                  <nz-option nzValue="!=" nzLabel="と等しくない"></nz-option>
+                </nz-select>
+              </ng-template>
+            </nz-space>
+          </div>
+          <div nz-col>
+            <button nz-button nzType="primary" (click)="addQuery1()">Add</button>
+          </div>
         </div>
-        <div nz-col>
-          <button nz-button nzType="primary" (click)="addQuery1()">Add</button>
+      </div>
+      <div *ngIf="isFood">
+        <div nz-row>
+          <div nz-col>
+            <nz-space nzDirection="vertical" style="width: 100%">
+              <nz-input-number-group *nzSpaceItem nzAddOnBefore="効果時間が" [nzAddOnAfter]="addOnAfterTemplate1">
+                <nz-select [(ngModel)]="effectTime" style="width: 80px;text-align: left;">
+                  <nz-option nzValue="180" nzLabel="3分"></nz-option>
+                  <nz-option nzValue="300" nzLabel="5分"></nz-option>
+                  <nz-option nzValue="600" nzLabel="10分"></nz-option>
+                  <nz-option nzValue="1800" nzLabel="30分"></nz-option>
+                  <nz-option nzValue="3600" nzLabel="1時間"></nz-option>
+                  <nz-option nzValue="10800" nzLabel="3時間"></nz-option>
+                </nz-select>
+              </nz-input-number-group>
+              <ng-template #addOnAfterTemplate1>
+                <nz-select [(ngModel)]="effectOperator" style="width: 140px;text-align: left;">
+                  <nz-option nzValue=">" nzLabel="より大きい"></nz-option>
+                  <nz-option nzValue="<" nzLabel="より小さい"></nz-option>
+                  <nz-option nzValue=">=" nzLabel="以上"></nz-option>
+                  <nz-option nzValue="<=" nzLabel="以下"></nz-option>
+                  <nz-option nzValue="=" nzLabel="と等しい"></nz-option>
+                  <nz-option nzValue="!=" nzLabel="と等しくない"></nz-option>
+                </nz-select>
+              </ng-template>
+            </nz-space>
+          </div>
+          <div nz-col>
+            <button nz-button nzType="primary" (click)="addQuery3()">Add</button>
+          </div>
         </div>
       </div>
       <div nz-row style="padding-top: 10px;">

@@ -35,6 +35,10 @@ export class AppComponent {
     router.events.pipe(filter(event => event instanceof NavigationEnd ))
     .subscribe(event => {
       switch  (router.url){
+        case "/food":
+          this.titleService.setTitle("Food - FF11装備Navi");
+          this.meta.updateTag({ name: 'description', content: "FF11の食品を検索します。" });
+          break;
         case "/myset":
           this.titleService.setTitle("My Set - FF11装備Navi");
           this.meta.updateTag({ name: 'description', content: "FF11の装備セットを登録してステータスの確認や比較ができます。" });

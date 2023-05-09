@@ -1,0 +1,37 @@
+<div *ngIf="food" >
+  <nz-drawer
+    [nzVisible]="visible"
+    nzPlacement="bottom"
+    [nzTitle]="title"
+    [nzHeight]="height"
+    [nzBodyStyle]="{padding:0}"
+    (nzOnClose)="onClose()">
+    <ng-template #title>
+      Food Information
+      <a *ngIf="!isFullScreen" nz-button nzType="text" (click)="isFullScreen = true"
+      nz-tooltip nzTooltipTitle="拡大">
+        <span nz-icon nzType="fullscreen" nzTheme="outline"></span>
+      </a>
+      <a *ngIf="isFullScreen" nz-button nzType="text" (click)="isFullScreen = false"
+      nz-tooltip nzTooltipTitle="拡小">
+        <span nz-icon nzType="fullscreen-exit" nzTheme="outline"></span>
+      </a>
+    </ng-template>
+    <ng-container *nzDrawerContent>
+      <div style="overflow-x: auto;padding-right: 10px;padding-bottom: 10px;">
+        <div style="display: flex;">
+          <a  nzType="text" (click)="onFix()" class="pin-button">
+            <span nz-icon nzType="pushpin" [nzTheme]="theme"></span>
+          </a>
+          <app-status-table [food]="food" (selectedIndexChanged)="selectedIndex = $event"></app-status-table>
+        </div>
+        <div *ngFor="let fixed_food of fixed_foods; index as i" style="display: flex;">
+          <a  nzType="text" (click)="onFixClear(i)" class="pin-button">
+            <span nz-icon nzType="minus" nzTheme="outline"></span>
+          </a>
+          <app-status-table [food]="fixed_food" [selectedIndex]="selectedIndex"></app-status-table>
+        </div>
+      </div>
+    </ng-container>
+  </nz-drawer>
+</div>

@@ -1,0 +1,16 @@
+::ng-deep .highlight {
+  color: red;
+  font-weight: bolder;
+}
+.status_value {
+  font-weight: bolder;
+  text-align: center;
+  background-color: aliceblue;
+}
+td {
+  vertical-align: top;
+  font-size: smaller;
+}
+.active.ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  border-top: 3px solid black;
+}

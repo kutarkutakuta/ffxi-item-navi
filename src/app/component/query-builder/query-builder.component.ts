@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Equipment } from 'src/app/model/equipment';
 import { Status } from 'src/app/model/status';
@@ -14,6 +14,7 @@ import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 })
 export class QueryBuilderComponent {
 
+  @Input() isFood: boolean = false ;
   @Output() created = new EventEmitter<string>();
 
   visible: boolean = false;
@@ -25,6 +26,9 @@ export class QueryBuilderComponent {
   lvType: string = "IL";
   lvValue: number = 119;
   lvOperator: string = "=";
+
+  effectTime: string = "1800";
+  effectOperator: string = ">=";
 
   target: string = "PC";
   statusKey: string = "";
@@ -102,6 +106,10 @@ export class QueryBuilderComponent {
       this.created.emit((this.target == "PET" ? "PET:" : "") +
         this.statusKey + this.statusOperator + this.statusValue);
     }
+  }
+
+  addQuery3(){
+    this.created.emit("TIME" + this.effectOperator + this.effectTime);
   }
 
   // #endregion

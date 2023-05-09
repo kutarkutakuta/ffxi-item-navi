@@ -9,6 +9,8 @@ import { StatusTableComponent } from './component/status-table/status-table.comp
 import { QueryBuilderComponent } from './component/query-builder/query-builder.component';
 import { EquipsetComponent } from './component/equipset/equipset.component';
 import { PublishListComponent } from './component/publish-list/publish-list.component';
+import { FoodNaviComponent } from './component/food-navi/food-navi.component';
+import { FoodDetailComponent } from './component/food-detail/food-detail.component';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
 import { ja_JP } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
@@ -56,7 +58,9 @@ registerLocaleData(ja);
     StatusTableComponent,
     QueryBuilderComponent,
     EquipsetComponent,
-    PublishListComponent
+    PublishListComponent,
+    FoodNaviComponent,
+    FoodDetailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }),

@@ -6,6 +6,7 @@ import { SupabaseService } from 'src/app/service/supabase.service';
 import { Clipboard } from '@angular/cdk/clipboard'
 import { EquipmentAug } from 'src/app/model/equipment_aug';
 import { Equipset } from 'src/app/model/equipset';
+import { Food } from 'src/app/model/food';
 
 @Component({
   selector: 'app-status-table',
@@ -16,6 +17,7 @@ export class StatusTableComponent {
 
   private _job?: string;
 
+  @Input() food?: Food ;
   @Input() equip?: Equipment ;
   @Input() equipAug?: EquipmentAug;
   @Input() equipset?: Equipset;
@@ -197,7 +199,8 @@ export class StatusTableComponent {
     }
     else if(this.equipset){
       ret = this.getStausSummary(this.equipset, key, category);
-    }else if(this.equip){
+    }
+    else if(this.equip){
       // 1つの装備から取得
       var ret_number = 0;
       if(category == "ペット"){
@@ -213,7 +216,16 @@ export class StatusTableComponent {
       }
       ret = ret_number?.toString();
     }
-
+    else if(this.food){
+      var ret_number = 0;
+      if(category == "ペット"){
+        ret_number = this.food.pet_status[key];
+      }
+      else{
+        ret_number = this.food.pc_status[key];
+      }
+      ret = ret_number?.toString();
+    }
     return ret == "0" ? "" : ret;
   }
 
@@ -419,6 +431,24 @@ export class StatusTableComponent {
   getFFXIAhURL(param: string): string {
     return "https://jp.ffxiah.com/search/item?q=" + encodeURIComponent(param);
   }
+
+  getTimeText(num: number){
+    var ret = "";
+    var tmp = num;
+    if(tmp > 60 * 60){
+      ret += Math.floor(tmp / 60 / 60).toString() + "時間";
+      tmp = tmp - Math.floor(tmp / 60 / 60) * 60 * 60;
+    }
+    if(tmp > 60){
+      ret += Math.floor(tmp / 60).toString() + "分";
+      tmp = tmp - Math.floor(tmp / 60) * 60;
+    }
+    if(tmp > 0){
+      ret += tmp + "秒";
+    }
+    return ret;
+  }
+
 }
 
 interface StatusData {

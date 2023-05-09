@@ -71,7 +71,7 @@ export class EquipsetComponent {
     if(wepon.startsWith("右") || wepon.startsWith("左")) wepon = wepon.substring(1);
     var inpuText = value;
     this.supabaseService.getEquipment([this.selectedJob],[wepon], inpuText)
-      .then((res: [Equipment[], number, string[], string[]])=>{
+      .then((res: [Equipment[], string[], string[]])=>{
         this.equipments = res[0];
       })
   }

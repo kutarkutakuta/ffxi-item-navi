@@ -1,11 +1,11 @@
-import { ChangeDetectorRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { SupabaseService } from 'src/app/service/supabase.service';
-import { ItemDetailComponent } from '../item-detail/item-detail.component';
-import { EquipmentAug } from 'src/app/model/equipment_aug';
 import { NzTableComponent } from 'ng-zorro-antd/table';
 import { QueryBuilderComponent } from '../query-builder/query-builder.component';
 import { Food } from 'src/app/model/food';
 import { FoodDetailComponent } from '../food-detail/food-detail.component';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-food-navi',
@@ -36,7 +36,11 @@ export class FoodNaviComponent {
   isHeader : boolean = true;
 
   constructor(private supabaseService: SupabaseService,
-    private changeDetectorRef: ChangeDetectorRef) {}
+    private changeDetectorRef: ChangeDetectorRef,
+    private router: Router) {
+      router.events.pipe(filter(event => event instanceof NavigationEnd ))
+      .subscribe(() => this.isHeader = true);
+  }
 
   ngAfterViewInit() {
     this.nzTableComponent.cdkVirtualScrollViewport?.elementScrolled()

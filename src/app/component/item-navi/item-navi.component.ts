@@ -1,11 +1,12 @@
-import { ChangeDetectorRef, Component, ElementRef, HostListener, Inject, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { SupabaseService } from 'src/app/service/supabase.service';
 import { Equipment } from 'src/app/model/equipment';
 import { ItemDetailComponent } from '../item-detail/item-detail.component';
 import { EquipmentAug } from 'src/app/model/equipment_aug';
 import { NzTableComponent } from 'ng-zorro-antd/table';
 import { QueryBuilderComponent } from '../query-builder/query-builder.component';
-import { DOCUMENT } from '@angular/common';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-item-navi',
@@ -41,7 +42,11 @@ export class ItemNaviComponent {
   isHeader : boolean = true;
 
   constructor(private supabaseService: SupabaseService,
-    private changeDetectorRef: ChangeDetectorRef) {}
+    private changeDetectorRef: ChangeDetectorRef,
+    private router: Router) {
+      router.events.pipe(filter(event => event instanceof NavigationEnd ))
+      .subscribe(() => this.isHeader = true);
+  }
 
   ngAfterViewInit() {
     this.nzTableComponent.cdkVirtualScrollViewport?.elementScrolled()

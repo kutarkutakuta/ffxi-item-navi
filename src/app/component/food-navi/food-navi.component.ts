@@ -48,7 +48,7 @@ export class FoodNaviComponent {
           this.isHeader = false;
           this.changeDetectorRef.detectChanges();
         }
-      } else {
+      } else if(currentPos < this.startPos) {
         if(!this.isHeader){
           this.isHeader = true;
           this.changeDetectorRef.detectChanges();

@@ -11,7 +11,8 @@
   <nz-tabset nzSize="small" [nzAnimated]="false" nzLinkRouter>
     <nz-tab>
       <a *nzTabLink nz-tab-link routerLink="/">
-        <span nz-icon nzType="search"></span>Search
+        <span nz-icon nzType="search"></span>
+        <span style="margin-left: -8px;">Search</span>
       </a>
       <div  style="margin-top: -10px;">
         <app-item-navi></app-item-navi>
@@ -19,7 +20,8 @@
     </nz-tab>
     <nz-tab>
       <a *nzTabLink nz-tab-link routerLink="/food">
-        <span nz-icon nzType="coffee"></span>Food
+        <span nz-icon nzType="coffee"></span>
+        <span style="margin-left: -8px;">Food</span>
       </a>
       <div  style="margin-top: -10px;">
         <app-food-navi></app-food-navi>
@@ -27,7 +29,8 @@
     </nz-tab>
     <nz-tab>
       <a *nzTabLink nz-tab-link routerLink="/myset">
-        <span nz-icon nzType="heart"></span>My Set
+        <span nz-icon nzType="heart"></span>
+        <span style="margin-left: -8px;">My Set</span>
       </a>
       <div  style="margin-top: -10px;">
         <app-equipset (published)="published()"></app-equipset>
@@ -35,7 +38,8 @@
     </nz-tab>
     <nz-tab>
       <a *nzTabLink nz-tab-link routerLink="/list">
-        <span nz-icon nzType="bars"></span>公開List
+        <span nz-icon nzType="bars"></span>
+        <span style="margin-left: -8px;">公開List</span>
       </a>
       <ng-template nz-tab>
         <div  style="margin-top: -10px;">

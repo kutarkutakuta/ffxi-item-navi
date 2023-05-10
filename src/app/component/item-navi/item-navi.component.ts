@@ -1,10 +1,11 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, Inject, ViewChild } from '@angular/core';
 import { SupabaseService } from 'src/app/service/supabase.service';
 import { Equipment } from 'src/app/model/equipment';
 import { ItemDetailComponent } from '../item-detail/item-detail.component';
 import { EquipmentAug } from 'src/app/model/equipment_aug';
 import { NzTableComponent } from 'ng-zorro-antd/table';
 import { QueryBuilderComponent } from '../query-builder/query-builder.component';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-item-navi',
@@ -36,9 +37,31 @@ export class ItemNaviComponent {
   txtKeywords: string[] = [];
   opKeywords: string[] = [];
 
-  constructor(private supabaseService: SupabaseService) {}
+  private startPos: number = 0;
+  isHeader : boolean = true;
 
-  ngOnInit(): void {}
+  constructor(private supabaseService: SupabaseService,
+    private changeDetectorRef: ChangeDetectorRef) {}
+
+  ngAfterViewInit() {
+    this.nzTableComponent.cdkVirtualScrollViewport?.elementScrolled()
+    .subscribe(ev=>{
+      var src = ev.target as any;
+      let currentPos = src.scrollTop;
+      if(currentPos > this.startPos) {
+        if(this.isHeader) {
+          this.isHeader = false;
+          this.changeDetectorRef.detectChanges();
+        }
+      } else {
+        if(!this.isHeader){
+          this.isHeader = true;
+          this.changeDetectorRef.detectChanges();
+        }
+      }
+      this.startPos = currentPos;
+    })
+  }
 
   /** 入力変更時 */
   inputChange(){

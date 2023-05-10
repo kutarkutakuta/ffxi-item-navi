@@ -14,3 +14,14 @@ td {
 .active.ant-collapse > .ant-collapse-item > .ant-collapse-header {
   border-top: 3px solid black;
 }
+
+.header {
+  /* position: fixed; */
+  z-index: 99;
+  top: 100;
+  left: 0;
+  width: 100%;
+  /* height: 60px; */
+  background: rgba(0,0,0,.5);
+  transition: .5s;
+}

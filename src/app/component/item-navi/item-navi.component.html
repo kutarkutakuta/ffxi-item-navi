@@ -1,5 +1,5 @@
-<div *ngIf="isHeader">
-  <div nz-row>
+<div>
+  <div nz-row *ngIf="isHeader">
     <div nz-col nzFlex="150px">
       <nz-select [(ngModel)]="selectedJobs" nzSize="default" nzMode="multiple" style="width: 100%;"
         nzPlaceHolder="ジョブ" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
@@ -17,7 +17,7 @@
       </nz-select>
     </div>
   </div>
-  <div nz-row>
+  <div nz-row [hidden]="!isHeader">
     <nz-input-group [nzPrefix]="prefixIconSearch" [nzSuffix]="suffixIconSearch" style="max-width:630px">
       <input type="text" nz-input placeholder="(例) 被ダメージ<-2 PET:攻>20" maxlength="200"
         [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
@@ -29,7 +29,7 @@
     </ng-template>
     <ng-template #suffixIconSearch>
       <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
-        nzType="close-circle" *ngIf="inputValue" (click)="inputValue = ''; inputChange()"></span>
+        nzType="close-circle" *ngIf="inputValue" (click)="clearText()"></span>
       <span nz-icon nzType="search" *ngIf="!inputValue"></span>
     </ng-template>
   </div>

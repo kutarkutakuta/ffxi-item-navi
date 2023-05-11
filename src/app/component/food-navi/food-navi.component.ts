@@ -194,6 +194,13 @@ export class FoodNaviComponent {
 
   showIQueryBuilder(){
     this.queryBuilder.show();
+    // this.changeDetectorRef.detectChanges();
+  }
+
+  clearText(){
+    this.inputValue = '';
+    this.inputChange();
+    // this.changeDetectorRef.detectChanges();
   }
 
   addQuery(query: string){

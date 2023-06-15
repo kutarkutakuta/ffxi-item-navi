@@ -65,7 +65,8 @@ export class ItemNaviComponent {
         }
       }
       this.startPos = currentPos;
-    })
+    });
+    this.inputChange();
   }
 
   /** 入力変更時 */

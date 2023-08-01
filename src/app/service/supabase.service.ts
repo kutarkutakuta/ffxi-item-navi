@@ -164,11 +164,11 @@ export class SupabaseService {
             // デフォルトはPCステータスで検索するがPET指定時は変更
             var column = "full_pc_status->" + keyword_han;
             if(keycolumn == "PET") column = "full_pet_status->" + keyword_han;
-            if(keyword_han == "LV"){
+            if(keyword_han.toUpperCase() == "LV"){
               column = "lv";
               query = query.order(column, {ascending:false, nullsFirst:false});
             }
-            if(keyword_han == "IL"){
+            if(keyword_han.toUpperCase() == "IL"){
               column = "item_lv";
               query = query.order(column, {ascending:false, nullsFirst:false});
             }

@@ -92,7 +92,7 @@
     <integer name="splashScreenFadeOutDuration">300</integer>
     <integer name="status_bar_notification_info_maxnum">999</integer>
     <string name="appName" translatable="false">装備Navi</string>
-    <string name="app_name">Android Browser Helper</string>
+    <string name="app_name">Play Billing</string>
     <string name="assetStatements">
     [{
         \"relation\": [\"delegate_permission/common.handle_all_urls\"],

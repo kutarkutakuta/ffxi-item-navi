@@ -23,8 +23,8 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.onrender.item_navi.twa"
-    android:versionCode="1"
-    android:versionName="1" >
+    android:versionCode="2"
+    android:versionName="2" >
 
     <uses-sdk
         android:minSdkVersion="19"
@@ -39,6 +39,8 @@
             <data android:scheme="https" />
         </intent>
     </queries>
+
+    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:name="com.onrender.item_navi.twa.Application"
@@ -154,6 +156,39 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
+
+        <activity
+            android:name="com.google.androidbrowserhelper.playbilling.provider.PaymentActivity"
+            android:configChanges="keyboardHidden|keyboard|orientation|screenLayout|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+            <intent-filter>
+                <action android:name="org.chromium.intent.action.PAY" />
+            </intent-filter>
+
+            <meta-data
+                android:name="org.chromium.default_payment_method_name"
+                android:value="https://play.google.com/billing" />
+        </activity>
+
+        <!-- This service checks who calls it at runtime. -->
+        <service
+            android:name="com.google.androidbrowserhelper.playbilling.provider.PaymentService"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="org.chromium.intent.action.IS_READY_TO_PAY" />
+            </intent-filter>
+        </service>
+
+        <meta-data
+            android:name="com.google.android.play.billingclient.version"
+            android:value="4.0.0" />
+
+        <activity
+            android:name="com.android.billingclient.api.ProxyBillingActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
     </application>
 
 </manifest>

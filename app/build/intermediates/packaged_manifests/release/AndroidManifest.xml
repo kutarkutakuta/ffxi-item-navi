@@ -23,12 +23,14 @@
 -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.onrender.item_navi.twa"
-    android:versionCode="2"
-    android:versionName="2" >
+    android:versionCode="3"
+    android:versionName="3" >
 
     <uses-sdk
         android:minSdkVersion="19"
-        android:targetSdkVersion="31" />
+        android:targetSdkVersion="33" />
+
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <queries>
         <intent>
@@ -39,8 +41,6 @@
             <data android:scheme="https" />
         </intent>
     </queries>
-
-    <uses-permission android:name="com.android.vending.BILLING" />
 
     <application
         android:name="com.onrender.item_navi.twa.Application"
@@ -77,6 +77,9 @@
             <meta-data
                 android:name="android.support.customtabs.trusted.STATUS_BAR_COLOR"
                 android:resource="@color/colorPrimary" />
+            <meta-data
+                android:name="android.support.customtabs.trusted.STATUS_BAR_COLOR_DARK"
+                android:resource="@color/colorPrimaryDark" />
             <meta-data
                 android:name="android.support.customtabs.trusted.NAVIGATION_BAR_COLOR"
                 android:resource="@color/navigationColor" />
@@ -157,38 +160,7 @@
             </intent-filter>
         </service>
 
-        <activity
-            android:name="com.google.androidbrowserhelper.playbilling.provider.PaymentActivity"
-            android:configChanges="keyboardHidden|keyboard|orientation|screenLayout|screenSize"
-            android:exported="true"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
-            <intent-filter>
-                <action android:name="org.chromium.intent.action.PAY" />
-            </intent-filter>
-
-            <meta-data
-                android:name="org.chromium.default_payment_method_name"
-                android:value="https://play.google.com/billing" />
-        </activity>
-
-        <!-- This service checks who calls it at runtime. -->
-        <service
-            android:name="com.google.androidbrowserhelper.playbilling.provider.PaymentService"
-            android:exported="true" >
-            <intent-filter>
-                <action android:name="org.chromium.intent.action.IS_READY_TO_PAY" />
-            </intent-filter>
-        </service>
-
-        <meta-data
-            android:name="com.google.android.play.billingclient.version"
-            android:value="4.0.0" />
-
-        <activity
-            android:name="com.android.billingclient.api.ProxyBillingActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-            android:exported="false"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name="com.google.androidbrowserhelper.trusted.NotificationPermissionRequestActivity" />
     </application>
 
 </manifest>

@@ -19,6 +19,7 @@ color browser_actions_divider_color
 color browser_actions_text_color
 color browser_actions_title_color
 color colorPrimary
+color colorPrimaryDark
 color navigationColor
 color navigationColorDark
 color navigationDividerColor

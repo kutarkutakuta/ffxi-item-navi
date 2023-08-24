@@ -1,50 +1,46 @@
 # compiler: R8
 # compiler_version: 2.1.86
 # min_api: 19
-# pg_map_id: 788bb87
+# pg_map_id: 4e30bfb
 # common_typos_disable
 android.support.customtabs.ICustomTabsCallback -> a.a.a.a:
-    void onNavigationEvent(int,android.os.Bundle) -> A
-    void onRelationshipValidationResult(int,android.net.Uri,boolean,android.os.Bundle) -> E
-    void onPostMessage(java.lang.String,android.os.Bundle) -> d
-    void extraCallback(java.lang.String,android.os.Bundle) -> l
-    void onMessageChannelReady(android.os.Bundle) -> r
-    android.os.Bundle extraCallbackWithResult(java.lang.String,android.os.Bundle) -> z
+    void onPostMessage(java.lang.String,android.os.Bundle) -> c
+    void extraCallback(java.lang.String,android.os.Bundle) -> e
+    void onMessageChannelReady(android.os.Bundle) -> f
+    android.os.Bundle extraCallbackWithResult(java.lang.String,android.os.Bundle) -> l
+    void onNavigationEvent(int,android.os.Bundle) -> m
+    void onRelationshipValidationResult(int,android.net.Uri,boolean,android.os.Bundle) -> q
 android.support.customtabs.ICustomTabsCallback$Stub -> a.a.a.a$a:
 android.support.customtabs.ICustomTabsService -> a.a.a.b:
-    boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle) -> C
-    boolean receiveFile(android.support.customtabs.ICustomTabsCallback,android.net.Uri,int,android.os.Bundle) -> G
     boolean newSessionWithExtras(android.support.customtabs.ICustomTabsCallback,android.os.Bundle) -> b
-    boolean warmup(long) -> v
-    boolean newSession(android.support.customtabs.ICustomTabsCallback) -> y
+    boolean warmup(long) -> j
+    boolean newSession(android.support.customtabs.ICustomTabsCallback) -> k
+    boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle) -> o
+    boolean receiveFile(android.support.customtabs.ICustomTabsCallback,android.net.Uri,int,android.os.Bundle) -> r
 android.support.customtabs.ICustomTabsService$Stub -> a.a.a.b$a:
-    android.support.customtabs.ICustomTabsService asInterface(android.os.IBinder) -> H
-    android.support.customtabs.ICustomTabsService getDefaultImpl() -> I
+    android.support.customtabs.ICustomTabsService asInterface(android.os.IBinder) -> s
+    android.support.customtabs.ICustomTabsService getDefaultImpl() -> t
 android.support.customtabs.ICustomTabsService$Stub$Proxy -> a.a.a.b$a$a:
     android.os.IBinder mRemote -> a
     android.support.customtabs.ICustomTabsService sDefaultImpl -> b
-    boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle) -> C
-    boolean receiveFile(android.support.customtabs.ICustomTabsCallback,android.net.Uri,int,android.os.Bundle) -> G
     boolean newSessionWithExtras(android.support.customtabs.ICustomTabsCallback,android.os.Bundle) -> b
-    boolean warmup(long) -> v
-    boolean newSession(android.support.customtabs.ICustomTabsCallback) -> y
+    boolean warmup(long) -> j
+    boolean newSession(android.support.customtabs.ICustomTabsCallback) -> k
+    boolean validateRelationship(android.support.customtabs.ICustomTabsCallback,int,android.net.Uri,android.os.Bundle) -> o
+    boolean receiveFile(android.support.customtabs.ICustomTabsCallback,android.net.Uri,int,android.os.Bundle) -> r
 android.support.customtabs.trusted.ITrustedWebActivityCallback -> a.a.a.c.a:
-    void onExtraCallback(java.lang.String,android.os.Bundle) -> o
 android.support.customtabs.trusted.ITrustedWebActivityCallback$Stub -> a.a.a.c.a$a:
-    android.support.customtabs.trusted.ITrustedWebActivityCallback asInterface(android.os.IBinder) -> H
-    android.support.customtabs.trusted.ITrustedWebActivityCallback getDefaultImpl() -> I
+    android.support.customtabs.trusted.ITrustedWebActivityCallback asInterface(android.os.IBinder) -> s
 android.support.customtabs.trusted.ITrustedWebActivityCallback$Stub$Proxy -> a.a.a.c.a$a$a:
     android.os.IBinder mRemote -> a
-    android.support.customtabs.trusted.ITrustedWebActivityCallback sDefaultImpl -> b
-    void onExtraCallback(java.lang.String,android.os.Bundle) -> o
 android.support.customtabs.trusted.ITrustedWebActivityService -> a.a.a.c.b:
-    android.os.Bundle notifyNotificationWithChannel(android.os.Bundle) -> B
-    android.os.Bundle getSmallIconBitmap() -> D
     android.os.Bundle areNotificationsEnabled(android.os.Bundle) -> a
-    android.os.Bundle getActiveNotifications() -> j
-    int getSmallIconId() -> s
-    void cancelNotification(android.os.Bundle) -> t
-    android.os.Bundle extraCommand(java.lang.String,android.os.Bundle,android.os.IBinder) -> u
+    android.os.Bundle getActiveNotifications() -> d
+    int getSmallIconId() -> g
+    void cancelNotification(android.os.Bundle) -> h
+    android.os.Bundle extraCommand(java.lang.String,android.os.Bundle,android.os.IBinder) -> i
+    android.os.Bundle notifyNotificationWithChannel(android.os.Bundle) -> n
+    android.os.Bundle getSmallIconBitmap() -> p
 android.support.customtabs.trusted.ITrustedWebActivityService$Stub -> a.a.a.c.b$a:
 androidx.browser.R$dimen -> b.a.a:
     int browser_actions_context_menu_min_padding -> b
@@ -91,12 +87,12 @@ androidx.browser.customtabs.CustomTabsClient -> b.a.b.c:
 androidx.browser.customtabs.CustomTabsClient$2 -> b.a.b.c$a:
     androidx.browser.customtabs.CustomTabsCallback val$callback -> b
     android.os.Handler mHandler -> a
-    void onNavigationEvent(int,android.os.Bundle) -> A
-    void onRelationshipValidationResult(int,android.net.Uri,boolean,android.os.Bundle) -> E
-    void onPostMessage(java.lang.String,android.os.Bundle) -> d
-    void extraCallback(java.lang.String,android.os.Bundle) -> l
-    void onMessageChannelReady(android.os.Bundle) -> r
-    android.os.Bundle extraCallbackWithResult(java.lang.String,android.os.Bundle) -> z
+    void onPostMessage(java.lang.String,android.os.Bundle) -> c
+    void extraCallback(java.lang.String,android.os.Bundle) -> e
+    void onMessageChannelReady(android.os.Bundle) -> f
+    android.os.Bundle extraCallbackWithResult(java.lang.String,android.os.Bundle) -> l
+    void onNavigationEvent(int,android.os.Bundle) -> m
+    void onRelationshipValidationResult(int,android.net.Uri,boolean,android.os.Bundle) -> q
 androidx.browser.customtabs.CustomTabsClient$2$1 -> b.a.b.c$a$a:
     android.os.Bundle val$extras -> b
     androidx.browser.customtabs.CustomTabsClient$2 this$1 -> c
@@ -207,7 +203,6 @@ androidx.browser.trusted.TokenStore -> b.a.c.g:
 androidx.browser.trusted.TrustedWebActivityCallbackRemote -> b.a.c.h:
     android.support.customtabs.trusted.ITrustedWebActivityCallback mCallbackBinder -> a
     androidx.browser.trusted.TrustedWebActivityCallbackRemote fromBinder(android.os.IBinder) -> a
-    void runExtraCallback(java.lang.String,android.os.Bundle) -> b
 androidx.browser.trusted.TrustedWebActivityDisplayMode -> b.a.c.i:
     android.os.Bundle toBundle() -> a
 androidx.browser.trusted.TrustedWebActivityDisplayMode$DefaultMode -> b.a.c.i$a:
@@ -260,14 +255,14 @@ androidx.browser.trusted.TrustedWebActivityService -> b.a.c.l:
     boolean onNotifyNotificationWithChannel(java.lang.String,int,android.app.Notification,java.lang.String) -> j
 androidx.browser.trusted.TrustedWebActivityService$1 -> b.a.c.l$a:
     androidx.browser.trusted.TrustedWebActivityService this$0 -> a
-    android.os.Bundle notifyNotificationWithChannel(android.os.Bundle) -> B
-    android.os.Bundle getSmallIconBitmap() -> D
-    void checkCaller() -> H
     android.os.Bundle areNotificationsEnabled(android.os.Bundle) -> a
-    android.os.Bundle getActiveNotifications() -> j
-    int getSmallIconId() -> s
-    void cancelNotification(android.os.Bundle) -> t
-    android.os.Bundle extraCommand(java.lang.String,android.os.Bundle,android.os.IBinder) -> u
+    android.os.Bundle getActiveNotifications() -> d
+    int getSmallIconId() -> g
+    void cancelNotification(android.os.Bundle) -> h
+    android.os.Bundle extraCommand(java.lang.String,android.os.Bundle,android.os.IBinder) -> i
+    android.os.Bundle notifyNotificationWithChannel(android.os.Bundle) -> n
+    android.os.Bundle getSmallIconBitmap() -> p
+    void checkCaller() -> s
 androidx.browser.trusted.TrustedWebActivityServiceConnection -> b.a.c.m:
     void ensureBundleContains(android.os.Bundle,java.lang.String) -> a
 androidx.browser.trusted.TrustedWebActivityServiceConnection$ActiveNotificationsArgs -> b.a.c.m$a:
@@ -574,792 +569,11 @@ androidx.versionedparcelable.VersionedParcelParcel -> androidx.versionedparcelab
     void setOutputField(int) -> w
     void writeBoolean(boolean) -> y
 androidx.versionedparcelable.VersionedParcelable -> androidx.versionedparcelable.c:
-com.android.billingclient.api.AcknowledgePurchaseParams -> com.android.billingclient.api.a:
-    java.lang.String zza -> a
-    java.lang.String getPurchaseToken() -> a
-    com.android.billingclient.api.AcknowledgePurchaseParams$Builder newBuilder() -> b
-    java.lang.String zza(com.android.billingclient.api.AcknowledgePurchaseParams,java.lang.String) -> c
-com.android.billingclient.api.AcknowledgePurchaseParams$Builder -> com.android.billingclient.api.a$a:
-    java.lang.String zza -> a
-    com.android.billingclient.api.AcknowledgePurchaseParams build() -> a
-    com.android.billingclient.api.AcknowledgePurchaseParams$Builder setPurchaseToken(java.lang.String) -> b
-com.android.billingclient.api.AcknowledgePurchaseResponseListener -> com.android.billingclient.api.b:
-    void onAcknowledgePurchaseResponse(com.android.billingclient.api.BillingResult) -> a
-com.android.billingclient.api.BillingClient -> com.android.billingclient.api.c:
-    void acknowledgePurchase(com.android.billingclient.api.AcknowledgePurchaseParams,com.android.billingclient.api.AcknowledgePurchaseResponseListener) -> a
-    void consumeAsync(com.android.billingclient.api.ConsumeParams,com.android.billingclient.api.ConsumeResponseListener) -> b
-    com.android.billingclient.api.BillingResult launchBillingFlow(android.app.Activity,com.android.billingclient.api.BillingFlowParams) -> c
-    void launchPriceChangeConfirmationFlow(android.app.Activity,com.android.billingclient.api.PriceChangeFlowParams,com.android.billingclient.api.PriceChangeConfirmationListener) -> d
-    com.android.billingclient.api.BillingClient$Builder newBuilder(android.content.Context) -> e
-    void queryPurchaseHistoryAsync(java.lang.String,com.android.billingclient.api.PurchaseHistoryResponseListener) -> f
-    void queryPurchasesAsync(java.lang.String,com.android.billingclient.api.PurchasesResponseListener) -> g
-    void querySkuDetailsAsync(com.android.billingclient.api.SkuDetailsParams,com.android.billingclient.api.SkuDetailsResponseListener) -> h
-    void startConnection(com.android.billingclient.api.BillingClientStateListener) -> i
-com.android.billingclient.api.BillingClient$Builder -> com.android.billingclient.api.c$a:
-    android.content.Context zzc -> b
-    com.android.billingclient.api.PurchasesUpdatedListener zzd -> c
-    boolean zzb -> a
-    com.android.billingclient.api.BillingClient build() -> a
-    com.android.billingclient.api.BillingClient$Builder enablePendingPurchases() -> b
-    com.android.billingclient.api.BillingClient$Builder setListener(com.android.billingclient.api.PurchasesUpdatedListener) -> c
-com.android.billingclient.api.BillingClientImpl -> com.android.billingclient.api.d:
-    boolean zzn -> m
-    boolean zzo -> n
-    boolean zzp -> o
-    java.util.concurrent.ExecutorService zzu -> t
-    boolean zzq -> p
-    boolean zzj -> i
-    int zzk -> j
-    boolean zzl -> k
-    boolean zzm -> l
-    com.android.billingclient.api.zzaf zzh -> g
-    android.content.Context zzf -> e
-    boolean zzr -> q
-    boolean zzs -> r
-    boolean zzt -> s
-    int zza -> a
-    android.os.Handler zzc -> c
-    boolean zzi -> h
-    com.google.android.gms.internal.play_billing.zzd zzg -> f
-    java.lang.String zzb -> b
-    com.android.billingclient.api.zzh zzd -> d
-    android.os.Handler zzh(com.android.billingclient.api.BillingClientImpl) -> A
-    com.android.billingclient.api.zzag zzi(com.android.billingclient.api.BillingClientImpl,java.lang.String) -> B
-    com.android.billingclient.api.BillingResult zzj(com.android.billingclient.api.BillingClientImpl) -> C
-    com.android.billingclient.api.Purchase$PurchasesResult zzk(com.android.billingclient.api.BillingClientImpl,java.lang.String) -> D
-    com.google.android.gms.internal.play_billing.zzd zzl(com.android.billingclient.api.BillingClientImpl) -> E
-    com.google.android.gms.internal.play_billing.zzd zzm(com.android.billingclient.api.BillingClientImpl,com.google.android.gms.internal.play_billing.zzd) -> F
-    java.lang.Object zzo(com.android.billingclient.api.AcknowledgePurchaseParams,com.android.billingclient.api.AcknowledgePurchaseResponseListener) -> G
-    java.lang.Object zzp(com.android.billingclient.api.ConsumeParams,com.android.billingclient.api.ConsumeResponseListener) -> H
-    java.lang.Object zzq(java.lang.String,java.util.List,java.lang.String,com.android.billingclient.api.SkuDetailsResponseListener) -> I
-    java.util.concurrent.Future zzr(com.android.billingclient.api.BillingClientImpl,java.util.concurrent.Callable,long,java.lang.Runnable,android.os.Handler) -> J
-    void zzs(com.android.billingclient.api.BillingResult) -> K
-    boolean zzt(com.android.billingclient.api.BillingClientImpl,boolean) -> L
-    boolean zzu(com.android.billingclient.api.BillingClientImpl,boolean) -> M
-    boolean zzv(com.android.billingclient.api.BillingClientImpl,boolean) -> N
-    boolean zzw(com.android.billingclient.api.BillingClientImpl,boolean) -> O
-    boolean zzx(com.android.billingclient.api.BillingClientImpl,boolean) -> P
-    boolean zzy(com.android.billingclient.api.BillingClientImpl,boolean) -> Q
-    boolean zzz(com.android.billingclient.api.BillingClientImpl,boolean) -> R
-    void acknowledgePurchase(com.android.billingclient.api.AcknowledgePurchaseParams,com.android.billingclient.api.AcknowledgePurchaseResponseListener) -> a
-    void consumeAsync(com.android.billingclient.api.ConsumeParams,com.android.billingclient.api.ConsumeResponseListener) -> b
-    com.android.billingclient.api.BillingResult launchBillingFlow(android.app.Activity,com.android.billingclient.api.BillingFlowParams) -> c
-    void launchPriceChangeConfirmationFlow(android.app.Activity,com.android.billingclient.api.PriceChangeFlowParams,com.android.billingclient.api.PriceChangeConfirmationListener) -> d
-    void queryPurchaseHistoryAsync(java.lang.String,com.android.billingclient.api.PurchaseHistoryResponseListener) -> f
-    void queryPurchasesAsync(java.lang.String,com.android.billingclient.api.PurchasesResponseListener) -> g
-    void querySkuDetailsAsync(com.android.billingclient.api.SkuDetailsParams,com.android.billingclient.api.SkuDetailsResponseListener) -> h
-    void startConnection(com.android.billingclient.api.BillingClientStateListener) -> i
-    void initialize(android.content.Context,com.android.billingclient.api.PurchasesUpdatedListener,boolean) -> j
-    boolean isReady() -> k
-    boolean zzA(com.android.billingclient.api.BillingClientImpl,boolean) -> l
-    boolean zzB(com.android.billingclient.api.BillingClientImpl,boolean) -> m
-    boolean zzC(com.android.billingclient.api.BillingClientImpl,boolean) -> n
-    android.os.Handler zzD() -> o
-    com.android.billingclient.api.BillingResult zzE(com.android.billingclient.api.BillingResult) -> p
-    com.android.billingclient.api.BillingResult zzF() -> q
-    java.util.concurrent.Future zzH(java.util.concurrent.Callable,long,java.lang.Runnable,android.os.Handler) -> r
-    void zzI(com.android.billingclient.api.BillingResult,com.android.billingclient.api.PriceChangeConfirmationListener) -> s
-    int zza(com.android.billingclient.api.BillingClientImpl) -> t
-    int zzb(com.android.billingclient.api.BillingClientImpl,int) -> u
-    int zzc(com.android.billingclient.api.BillingClientImpl,int) -> v
-    android.content.Context zzd(com.android.billingclient.api.BillingClientImpl) -> w
-    android.os.Bundle zze(int,com.android.billingclient.api.SkuDetails,java.lang.String,com.android.billingclient.api.BillingFlowParams,android.os.Bundle) -> x
-    android.os.Bundle zzf(com.android.billingclient.api.SkuDetails,java.lang.String) -> y
-    android.os.Bundle zzg(java.lang.String,android.os.Bundle) -> z
-com.android.billingclient.api.BillingClientStateListener -> com.android.billingclient.api.e:
-    void onBillingSetupFinished(com.android.billingclient.api.BillingResult) -> a
-    void onBillingServiceDisconnected() -> b
-com.android.billingclient.api.BillingFlowParams -> com.android.billingclient.api.f:
-    java.util.ArrayList zzf -> f
-    boolean zzg -> g
-    int zze -> e
-    boolean zza -> a
-    java.lang.String zzc -> c
-    java.lang.String zzb -> b
-    java.lang.String zzd -> d
-    boolean getVrPurchaseFlow() -> a
-    com.android.billingclient.api.BillingFlowParams$Builder newBuilder() -> b
-    int zza(com.android.billingclient.api.BillingFlowParams,int) -> c
-    int zzb() -> d
-    java.lang.String zzc(com.android.billingclient.api.BillingFlowParams,java.lang.String) -> e
-    java.lang.String zzd(com.android.billingclient.api.BillingFlowParams,java.lang.String) -> f
-    java.lang.String zze(com.android.billingclient.api.BillingFlowParams,java.lang.String) -> g
-    java.lang.String zzf() -> h
-    java.lang.String zzg() -> i
-    java.lang.String zzh() -> j
-    java.util.ArrayList zzi(com.android.billingclient.api.BillingFlowParams,java.util.ArrayList) -> k
-    java.util.ArrayList zzj() -> l
-    boolean zzk(com.android.billingclient.api.BillingFlowParams,boolean) -> m
-    boolean zzl(com.android.billingclient.api.BillingFlowParams,boolean) -> n
-    boolean zzm() -> o
-com.android.billingclient.api.BillingFlowParams$Builder -> com.android.billingclient.api.f$a:
-    boolean zzf -> f
-    java.lang.String zza -> a
-    int zzd -> d
-    java.util.ArrayList zze -> e
-    java.lang.String zzc -> c
-    java.lang.String zzb -> b
-    com.android.billingclient.api.BillingFlowParams build() -> a
-    com.android.billingclient.api.BillingFlowParams$Builder setSkuDetails(com.android.billingclient.api.SkuDetails) -> b
-    com.android.billingclient.api.BillingFlowParams$Builder setSubscriptionUpdateParams(com.android.billingclient.api.BillingFlowParams$SubscriptionUpdateParams) -> c
-com.android.billingclient.api.BillingFlowParams$SubscriptionUpdateParams -> com.android.billingclient.api.f$b:
-    java.lang.String zza -> a
-    int zzb -> b
-    java.lang.String getOldSkuPurchaseToken() -> a
-    int getReplaceSkusProrationMode() -> b
-    com.android.billingclient.api.BillingFlowParams$SubscriptionUpdateParams$Builder newBuilder() -> c
-    int zza(com.android.billingclient.api.BillingFlowParams$SubscriptionUpdateParams,int) -> d
-    java.lang.String zzb(com.android.billingclient.api.BillingFlowParams$SubscriptionUpdateParams,java.lang.String) -> e
-com.android.billingclient.api.BillingFlowParams$SubscriptionUpdateParams$Builder -> com.android.billingclient.api.f$b$a:
-    java.lang.String zza -> a
-    int zzb -> b
-    com.android.billingclient.api.BillingFlowParams$SubscriptionUpdateParams build() -> a
-    com.android.billingclient.api.BillingFlowParams$SubscriptionUpdateParams$Builder setOldSkuPurchaseToken(java.lang.String) -> b
-    com.android.billingclient.api.BillingFlowParams$SubscriptionUpdateParams$Builder setReplaceSkusProrationMode(int) -> c
-com.android.billingclient.api.BillingResult -> com.android.billingclient.api.g:
-    java.lang.String zzb -> b
-    int zza -> a
-    java.lang.String getDebugMessage() -> a
-    int getResponseCode() -> b
-    com.android.billingclient.api.BillingResult$Builder newBuilder() -> c
-    int zza(com.android.billingclient.api.BillingResult,int) -> d
-    java.lang.String zzb(com.android.billingclient.api.BillingResult,java.lang.String) -> e
-com.android.billingclient.api.BillingResult$Builder -> com.android.billingclient.api.g$a:
-    java.lang.String zzb -> b
-    int zza -> a
-    com.android.billingclient.api.BillingResult build() -> a
-    com.android.billingclient.api.BillingResult$Builder setDebugMessage(java.lang.String) -> b
-    com.android.billingclient.api.BillingResult$Builder setResponseCode(int) -> c
-com.android.billingclient.api.ConsumeParams -> com.android.billingclient.api.h:
-    java.lang.String zza -> a
-    java.lang.String getPurchaseToken() -> a
-    com.android.billingclient.api.ConsumeParams$Builder newBuilder() -> b
-    java.lang.String zza(com.android.billingclient.api.ConsumeParams,java.lang.String) -> c
-com.android.billingclient.api.ConsumeParams$Builder -> com.android.billingclient.api.h$a:
-    java.lang.String zza -> a
-    com.android.billingclient.api.ConsumeParams build() -> a
-    com.android.billingclient.api.ConsumeParams$Builder setPurchaseToken(java.lang.String) -> b
-com.android.billingclient.api.ConsumeResponseListener -> com.android.billingclient.api.i:
-    void onConsumeResponse(com.android.billingclient.api.BillingResult,java.lang.String) -> a
-com.android.billingclient.api.PriceChangeConfirmationListener -> com.android.billingclient.api.j:
-    void onPriceChangeConfirmationResult(com.android.billingclient.api.BillingResult) -> a
-com.android.billingclient.api.PriceChangeFlowParams -> com.android.billingclient.api.k:
-    com.android.billingclient.api.SkuDetails zza -> a
-    com.android.billingclient.api.SkuDetails getSkuDetails() -> a
-    com.android.billingclient.api.PriceChangeFlowParams$Builder newBuilder() -> b
-    com.android.billingclient.api.SkuDetails zza(com.android.billingclient.api.PriceChangeFlowParams,com.android.billingclient.api.SkuDetails) -> c
-com.android.billingclient.api.PriceChangeFlowParams$Builder -> com.android.billingclient.api.k$a:
-    com.android.billingclient.api.SkuDetails zza -> a
-    com.android.billingclient.api.PriceChangeFlowParams build() -> a
-    com.android.billingclient.api.PriceChangeFlowParams$Builder setSkuDetails(com.android.billingclient.api.SkuDetails) -> b
-com.android.billingclient.api.ProxyBillingActivity -> com.android.billingclient.api.ProxyBillingActivity:
-    android.os.ResultReceiver zza -> a
-    boolean zzb -> b
-    android.content.Intent zza() -> a
-com.android.billingclient.api.Purchase -> com.android.billingclient.api.Purchase:
-    org.json.JSONObject zzc -> c
-    java.lang.String zza -> a
-    java.lang.String zzb -> b
-    java.lang.String getOriginalJson() -> a
-    int getPurchaseState() -> b
-    long getPurchaseTime() -> c
-    java.lang.String getPurchaseToken() -> d
-    java.lang.String getSignature() -> e
-    java.util.ArrayList getSkus() -> f
-    boolean isAcknowledged() -> g
-    boolean isAutoRenewing() -> h
-com.android.billingclient.api.Purchase$PurchasesResult -> com.android.billingclient.api.Purchase$a:
-    java.util.List zza -> a
-    com.android.billingclient.api.BillingResult zzb -> b
-    com.android.billingclient.api.BillingResult getBillingResult() -> a
-    java.util.List getPurchasesList() -> b
-com.android.billingclient.api.PurchaseHistoryRecord -> com.android.billingclient.api.PurchaseHistoryRecord:
-    org.json.JSONObject zzc -> c
-    java.lang.String zza -> a
-    java.lang.String zzb -> b
-    java.lang.String getOriginalJson() -> a
-    java.lang.String getPurchaseToken() -> b
-    java.lang.String getSignature() -> c
-    java.util.ArrayList getSkus() -> d
-com.android.billingclient.api.PurchaseHistoryResponseListener -> com.android.billingclient.api.l:
-    void onPurchaseHistoryResponse(com.android.billingclient.api.BillingResult,java.util.List) -> a
-com.android.billingclient.api.PurchasesResponseListener -> com.android.billingclient.api.m:
-    void onQueryPurchasesResponse(com.android.billingclient.api.BillingResult,java.util.List) -> a
-com.android.billingclient.api.PurchasesUpdatedListener -> com.android.billingclient.api.n:
-    void onPurchasesUpdated(com.android.billingclient.api.BillingResult,java.util.List) -> a
-com.android.billingclient.api.SkuDetails -> com.android.billingclient.api.SkuDetails:
-    org.json.JSONObject zzb -> b
-    java.lang.String zza -> a
-    java.lang.String getDescription() -> a
-    java.lang.String getFreeTrialPeriod() -> b
-    java.lang.String getIconUrl() -> c
-    long getIntroductoryPriceAmountMicros() -> d
-    int getIntroductoryPriceCycles() -> e
-    java.lang.String getIntroductoryPricePeriod() -> f
-    java.lang.String getOriginalJson() -> g
-    long getPriceAmountMicros() -> h
-    java.lang.String getPriceCurrencyCode() -> i
-    java.lang.String getSku() -> j
-    java.lang.String getSubscriptionPeriod() -> k
-    java.lang.String getTitle() -> l
-    java.lang.String getType() -> m
-    int zza() -> n
-    java.lang.String zzb() -> o
-    java.lang.String zzc() -> p
-    java.lang.String zzd() -> q
-    java.lang.String zze() -> r
-com.android.billingclient.api.SkuDetailsParams -> com.android.billingclient.api.o:
-    java.util.List zzb -> b
-    java.lang.String zza -> a
-    java.lang.String getSkuType() -> a
-    java.util.List getSkusList() -> b
-    com.android.billingclient.api.SkuDetailsParams$Builder newBuilder() -> c
-    java.lang.String zza(com.android.billingclient.api.SkuDetailsParams,java.lang.String) -> d
-    java.util.List zzb(com.android.billingclient.api.SkuDetailsParams,java.util.List) -> e
-com.android.billingclient.api.SkuDetailsParams$Builder -> com.android.billingclient.api.o$a:
-    java.util.List zzb -> b
-    java.lang.String zza -> a
-    com.android.billingclient.api.SkuDetailsParams build() -> a
-    com.android.billingclient.api.SkuDetailsParams$Builder setSkusList(java.util.List) -> b
-    com.android.billingclient.api.SkuDetailsParams$Builder setType(java.lang.String) -> c
-com.android.billingclient.api.SkuDetailsResponseListener -> com.android.billingclient.api.p:
-    void onSkuDetailsResponse(com.android.billingclient.api.BillingResult,java.util.List) -> a
-com.android.billingclient.api.zza -> com.android.billingclient.api.q:
-com.android.billingclient.api.zzaa -> com.android.billingclient.api.r:
-    com.android.billingclient.api.BillingClientImpl zzc -> c
-    java.lang.String zza -> a
-    com.android.billingclient.api.PurchasesResponseListener zzb -> b
-com.android.billingclient.api.zzab -> com.android.billingclient.api.s:
-    com.android.billingclient.api.BillingClientImpl zzc -> c
-    java.lang.String zza -> a
-    com.android.billingclient.api.PurchaseHistoryResponseListener zzb -> b
-com.android.billingclient.api.zzac -> com.android.billingclient.api.t:
-    java.util.concurrent.atomic.AtomicInteger zzb -> b
-    java.util.concurrent.ThreadFactory zza -> a
-com.android.billingclient.api.zzad -> com.android.billingclient.api.u:
-    com.android.billingclient.api.zzaf zza -> a
-com.android.billingclient.api.zzae -> com.android.billingclient.api.v:
-    com.android.billingclient.api.zzaf zza -> a
-com.android.billingclient.api.zzaf -> com.android.billingclient.api.w:
-    com.android.billingclient.api.BillingClientStateListener zzd -> c
-    com.android.billingclient.api.BillingClientImpl zza -> d
-    java.lang.Object zzb -> a
-    boolean zzc -> b
-    java.lang.Object zza() -> a
-    void zzb() -> b
-    void zzd(com.android.billingclient.api.BillingResult) -> c
-com.android.billingclient.api.zzag -> com.android.billingclient.api.x:
-    java.util.List zza -> a
-    com.android.billingclient.api.BillingResult zzb -> b
-    com.android.billingclient.api.BillingResult zza() -> a
-    java.util.List zzb() -> b
-com.android.billingclient.api.zzai -> com.android.billingclient.api.y:
-com.android.billingclient.api.zzaj -> com.android.billingclient.api.z:
-com.android.billingclient.api.zzak -> com.android.billingclient.api.a0:
-    com.android.billingclient.api.BillingResult zzl -> k
-    com.android.billingclient.api.BillingResult zzn -> l
-    com.android.billingclient.api.BillingResult zzj -> i
-    com.android.billingclient.api.BillingResult zzk -> j
-    com.android.billingclient.api.BillingResult zzr -> o
-    com.android.billingclient.api.BillingResult zzs -> p
-    com.android.billingclient.api.BillingResult zzp -> m
-    com.android.billingclient.api.BillingResult zzq -> n
-    com.android.billingclient.api.BillingResult zzc -> c
-    com.android.billingclient.api.BillingResult zzd -> d
-    com.android.billingclient.api.BillingResult zza -> a
-    com.android.billingclient.api.BillingResult zzb -> b
-    com.android.billingclient.api.BillingResult zzh -> g
-    com.android.billingclient.api.BillingResult zzi -> h
-    com.android.billingclient.api.BillingResult zzf -> e
-    com.android.billingclient.api.BillingResult zzg -> f
-    com.android.billingclient.api.BillingResult zzu -> q
-com.android.billingclient.api.zzal -> com.android.billingclient.api.b0:
-com.android.billingclient.api.zzam -> com.android.billingclient.api.c0:
-    com.android.billingclient.api.BillingResult zza(android.os.Bundle,java.lang.String,java.lang.String) -> a
-com.android.billingclient.api.zzan -> com.android.billingclient.api.d0:
-com.android.billingclient.api.zzao -> com.android.billingclient.api.e0:
-com.android.billingclient.api.zzap -> com.android.billingclient.api.f0:
-    java.lang.String zza -> a
-    com.android.billingclient.api.zzap zza(java.lang.String) -> a
-    com.android.billingclient.api.zzaq zzb() -> b
-com.android.billingclient.api.zzaq -> com.android.billingclient.api.g0:
-    java.lang.String zza -> a
-    java.lang.String zza() -> a
-com.android.billingclient.api.zzf -> com.android.billingclient.api.h0:
-com.android.billingclient.api.zzg -> com.android.billingclient.api.i0:
-    com.android.billingclient.api.PurchasesUpdatedListener zzb -> a
-    boolean zzc -> b
-    com.android.billingclient.api.zzh zza -> c
-    com.android.billingclient.api.PurchasesUpdatedListener zza(com.android.billingclient.api.zzg) -> a
-    void zzb(android.content.Context,android.content.IntentFilter) -> b
-com.android.billingclient.api.zzh -> com.android.billingclient.api.j0:
-    android.content.Context zza -> a
-    com.android.billingclient.api.zzg zzb -> b
-    com.android.billingclient.api.zzg zza(com.android.billingclient.api.zzh) -> a
-    com.android.billingclient.api.PurchasesUpdatedListener zzb() -> b
-    void zzd() -> c
-com.android.billingclient.api.zzi -> com.android.billingclient.api.k0:
-com.android.billingclient.api.zzj -> com.android.billingclient.api.l0:
-    com.android.billingclient.api.AcknowledgePurchaseResponseListener zza -> a
-com.android.billingclient.api.zzk -> com.android.billingclient.api.m0:
-    com.android.billingclient.api.AcknowledgePurchaseParams zzb -> b
-    com.android.billingclient.api.AcknowledgePurchaseResponseListener zzc -> c
-    com.android.billingclient.api.BillingClientImpl zza -> a
-com.android.billingclient.api.zzl -> com.android.billingclient.api.n0:
-    com.android.billingclient.api.ConsumeResponseListener zzc -> c
-    com.android.billingclient.api.ConsumeParams zzb -> b
-    com.android.billingclient.api.BillingClientImpl zza -> a
-com.android.billingclient.api.zzm -> com.android.billingclient.api.o0:
-    java.lang.String zzc -> c
-    com.android.billingclient.api.BillingClientImpl zza -> a
-    com.android.billingclient.api.SkuDetails zzb -> b
-com.android.billingclient.api.zzo -> com.android.billingclient.api.p0:
-    android.os.Bundle zzc -> c
-    java.lang.String zzb -> b
-    com.android.billingclient.api.BillingClientImpl zza -> a
-com.android.billingclient.api.zzp -> com.android.billingclient.api.q0:
-    com.android.billingclient.api.SkuDetailsResponseListener zzd -> d
-    java.util.List zzc -> c
-    java.lang.String zzb -> b
-    com.android.billingclient.api.BillingClientImpl zza -> a
-com.android.billingclient.api.zzq -> com.android.billingclient.api.r0:
-    com.android.billingclient.api.BillingResult zzb -> b
-    com.android.billingclient.api.BillingClientImpl zza -> a
-com.android.billingclient.api.zzr -> com.android.billingclient.api.s0:
-    com.android.billingclient.api.ConsumeResponseListener zza -> a
-    com.android.billingclient.api.ConsumeParams zzb -> b
-com.android.billingclient.api.zzs -> com.android.billingclient.api.t0:
-    com.android.billingclient.api.PriceChangeConfirmationListener zza -> a
-    com.android.billingclient.api.BillingResult zzb -> b
-com.android.billingclient.api.zzt -> com.android.billingclient.api.u0:
-    com.android.billingclient.api.PurchaseHistoryResponseListener zza -> a
-com.android.billingclient.api.zzu -> com.android.billingclient.api.v0:
-    com.android.billingclient.api.PurchasesResponseListener zza -> a
-com.android.billingclient.api.zzv -> com.android.billingclient.api.w0:
-    com.android.billingclient.api.SkuDetailsResponseListener zza -> a
-com.android.billingclient.api.zzw -> com.android.billingclient.api.x0:
-    java.util.concurrent.Future zza -> a
-    java.lang.Runnable zzb -> b
-com.android.billingclient.api.zzx -> com.android.billingclient.api.y0:
-    android.os.Bundle zzf -> f
-    int zzb -> b
-    com.android.billingclient.api.BillingClientImpl zza -> a
-    com.android.billingclient.api.BillingFlowParams zze -> e
-    com.android.billingclient.api.SkuDetails zzc -> c
-    java.lang.String zzd -> d
-com.android.billingclient.api.zzy -> com.android.billingclient.api.z0:
-    com.android.billingclient.api.PriceChangeConfirmationListener zza -> a
-com.google.android.gms.internal.play_billing.zza -> c.a.a.a.a.a.a:
-    int zza -> a
-    int zza(android.os.Bundle,java.lang.String) -> a
-    android.os.Bundle zzb(com.android.billingclient.api.AcknowledgePurchaseParams,java.lang.String) -> b
-    android.os.Bundle zzc(com.android.billingclient.api.ConsumeParams,boolean,java.lang.String) -> c
-    android.os.Bundle zzd(int,boolean,java.lang.String,java.lang.String,java.util.ArrayList) -> d
-    android.os.Bundle zze(com.android.billingclient.api.BillingFlowParams,boolean,boolean,java.lang.String) -> e
-    android.os.Bundle zzf(boolean,boolean,java.lang.String) -> f
-    com.android.billingclient.api.BillingResult zzg(android.content.Intent,java.lang.String) -> g
-    java.lang.String zzh(android.os.Bundle,java.lang.String) -> h
-    java.util.List zzi(android.os.Bundle) -> i
-    void zzj(java.lang.String,java.lang.String) -> j
-    void zzk(java.lang.String,java.lang.String) -> k
-    com.android.billingclient.api.Purchase zzl(java.lang.String,java.lang.String) -> l
-com.google.android.gms.internal.play_billing.zzb -> c.a.a.a.a.a.b:
-    android.os.Bundle zzh(int,java.lang.String,java.lang.String,java.lang.String,android.os.Bundle) -> F
-    android.os.Bundle zzj(int,java.lang.String,java.lang.String,java.lang.String,android.os.Bundle) -> e
-    android.os.Bundle zzl(int,java.lang.String,java.lang.String,android.os.Bundle,android.os.Bundle) -> f
-    int zzb(int,java.lang.String,java.lang.String) -> g
-    android.os.Bundle zzf(int,java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> h
-    android.os.Bundle zzg(int,java.lang.String,java.lang.String,java.lang.String,java.lang.String,android.os.Bundle) -> i
-    int zza(int,java.lang.String,java.lang.String) -> k
-    android.os.Bundle zzd(int,java.lang.String,java.lang.String,android.os.Bundle) -> n
-    android.os.Bundle zzk(int,java.lang.String,java.lang.String,android.os.Bundle) -> p
-    android.os.Bundle zzm(int,java.lang.String,java.lang.String,java.lang.String,android.os.Bundle) -> q
-    android.os.Bundle zzi(int,java.lang.String,java.lang.String,java.lang.String) -> w
-    android.os.Bundle zze(int,java.lang.String,java.lang.String,android.os.Bundle) -> x
-com.google.android.gms.internal.play_billing.zzc -> c.a.a.a.a.a.c:
-    com.google.android.gms.internal.play_billing.zzd zzn(android.os.IBinder) -> H
-com.google.android.gms.internal.play_billing.zzd -> c.a.a.a.a.a.d:
-    android.os.Bundle zzh(int,java.lang.String,java.lang.String,java.lang.String,android.os.Bundle) -> F
-    android.os.Bundle zzj(int,java.lang.String,java.lang.String,java.lang.String,android.os.Bundle) -> e
-    android.os.Bundle zzl(int,java.lang.String,java.lang.String,android.os.Bundle,android.os.Bundle) -> f
-    int zzb(int,java.lang.String,java.lang.String) -> g
-    android.os.Bundle zzf(int,java.lang.String,java.lang.String,java.lang.String,java.lang.String) -> h
-    android.os.Bundle zzg(int,java.lang.String,java.lang.String,java.lang.String,java.lang.String,android.os.Bundle) -> i
-    int zza(int,java.lang.String,java.lang.String) -> k
-    android.os.Bundle zzd(int,java.lang.String,java.lang.String,android.os.Bundle) -> n
-    android.os.Bundle zzk(int,java.lang.String,java.lang.String,android.os.Bundle) -> p
-    android.os.Bundle zzm(int,java.lang.String,java.lang.String,java.lang.String,android.os.Bundle) -> q
-    android.os.Bundle zzi(int,java.lang.String,java.lang.String,java.lang.String) -> w
-    android.os.Bundle zze(int,java.lang.String,java.lang.String,android.os.Bundle) -> x
-com.google.android.gms.internal.play_billing.zze -> c.a.a.a.a.a.e:
-    android.os.IBinder zza -> a
-    java.lang.String zzb -> b
-    android.os.Parcel zzn() -> H
-    android.os.Parcel zzo(int,android.os.Parcel) -> I
-com.google.android.gms.internal.play_billing.zzf -> c.a.a.a.a.a.f:
-com.google.android.gms.internal.play_billing.zzg -> c.a.a.a.a.a.g:
-    android.os.Parcelable zza(android.os.Parcel,android.os.Parcelable$Creator) -> a
-    void zzb(android.os.Parcel,android.os.Parcelable) -> b
-com.google.android.gms.internal.play_billing.zzh -> c.a.a.a.a.a.h:
-com.google.android.gms.internal.play_billing.zzi -> c.a.a.a.a.a.i:
-    boolean zza(java.lang.Object,java.lang.Object) -> a
-com.google.android.gms.internal.play_billing.zzj -> c.a.a.a.a.a.j:
-    int zza(int,int,java.lang.String) -> a
-    int zzb(int,int,java.lang.String) -> b
-    void zzc(int,int,int) -> c
-    java.lang.String zzd(int,int,java.lang.String) -> d
-com.google.android.gms.internal.play_billing.zzk -> c.a.a.a.a.a.k:
-    java.lang.String zza(java.lang.String,java.lang.Object[]) -> a
-com.google.android.gms.internal.play_billing.zzl -> c.a.a.a.a.a.l:
-    int zzb -> b
-    int zza -> a
-    java.lang.Object zza(int) -> a
-com.google.android.gms.internal.play_billing.zzm -> c.a.a.a.a.a.m:
-    java.lang.Object[] zza -> a
-    int zza(java.lang.Object[],int) -> a
-    int zzb() -> b
-    int zzc() -> c
-    java.lang.Object[] zze() -> d
-com.google.android.gms.internal.play_billing.zzn -> c.a.a.a.a.a.n:
-    com.google.android.gms.internal.play_billing.zzp zza -> c
-    java.lang.Object zza(int) -> a
-com.google.android.gms.internal.play_billing.zzo -> c.a.a.a.a.a.o:
-    com.google.android.gms.internal.play_billing.zzp zzc -> e
-    int zzb -> d
-    int zza -> c
-    int zzb() -> b
-    int zzc() -> c
-    java.lang.Object[] zze() -> d
-    com.google.android.gms.internal.play_billing.zzp zzf(int,int) -> e
-com.google.android.gms.internal.play_billing.zzp -> c.a.a.a.a.a.p:
-    com.google.android.gms.internal.play_billing.zzs zza -> b
-    int zza(java.lang.Object[],int) -> a
-    com.google.android.gms.internal.play_billing.zzp zzf(int,int) -> e
-    com.google.android.gms.internal.play_billing.zzp zzg() -> f
-    com.google.android.gms.internal.play_billing.zzs zzh(int) -> g
-com.google.android.gms.internal.play_billing.zzq -> c.a.a.a.a.a.q:
-    com.google.android.gms.internal.play_billing.zzp zza -> d
-    java.lang.Object[] zzb -> c
-    int zza(java.lang.Object[],int) -> a
-    int zzb() -> b
-    int zzc() -> c
-    java.lang.Object[] zze() -> d
-com.google.android.gms.internal.play_billing.zzr -> c.a.a.a.a.a.r:
-com.google.android.gms.internal.play_billing.zzs -> c.a.a.a.a.a.s:
-com.google.androidbrowserhelper.R$drawable -> c.a.b.a:
+com.google.androidbrowserhelper.R$drawable -> c.a.a.a:
     int ic_site_settings -> a
-com.google.androidbrowserhelper.R$string -> c.a.b.b:
+com.google.androidbrowserhelper.R$string -> c.a.a.b:
     int manage_space_not_supported_toast -> b
     int manage_space_no_data_toast -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$1Uc9Jyv45i-STW-7wtqZxEKvgw0 -> c.a.b.c.a.a:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.BillingResultMerger f$0 -> a
-    void onSkuDetailsResponse(com.android.billingclient.api.BillingResult,java.util.List) -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$AcknowledgeCall$hg4ecXAFTreYuKtfR1uE4QHtjzI -> c.a.b.c.a.b:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.AcknowledgeCall f$0 -> a
-    void onAcknowledgePurchaseResponse(com.android.billingclient.api.BillingResult) -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$AcknowledgeCall$wVBDNgp_C1gp3wWBWmn6WWaVIVo -> c.a.b.c.a.c:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.AcknowledgeCall f$0 -> a
-    void onConsumeResponse(com.android.billingclient.api.BillingResult,java.lang.String) -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$ConnectedBillingWrapper$1ZCj0WlMn6_OcMNTcugYeiW-Bqg -> c.a.b.c.a.d:
-    com.android.billingclient.api.SkuDetailsResponseListener f$3 -> d
-    com.google.androidbrowserhelper.playbilling.digitalgoods.ConnectedBillingWrapper f$0 -> a
-    java.util.List f$2 -> c
-    java.lang.String f$1 -> b
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$ConnectedBillingWrapper$AQyrnv9WQ1UJRc56VK3caqxeRsM -> c.a.b.c.a.e:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.ConnectedBillingWrapper f$0 -> a
-    com.android.billingclient.api.PurchasesResponseListener f$2 -> c
-    java.lang.String f$1 -> b
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$ConnectedBillingWrapper$R5jT9KILIefz9OVLVTdn6XrRdEs -> c.a.b.c.a.f:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$ConnectedBillingWrapper$R5jT9KILIefz9OVLVTdn6XrRdEs INSTANCE -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$ConnectedBillingWrapper$RNOD3kNeD_CPSnKq0r5o02syHQA -> c.a.b.c.a.g:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.ConnectedBillingWrapper f$0 -> a
-    com.android.billingclient.api.AcknowledgePurchaseResponseListener f$2 -> c
-    java.lang.String f$1 -> b
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$ConnectedBillingWrapper$vF-5__VQe84VSkuCHo5JsjZhU0c -> c.a.b.c.a.h:
-    com.android.billingclient.api.ConsumeResponseListener f$2 -> c
-    com.google.androidbrowserhelper.playbilling.digitalgoods.ConnectedBillingWrapper f$0 -> a
-    java.lang.String f$1 -> b
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$ConnectedBillingWrapper$zHDUf0XxFKsjnPffbMoM94BRMZU -> c.a.b.c.a.i:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.ConnectedBillingWrapper f$0 -> a
-    java.lang.String f$1 -> b
-    com.android.billingclient.api.PurchaseHistoryResponseListener f$2 -> c
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$ConsumeCall$NacX9h5DbyWtLjYE7KFaXlY2Jvc -> c.a.b.c.a.j:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.ConsumeCall f$0 -> a
-    void onConsumeResponse(com.android.billingclient.api.BillingResult,java.lang.String) -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$DigitalGoodsRequestHandler$78cHBwTTDSPfoY1hkQFiY3XECTg -> c.a.b.c.a.k:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$DigitalGoodsRequestHandler$78cHBwTTDSPfoY1hkQFiY3XECTg INSTANCE -> a
-    void onPurchaseFlowComplete(com.android.billingclient.api.BillingResult,java.lang.String) -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$DigitalGoodsRequestHandler$JtLhSpgVisTaOCKVpp0yRChkoUQ -> c.a.b.c.a.l:
-    androidx.browser.trusted.TrustedWebActivityCallbackRemote f$0 -> a
-    void run(java.lang.String,android.os.Bundle) -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$GetDetailsCall$3oni4q9h4GFdOyhulAKuIBgvJKE -> c.a.b.c.a.m:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.GetDetailsCall f$0 -> a
-    void onResult(com.android.billingclient.api.BillingResult,java.util.List) -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$ListPurchaseHistoryCall$P6Rpeuv5ymTCu9OzmW9XKDHXzts -> c.a.b.c.a.n:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.ListPurchaseHistoryCall f$0 -> a
-    void onResult(com.android.billingclient.api.BillingResult,java.util.List) -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$ListPurchasesCall$EITVMWBya_vH64mA6fGDcXg2dGw -> c.a.b.c.a.o:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.ListPurchasesCall f$0 -> a
-    void onResult(com.android.billingclient.api.BillingResult,java.util.List) -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$RAzOunbrdnQvCdcIsQXGgn3KKsQ -> c.a.b.c.a.p:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.BillingResultMerger f$0 -> a
-    void onSkuDetailsResponse(com.android.billingclient.api.BillingResult,java.util.List) -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$cwPDXgQ2Yh3FbRgUCbBJQWwhEyQ -> c.a.b.c.a.q:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.BillingResultMerger f$0 -> a
-    void onPurchaseHistoryResponse(com.android.billingclient.api.BillingResult,java.util.List) -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$gbDLlQK10hIQ5L9hF2rSABTm9Bk -> c.a.b.c.a.r:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.BillingResultMerger f$0 -> a
-    void onPurchaseHistoryResponse(com.android.billingclient.api.BillingResult,java.util.List) -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$obl45FdmSFOt-JrkrPlFtpRXiPw -> c.a.b.c.a.s:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.BillingResultMerger f$0 -> a
-    void onQueryPurchasesResponse(com.android.billingclient.api.BillingResult,java.util.List) -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.-$$Lambda$ocR0fVVT6d2RBXMv8ChbxxLMRkk -> c.a.b.c.a.t:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.BillingResultMerger f$0 -> a
-    void onQueryPurchasesResponse(com.android.billingclient.api.BillingResult,java.util.List) -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.AcknowledgeCall -> c.a.b.c.a.u:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.DigitalGoodsCallback mCallback -> c
-    java.lang.String purchaseToken -> a
-    boolean makeAvailableAgain -> b
-    void call(com.google.androidbrowserhelper.playbilling.provider.BillingWrapper) -> a
-    com.google.androidbrowserhelper.playbilling.digitalgoods.AcknowledgeCall create(android.os.Bundle,com.google.androidbrowserhelper.playbilling.digitalgoods.DigitalGoodsCallback) -> b
-    void lambda$call$0(com.android.billingclient.api.BillingResult,java.lang.String) -> c
-    void lambda$call$0$AcknowledgeCall(com.android.billingclient.api.BillingResult,java.lang.String) -> d
-    void lambda$hg4ecXAFTreYuKtfR1uE4QHtjzI(com.google.androidbrowserhelper.playbilling.digitalgoods.AcknowledgeCall,com.android.billingclient.api.BillingResult) -> e
-    void respond(com.android.billingclient.api.BillingResult) -> f
-com.google.androidbrowserhelper.playbilling.digitalgoods.BillingResultMerger -> c.a.b.c.a.v:
-    java.util.List mSubsResultsList -> e
-    java.util.List mInAppResultsList -> c
-    com.android.billingclient.api.BillingResult mSubsResult -> d
-    com.google.androidbrowserhelper.playbilling.digitalgoods.BillingResultMerger$ResultListener mOnCombinedResult -> a
-    com.android.billingclient.api.BillingResult mInAppResult -> b
-    boolean didSucceed(com.android.billingclient.api.BillingResult) -> a
-    void setInAppResult(com.android.billingclient.api.BillingResult,java.util.List) -> b
-    void setSubsResult(com.android.billingclient.api.BillingResult,java.util.List) -> c
-    void triggerIfReady() -> d
-com.google.androidbrowserhelper.playbilling.digitalgoods.BillingResultMerger$ResultListener -> c.a.b.c.a.v$a:
-    void onResult(com.android.billingclient.api.BillingResult,java.util.List) -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.ConnectedBillingWrapper -> c.a.b.c.a.w:
-    com.google.androidbrowserhelper.playbilling.provider.BillingWrapper mInner -> a
-    java.util.List mPendingCallbacks -> c
-    int mState -> b
-    void launchPriceChangeConfirmationFlow(android.app.Activity,com.android.billingclient.api.SkuDetails,com.android.billingclient.api.PriceChangeConfirmationListener) -> a
-    void queryPurchases(java.lang.String,com.android.billingclient.api.PurchasesResponseListener) -> b
-    boolean launchPaymentFlow(android.app.Activity,com.android.billingclient.api.SkuDetails,com.google.androidbrowserhelper.playbilling.provider.MethodData) -> c
-    void querySkuDetails(java.lang.String,java.util.List,com.android.billingclient.api.SkuDetailsResponseListener) -> d
-    void connect(com.android.billingclient.api.BillingClientStateListener) -> e
-    void queryPurchaseHistory(java.lang.String,com.android.billingclient.api.PurchaseHistoryResponseListener) -> f
-    void consume(java.lang.String,com.android.billingclient.api.ConsumeResponseListener) -> g
-    void acknowledge(java.lang.String,com.android.billingclient.api.AcknowledgePurchaseResponseListener) -> h
-    int access$002(com.google.androidbrowserhelper.playbilling.digitalgoods.ConnectedBillingWrapper,int) -> i
-    java.util.List access$100(com.google.androidbrowserhelper.playbilling.digitalgoods.ConnectedBillingWrapper) -> j
-    void execute(java.lang.Runnable) -> k
-    void lambda$acknowledge$4(java.lang.String,com.android.billingclient.api.AcknowledgePurchaseResponseListener) -> l
-    void lambda$acknowledge$4$ConnectedBillingWrapper(java.lang.String,com.android.billingclient.api.AcknowledgePurchaseResponseListener) -> m
-    void lambda$connect$0() -> n
-    void lambda$consume$5(java.lang.String,com.android.billingclient.api.ConsumeResponseListener) -> o
-    void lambda$consume$5$ConnectedBillingWrapper(java.lang.String,com.android.billingclient.api.ConsumeResponseListener) -> p
-    void lambda$queryPurchaseHistory$3(java.lang.String,com.android.billingclient.api.PurchaseHistoryResponseListener) -> q
-    void lambda$queryPurchaseHistory$3$ConnectedBillingWrapper(java.lang.String,com.android.billingclient.api.PurchaseHistoryResponseListener) -> r
-    void lambda$queryPurchases$2(java.lang.String,com.android.billingclient.api.PurchasesResponseListener) -> s
-    void lambda$queryPurchases$2$ConnectedBillingWrapper(java.lang.String,com.android.billingclient.api.PurchasesResponseListener) -> t
-    void lambda$querySkuDetails$1(java.lang.String,java.util.List,com.android.billingclient.api.SkuDetailsResponseListener) -> u
-    void lambda$querySkuDetails$1$ConnectedBillingWrapper(java.lang.String,java.util.List,com.android.billingclient.api.SkuDetailsResponseListener) -> v
-com.google.androidbrowserhelper.playbilling.digitalgoods.ConnectedBillingWrapper$1 -> c.a.b.c.a.w$a:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.ConnectedBillingWrapper this$0 -> a
-    void onBillingSetupFinished(com.android.billingclient.api.BillingResult) -> a
-    void onBillingServiceDisconnected() -> b
-com.google.androidbrowserhelper.playbilling.digitalgoods.ConsumeCall -> c.a.b.c.a.x:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.DigitalGoodsCallback mCallback -> b
-    java.lang.String purchaseToken -> a
-    void call(com.google.androidbrowserhelper.playbilling.provider.BillingWrapper) -> a
-    com.google.androidbrowserhelper.playbilling.digitalgoods.ConsumeCall create(android.os.Bundle,com.google.androidbrowserhelper.playbilling.digitalgoods.DigitalGoodsCallback) -> b
-    void lambda$call$0(com.android.billingclient.api.BillingResult,java.lang.String) -> c
-    void lambda$call$0$ConsumeCall(com.android.billingclient.api.BillingResult,java.lang.String) -> d
-    void respond(com.android.billingclient.api.BillingResult) -> e
-com.google.androidbrowserhelper.playbilling.digitalgoods.DigitalGoodsCallback -> c.a.b.c.a.y:
-    void run(java.lang.String,android.os.Bundle) -> a
-com.google.androidbrowserhelper.playbilling.digitalgoods.DigitalGoodsConverter -> c.a.b.c.a.z:
-    int toChromiumResponseCode(int) -> a
-    int toChromiumResponseCode(com.android.billingclient.api.BillingResult) -> b
-com.google.androidbrowserhelper.playbilling.digitalgoods.DigitalGoodsRequestHandler -> c.a.b.c.a.a0:
-    com.google.androidbrowserhelper.playbilling.provider.BillingWrapper mWrapper -> a
-    com.google.androidbrowserhelper.playbilling.provider.BillingWrapper$Listener mListener -> b
-    android.os.Bundle handleExtraCommand(android.content.Context,java.lang.String,android.os.Bundle,androidx.browser.trusted.TrustedWebActivityCallbackRemote) -> a
-    boolean handle(java.lang.String,android.os.Bundle,com.google.androidbrowserhelper.playbilling.digitalgoods.DigitalGoodsCallback) -> b
-    void lambda$handleExtraCommand$1(androidx.browser.trusted.TrustedWebActivityCallbackRemote,java.lang.String,android.os.Bundle) -> c
-    void lambda$new$0(com.android.billingclient.api.BillingResult,java.lang.String) -> d
-com.google.androidbrowserhelper.playbilling.digitalgoods.GetDetailsCall -> c.a.b.c.a.b0:
-    java.util.List mItemIds -> a
-    com.google.androidbrowserhelper.playbilling.digitalgoods.DigitalGoodsCallback mCallback -> b
-    void call(com.google.androidbrowserhelper.playbilling.provider.BillingWrapper) -> a
-    com.google.androidbrowserhelper.playbilling.digitalgoods.GetDetailsCall create(android.os.Bundle,com.google.androidbrowserhelper.playbilling.digitalgoods.DigitalGoodsCallback) -> b
-    void lambda$3oni4q9h4GFdOyhulAKuIBgvJKE(com.google.androidbrowserhelper.playbilling.digitalgoods.GetDetailsCall,com.android.billingclient.api.BillingResult,java.util.List) -> c
-    void respond(com.android.billingclient.api.BillingResult,java.util.List) -> d
-com.google.androidbrowserhelper.playbilling.digitalgoods.ItemDetails -> c.a.b.c.a.c0:
-    java.lang.String iconUrl -> g
-    java.lang.String type -> f
-    java.lang.String freeTrialPeriod -> i
-    java.lang.String subscriptionPeriod -> h
-    int introductoryPriceCycles -> m
-    java.lang.String introductoryPriceCurrency -> k
-    java.lang.String introductoryPricePeriod -> j
-    java.lang.String introductoryPriceValue -> l
-    java.lang.String id -> a
-    java.lang.String description -> c
-    java.lang.String title -> b
-    java.lang.String value -> e
-    java.lang.String currency -> d
-    com.google.androidbrowserhelper.playbilling.digitalgoods.ItemDetails create(com.android.billingclient.api.SkuDetails) -> a
-    android.os.Bundle toBundle() -> b
-    java.lang.String toPrice(long) -> c
-com.google.androidbrowserhelper.playbilling.digitalgoods.LegacyPurchaseDetails -> c.a.b.c.a.d0:
-    long purchaseTimeMicrosecondsPastUnixEpoch -> e
-    boolean willAutoRenew -> f
-    int purchaseState -> d
-    boolean acknowledged -> c
-    android.os.Bundle toBundle() -> b
-    com.google.androidbrowserhelper.playbilling.digitalgoods.LegacyPurchaseDetails create(com.android.billingclient.api.Purchase) -> c
-    long millisecondsToMicroseconds(long) -> d
-    int toChromiumPurchaseState(int) -> e
-com.google.androidbrowserhelper.playbilling.digitalgoods.ListPurchaseHistoryCall -> c.a.b.c.a.e0:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.DigitalGoodsCallback mCallback -> a
-    void call(com.google.androidbrowserhelper.playbilling.provider.BillingWrapper) -> a
-    com.google.androidbrowserhelper.playbilling.digitalgoods.ListPurchaseHistoryCall create(com.google.androidbrowserhelper.playbilling.digitalgoods.DigitalGoodsCallback) -> b
-    void lambda$P6Rpeuv5ymTCu9OzmW9XKDHXzts(com.google.androidbrowserhelper.playbilling.digitalgoods.ListPurchaseHistoryCall,com.android.billingclient.api.BillingResult,java.util.List) -> c
-    void respond(com.android.billingclient.api.BillingResult,java.util.List) -> d
-com.google.androidbrowserhelper.playbilling.digitalgoods.ListPurchasesCall -> c.a.b.c.a.f0:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.DigitalGoodsCallback mCallback -> a
-    void call(com.google.androidbrowserhelper.playbilling.provider.BillingWrapper) -> a
-    com.google.androidbrowserhelper.playbilling.digitalgoods.ListPurchasesCall create(com.google.androidbrowserhelper.playbilling.digitalgoods.DigitalGoodsCallback) -> b
-    void lambda$EITVMWBya_vH64mA6fGDcXg2dGw(com.google.androidbrowserhelper.playbilling.digitalgoods.ListPurchasesCall,com.android.billingclient.api.BillingResult,java.util.List) -> c
-    void respond(com.android.billingclient.api.BillingResult,java.util.List) -> d
-com.google.androidbrowserhelper.playbilling.digitalgoods.Logging -> c.a.b.c.a.g0:
-    void logAckCall(java.lang.String,boolean) -> a
-    void logAckResponse(com.android.billingclient.api.BillingResult,boolean) -> b
-    void logConnected() -> c
-    void logConsumeCall(java.lang.String) -> d
-    void logConsumeResponse(com.android.billingclient.api.BillingResult) -> e
-    void logDisconnected() -> f
-    void logGetDetailsCall(java.util.List) -> g
-    void logGetDetailsResponse(com.android.billingclient.api.BillingResult) -> h
-    void logListPurchaseHistoryCall() -> i
-    void logListPurchaseHistoryResult(com.android.billingclient.api.BillingResult) -> j
-    void logListPurchasesCall() -> k
-    void logListPurchasesResult(com.android.billingclient.api.BillingResult) -> l
-    void logResult(com.android.billingclient.api.BillingResult,java.lang.String) -> m
-    void logUnknownCommand(java.lang.String) -> n
-    void logUnknownResultCode(int) -> o
-com.google.androidbrowserhelper.playbilling.digitalgoods.PurchaseDetails -> c.a.b.c.a.h0:
-    java.lang.String id -> a
-    java.lang.String purchaseToken -> b
-    com.google.androidbrowserhelper.playbilling.digitalgoods.PurchaseDetails create(com.android.billingclient.api.PurchaseHistoryRecord) -> a
-    android.os.Bundle toBundle() -> b
-com.google.androidbrowserhelper.playbilling.provider.-$$Lambda$1Uc9Jyv45i-STW-7wtqZxEKvgw0 -> com.google.androidbrowserhelper.playbilling.provider.a:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.BillingResultMerger f$0 -> a
-    void onSkuDetailsResponse(com.android.billingclient.api.BillingResult,java.util.List) -> a
-com.google.androidbrowserhelper.playbilling.provider.-$$Lambda$PaymentActivity$Nk68ss4e9PBa1LpDTd6eMvTNUEY -> com.google.androidbrowserhelper.playbilling.provider.b:
-    com.google.androidbrowserhelper.playbilling.provider.PaymentActivity f$0 -> a
-    void onResult(com.android.billingclient.api.BillingResult,java.util.List) -> a
-com.google.androidbrowserhelper.playbilling.provider.-$$Lambda$PaymentActivity$YdVunyKzpRMmXRxg5FX58tIDXho -> com.google.androidbrowserhelper.playbilling.provider.c:
-    com.google.androidbrowserhelper.playbilling.provider.PaymentActivity f$0 -> a
-    void onPriceChangeConfirmationResult(com.android.billingclient.api.BillingResult) -> a
-com.google.androidbrowserhelper.playbilling.provider.-$$Lambda$RAzOunbrdnQvCdcIsQXGgn3KKsQ -> com.google.androidbrowserhelper.playbilling.provider.d:
-    com.google.androidbrowserhelper.playbilling.digitalgoods.BillingResultMerger f$0 -> a
-    void onSkuDetailsResponse(com.android.billingclient.api.BillingResult,java.util.List) -> a
-com.google.androidbrowserhelper.playbilling.provider.BillingWrapper -> com.google.androidbrowserhelper.playbilling.provider.e:
-    void launchPriceChangeConfirmationFlow(android.app.Activity,com.android.billingclient.api.SkuDetails,com.android.billingclient.api.PriceChangeConfirmationListener) -> a
-    void queryPurchases(java.lang.String,com.android.billingclient.api.PurchasesResponseListener) -> b
-    boolean launchPaymentFlow(android.app.Activity,com.android.billingclient.api.SkuDetails,com.google.androidbrowserhelper.playbilling.provider.MethodData) -> c
-    void querySkuDetails(java.lang.String,java.util.List,com.android.billingclient.api.SkuDetailsResponseListener) -> d
-    void connect(com.android.billingclient.api.BillingClientStateListener) -> e
-    void queryPurchaseHistory(java.lang.String,com.android.billingclient.api.PurchaseHistoryResponseListener) -> f
-    void consume(java.lang.String,com.android.billingclient.api.ConsumeResponseListener) -> g
-    void acknowledge(java.lang.String,com.android.billingclient.api.AcknowledgePurchaseResponseListener) -> h
-com.google.androidbrowserhelper.playbilling.provider.BillingWrapper$Listener -> com.google.androidbrowserhelper.playbilling.provider.e$a:
-    void onPurchaseFlowComplete(com.android.billingclient.api.BillingResult,java.lang.String) -> a
-com.google.androidbrowserhelper.playbilling.provider.BillingWrapperFactory -> com.google.androidbrowserhelper.playbilling.provider.f:
-    com.google.androidbrowserhelper.playbilling.provider.MockBillingWrapper sTestingBillingWrapper -> a
-    com.google.androidbrowserhelper.playbilling.provider.BillingWrapper get(android.content.Context,com.google.androidbrowserhelper.playbilling.provider.BillingWrapper$Listener) -> a
-com.google.androidbrowserhelper.playbilling.provider.Logging -> com.google.androidbrowserhelper.playbilling.provider.g:
-    void logLaunchPaymentFlow(com.android.billingclient.api.BillingResult) -> a
-    void logPurchasesUpdate(com.android.billingclient.api.BillingResult,java.util.List) -> b
-    void logResult(com.android.billingclient.api.BillingResult,java.lang.String) -> c
-com.google.androidbrowserhelper.playbilling.provider.MethodData -> com.google.androidbrowserhelper.playbilling.provider.h:
-    java.lang.Integer prorationMode -> d
-    java.lang.String sku -> a
-    java.lang.String purchaseToken -> c
-    boolean isPriceChangeConfirmation -> b
-    com.google.androidbrowserhelper.playbilling.provider.MethodData fromIntent(android.content.Intent) -> a
-    com.google.androidbrowserhelper.playbilling.provider.MethodData fromJson(java.lang.String) -> b
-    com.google.androidbrowserhelper.playbilling.provider.MethodData fromJsonInner(java.lang.String) -> c
-    java.lang.Integer getProration(org.json.JSONObject) -> d
-    java.lang.String getString(org.json.JSONObject,java.lang.String) -> e
-com.google.androidbrowserhelper.playbilling.provider.MockBillingWrapper -> com.google.androidbrowserhelper.playbilling.provider.i:
-    void setListener(com.google.androidbrowserhelper.playbilling.provider.BillingWrapper$Listener) -> i
-com.google.androidbrowserhelper.playbilling.provider.PaymentActivity -> com.google.androidbrowserhelper.playbilling.provider.PaymentActivity:
-    com.google.androidbrowserhelper.playbilling.provider.BillingWrapper mWrapper -> a
-    com.google.androidbrowserhelper.playbilling.provider.MethodData mMethodData -> b
-    void onPurchaseFlowComplete(com.android.billingclient.api.BillingResult,java.lang.String) -> a
-    void fail(java.lang.String) -> b
-    void lambda$Nk68ss4e9PBa1LpDTd6eMvTNUEY(com.google.androidbrowserhelper.playbilling.provider.PaymentActivity,com.android.billingclient.api.BillingResult,java.util.List) -> c
-    void lambda$launchPriceChangeConfirmationFlow$0(com.android.billingclient.api.BillingResult) -> d
-    void lambda$launchPriceChangeConfirmationFlow$0$PaymentActivity(com.android.billingclient.api.BillingResult) -> e
-    void launchPaymentFlow(com.android.billingclient.api.SkuDetails) -> f
-    void launchPriceChangeConfirmationFlow(com.android.billingclient.api.SkuDetails) -> g
-    void onConnected() -> h
-    void onDisconnected() -> i
-    void onSkusQueried(com.android.billingclient.api.BillingResult,java.util.List) -> j
-    void setResultAndFinish(com.google.androidbrowserhelper.playbilling.provider.PaymentResult) -> k
-com.google.androidbrowserhelper.playbilling.provider.PaymentActivity$1 -> com.google.androidbrowserhelper.playbilling.provider.PaymentActivity$a:
-    com.google.androidbrowserhelper.playbilling.provider.PaymentActivity this$0 -> a
-    void onBillingSetupFinished(com.android.billingclient.api.BillingResult) -> a
-    void onBillingServiceDisconnected() -> b
-com.google.androidbrowserhelper.playbilling.provider.PaymentResult -> com.google.androidbrowserhelper.playbilling.provider.j:
-    com.google.androidbrowserhelper.playbilling.provider.PaymentResult failure(java.lang.String) -> a
-    int getActivityResult() -> b
-    java.lang.String getDetails() -> c
-    void log() -> d
-    com.google.androidbrowserhelper.playbilling.provider.PaymentResult paymentSuccess(java.lang.String) -> e
-    com.google.androidbrowserhelper.playbilling.provider.PaymentResult priceChangeSuccess() -> f
-    org.json.JSONObject toJson() -> g
-com.google.androidbrowserhelper.playbilling.provider.PaymentResult$1 -> com.google.androidbrowserhelper.playbilling.provider.j$a:
-com.google.androidbrowserhelper.playbilling.provider.PaymentResult$Failure -> com.google.androidbrowserhelper.playbilling.provider.j$b:
-    java.lang.String mError -> a
-    int getActivityResult() -> b
-    void log() -> d
-    org.json.JSONObject toJson() -> g
-com.google.androidbrowserhelper.playbilling.provider.PaymentResult$PaymentSuccess -> com.google.androidbrowserhelper.playbilling.provider.j$c:
-    java.lang.String mPurchaseToken -> a
-    int getActivityResult() -> b
-    void log() -> d
-    org.json.JSONObject toJson() -> g
-com.google.androidbrowserhelper.playbilling.provider.PaymentResult$PriceChangeSuccess -> com.google.androidbrowserhelper.playbilling.provider.j$d:
-    int getActivityResult() -> b
-    void log() -> d
-    org.json.JSONObject toJson() -> g
-com.google.androidbrowserhelper.playbilling.provider.PaymentService -> com.google.androidbrowserhelper.playbilling.provider.PaymentService:
-    android.os.IBinder mBinder -> a
-com.google.androidbrowserhelper.playbilling.provider.PaymentService$1 -> com.google.androidbrowserhelper.playbilling.provider.PaymentService$a:
-    com.google.androidbrowserhelper.playbilling.provider.PaymentService this$0 -> a
-    void isReadyToPay(org.chromium.IsReadyToPayServiceCallback) -> m
-com.google.androidbrowserhelper.playbilling.provider.PaymentVerifier -> com.google.androidbrowserhelper.playbilling.provider.k:
-    boolean shouldAllowPayments(android.content.Context,java.lang.String,java.lang.String) -> a
-com.google.androidbrowserhelper.playbilling.provider.PlayBillingWrapper -> com.google.androidbrowserhelper.playbilling.provider.l:
-    com.android.billingclient.api.PurchasesUpdatedListener mPurchaseUpdateListener -> c
-    com.google.androidbrowserhelper.playbilling.provider.BillingWrapper$Listener mListener -> a
-    com.android.billingclient.api.BillingClient mClient -> b
-    void launchPriceChangeConfirmationFlow(android.app.Activity,com.android.billingclient.api.SkuDetails,com.android.billingclient.api.PriceChangeConfirmationListener) -> a
-    void queryPurchases(java.lang.String,com.android.billingclient.api.PurchasesResponseListener) -> b
-    boolean launchPaymentFlow(android.app.Activity,com.android.billingclient.api.SkuDetails,com.google.androidbrowserhelper.playbilling.provider.MethodData) -> c
-    void querySkuDetails(java.lang.String,java.util.List,com.android.billingclient.api.SkuDetailsResponseListener) -> d
-    void connect(com.android.billingclient.api.BillingClientStateListener) -> e
-    void queryPurchaseHistory(java.lang.String,com.android.billingclient.api.PurchaseHistoryResponseListener) -> f
-    void consume(java.lang.String,com.android.billingclient.api.ConsumeResponseListener) -> g
-    void acknowledge(java.lang.String,com.android.billingclient.api.AcknowledgePurchaseResponseListener) -> h
-    com.google.androidbrowserhelper.playbilling.provider.BillingWrapper$Listener access$000(com.google.androidbrowserhelper.playbilling.provider.PlayBillingWrapper) -> i
-com.google.androidbrowserhelper.playbilling.provider.PlayBillingWrapper$1 -> com.google.androidbrowserhelper.playbilling.provider.l$a:
-    com.google.androidbrowserhelper.playbilling.provider.PlayBillingWrapper this$0 -> a
-    void onPurchasesUpdated(com.android.billingclient.api.BillingResult,java.util.List) -> a
 com.google.androidbrowserhelper.trusted.-$$Lambda$LauncherActivity$K443AaSgHDsKB62OgS7KQKQV8M0 -> com.google.androidbrowserhelper.trusted.a:
     com.google.androidbrowserhelper.trusted.LauncherActivity f$0 -> a
 com.google.androidbrowserhelper.trusted.-$$Lambda$QualityEnforcer$VMdyvMgt3n2HQzWYzBF2reMpaRU -> com.google.androidbrowserhelper.trusted.b:
@@ -1417,27 +631,27 @@ com.google.androidbrowserhelper.trusted.FocusActivity -> com.google.androidbrows
     java.lang.Boolean mActivityExistsCached -> a
     void addToIntent(android.content.Intent,android.content.Context) -> a
 com.google.androidbrowserhelper.trusted.LauncherActivity -> com.google.androidbrowserhelper.trusted.n:
-    androidx.browser.customtabs.CustomTabsCallback mCustomTabsCallback -> d
-    boolean sChromeVersionChecked -> f
-    int sLauncherActivitiesAlive -> g
+    boolean sChromeVersionChecked -> e
+    int sLauncherActivitiesAlive -> f
     com.google.androidbrowserhelper.trusted.splashscreens.PwaWrapperSplashScreenStrategy mSplashScreenStrategy -> c
-    com.google.androidbrowserhelper.trusted.TwaLauncher mTwaLauncher -> e
     com.google.androidbrowserhelper.trusted.LauncherActivityMetadata mMetadata -> a
     boolean mBrowserWasLaunched -> b
+    com.google.androidbrowserhelper.trusted.TwaLauncher mTwaLauncher -> d
     void addShareDataIfPresent(androidx.browser.trusted.TrustedWebActivityIntentBuilder) -> a
     com.google.androidbrowserhelper.trusted.TwaLauncher createTwaLauncher() -> b
     int getColorCompat(int) -> c
-    androidx.browser.trusted.TrustedWebActivityDisplayMode getDisplayMode() -> d
-    com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy getFallbackStrategy() -> e
-    android.net.Uri getLaunchingUrl() -> f
-    android.widget.ImageView$ScaleType getSplashImageScaleType() -> g
-    android.graphics.Matrix getSplashImageTransformationMatrix() -> h
-    void lambda$launchTwa$0() -> i
-    void lambda$launchTwa$0$LauncherActivity() -> j
-    void launchTwa() -> k
-    boolean restartInNewTask() -> l
-    boolean shouldLaunchImmediately() -> m
-    boolean splashScreenNeeded() -> n
+    androidx.browser.customtabs.CustomTabsCallback getCustomTabsCallback() -> d
+    androidx.browser.trusted.TrustedWebActivityDisplayMode getDisplayMode() -> e
+    com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy getFallbackStrategy() -> f
+    android.net.Uri getLaunchingUrl() -> g
+    android.widget.ImageView$ScaleType getSplashImageScaleType() -> h
+    android.graphics.Matrix getSplashImageTransformationMatrix() -> i
+    void lambda$launchTwa$0() -> j
+    void lambda$launchTwa$0$LauncherActivity() -> k
+    void launchTwa() -> l
+    boolean restartInNewTask() -> m
+    boolean shouldLaunchImmediately() -> n
+    boolean splashScreenNeeded() -> o
 com.google.androidbrowserhelper.trusted.LauncherActivityMetadata -> com.google.androidbrowserhelper.trusted.o:
     int screenOrientation -> o
     java.lang.String fileProviderAuthority -> j
@@ -1488,37 +702,37 @@ com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity$LegacyChromeC
     void onRelationshipValidationResult(int,android.net.Uri,boolean,android.os.Bundle) -> f
 com.google.androidbrowserhelper.trusted.NotificationDelegationExtraCommandHandler -> com.google.androidbrowserhelper.trusted.p:
     android.os.Bundle handleExtraCommand(android.content.Context,java.lang.String,android.os.Bundle,androidx.browser.trusted.TrustedWebActivityCallbackRemote) -> a
-com.google.androidbrowserhelper.trusted.NotificationPermissionRequestActivity -> com.google.androidbrowserhelper.trusted.q:
+com.google.androidbrowserhelper.trusted.NotificationPermissionRequestActivity -> com.google.androidbrowserhelper.trusted.NotificationPermissionRequestActivity:
     android.os.Messenger mMessenger -> b
     java.lang.String mChannelName -> a
     android.app.PendingIntent createPermissionRequestPendingIntent(android.content.Context,java.lang.String) -> a
     void sendPermissionMessage(android.os.Messenger,boolean) -> b
-com.google.androidbrowserhelper.trusted.NotificationUtils -> com.google.androidbrowserhelper.trusted.r:
+com.google.androidbrowserhelper.trusted.NotificationUtils -> com.google.androidbrowserhelper.trusted.q:
     boolean areNotificationsEnabled(android.content.Context,java.lang.String) -> a
     java.lang.String channelNameToId(java.lang.String) -> b
     void createNotificationChannel(android.content.Context,java.lang.String) -> c
-com.google.androidbrowserhelper.trusted.PrefUtils -> com.google.androidbrowserhelper.trusted.s:
+com.google.androidbrowserhelper.trusted.PrefUtils -> com.google.androidbrowserhelper.trusted.r:
     android.content.SharedPreferences getAppSharedPreferences(android.content.Context) -> a
     boolean hasRequestedNotificationPermission(android.content.Context) -> b
     void setHasRequestedNotificationPermission(android.content.Context) -> c
-com.google.androidbrowserhelper.trusted.QualityEnforcer -> com.google.androidbrowserhelper.trusted.t:
+com.google.androidbrowserhelper.trusted.QualityEnforcer -> com.google.androidbrowserhelper.trusted.s:
     com.google.androidbrowserhelper.trusted.QualityEnforcer$Delegate mDelegate -> a
     android.os.Bundle extraCallbackWithResult(java.lang.String,android.os.Bundle) -> b
     void lambda$new$0(java.lang.String) -> g
     void lambda$new$1(java.lang.String) -> h
-com.google.androidbrowserhelper.trusted.QualityEnforcer$Delegate -> com.google.androidbrowserhelper.trusted.t$a:
+com.google.androidbrowserhelper.trusted.QualityEnforcer$Delegate -> com.google.androidbrowserhelper.trusted.s$a:
     void crash(java.lang.String) -> a
-com.google.androidbrowserhelper.trusted.SharedPreferencesTokenStore -> com.google.androidbrowserhelper.trusted.u:
+com.google.androidbrowserhelper.trusted.SharedPreferencesTokenStore -> com.google.androidbrowserhelper.trusted.t:
     android.content.Context mContext -> a
     void store(androidx.browser.trusted.Token) -> a
     androidx.browser.trusted.Token load() -> b
-com.google.androidbrowserhelper.trusted.SharingUtils -> com.google.androidbrowserhelper.trusted.v:
+com.google.androidbrowserhelper.trusted.SharingUtils -> com.google.androidbrowserhelper.trusted.u:
     boolean isShareIntent(android.content.Intent) -> a
     java.util.List parseAcceptedTypes(java.lang.Object) -> b
     java.util.List parseFiles(org.json.JSONArray) -> c
     androidx.browser.trusted.sharing.ShareTarget parseShareTargetJson(java.lang.String) -> d
     androidx.browser.trusted.sharing.ShareData retrieveShareDataFromIntent(android.content.Intent) -> e
-com.google.androidbrowserhelper.trusted.TwaLauncher -> com.google.androidbrowserhelper.trusted.w:
+com.google.androidbrowserhelper.trusted.TwaLauncher -> com.google.androidbrowserhelper.trusted.v:
     android.content.Context mContext -> a
     androidx.browser.trusted.TokenStore mTokenStore -> g
     androidx.browser.customtabs.CustomTabsSession mSession -> f
@@ -1548,9 +762,9 @@ com.google.androidbrowserhelper.trusted.TwaLauncher -> com.google.androidbrowser
     void launchTwa(androidx.browser.trusted.TrustedWebActivityIntentBuilder,androidx.browser.customtabs.CustomTabsCallback,com.google.androidbrowserhelper.trusted.splashscreens.SplashScreenStrategy,java.lang.Runnable,com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy) -> q
     void launchWhenSessionEstablished(androidx.browser.trusted.TrustedWebActivityIntentBuilder,com.google.androidbrowserhelper.trusted.splashscreens.SplashScreenStrategy,java.lang.Runnable) -> r
     void launchWhenSplashScreenReady(androidx.browser.trusted.TrustedWebActivityIntentBuilder,java.lang.Runnable) -> s
-com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy -> com.google.androidbrowserhelper.trusted.w$a:
+com.google.androidbrowserhelper.trusted.TwaLauncher$FallbackStrategy -> com.google.androidbrowserhelper.trusted.v$a:
     void launch(android.content.Context,androidx.browser.trusted.TrustedWebActivityIntentBuilder,java.lang.String,java.lang.Runnable) -> a
-com.google.androidbrowserhelper.trusted.TwaLauncher$TwaCustomTabsServiceConnection -> com.google.androidbrowserhelper.trusted.w$b:
+com.google.androidbrowserhelper.trusted.TwaLauncher$TwaCustomTabsServiceConnection -> com.google.androidbrowserhelper.trusted.v$b:
     java.lang.Runnable mOnSessionCreationFailedRunnable -> c
     java.lang.Runnable mOnSessionCreatedRunnable -> b
     androidx.browser.customtabs.CustomTabsCallback mCustomTabsCallback -> d
@@ -1558,18 +772,18 @@ com.google.androidbrowserhelper.trusted.TwaLauncher$TwaCustomTabsServiceConnecti
     void onCustomTabsServiceConnected(android.content.ComponentName,androidx.browser.customtabs.CustomTabsClient) -> a
     void access$000(com.google.androidbrowserhelper.trusted.TwaLauncher$TwaCustomTabsServiceConnection,java.lang.Runnable,java.lang.Runnable) -> c
     void setSessionCreationRunnables(java.lang.Runnable,java.lang.Runnable) -> d
-com.google.androidbrowserhelper.trusted.TwaProviderPicker -> com.google.androidbrowserhelper.trusted.x:
+com.google.androidbrowserhelper.trusted.TwaProviderPicker -> com.google.androidbrowserhelper.trusted.w:
     java.lang.String sPackageNameForTesting -> a
     java.util.Map getLaunchModesForCustomTabsServices(android.content.pm.PackageManager) -> a
     com.google.androidbrowserhelper.trusted.TwaProviderPicker$Action pickProvider(android.content.pm.PackageManager) -> b
-com.google.androidbrowserhelper.trusted.TwaProviderPicker$Action -> com.google.androidbrowserhelper.trusted.x$a:
+com.google.androidbrowserhelper.trusted.TwaProviderPicker$Action -> com.google.androidbrowserhelper.trusted.w$a:
     java.lang.String provider -> b
     int launchMode -> a
-com.google.androidbrowserhelper.trusted.TwaSharedPreferencesManager -> com.google.androidbrowserhelper.trusted.y:
+com.google.androidbrowserhelper.trusted.TwaSharedPreferencesManager -> com.google.androidbrowserhelper.trusted.x:
     android.content.SharedPreferences mSharedPreferences -> a
     java.lang.String readLastLaunchedProviderPackageName() -> a
     void writeLastLaunchedProviderPackageName(java.lang.String) -> b
-com.google.androidbrowserhelper.trusted.Utils -> com.google.androidbrowserhelper.trusted.z:
+com.google.androidbrowserhelper.trusted.Utils -> com.google.androidbrowserhelper.trusted.y:
     void addSystemUiVisibilityFlag(android.app.Activity,int) -> a
     android.graphics.Bitmap convertDrawableToBitmap(android.content.Context,int) -> b
     float luminanceOfColorComponent(float) -> c
@@ -1590,22 +804,27 @@ com.google.androidbrowserhelper.trusted.WebViewFallbackActivity -> com.google.an
     java.lang.String access$400() -> f
     java.util.List access$500(com.google.androidbrowserhelper.trusted.WebViewFallbackActivity) -> g
     android.content.Intent createLaunchIntent(android.content.Context,android.net.Uri,com.google.androidbrowserhelper.trusted.LauncherActivityMetadata) -> h
-    android.webkit.WebViewClient createWebViewClient() -> i
-    void setupWebSettings(android.webkit.WebSettings) -> j
+    android.webkit.WebChromeClient createWebViewChromeClient() -> i
+    android.webkit.WebViewClient createWebViewClient() -> j
+    void setupWebSettings(android.webkit.WebSettings) -> k
 com.google.androidbrowserhelper.trusted.WebViewFallbackActivity$1 -> com.google.androidbrowserhelper.trusted.WebViewFallbackActivity$a:
     com.google.androidbrowserhelper.trusted.WebViewFallbackActivity this$0 -> a
     boolean matchExtraOrigins(android.net.Uri) -> a
     boolean shouldOverrideUrlLoading(android.net.Uri) -> b
     boolean uriOriginsMatch(android.net.Uri,android.net.Uri) -> c
-com.google.androidbrowserhelper.trusted.splashscreens.-$$Lambda$PwaWrapperSplashScreenStrategy$AEuRt7oVnGOP2vf-Uvl2RaqkFW4 -> com.google.androidbrowserhelper.trusted.a0.a:
+com.google.androidbrowserhelper.trusted.WebViewFallbackActivity$2 -> com.google.androidbrowserhelper.trusted.WebViewFallbackActivity$b:
+    android.view.View fullScreenView -> a
+    com.google.androidbrowserhelper.trusted.WebViewFallbackActivity this$0 -> c
+    int originalOrientation -> b
+com.google.androidbrowserhelper.trusted.splashscreens.-$$Lambda$PwaWrapperSplashScreenStrategy$AEuRt7oVnGOP2vf-Uvl2RaqkFW4 -> com.google.androidbrowserhelper.trusted.z.a:
     java.lang.Runnable f$2 -> c
     com.google.androidbrowserhelper.trusted.splashscreens.PwaWrapperSplashScreenStrategy f$0 -> a
     androidx.browser.trusted.TrustedWebActivityIntentBuilder f$1 -> b
     void onFinished(boolean) -> a
-com.google.androidbrowserhelper.trusted.splashscreens.-$$Lambda$PwaWrapperSplashScreenStrategy$p-f_rUE4TsZEGw17K3MBDrUxlsQ -> com.google.androidbrowserhelper.trusted.a0.b:
+com.google.androidbrowserhelper.trusted.splashscreens.-$$Lambda$PwaWrapperSplashScreenStrategy$p-f_rUE4TsZEGw17K3MBDrUxlsQ -> com.google.androidbrowserhelper.trusted.z.b:
     java.lang.Runnable f$1 -> b
     com.google.androidbrowserhelper.trusted.splashscreens.PwaWrapperSplashScreenStrategy f$0 -> a
-com.google.androidbrowserhelper.trusted.splashscreens.PwaWrapperSplashScreenStrategy -> com.google.androidbrowserhelper.trusted.a0.c:
+com.google.androidbrowserhelper.trusted.splashscreens.PwaWrapperSplashScreenStrategy -> com.google.androidbrowserhelper.trusted.z.c:
     java.lang.String mFileProviderAuthority -> f
     android.widget.ImageView$ScaleType mScaleType -> d
     java.lang.String mProviderPackage -> j
@@ -1633,7 +852,7 @@ com.google.androidbrowserhelper.trusted.splashscreens.PwaWrapperSplashScreenStra
     void onSplashImageTransferred(androidx.browser.trusted.TrustedWebActivityIntentBuilder,boolean,java.lang.Runnable) -> k
     void runWhenEnterAnimationComplete(java.lang.Runnable) -> l
     void showSplashScreen() -> m
-com.google.androidbrowserhelper.trusted.splashscreens.SplashImageTransferTask -> com.google.androidbrowserhelper.trusted.a0.d:
+com.google.androidbrowserhelper.trusted.splashscreens.SplashImageTransferTask -> com.google.androidbrowserhelper.trusted.z.d:
     android.content.Context mContext -> a
     androidx.browser.customtabs.CustomTabsSession mSession -> d
     android.graphics.Bitmap mBitmap -> b
@@ -1649,18 +868,18 @@ com.google.androidbrowserhelper.trusted.splashscreens.SplashImageTransferTask ->
     com.google.androidbrowserhelper.trusted.splashscreens.SplashImageTransferTask$Callback access$500(com.google.androidbrowserhelper.trusted.splashscreens.SplashImageTransferTask) -> f
     void cancel() -> g
     void execute(com.google.androidbrowserhelper.trusted.splashscreens.SplashImageTransferTask$Callback) -> h
-com.google.androidbrowserhelper.trusted.splashscreens.SplashImageTransferTask$1 -> com.google.androidbrowserhelper.trusted.a0.d$a:
+com.google.androidbrowserhelper.trusted.splashscreens.SplashImageTransferTask$1 -> com.google.androidbrowserhelper.trusted.z.d$a:
     com.google.androidbrowserhelper.trusted.splashscreens.SplashImageTransferTask this$0 -> a
     java.lang.Boolean doInBackground(java.lang.Void[]) -> a
     long getLastAppUpdateTime() -> b
     void onPostExecute(java.lang.Boolean) -> c
     boolean transferToCustomTabsProvider(java.io.File) -> d
-com.google.androidbrowserhelper.trusted.splashscreens.SplashImageTransferTask$Callback -> com.google.androidbrowserhelper.trusted.a0.d$b:
+com.google.androidbrowserhelper.trusted.splashscreens.SplashImageTransferTask$Callback -> com.google.androidbrowserhelper.trusted.z.d$b:
     void onFinished(boolean) -> a
-com.google.androidbrowserhelper.trusted.splashscreens.SplashScreenStrategy -> com.google.androidbrowserhelper.trusted.a0.e:
+com.google.androidbrowserhelper.trusted.splashscreens.SplashScreenStrategy -> com.google.androidbrowserhelper.trusted.z.e:
     void configureTwaBuilder(androidx.browser.trusted.TrustedWebActivityIntentBuilder,androidx.browser.customtabs.CustomTabsSession,java.lang.Runnable) -> a
     void onTwaLaunchInitiated(java.lang.String,androidx.browser.trusted.TrustedWebActivityIntentBuilder) -> b
-com.google.androidbrowserhelper.trusted.splashscreens.SystemBarColorPredictor -> com.google.androidbrowserhelper.trusted.a0.f:
+com.google.androidbrowserhelper.trusted.splashscreens.SystemBarColorPredictor -> com.google.androidbrowserhelper.trusted.z.f:
     java.util.Map mSupportedFeaturesCache -> a
     int getExpectedColorScheme(android.content.Context,androidx.browser.trusted.TrustedWebActivityIntentBuilder) -> a
     java.lang.Integer getExpectedNavbarColor(android.content.Context,java.lang.String,androidx.browser.trusted.TrustedWebActivityIntentBuilder) -> b
@@ -1669,21 +888,9 @@ com.google.androidbrowserhelper.trusted.splashscreens.SystemBarColorPredictor ->
     boolean hasCategory(android.content.pm.ResolveInfo,java.lang.String) -> e
     boolean providerSupportsColorSchemeParams(android.content.Context,java.lang.String) -> f
     boolean providerSupportsNavBarColorCustomization(android.content.Context,java.lang.String) -> g
-com.google.androidbrowserhelper.trusted.splashscreens.SystemBarColorPredictor$1 -> com.google.androidbrowserhelper.trusted.a0.f$a:
-com.google.androidbrowserhelper.trusted.splashscreens.SystemBarColorPredictor$SupportedFeatures -> com.google.androidbrowserhelper.trusted.a0.f$b:
+com.google.androidbrowserhelper.trusted.splashscreens.SystemBarColorPredictor$1 -> com.google.androidbrowserhelper.trusted.z.f$a:
+com.google.androidbrowserhelper.trusted.splashscreens.SystemBarColorPredictor$SupportedFeatures -> com.google.androidbrowserhelper.trusted.z.f$b:
     boolean navbarColorCustomization -> a
     boolean colorSchemeCustomization -> b
 com.onrender.item_navi.twa.LauncherActivity -> com.onrender.item_navi.twa.LauncherActivity:
-    android.net.Uri getLaunchingUrl() -> f
-org.chromium.IsReadyToPayService -> d.a.a:
-    void isReadyToPay(org.chromium.IsReadyToPayServiceCallback) -> m
-org.chromium.IsReadyToPayService$Stub -> d.a.a$a:
-org.chromium.IsReadyToPayServiceCallback -> d.a.b:
-    void handleIsReadyToPay(boolean) -> c
-org.chromium.IsReadyToPayServiceCallback$Stub -> d.a.b$a:
-    org.chromium.IsReadyToPayServiceCallback asInterface(android.os.IBinder) -> H
-    org.chromium.IsReadyToPayServiceCallback getDefaultImpl() -> I
-org.chromium.IsReadyToPayServiceCallback$Stub$Proxy -> d.a.b$a$a:
-    android.os.IBinder mRemote -> a
-    org.chromium.IsReadyToPayServiceCallback sDefaultImpl -> b
-    void handleIsReadyToPay(boolean) -> c
+    android.net.Uri getLaunchingUrl() -> g

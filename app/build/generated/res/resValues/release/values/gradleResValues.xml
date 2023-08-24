@@ -10,6 +10,8 @@
     <!-- Value from default config. -->
     <color name="colorPrimary">#1976D2</color>
     <!-- Value from default config. -->
+    <color name="colorPrimaryDark">#000000</color>
+    <!-- Value from default config. -->
     <bool name="enableNotification">true</bool>
     <!-- Value from default config. -->
     <bool name="enableSiteSettingsShortcut">true</bool>

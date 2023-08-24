@@ -5,6 +5,7 @@
   "launcherName": "装備Navi",
   "display": "standalone",
   "themeColor": "#1976D2",
+  "themeColorDark": "#000000",
   "navigationColor": "#000000",
   "navigationColorDark": "#000000",
   "navigationDividerColor": "#000000",
@@ -19,19 +20,15 @@
     "path": "C:\\Users\\yuma\\VSCode\\ffxi_item_navi\\android.keystore",
     "alias": "android"
   },
-  "appVersionName": "2",
-  "appVersionCode": 2,
+  "appVersionName": "3",
+  "appVersionCode": 3,
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
   "webManifestUrl": "https://item-navi.onrender.com/manifest.webmanifest",
   "fallbackType": "customtabs",
-  "features": {
-    "playBilling": {
-      "enabled": true
-    }
-  },
+  "features": {},
   "alphaDependencies": {
-    "enabled": true
+    "enabled": false
   },
   "enableSiteSettingsShortcut": true,
   "isChromeOSOnly": false,
@@ -42,5 +39,5 @@
   "fingerprints": [],
   "additionalTrustedOrigins": [],
   "retainedBundles": [],
-  "appVersion": "2"
+  "appVersion": "3"
 }

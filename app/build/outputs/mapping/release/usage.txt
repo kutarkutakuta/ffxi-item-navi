@@ -5,12 +5,6 @@ com.google.androidbrowserhelper.trusted.SharedPreferencesTokenStore:
     public void setVerifiedProvider(java.lang.String,android.content.pm.PackageManager)
     private static final java.lang.String KEY_TOKEN
 androidx.core.os.ParcelableCompat
-com.android.billingclient.api.BillingClient:
-    public abstract int getConnectionState()
-    public abstract com.android.billingclient.api.BillingResult isFeatureSupported(java.lang.String)
-    public abstract com.android.billingclient.api.Purchase$PurchasesResult queryPurchases(java.lang.String)
-    public abstract void endConnection()
-    public abstract boolean isReady()
 androidx.browser.customtabs.CustomTabsSession:
     public static androidx.browser.customtabs.CustomTabsSession createMockSessionForTesting(android.content.ComponentName)
     public boolean mayLaunchUrl(android.net.Uri,android.os.Bundle,java.util.List)
@@ -27,55 +21,6 @@ androidx.core.os.BuildCompat
 androidx.browser.trusted.TrustedWebActivityServiceConnectionPool
 androidx.annotation.Size
 androidx.browser.browseractions.BrowserServiceFileProvider
-com.google.androidbrowserhelper.playbilling.provider.MockBillingWrapper:
-    public void <init>()
-    private static boolean wait(java.util.concurrent.CountDownLatch)
-    private static com.android.billingclient.api.BillingResult toResult(int)
-    public void connect(com.android.billingclient.api.BillingClientStateListener)
-    public void querySkuDetails(java.lang.String,java.util.List,com.android.billingclient.api.SkuDetailsResponseListener)
-    public void queryPurchases(java.lang.String,com.android.billingclient.api.PurchasesResponseListener)
-    public void queryPurchaseHistory(java.lang.String,com.android.billingclient.api.PurchaseHistoryResponseListener)
-    public void acknowledge(java.lang.String,com.android.billingclient.api.AcknowledgePurchaseResponseListener)
-    public void consume(java.lang.String,com.android.billingclient.api.ConsumeResponseListener)
-    public boolean launchPaymentFlow(android.app.Activity,com.android.billingclient.api.SkuDetails,com.google.androidbrowserhelper.playbilling.provider.MethodData)
-    public void launchPriceChangeConfirmationFlow(android.app.Activity,com.android.billingclient.api.SkuDetails,com.android.billingclient.api.PriceChangeConfirmationListener)
-    public void triggerConnected()
-    public void triggerDisconnected()
-    public void triggerOnGotSkuDetails(java.util.List)
-    public void triggerOnGotInAppSkuDetails(java.util.List)
-    public void triggerOnGotInAppSkuDetails(int,java.util.List)
-    public void triggerOnGotSubsSkuDetails(java.util.List)
-    public void triggerOnGotSubsSkuDetails(int,java.util.List)
-    public void triggerOnGotInAppPurchaseDetails(java.util.List)
-    public void triggerOnGotSubsPurchaseDetails(java.util.List)
-    public void triggerOnPurchaseHistoryResponse(java.lang.String,java.util.List)
-    public void triggerAcknowledge(int)
-    public void triggerConsume(int,java.lang.String)
-    public void triggerOnPurchasesUpdated()
-    public void triggerOnPriceChangeConfirmationResult()
-    public boolean waitForConnect()
-    public boolean waitForQuerySkuDetails()
-    public boolean waitForLaunchPaymentFlow()
-    public boolean waitForLaunchPriceChangeConfirmationFlow()
-    public boolean waitForQueryPurchases()
-    public boolean waitForQueryPurchaseHistory()
-    public void setPaymentFlowWillBeSuccessful(boolean)
-    public java.util.List getQueriedSkuDetails()
-    public java.lang.String getConsumeToken()
-    public java.lang.String getAcknowledgeToken()
-    public android.content.Intent getPlayBillingFlowLaunchIntent()
-    private com.google.androidbrowserhelper.playbilling.provider.BillingWrapper$Listener mListener
-    private com.android.billingclient.api.BillingClientStateListener mConnectionStateListener
-    private boolean mPaymentFlowSuccessful
-    private com.google.androidbrowserhelper.playbilling.provider.InvocationTracker mAcknowledgeInvocation
-    private com.google.androidbrowserhelper.playbilling.provider.InvocationTracker mConsumeInvocation
-    private com.google.androidbrowserhelper.playbilling.provider.MultiSkuTypeInvocationTracker mQuerySkuDetailsInvocation
-    private com.google.androidbrowserhelper.playbilling.provider.MultiSkuTypeInvocationTracker mQueryPurchasesInvocation
-    private com.google.androidbrowserhelper.playbilling.provider.MultiSkuTypeInvocationTracker mQueryPurchaseHistoryInvocation
-    private com.google.androidbrowserhelper.playbilling.provider.InvocationTracker mPriceChangeConfirmationFlow
-    private android.content.Intent mPlayBillingFlowLaunchIntent
-    private final java.util.concurrent.CountDownLatch mConnectLatch
-    private final java.util.concurrent.CountDownLatch mLaunchPaymentFlowLatch
 androidx.core.view.MarginLayoutParamsCompat
 androidx.core.view.ActionProvider$VisibilityListener
 androidx.core.widget.NestedScrollView$OnScrollChangeListener
@@ -85,8 +30,6 @@ androidx.annotation.ContentView
 androidx.core.view.accessibility.AccessibilityViewCommand$MoveHtmlArguments
 androidx.core.content.res.FontResourcesParserCompat$ProviderResourceEntry
 androidx.core.provider.FontsContractCompat$4$2
-com.android.billingclient.api.zzd
-com.google.androidbrowserhelper.playbilling.provider.MultiSkuTypeInvocationTracker
 androidx.browser.trusted.NotificationApiHelperForO:
     private void <init>()
 androidx.annotation.IntRange
@@ -104,7 +47,6 @@ androidx.collection.SimpleArrayMap:
     private static final int CACHE_SIZE
 androidx.concurrent.futures.CallbackToFutureAdapter$Completer
 androidx.core.graphics.TypefaceCompat
-com.google.androidbrowserhelper.playbilling.provider.InvocationTracker
 androidx.lifecycle.Lifecycle$Event
 androidx.browser.customtabs.CustomTabsServiceConnection:
     android.content.Context getApplicationContext()
@@ -117,9 +59,7 @@ androidx.browser.customtabs.CustomTabsSessionToken$MockCallback
 androidx.concurrent.futures.AbstractResolvableFuture$1
 androidx.versionedparcelable.ParcelUtils
 androidx.core.text.util.LinkifyCompat$LinkifyMask
-com.google.androidbrowserhelper.playbilling.R$id
 androidx.core.view.accessibility.AccessibilityEventCompat
-com.google.androidbrowserhelper.playbilling.R$integer
 androidx.core.accessibilityservice.AccessibilityServiceInfoCompat
 androidx.interpolator.view.animation.LookupTableInterpolator
 androidx.core.provider.FontsContractCompat$TypefaceResult
@@ -137,8 +77,8 @@ androidx.browser.trusted.TrustedWebActivityIntentBuilder:
     public static final java.lang.String EXTRA_SCREEN_ORIENTATION
 androidx.core.view.ViewCompat$FocusRealDirection
 androidx.core.math.MathUtils
-androidx.core.app.ComponentActivity
 androidx.core.os.TraceCompat
+androidx.core.app.ComponentActivity
 androidx.core.app.JobIntentService$GenericWorkItem
 androidx.browser.browseractions.BrowserActionsIntent$BrowserActionsFallDialogListener
 androidx.core.view.ScrollingView
@@ -181,6 +121,7 @@ com.google.androidbrowserhelper.R$attr
 android.support.customtabs.trusted.ITrustedWebActivityCallback$Stub:
     public void <init>()
     public static boolean setDefaultImpl(android.support.customtabs.trusted.ITrustedWebActivityCallback)
+    public static android.support.customtabs.trusted.ITrustedWebActivityCallback getDefaultImpl()
     public android.os.IBinder asBinder()
     public boolean onTransact(int,android.os.Parcel,android.os.Parcel,int)
     private static final java.lang.String DESCRIPTOR
@@ -193,10 +134,7 @@ androidx.core.view.NestedScrollingChild
 androidx.annotation.DrawableRes
 androidx.core.app.ServiceCompat$StopForegroundFlags
 androidx.core.net.ConnectivityManagerCompat
-com.android.billingclient.api.zzaf:
-    final void zzc()
 androidx.concurrent.futures.CallbackToFutureAdapter$FutureGarbageCollectedException
-com.android.billingclient.api.BillingFlowParams$ProrationMode
 androidx.core.view.ViewCompat$AccessibilityPaneVisibilityManager
 androidx.core.content.res.ResourcesCompat$FontCallback$2
 androidx.browser.browseractions.BrowserActionsFallbackMenuAdapter$ViewHolderItem
@@ -205,24 +143,15 @@ androidx.lifecycle.CompositeGeneratedAdaptersObserver:
     void <init>(androidx.lifecycle.GeneratedAdapter[])
     public void onStateChanged(androidx.lifecycle.LifecycleOwner,androidx.lifecycle.Lifecycle$Event)
     private final androidx.lifecycle.GeneratedAdapter[] mGeneratedAdapters
-com.google.androidbrowserhelper.playbilling.digitalgoods.Logging:
-    public void <init>()
-    private static final java.lang.String TAG
 androidx.core.hardware.fingerprint.FingerprintManagerCompat$AuthenticationCallback
-com.google.androidbrowserhelper.playbilling.digitalgoods.AcknowledgeCall:
-    static android.os.Bundle createBundleForTesting(java.lang.String,boolean)
-    public static final java.lang.String COMMAND_NAME
-    private static final java.lang.String PARAM_ACKNOWLEDGE_PURCHASE_TOKEN
-    private static final java.lang.String PARAM_ACKNOWLEDGE_MAKE_AVAILABLE_AGAIN
-    static final java.lang.String RESPONSE_ACKNOWLEDGE
-    static final java.lang.String RESPONSE_ACKNOWLEDGE_RESPONSE_CODE
-com.google.androidbrowserhelper.playbilling.R$color
 androidx.core.view.accessibility.AccessibilityViewCommand$MoveWindowArguments
 androidx.core.app.ActivityCompat$SharedElementCallback21Impl
 androidx.concurrent.futures.AbstractResolvableFuture$Listener
 androidx.lifecycle.Lifecycle
 android.support.customtabs.trusted.ITrustedWebActivityCallback$Stub$Proxy:
     public java.lang.String getInterfaceDescriptor()
+    public void onExtraCallback(java.lang.String,android.os.Bundle)
+    public static android.support.customtabs.trusted.ITrustedWebActivityCallback sDefaultImpl
 androidx.core.app.JobIntentService$JobServiceEngineImpl$WrapperWorkItem
 androidx.core.view.ViewPropertyAnimatorCompat$ViewPropertyAnimatorListenerApi14
 androidx.core.app.NotificationCompatSideChannelService$NotificationSideChannelStub
@@ -241,6 +170,8 @@ androidx.versionedparcelable.VersionedParcelParcel:
     public android.os.Bundle readBundle()
     private static final boolean DEBUG
     private static final java.lang.String TAG
+androidx.browser.trusted.TrustedWebActivityCallbackRemote:
+    public void runExtraCallback(java.lang.String,android.os.Bundle)
 androidx.browser.browseractions.BrowserActionsFallbackMenuUi$BrowserActionsFallMenuUiListener
 androidx.core.widget.PopupMenuCompat
 androidx.lifecycle.FullLifecycleObserver
@@ -252,11 +183,6 @@ androidx.collection.ArrayMap:
     public boolean containsAll(java.util.Collection)
     public boolean removeAll(java.util.Collection)
     public boolean retainAll(java.util.Collection)
-com.android.billingclient.api.SkuDetails:
-    public long getOriginalPriceAmountMicros()
-    public java.lang.String getIntroductoryPrice()
-    public java.lang.String getOriginalPrice()
-    public java.lang.String getPrice()
 androidx.lifecycle.LifecycleOwner
 com.google.androidbrowserhelper.R$drawable:
     private void <init>()
@@ -291,11 +217,6 @@ androidx.core.hardware.fingerprint.FingerprintManagerCompat
 androidx.annotation.LongDef
 androidx.core.app.ActivityRecreator$2
 androidx.concurrent.futures.AbstractResolvableFuture$Failure$1
-com.google.androidbrowserhelper.playbilling.digitalgoods.ListPurchasesCall:
-    public static final java.lang.String COMMAND_NAME
-    static final java.lang.String RESPONSE_COMMAND
-    static final java.lang.String KEY_PURCHASES_LIST
-    static final java.lang.String KEY_RESPONSE_CODE
 androidx.annotation.InspectableProperty$FlagEntry
 androidx.core.app.ServiceCompat
 com.google.androidbrowserhelper.R
@@ -306,7 +227,6 @@ com.google.androidbrowserhelper.trusted.TwaProviderPicker:
     static void restrictToPackageForTesting(java.lang.String)
     private static final java.lang.String TAG
 androidx.core.widget.TextViewCompat$OreoCallback
-com.android.billingclient.api.zzah
 androidx.core.util.PatternsCompat
 androidx.core.net.DatagramSocketWrapper
 androidx.concurrent.futures.AbstractResolvableFuture$Waiter
@@ -349,8 +269,6 @@ androidx.core.content.ContextCompat:
     public static java.lang.String getSystemServiceName(android.content.Context,java.lang.Class)
     private static final java.lang.String TAG
 androidx.annotation.Dimension
-com.android.billingclient.api.BillingFlowParams$SubscriptionUpdateParams:
-    private void <init>()
 androidx.core.widget.EdgeEffectCompat
 androidx.core.view.accessibility.AccessibilityViewCommand$SetSelectionArguments
 androidx.core.R$layout
@@ -366,7 +284,6 @@ com.google.androidbrowserhelper.trusted.ChromeOsSupport:
     public static final java.lang.String ARC_PAYMENT_APP
 androidx.core.app.ShareCompat$IntentReader
 androidx.annotation.MainThread
-com.android.billingclient.api.zzb
 androidx.versionedparcelable.VersionedParcel$ParcelException
 androidx.core.app.BundleCompat$BundleCompatBaseImpl:
     private void <init>()
@@ -375,8 +292,6 @@ androidx.core.app.BundleCompat$BundleCompatBaseImpl:
     private static java.lang.reflect.Method sGetIBinderMethod
     private static boolean sGetIBinderMethodFetched
 androidx.core.os.EnvironmentCompat
-org.chromium.IsReadyToPayService$Default
-com.android.billingclient.api.BillingClient$ConnectionState
 androidx.browser.trusted.NotificationApiHelperForM:
     private void <init>()
 androidx.lifecycle.ReportFragment$ActivityInitializationListener
@@ -402,10 +317,8 @@ androidx.annotation.CallSuper
 androidx.browser.browseractions.BrowserActionsFallbackMenuAdapter$1
 androidx.core.view.ViewPropertyAnimatorCompat$1
 androidx.core.telephony.mbms.MbmsHelper
-com.google.android.gms.internal.play_billing.zzp:
-    public final com.google.android.gms.internal.play_billing.zzr zzd()
-androidx.core.app.ShareCompat$IntentBuilder
 androidx.core.view.inputmethod.InputContentInfoCompat$InputContentInfoCompatApi25Impl
+androidx.core.app.ShareCompat$IntentBuilder
 androidx.annotation.NonNull
 androidx.core.app.SharedElementCallback$OnSharedElementsReadyListener
 androidx.core.view.MenuCompat
@@ -425,13 +338,6 @@ androidx.browser.trusted.TrustedWebActivityService:
 androidx.core.view.GestureDetectorCompat$GestureDetectorCompatImplBase
 android.support.customtabs.IPostMessageService$Stub$Proxy
 androidx.collection.SparseArrayCompat
-com.google.androidbrowserhelper.playbilling.digitalgoods.DigitalGoodsConverter:
-    private void <init>()
-    public static final int CHROMIUM_RESULT_OK
-    public static final int CHROMIUM_RESULT_ERROR
-    public static final int CHROMIUM_RESULT_ITEM_ALREADY_OWNED
-    public static final int CHROMIUM_RESULT_ITEM_NOT_OWNED
-    public static final int CHROMIUM_RESULT_ITEM_UNAVAILABLE
 androidx.core.widget.AutoSizeableTextView
 androidx.core.view.accessibility.AccessibilityViewCommand$SetProgressArguments
 androidx.browser.browseractions.BrowserActionsIntent
@@ -448,38 +354,15 @@ androidx.core.util.Pools$Pool
 com.onrender.item_navi.twa.BuildConfig
 androidx.interpolator.view.animation.FastOutSlowInInterpolator
 androidx.annotation.RequiresPermission
-com.google.androidbrowserhelper.playbilling.digitalgoods.GetDetailsCall:
-    static varargs android.os.Bundle createBundleForTesting(java.lang.String[])
-    public static final java.lang.String COMMAND_NAME
-    static final java.lang.String PARAM_GET_DETAILS_ITEM_IDS
-    static final java.lang.String RESPONSE_GET_DETAILS
-    static final java.lang.String RESPONSE_GET_DETAILS_RESPONSE_CODE
-    static final java.lang.String RESPONSE_GET_DETAILS_DETAILS_LIST
 androidx.browser.trusted.ConnectionHolder$WrapperFactory
 androidx.core.widget.NestedScrollView
 androidx.core.provider.SelfDestructiveThread$3
-com.android.billingclient.api.AcknowledgePurchaseParams:
-    private void <init>()
 androidx.core.view.KeyEventDispatcher$Component
 com.google.androidbrowserhelper.trusted.NotificationUtils:
     private void <init>()
-com.android.billingclient.api.PurchaseHistoryRecord:
-    public int getQuantity()
-    public long getPurchaseTime()
-    public java.lang.String getDeveloperPayload()
 com.google.androidbrowserhelper.R$integer
 androidx.collection.LongSparseArray
-com.google.androidbrowserhelper.playbilling.provider.BillingWrapperFactory:
-    public void <init>()
-    public static void setBillingWrapperForTesting(com.google.androidbrowserhelper.playbilling.provider.MockBillingWrapper)
 androidx.core.view.NestedScrollingChild2
-com.android.billingclient.api.BillingFlowParams:
-    private void <init>()
-    public static final java.lang.String EXTRA_PARAM_KEY_ACCOUNT_ID
-    public static final java.lang.String EXTRA_PARAM_KEY_REPLACE_SKUS_PRORATION_MODE
-    public static final java.lang.String EXTRA_PARAM_KEY_VR
-    public static final java.lang.String EXTRA_PARAM_KEY_OLD_SKUS
-    public static final java.lang.String EXTRA_PARAM_KEY_OLD_SKU_PURCHASE_TOKEN
 androidx.annotation.InterpolatorRes
 androidx.core.app.RemoteInput
 androidx.core.view.ActionProvider$SubUiVisibilityListener
@@ -505,12 +388,7 @@ androidx.annotation.Px
 androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 androidx.lifecycle.ReportFragment
 androidx.core.R$id
-com.google.androidbrowserhelper.playbilling.provider.PaymentVerifier:
-    public void <init>()
-com.google.androidbrowserhelper.playbilling.R
 androidx.core.provider.FontsContractCompat$4$8
-com.android.billingclient.api.BillingFlowParams$SubscriptionUpdateParams$Builder:
-    private void <init>()
 com.onrender.item_navi.twa.R$string
 androidx.browser.trusted.TrustedWebActivityDisplayMode:
     public static androidx.browser.trusted.TrustedWebActivityDisplayMode fromBundle(android.os.Bundle)
@@ -520,10 +398,9 @@ androidx.core.app.ActivityCompat$SharedElementCallback21Impl$1
 android.support.v4.os.IResultReceiver$Stub$Proxy
 androidx.core.app.NotificationManagerCompat$Task
 androidx.core.os.ConfigurationCompat
-androidx.core.util.Supplier
 androidx.core.view.WindowCompat
+androidx.core.util.Supplier
 androidx.concurrent.futures.AbstractResolvableFuture$SetFuture
-com.android.billingclient.api.zzn
 androidx.browser.customtabs.CustomTabsService$Result
 androidx.annotation.StringRes
 androidx.browser.customtabs.CustomTabsClient:
@@ -553,7 +430,6 @@ androidx.browser.trusted.ScreenOrientation$LockType
 com.onrender.item_navi.twa.R$raw
 androidx.core.hardware.fingerprint.FingerprintManagerCompat$AuthenticationResult
 androidx.lifecycle.LifecycleRegistryOwner
-com.google.androidbrowserhelper.playbilling.R$xml
 androidx.core.app.NotificationCompat$Action$SemanticAction
 androidx.core.widget.PopupWindowCompat
 androidx.annotation.RawRes
@@ -570,22 +446,14 @@ androidx.core.view.accessibility.AccessibilityWindowInfoCompat
 androidx.core.location.LocationManagerCompat
 androidx.lifecycle.FullLifecycleObserverAdapter$1
 androidx.core.app.FrameMetricsAggregator$FrameMetricsApi24Impl
-com.android.billingclient.api.AcknowledgePurchaseParams$Builder:
-    private void <init>()
-com.android.billingclient.api.Purchase:
-    public int getQuantity()
-    public com.android.billingclient.api.AccountIdentifiers getAccountIdentifiers()
-    public java.lang.String getDeveloperPayload()
-    public java.lang.String getOrderId()
-    public java.lang.String getPackageName()
 androidx.core.util.Preconditions
 androidx.browser.browseractions.BrowserActionsFallbackMenuUi$3
 androidx.core.view.inputmethod.InputContentInfoCompat
 androidx.concurrent.futures.CallbackToFutureAdapter$Resolver
 androidx.core.app.NotificationCompat$BigPictureStyle
 androidx.core.provider.FontsContractCompat$FontFamilyResult
-androidx.core.content.pm.ShortcutInfoCompatSaver$NoopImpl
 androidx.core.widget.CompoundButtonCompat
+androidx.core.content.pm.ShortcutInfoCompatSaver$NoopImpl
 androidx.core.R$style
 androidx.core.provider.FontsContractCompat$4$6
 androidx.core.text.TextUtilsCompat
@@ -594,8 +462,6 @@ com.google.androidbrowserhelper.trusted.SharingUtils:
     private void <init>()
 androidx.browser.trusted.TokenContents:
     public int getFingerprintCount()
-com.android.billingclient.api.zzh:
-    final void zzc()
 androidx.annotation.RequiresApi
 androidx.concurrent.futures.AbstractResolvableFuture$AtomicHelper
 androidx.core.app.NotificationCompat$BigTextStyle
@@ -659,17 +525,12 @@ androidx.browser.customtabs.CustomTabsIntent:
     public static final int TOOLBAR_ACTION_BUTTON_ID
     private static final int MAX_TOOLBAR_ITEMS
 androidx.core.view.ViewCompat$FocusDirection
-com.google.androidbrowserhelper.playbilling.R$drawable
 androidx.annotation.RestrictTo$Scope
 androidx.core.text.TextDirectionHeuristicsCompat$TextDirectionHeuristicInternal
-com.android.billingclient.api.BillingResult$Builder:
-    private void <init>()
 androidx.core.widget.ContentLoadingProgressBar
 androidx.versionedparcelable.ParcelImpl:
     public void <init>(androidx.versionedparcelable.VersionedParcelable)
     public androidx.versionedparcelable.VersionedParcelable getVersionedParcel()
-org.chromium.IsReadyToPayServiceCallback$Stub$Proxy:
-    public java.lang.String getInterfaceDescriptor()
 androidx.annotation.StyleableRes
 androidx.core.view.ViewCompat$2
 androidx.core.provider.FontsContractCompat$4
@@ -681,12 +542,6 @@ androidx.core.text.HtmlCompat
 androidx.core.view.accessibility.AccessibilityRecordCompat
 androidx.versionedparcelable.VersionedParcelStream$FieldBuffer
 androidx.core.view.animation.PathInterpolatorApi14
-org.chromium.IsReadyToPayService$Stub:
-    public static org.chromium.IsReadyToPayService asInterface(android.os.IBinder)
-    public static boolean setDefaultImpl(org.chromium.IsReadyToPayService)
-    public static org.chromium.IsReadyToPayService getDefaultImpl()
-    private static final java.lang.String DESCRIPTOR
-    static final int TRANSACTION_isReadyToPay
 androidx.core.content.ContextCompat$MainHandlerExecutor
 androidx.core.app.JobIntentService
 androidx.browser.trusted.splashscreens.SplashScreenParamKey
@@ -699,7 +554,6 @@ com.google.androidbrowserhelper.trusted.NotificationDelegationExtraCommandHandle
     private static final java.lang.String KEY_NOTIFICATION_CHANNEL_NAME
     private static final java.lang.String KEY_NOTIFICATION_PERMISSION_REQUEST_PENDING_INTENT
 androidx.browser.browseractions.BrowserActionsFallbackMenuUi$1
-com.google.androidbrowserhelper.playbilling.ICallback$Stub
 androidx.core.os.HandlerCompat
 androidx.core.provider.FontsContractCompat$4$4
 androidx.annotation.DimenRes
@@ -710,7 +564,6 @@ com.onrender.item_navi.twa.R$layout
 androidx.browser.customtabs.PostMessageServiceConnection
 androidx.concurrent.futures.CallbackToFutureAdapter$SafeFuture
 androidx.annotation.FloatRange
-com.google.androidbrowserhelper.playbilling.R$style
 androidx.browser.trusted.TrustedWebActivityServiceConnection:
     void <init>(android.support.customtabs.trusted.ITrustedWebActivityService,android.content.ComponentName)
     private static android.support.customtabs.trusted.ITrustedWebActivityCallback wrapCallback(androidx.browser.trusted.TrustedWebActivityCallback)
@@ -731,21 +584,6 @@ androidx.browser.trusted.TrustedWebActivityServiceConnection:
     private static final java.lang.String KEY_ACTIVE_NOTIFICATIONS
     private static final java.lang.String KEY_NOTIFICATION_SUCCESS
 androidx.core.app.DialogCompat
-com.google.androidbrowserhelper.playbilling.digitalgoods.ItemDetails:
-    public static com.google.androidbrowserhelper.playbilling.digitalgoods.ItemDetails create(android.os.Bundle)
-    private static final java.lang.String KEY_ID
-    private static final java.lang.String KEY_TITLE
-    private static final java.lang.String KEY_DESC
-    private static final java.lang.String KEY_CURRENCY
-    private static final java.lang.String KEY_VALUE
-    private static final java.lang.String KEY_TYPE
-    private static final java.lang.String KEY_ICON_URL
-    private static final java.lang.String KEY_SUBS_PERIOD
-    private static final java.lang.String KEY_FREE_TRIAL_PERIOD
-    private static final java.lang.String KEY_INTRO_PERIOD
-    private static final java.lang.String KEY_INTRO_CURRENCY
-    private static final java.lang.String KEY_INTRO_VALUE
-    private static final java.lang.String KEY_INTRO_CYCLES
 android.support.customtabs.ICustomTabsService$Stub:
     public void <init>()
     public static boolean setDefaultImpl(android.support.customtabs.ICustomTabsService)
@@ -766,15 +604,6 @@ android.support.customtabs.ICustomTabsService$Stub:
 androidx.core.view.MenuItemCompat$1
 androidx.core.view.ViewPropertyAnimatorCompat
 androidx.core.content.res.ComplexColorCompat
-com.google.androidbrowserhelper.playbilling.digitalgoods.LegacyPurchaseDetails:
-    public static com.google.androidbrowserhelper.playbilling.digitalgoods.LegacyPurchaseDetails create(android.os.Bundle)
-    private static final java.lang.String KEY_ACKNOWLEDGED
-    private static final java.lang.String KEY_PURCHASE_STATE
-    private static final java.lang.String KEY_PURCHASE_TIME_MICROSECONDS_PAST_UNIX_EPOCH
-    private static final java.lang.String KEY_WILL_AUTO_RENEW
-    static final int CHROMIUM_PURCHASE_STATE_UNKNOWN
-    static final int CHROMIUM_PURCHASE_STATE_PURCHASED
-    static final int CHROMIUM_PURCHASE_STATE_PENDING
 androidx.browser.browseractions.BrowserActionsIntent$Builder
 com.google.androidbrowserhelper.trusted.PermissionStatus
 androidx.core.view.accessibility.AccessibilityClickableSpanCompat
@@ -783,7 +612,6 @@ androidx.core.view.ViewCompat$4
 androidx.arch.core.internal.FastSafeIterableMap
 androidx.core.provider.FontsContractCompat$2
 androidx.core.content.pm.PackageInfoCompat
-com.android.billingclient.api.zze
 androidx.annotation.CheckResult
 androidx.browser.customtabs.PostMessageService
 androidx.core.graphics.drawable.WrappedDrawableApi21:
@@ -804,7 +632,6 @@ androidx.core.text.TextDirectionHeuristicsCompat$TextDirectionHeuristicLocale
 androidx.arch.core.internal.SafeIterableMap
 androidx.browser.browseractions.BrowserActionsFallbackMenuAdapter$2
 androidx.core.content.res.ConfigurationHelper
-com.android.billingclient.api.BillingClient$SkuType
 androidx.collection.ContainerHelpers:
     public static int idealIntArraySize(int)
     public static int idealLongArraySize(int)
@@ -812,12 +639,7 @@ androidx.collection.ContainerHelpers:
     static int binarySearch(long[],int,long)
     private void <init>()
 androidx.core.view.accessibility.AccessibilityViewCommand$ScrollToPositionArguments
-com.android.billingclient.BuildConfig
 androidx.arch.core.internal.SafeIterableMap$DescendingIterator
-com.google.android.gms.internal.play_billing.zzf:
-    public final android.os.IBinder asBinder()
-    public final boolean onTransact(int,android.os.Parcel,android.os.Parcel,int)
-com.google.androidbrowserhelper.playbilling.R$string
 androidx.core.app.TaskStackBuilder$SupportParentable
 androidx.core.app.NotificationCompat$CarExtender$UnreadConversation
 androidx.core.hardware.fingerprint.FingerprintManagerCompat$CryptoObject
@@ -828,8 +650,8 @@ androidx.annotation.HalfFloat
 androidx.core.view.ViewCompat$FocusRelativeDirection
 androidx.core.app.FrameMetricsAggregator
 androidx.core.graphics.PaintCompat
-androidx.core.view.ScaleGestureDetectorCompat
 androidx.core.view.ViewGroupCompat
+androidx.core.view.ScaleGestureDetectorCompat
 androidx.core.app.NotificationCompat$CarExtender
 androidx.browser.customtabs.CustomTabsService$FilePurpose
 androidx.lifecycle.GenericLifecycleObserver
@@ -854,11 +676,8 @@ androidx.core.app.RemoteActionCompat:
     public android.app.RemoteAction toRemoteAction()
 androidx.core.graphics.BitmapCompat
 androidx.collection.CircularArray
-com.android.billingclient.api.zzg:
-    public final void zzc(android.content.Context)
 androidx.core.provider.SelfDestructiveThread
 androidx.versionedparcelable.VersionedParcel$1
-com.android.billingclient.api.AccountIdentifiers
 com.google.androidbrowserhelper.trusted.ChromeUpdatePrompt:
     private void <init>()
     private static final java.lang.String UPDATE_CHROME_MESSAGE_RESOURCE_ID
@@ -873,22 +692,12 @@ androidx.core.view.GravityCompat
 android.support.customtabs.trusted.ITrustedWebActivityCallback$Default
 androidx.annotation.IntegerRes
 androidx.annotation.GuardedBy
-com.android.billingclient.api.ConsumeParams$Builder:
-    private void <init>()
 androidx.core.R$integer
 androidx.arch.core.internal.SafeIterableMap$IteratorWithAdditions
 androidx.annotation.InspectableProperty$ValueType
-com.google.android.gms.internal.play_billing.zzd:
-    public abstract int zzc(int,java.lang.String,java.lang.String,android.os.Bundle)
-com.android.billingclient.R
 androidx.core.content.res.FontResourcesParserCompat$FamilyResourceEntry
 androidx.core.R
 androidx.core.view.accessibility.AccessibilityNodeInfoCompat$CollectionItemInfoCompat
-com.google.androidbrowserhelper.playbilling.provider.PaymentActivity:
-    private static final java.lang.String TAG
-    private static final java.lang.String METHOD_NAME
-    static final java.lang.String PROXY_PACKAGE_KEY
-com.google.androidbrowserhelper.playbilling.ICallback$Default
 androidx.core.view.ViewPropertyAnimatorListenerAdapter
 androidx.core.widget.ListViewAutoScrollHelper
 androidx.core.util.Pools$SynchronizedPool
@@ -912,7 +721,6 @@ androidx.core.app.ShareCompat
 androidx.core.content.SharedPreferencesCompat$EditorCompat
 androidx.core.view.accessibility.AccessibilityNodeProviderCompat$AccessibilityNodeProviderApi16
 androidx.core.view.NestedScrollingParent
-com.android.billingclient.api.BillingClient$BillingResponseCode
 androidx.core.app.NotificationCompat$Extender
 androidx.lifecycle.MethodCallsLogger
 androidx.browser.browseractions.BrowserActionsFallbackMenuUi
@@ -922,12 +730,6 @@ androidx.browser.R$dimen:
 androidx.core.graphics.TypefaceCompatApi24Impl
 androidx.core.provider.FontsContractCompat$4$1
 androidx.core.os.LocaleListInterface
-com.google.androidbrowserhelper.playbilling.digitalgoods.ConsumeCall:
-    static android.os.Bundle createBundleForTesting(java.lang.String)
-    public static final java.lang.String COMMAND_NAME
-    public static final java.lang.String PARAM_CONSUME_PURCHASE_TOKEN
-    public static final java.lang.String RESPONSE_CONSUME
-    public static final java.lang.String RESPONSE_CONSUME_RESPONSE_CODE
 androidx.core.widget.ContentLoadingProgressBar$2
 androidx.core.view.LayoutInflaterCompat$Factory2Wrapper
 androidx.browser.trusted.sharing.ShareData:
@@ -942,8 +744,6 @@ androidx.browser.trusted.sharing.ShareTarget$EncodingType
 androidx.core.app.NotificationCompat$CarExtender$UnreadConversation$Builder
 androidx.core.app.ComponentActivity$ExtraData
 androidx.core.view.accessibility.AccessibilityManagerCompat$AccessibilityStateChangeListener
-com.google.androidbrowserhelper.playbilling.provider.PaymentService:
-    private static final java.lang.String TAG
 androidx.annotation.BinderThread
 androidx.core.content.res.GradientColorInflaterCompat$ColorStops
 com.google.androidbrowserhelper.BuildConfig
@@ -959,14 +759,9 @@ androidx.core.content.pm.ShortcutManagerCompat$1
 androidx.core.app.JobIntentService$CompatWorkItem
 androidx.core.text.TextDirectionHeuristicsCompat
 android.support.customtabs.ICustomTabsService$Default
-com.google.android.gms.internal.play_billing.zzb:
-    public final int zzc(int,java.lang.String,java.lang.String,android.os.Bundle)
 androidx.annotation.Nullable
-androidx.browser.trusted.ScreenOrientation
 androidx.browser.trusted.TrustedWebActivityServiceConnectionPool$BindToServiceAsyncTask
-com.google.androidbrowserhelper.playbilling.digitalgoods.DigitalGoodsRequestHandler:
-    private static final java.lang.String EXTRA_DIGITAL_GOODS_API_VERSION
-    private static final int DIGITAL_GOODS_API_VERSION
+androidx.browser.trusted.ScreenOrientation
 androidx.core.graphics.drawable.DrawableCompat:
     public static void jumpToCurrentState(android.graphics.drawable.Drawable)
     public static void setAutoMirrored(android.graphics.drawable.Drawable,boolean)
@@ -1001,13 +796,7 @@ com.google.androidbrowserhelper.trusted.QualityEnforcer:
     static final java.lang.String CRASH
     static final java.lang.String KEY_CRASH_REASON
     static final java.lang.String KEY_SUCCESS
-com.google.androidbrowserhelper.playbilling.digitalgoods.PurchaseDetails:
-    public static com.google.androidbrowserhelper.playbilling.digitalgoods.PurchaseDetails create(com.android.billingclient.api.Purchase)
-    public static com.google.androidbrowserhelper.playbilling.digitalgoods.PurchaseDetails create(android.os.Bundle)
-    static final java.lang.String KEY_ITEM_ID
-    static final java.lang.String KEY_PURCHASE_TOKEN
 androidx.arch.core.internal.SafeIterableMap$ListIterator
-com.google.androidbrowserhelper.playbilling.R$styleable
 androidx.browser.customtabs.TrustedWebUtils:
     private void <init>()
     public static void launchBrowserSiteSettings(android.content.Context,androidx.browser.customtabs.CustomTabsSession,android.net.Uri)
@@ -1016,7 +805,6 @@ androidx.browser.customtabs.TrustedWebUtils:
     public static final java.lang.String ACTION_MANAGE_TRUSTED_WEB_ACTIVITY_DATA
 com.google.androidbrowserhelper.R$styleable
 androidx.core.internal.package-info
-com.google.androidbrowserhelper.playbilling.ICallback
 androidx.concurrent.futures.AbstractResolvableFuture$Failure
 com.onrender.item_navi.twa.R$bool
 androidx.core.provider.FontsContractCompat
@@ -1030,20 +818,17 @@ androidx.core.app.Person
 androidx.browser.trusted.Token:
     private static final java.lang.String TAG
 androidx.concurrent.futures.ResolvableFuture
-com.android.billingclient.api.zzc
 androidx.core.util.TimeUtils
 androidx.core.app.AppOpsManagerCompat
 androidx.annotation.ArrayRes
-com.android.billingclient.api.Purchase$PurchasesResult:
-    public int getResponseCode()
 androidx.annotation.StyleRes
 androidx.core.app.Person$Builder
 androidx.core.content.MimeTypeFilter
 androidx.core.view.DisplayCutoutCompat
 androidx.core.app.NotificationCompat$NotificationVisibility
 android.support.v4.os.ResultReceiver$MyResultReceiver
-androidx.core.os.ParcelableCompat$ParcelableCompatCreatorHoneycombMR2
 androidx.core.widget.AutoScrollHelper
+androidx.core.os.ParcelableCompat$ParcelableCompatCreatorHoneycombMR2
 androidx.core.text.util.FindAddress$ZipRange
 androidx.core.view.VelocityTrackerCompat
 androidx.core.text.PrecomputedTextCompat$PrecomputedTextFutureTask$PrecomputedTextCallback
@@ -1082,9 +867,6 @@ androidx.core.view.LayoutInflaterFactory
 androidx.annotation.BoolRes
 androidx.core.text.TextDirectionHeuristicsCompat$TextDirectionAlgorithm
 com.google.androidbrowserhelper.R$layout
-org.chromium.IsReadyToPayService$Stub$Proxy
-com.android.billingclient.api.ConsumeParams:
-    private void <init>()
 androidx.core.app.NotificationBuilderWithBuilderAccessor
 androidx.core.view.accessibility.AccessibilityNodeInfoCompat$CollectionInfoCompat
 androidx.core.app.FrameMetricsAggregator$FrameMetricsBaseImpl
@@ -1117,28 +899,20 @@ androidx.browser.customtabs.CustomTabsIntent$Builder:
 androidx.core.view.InputDeviceCompat
 androidx.browser.customtabs.CustomTabsIntent$ShareState
 androidx.core.app.AppLaunchChecker
-com.google.androidbrowserhelper.playbilling.provider.PaymentResult:
-    private static final java.lang.String TAG
 androidx.browser.trusted.TrustedWebActivityServiceConnection$NotifyNotificationArgs:
     public android.os.Bundle toBundle()
 androidx.browser.trusted.TrustedWebActivityServiceConnection$ActiveNotificationsArgs:
     public static androidx.browser.trusted.TrustedWebActivityServiceConnection$ActiveNotificationsArgs fromBundle(android.os.Bundle)
 androidx.browser.R$xml
-com.google.android.gms.internal.play_billing.zzm:
-    public abstract com.google.android.gms.internal.play_billing.zzr zzd()
-    public synthetic bridge java.util.Iterator iterator()
 androidx.core.provider.FontRequest
 androidx.core.view.ActionProvider
 androidx.core.graphics.TypefaceCompatApi28Impl
-com.android.billingclient.api.SkuDetailsParams$Builder:
-    private void <init>()
 androidx.lifecycle.SingleGeneratedAdapterObserver:
     void <init>(androidx.lifecycle.GeneratedAdapter)
     public void onStateChanged(androidx.lifecycle.LifecycleOwner,androidx.lifecycle.Lifecycle$Event)
     private final androidx.lifecycle.GeneratedAdapter mGeneratedAdapter
 android.support.customtabs.trusted.ITrustedWebActivityService$Stub$Proxy
 androidx.core.view.OnApplyWindowInsetsListener
-org.chromium.IsReadyToPayServiceCallback$Default
 androidx.core.content.pm.PermissionInfoCompat$ProtectionFlags
 androidx.versionedparcelable.R
 androidx.core.app.NotificationManagerCompat:
@@ -1178,7 +952,6 @@ androidx.core.app.NotificationManagerCompat:
     public static final int IMPORTANCE_HIGH
     public static final int IMPORTANCE_MAX
 androidx.lifecycle.ClassesInfoCache$CallbackInfo
-com.android.billingclient.api.BillingClient$FeatureType
 androidx.core.app.RemoteInput$Source
 com.google.androidbrowserhelper.trusted.splashscreens.PwaWrapperSplashScreenStrategy:
     private static final java.lang.String TAG
@@ -1212,11 +985,12 @@ androidx.concurrent.futures.AbstractResolvableFuture$Cancellation
 androidx.core.view.ViewCompat
 androidx.core.text.PrecomputedTextCompat$Params
 androidx.browser.customtabs.CustomTabsService$Relation
+android.support.customtabs.trusted.ITrustedWebActivityCallback:
+    public abstract void onExtraCallback(java.lang.String,android.os.Bundle)
 androidx.core.os.CancellationSignal
 androidx.core.app.NotificationCompat$BadgeIconType
 androidx.browser.browseractions.BrowserActionsFallbackMenuDialog$1
 androidx.core.text.TextDirectionHeuristicsCompat$FirstStrong
-com.google.androidbrowserhelper.playbilling.R$dimen
 androidx.core.app.NotificationCompat$GroupAlertBehavior
 androidx.core.graphics.drawable.RoundedBitmapDrawableFactory$DefaultRoundedBitmapDrawable
 androidx.core.view.NestedScrollingParent2
@@ -1285,11 +1059,6 @@ androidx.core.view.accessibility.AccessibilityNodeProviderCompat
 androidx.annotation.AnimatorRes
 androidx.core.view.accessibility.AccessibilityManagerCompat$TouchExplorationStateChangeListenerWrapper
 androidx.versionedparcelable.ParcelField
-com.android.billingclient.api.BillingFlowParams$Builder:
-    private void <init>()
-    public com.android.billingclient.api.BillingFlowParams$Builder setObfuscatedAccountId(java.lang.String)
-    public com.android.billingclient.api.BillingFlowParams$Builder setObfuscatedProfileId(java.lang.String)
-    public com.android.billingclient.api.BillingFlowParams$Builder setVrPurchaseFlow(boolean)
 androidx.core.content.res.ColorStateListInflaterCompat
 androidx.core.content.res.GradientColorInflaterCompat
 com.google.androidbrowserhelper.trusted.TwaSharedPreferencesManager:
@@ -1320,18 +1089,12 @@ androidx.core.app.NotificationManagerCompat$SideChannelManager$ListenerRecord
 com.onrender.item_navi.twa.R$integer
 androidx.core.os.LocaleListPlatformWrapper
 androidx.core.graphics.TypefaceCompatBaseImpl$StyleExtractor
-com.google.androidbrowserhelper.playbilling.digitalgoods.ListPurchaseHistoryCall:
-    public static final java.lang.String COMMAND_NAME
-    static final java.lang.String RESPONSE_COMMAND
-    static final java.lang.String KEY_PURCHASE_HISTORY_LIST
-    static final java.lang.String KEY_RESPONSE_CODE
 androidx.core.view.ViewCompat$UnhandledKeyEventManager
 androidx.core.database.DatabaseUtilsCompat
 androidx.core.internal.view.SupportMenuItem
 androidx.core.provider.FontsContractCompat$4$9
 androidx.interpolator.view.animation.FastOutLinearInInterpolator
 androidx.core.view.MenuItemCompat$OnActionExpandListener
-com.android.billingclient.api.Purchase$PurchaseState
 androidx.annotation.AnyRes
 android.support.v4.app.INotificationSideChannel$Stub
 androidx.core.app.JobIntentService$JobServiceEngineImpl
@@ -1352,14 +1115,12 @@ androidx.core.graphics.drawable.TintAwareDrawable:
     public abstract void setTint(int)
     public abstract void setTintList(android.content.res.ColorStateList)
     public abstract void setTintMode(android.graphics.PorterDuff$Mode)
-com.google.androidbrowserhelper.playbilling.BuildConfig
 androidx.annotation.AnimRes
 androidx.annotation.XmlRes
 androidx.core.app.NavUtils
 androidx.core.graphics.ColorUtils
 androidx.core.graphics.TypefaceCompatBaseImpl
 androidx.core.view.ViewCompat$NestedScrollType
-com.google.androidbrowserhelper.playbilling.ICallback$Stub$Proxy
 androidx.core.view.DragStartHelper
 androidx.lifecycle.Lifecycle$State
 androidx.core.content.res.ResourcesCompat
@@ -1483,13 +1244,9 @@ androidx.browser.trusted.TrustedWebActivityDisplayMode$ImmersiveMode:
     public static final java.lang.String KEY_CUTOUT_MODE
 android.support.v4.os.IResultReceiver
 androidx.core.graphics.drawable.RoundedBitmapDrawable
-androidx.core.app.JobIntentService$JobWorkEnqueuer
-android.support.v4.os.ResultReceiver
 androidx.browser.trusted.FutureUtils
-com.google.androidbrowserhelper.playbilling.digitalgoods.ConnectedBillingWrapper:
-    private static final int NOT_CONNECTED
-    private static final int CONNECTING
-    private static final int CONNECTED
+android.support.v4.os.ResultReceiver
+androidx.core.app.JobIntentService$JobWorkEnqueuer
 com.google.androidbrowserhelper.trusted.ChromeLegacyUtils:
     private void <init>()
     private static final java.lang.String CHROME_LOCAL_BUILD_PACKAGE
@@ -1502,15 +1259,10 @@ com.google.androidbrowserhelper.trusted.ChromeLegacyUtils:
     private static final int VERSION_SUPPORTS_NO_PREWARM
     private static final int VERSION_SUPPORTS_CUSTOM_COLOR
     private static final int VERSION_SUPPORTS_SIMPLIFIED_MANAGE_DATA
-com.google.androidbrowserhelper.playbilling.R$attr
 androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
-com.google.androidbrowserhelper.playbilling.provider.Logging:
-    public void <init>()
-    private static final java.lang.String TAG
 androidx.core.content.pm.ShortcutManagerCompat
 androidx.lifecycle.LifecycleRegistry
 com.onrender.item_navi.twa.R$dimen
-com.google.androidbrowserhelper.playbilling.R$layout
 androidx.core.database.sqlite.SQLiteCursorCompat
 androidx.browser.browseractions.BrowserActionsFallbackMenuUi$2
 androidx.core.view.PointerIconCompat
@@ -1548,21 +1300,7 @@ com.google.androidbrowserhelper.trusted.TwaLauncher:
     private static final java.lang.String TAG
     private static final int DEFAULT_SESSION_ID
 androidx.core.view.accessibility.AccessibilityNodeProviderCompat$AccessibilityNodeProviderApi19
-com.android.billingclient.api.BillingClientImpl:
-    private int launchBillingFlowCpp(android.app.Activity,com.android.billingclient.api.BillingFlowParams)
-    private void <init>(java.lang.String)
-    private void <init>(android.app.Activity,boolean,java.lang.String)
-    private void launchPriceChangeConfirmationFlow(android.app.Activity,com.android.billingclient.api.PriceChangeFlowParams,long)
-    private void startConnection(long)
-    private final com.android.billingclient.api.BillingResult zzG(java.lang.String)
-    public final int getConnectionState()
-    public final com.android.billingclient.api.BillingResult isFeatureSupported(java.lang.String)
-    public final com.android.billingclient.api.Purchase$PurchasesResult queryPurchases(java.lang.String)
-    public final void endConnection()
-    public final synthetic java.lang.Integer zzn(java.lang.String)
 androidx.core.app.NotificationCompat$Action$Extender
-com.android.billingclient.api.zzap:
-    private void <init>()
 androidx.core.view.ViewCompat$5
 androidx.core.text.ICUCompat
 androidx.core.os.ParcelableCompatCreatorCallbacks
@@ -1596,13 +1334,6 @@ com.google.androidbrowserhelper.trusted.LauncherActivityMetadata:
     private static final java.lang.String METADATA_SCREEN_ORIENTATION
     private static final int DEFAULT_COLOR_ID
     private static final int DEFAULT_DIVIDER_COLOR_ID
-org.chromium.IsReadyToPayServiceCallback$Stub:
-    public void <init>()
-    public static boolean setDefaultImpl(org.chromium.IsReadyToPayServiceCallback)
-    public android.os.IBinder asBinder()
-    public boolean onTransact(int,android.os.Parcel,android.os.Parcel,int)
-    private static final java.lang.String DESCRIPTOR
-    static final int TRANSACTION_handleIsReadyToPay
 androidx.browser.trusted.ConnectionHolder
 android.support.customtabs.IPostMessageService$Default
 com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity:
@@ -1613,14 +1344,13 @@ com.google.androidbrowserhelper.trusted.ManageDataLauncherActivity:
     public static final java.lang.String CATEGORY_LAUNCH_SITE_SETTINGS
     public static final java.lang.String OVERRIDE_IC_SITE_SETTINGS_ID
 androidx.annotation.ColorLong
-com.android.billingclient.api.zzz
 androidx.core.app.NotificationCompat$StreamType
 androidx.core.content.res.FontResourcesParserCompat$FontFamilyFilesResourceEntry
 androidx.versionedparcelable.VersionedParcelStream$1
 androidx.core.view.LayoutInflaterCompat
 com.google.androidbrowserhelper.R$xml
-androidx.browser.customtabs.CustomTabsService$1
 androidx.core.os.LocaleListCompatWrapper
+androidx.browser.customtabs.CustomTabsService$1
 androidx.core.view.MotionEventCompat
 androidx.core.view.NestedScrollingChildHelper
 androidx.core.content.pm.ShortcutInfoCompat$Builder
@@ -1645,25 +1375,11 @@ androidx.browser.customtabs.CustomTabsClient$2:
     final synthetic androidx.browser.customtabs.CustomTabsClient this$0
 androidx.browser.customtabs.CustomTabsServiceConnection$1:
     final synthetic androidx.browser.customtabs.CustomTabsServiceConnection this$0
-com.android.billingclient.api.zzak:
-    static final com.android.billingclient.api.BillingResult zze
-    static final com.android.billingclient.api.BillingResult zzm
-    static final com.android.billingclient.api.BillingResult zzo
-    static final com.android.billingclient.api.BillingResult zzt
-    static final com.android.billingclient.api.BillingResult zzv
 androidx.collection.ContainerHelpers:
     static final long[] EMPTY_LONGS
-com.google.androidbrowserhelper.playbilling.provider.MethodData:
-    public final java.lang.String oldSku
 androidx.core.app.NotificationManagerCompat:
     private static final java.lang.Object sEnabledNotificationListenersLock
     private static java.util.Set sEnabledNotificationListenerPackages
     private static final java.lang.Object sLock
-com.android.billingclient.api.BillingClient$Builder:
-    private volatile java.lang.String zza
-com.google.android.gms.internal.play_billing.zzg:
-    private static final java.lang.ClassLoader zza
-com.android.billingclient.api.BillingClientImpl:
-    private android.content.Context zze
 com.google.androidbrowserhelper.trusted.splashscreens.SplashImageTransferTask:
     static final synthetic boolean $assertionsDisabled

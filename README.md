@@ -16,6 +16,8 @@ https://play.google.com/store/apps/details?id=com.onrender.item_navi.twa
 - その他ツール: Github, Visual Studio Code
 
 ## 仕様
+- インフラ構成
+![image](https://github.com/kutarkutakuta/ffxi-item-navi/assets/122729867/6da44342-22cd-41f7-a9bc-be4299fbd81d)
 - ER図
 ![FF11装備Navi_ER図](https://github.com/kutarkutakuta/ffxi-item-navi/assets/122729867/6d11c99d-c98f-455a-923b-04e771c4a7fc)
 

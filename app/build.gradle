@@ -56,8 +56,8 @@ android {
         applicationId "com.onrender.item_navi.twa"
         minSdkVersion 19
         targetSdkVersion 33
-        versionCode 3
-        versionName "3"
+        versionCode 4
+        versionName "4"
 
         // The name for the application
         resValue "string", "appName", twaManifest.name

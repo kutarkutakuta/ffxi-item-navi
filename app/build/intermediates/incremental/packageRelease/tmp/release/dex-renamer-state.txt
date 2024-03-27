@@ -1,4 +1,4 @@
-#Fri Aug 25 00:47:44 JST 2023
+#Tue Oct 17 10:27:19 JST 2023
 base.0=C\:\\Users\\yuma\\VSCode\\ffxi_item_navi\\app\\build\\intermediates\\dex\\release\\minifyReleaseWithR8\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

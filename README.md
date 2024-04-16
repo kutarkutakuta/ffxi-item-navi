@@ -17,7 +17,7 @@ https://play.google.com/store/apps/details?id=com.onrender.item_navi.twa
 
 ## 仕様
 - システム構成
-![image](https://github.com/kutarkutakuta/ffxi-item-navi/assets/122729867/a2e98908-1056-4b8a-a018-a4ded0481a17)
+![image](https://github.com/kutarkutakuta/ffxi-item-navi/assets/122729867/8de48b77-4739-4ac5-b72b-e8701024b3a6)
 - ER図
 ![FF11装備Navi_ER図](https://github.com/kutarkutakuta/ffxi-item-navi/assets/122729867/6d11c99d-c98f-455a-923b-04e771c4a7fc)
 

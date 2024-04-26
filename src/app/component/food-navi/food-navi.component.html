@@ -24,9 +24,11 @@
   </div>
 </div>
 
-<div style="height: 100%;">
-  <nz-table #basicTable [nzData]="foods" [nzLoading]="loading" [nzShowPagination]="false" [nzPageSize]="100" [nzVirtualItemSize]="1"
-    nzSize="small" nzBordered="true" [nzScroll]="{x: '100%', y: 'calc(100vh - 135px)'}">
+<div>
+  <nz-table #basicTable2 [nzData]="foods" [nzLoading]="loading"
+    [nzShowPagination]="false" [nzFrontPagination] = "false"
+    nzVirtualScroll [nzVirtualItemSize]="70"
+    nzSize="small" nzBordered="true" [nzScroll]="{x: '100%', y: '0px'}">
     <thead>
       <tr>
         <th nzWidth="175px">NAME</th>
@@ -43,7 +45,8 @@
       </tr>
     </thead>
     <tbody>
-      <ng-template nz-virtual-scroll let-data let-index="index">
+      <ng-template nz-virtual-scroll let-data let-index="index" >
+        <ng-container>
         <tr>
           <td>
             <a aria-label="Name1" style="font-size: larger;font-weight: bolder;" (click)="showFoodDetail(data)">
@@ -58,15 +61,13 @@
           </ng-container>
           <td><div [innerHTML]="replacer(data.pc_text,'PC')"></div></td>
           <td>
-            <div *ngIf="data.pet_status_target">
-              {{data.pet_status_target != 'ペット' ? '(' + data.pet_status_target + ') ' : ''}}
-            </div>
             <div  [innerHTML]="replacer(data.pet_text,'PET')"></div>
           </td>
           <td>
             <div [innerHTML]="replacer(data.other_text,'OTHER')"></div>
           </td>
         </tr>
+      </ng-container>
       </ng-template>
 
     </tbody>

@@ -19,15 +19,13 @@ export class ItemNaviComponent {
   private itemDetail!: ItemDetailComponent;
   @ViewChild(QueryBuilderComponent)
   private queryBuilder!: QueryBuilderComponent;
-  @ViewChild('basicTable', { static: false })
+  @ViewChild('basicTable', { static: true })
   private nzTableComponent!: NzTableComponent<Equipment>;
 
   jobs: readonly string[] = ["戦","暗","侍","竜","モ","か","シ","踊","忍","コ","狩","青","赤","吟","剣","ナ","風","黒","召","白","学","獣","All Jobs"];
   wepons: readonly string[] = ["格闘","短剣","片手剣","両手剣","片手斧","両手斧","両手鎌","両手槍","片手刀","両手刀","片手棍","両手棍",
                               "弓術","射撃","楽器","グリップ","投擲","矢・弾","ストリンガー"];
   armors: readonly string[] = ["盾","頭","胴","両手","両脚","両足","首","耳","指","腰","背"];
-  offset: number = 0;
-  total: number = 0;
 
   selectedJobs: string[] = [];
   selectedWepons: string[] = [];
@@ -42,6 +40,8 @@ export class ItemNaviComponent {
 
   private startPos: number = 0;
   isHeader : boolean = true;
+  offset: number = 0;
+  total: number = 0;
   currentIndex = 0;
 
   constructor(private supabaseService: SupabaseService,
@@ -51,9 +51,12 @@ export class ItemNaviComponent {
       .subscribe(() => {
         this.isHeader = true;
         setTimeout(() => {
-          this.nzTableComponent.cdkVirtualScrollViewport?.scrollToIndex(this.currentIndex);
+          if(this.currentIndex == 0) {
+            this.nzTableComponent.cdkVirtualScrollViewport?.checkViewportSize();
+          }else{
+            this.nzTableComponent.cdkVirtualScrollViewport?.scrollToIndex(this.currentIndex);
+          }
         }, 100);
-
       });
   }
 
@@ -101,10 +104,9 @@ export class ItemNaviComponent {
     this.inputValue = this.fnSanitize(this.inputValue);
 
     this.loading = true;
-    this.supabaseService.getEquipment(this.selectedJobs
-       , this.selectedWepons.concat(this.selectedArmors.map(n=> "防具:" + n))
-       , this.inputValue.trim()
-       , this.offset)
+    this.supabaseService.getEquipment(this.selectedJobs,
+        this.selectedWepons.concat(this.selectedArmors.map(n=> "防具:" + n)),
+        this.inputValue.trim(), offset)
     .then((res: [Equipment[], string[], string[], number])=>{
       if(offset == 0) this.equipments = res[0];
       else this.equipments = this.equipments.concat(res[0]);

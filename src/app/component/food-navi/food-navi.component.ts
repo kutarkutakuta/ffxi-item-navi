@@ -18,7 +18,7 @@ export class FoodNaviComponent {
   private foodDetail!: FoodDetailComponent;
   @ViewChild(QueryBuilderComponent)
   private queryBuilder!: QueryBuilderComponent;
-  @ViewChild('basicTable', { static: false })
+  @ViewChild('basicTable2', { static: true  })
   private nzTableComponent!: NzTableComponent<Food>;
 
   categories: readonly string[] = ["肉・卵","魚介","野菜","スープ","穀物","スィーツ","ドリンク"];
@@ -34,12 +34,24 @@ export class FoodNaviComponent {
 
   private startPos: number = 0;
   isHeader : boolean = true;
+  offset: number = 0;
+  total: number = 0;
+  currentIndex = 0;
 
   constructor(private supabaseService: SupabaseService,
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router) {
       router.events.pipe(filter(event => event instanceof NavigationEnd ))
-      .subscribe(() => this.isHeader = true);
+      .subscribe(() => {
+        this.isHeader = true;
+        setTimeout(() => {
+          if(this.currentIndex == 0) {
+            this.nzTableComponent.cdkVirtualScrollViewport?.checkViewportSize();
+          }else{
+            this.nzTableComponent.cdkVirtualScrollViewport?.scrollToIndex(this.currentIndex);
+          }
+        }, 100);
+      });
   }
 
   ngAfterViewInit() {
@@ -60,26 +72,37 @@ export class FoodNaviComponent {
       }
       this.startPos = currentPos;
     });
+
+    this.nzTableComponent.cdkVirtualScrollViewport?.scrolledIndexChange.subscribe(index => {
+      if (index > 0 && index > this.foods.length - 20 && this.total > (this.offset + 1) * 100) {
+        this.inputChange(this.offset + 1);
+      }
+      this.currentIndex = index;
+    });
+
     this.inputChange();
   }
 
   /** 入力変更時 */
-  inputChange(){
+  inputChange(offset: number = 0){
+
+    this.offset = offset;
 
     // 無害化
     this.inputValue = this.fnSanitize(this.inputValue);
 
     this.loading = true;
-    this.supabaseService.getFood(this.selectedCategories, this.inputValue.trim())
+    this.supabaseService.getFood(this.selectedCategories, this.inputValue.trim(), offset)
     .then((res: [Food[], string[], string[], number])=>{
-      this.foods = res[0];
+      if(offset == 0) this.foods = res[0];
+      else this.foods = this.foods.concat(res[0]);
       this.txtKeywords = res[1];
       this.opKeywords = res[2];
+      this.total = res[3];
     }).finally(()=>{
       this.loading = false;
-      this.nzTableComponent.cdkVirtualScrollViewport?.scrollToIndex(0);
+      if(offset == 0) this.nzTableComponent.cdkVirtualScrollViewport?.scrollToOffset(0);
       this.nzTableComponent.nzWidthConfig;
-
     });
   }
 

@@ -14,3 +14,7 @@ td {
 .active.ant-collapse > .ant-collapse-item > .ant-collapse-header {
   border-top: 3px solid black;
 }
+
+nz-table ::ng-deep cdk-virtual-scroll-viewport {
+  height: calc(100vh - 100px) !important;
+}

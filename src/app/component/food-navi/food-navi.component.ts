@@ -71,7 +71,7 @@ export class FoodNaviComponent {
 
     this.loading = true;
     this.supabaseService.getFood(this.selectedCategories, this.inputValue.trim())
-    .then((res: [Food[], string[], string[]])=>{
+    .then((res: [Food[], string[], string[], number])=>{
       this.foods = res[0];
       this.txtKeywords = res[1];
       this.opKeywords = res[2];

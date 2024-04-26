@@ -18,7 +18,7 @@
     </div>
   </div>
   <div nz-row [hidden]="!isHeader">
-    <nz-input-group [nzPrefix]="prefixIconSearch" [nzSuffix]="suffixIconSearch" style="max-width:630px">
+    <nz-input-group [nzAddOnBefore]="prefixIconSearch" [nzSuffix]="suffixIconSearch" style="max-width:630px">
       <input type="text" nz-input placeholder="(例) 被ダメージ<-2 PET:攻>20" maxlength="200"
         [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
     </nz-input-group>
@@ -30,14 +30,15 @@
     <ng-template #suffixIconSearch>
       <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
         nzType="close-circle" *ngIf="inputValue" (click)="clearText()"></span>
-      <span nz-icon nzType="search" *ngIf="!inputValue"></span>
     </ng-template>
   </div>
 </div>
 
-<div style="height: 100%;">
-  <nz-table #basicTable [nzData]="equipments" [nzLoading]="loading" [nzShowPagination]="false" [nzPageSize]="100" [nzVirtualItemSize]="1"
-    nzSize="small" nzBordered="true" [nzScroll]="{x: '100%', y: 'calc(100vh - 135px)'}">
+<div >
+  <nz-table #basicTable [nzData]="equipments" [nzLoading]="loading"
+    [nzShowPagination]="false" [nzFrontPagination] = "false"
+    nzVirtualScroll [nzVirtualItemSize]="100"
+    nzSize="small" nzBordered="true" [nzScroll]="{x: '100%', y: '0px'}">
     <thead>
       <tr>
         <th nzWidth="175px">NAME</th>
@@ -55,52 +56,54 @@
     </thead>
     <tbody>
       <ng-template nz-virtual-scroll let-data let-index="index">
-        <tr>
-          <td [nzShowExpand]="data.show_expand" (nzExpandChange)="expandChange(data.id, $event);" [nzExpand]="data.expanded">
-            <a aria-label="Name1" (click)="showItemDetail(data, undefined)" style="font-size: larger;font-weight: bolder;">
-              <span [innerHTML]="replacer(data.name,'NAME')"></span>
-            </a>
-            <div style="padding-left: 10px;">
-              {{ data.slot }} {{ data.item_lv ? "＜IL:" + data.item_lv + "＞" : "" }}
-              <br />
-              Lv{{ data.lv }} {{ data.job }}
-            </div>
-          </td>
-          <ng-container *ngFor="let keyword of opKeywords">
-            <td class="status_value">{{ getStatusValue(data, null, keyword) }}</td>
-          </ng-container>
-          <td><div [innerHTML]="replacer(data.pc_text,'PC')"></div></td>
-          <td>
-            <div *ngIf="data.pet_status_target">
-              {{data.pet_status_target != 'ペット' ? '(' + data.pet_status_target + ') ' : ''}}
-            </div>
-            <div  [innerHTML]="replacer(data.pet_text,'PET')"></div>
-          </td>
-          <td>
-            <div [innerHTML]="replacer(data.other_text,'OTHER')"></div>
-          </td>
-        </tr>
-        <ng-container  *ngFor="let aug of data.equipment_augs">
-          <tr *ngIf="data.expanded">
-            <td [nzIndentSize]="5">
-              <a (click)="showItemDetail(data, aug)" style="color: rgba(0, 0, 0, 0.85); text-decoration: underline;">
-                {{getAugName(aug)}}
+        <ng-container>
+          <tr>
+            <td [nzShowExpand]="data.show_expand" (nzExpandChange)="expandChange(data.id, $event);" [nzExpand]="data.expanded">
+              <a aria-label="Name1" (click)="showItemDetail(data, undefined)" style="font-size: larger;font-weight: bolder;">
+                <span [innerHTML]="replacer(data.name,'NAME')"></span>
               </a>
+              <div style="padding-left: 10px;">
+                {{ data.slot }} {{ data.item_lv ? "＜IL:" + data.item_lv + "＞" : "" }}
+                <br />
+                Lv{{ data.lv }} {{ data.job }}
+              </div>
             </td>
             <ng-container *ngFor="let keyword of opKeywords">
-              <td class="status_value">{{ getStatusValue(data, aug, keyword) }}</td>
+              <td class="status_value">{{ getStatusValue(data, null, keyword) }}</td>
             </ng-container>
-            <td><div [innerHTML]="replacer(aug.aug_pc_text,'PC')"></div></td>
+            <td><div [innerHTML]="replacer(data.pc_text,'PC')"></div></td>
             <td>
-              <div *ngIf="aug.aug_pet_status_target">
-                {{aug.aug_pet_status_target != 'ペット' ? '(' + aug.aug_pet_status_target + ') ' : ''}}
+              <div *ngIf="data.pet_status_target">
+                {{data.pet_status_target != 'ペット' ? '(' + data.pet_status_target + ') ' : ''}}
               </div>
-              <div  [innerHTML]="replacer(aug.aug_pet_text,'PET')"></div>
+              <div  [innerHTML]="replacer(data.pet_text,'PET')"></div>
             </td>
             <td>
-              <div [innerHTML]="replacer(aug.aug_other_text,'OTHER')"></div>
+              <div [innerHTML]="replacer(data.other_text,'OTHER')"></div>
             </td>
           </tr>
+          <ng-container  *ngFor="let aug of data.equipment_augs">
+            <tr *ngIf="data.expanded">
+              <td [nzIndentSize]="5">
+                <a (click)="showItemDetail(data, aug)" style="color: rgba(0, 0, 0, 0.85); text-decoration: underline;">
+                  {{getAugName(aug)}}
+                </a>
+              </td>
+              <ng-container *ngFor="let keyword of opKeywords">
+                <td class="status_value">{{ getStatusValue(data, aug, keyword) }}</td>
+              </ng-container>
+              <td><div [innerHTML]="replacer(aug.aug_pc_text,'PC')"></div></td>
+              <td>
+                <div *ngIf="aug.aug_pet_status_target">
+                  {{aug.aug_pet_status_target != 'ペット' ? '(' + aug.aug_pet_status_target + ') ' : ''}}
+                </div>
+                <div  [innerHTML]="replacer(aug.aug_pet_text,'PET')"></div>
+              </td>
+              <td>
+                <div [innerHTML]="replacer(aug.aug_other_text,'OTHER')"></div>
+              </td>
+            </tr>
+          </ng-container>
         </ng-container>
       </ng-template>
 

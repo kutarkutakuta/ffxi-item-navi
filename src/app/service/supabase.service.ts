@@ -59,7 +59,7 @@ export class SupabaseService {
     )
   }
 
-  public async getEquipment(jobs: string[], wepons:string[], inputText: string): Promise<[Equipment[], string[], string[]]> {
+  public async getEquipment(jobs: string[], wepons:string[], inputText: string, offset: number = 0): Promise<[Equipment[], string[], string[], number]> {
 
     var txtkeywords: string[] = [];
     var opkeywords: string[] = [];
@@ -91,7 +91,7 @@ export class SupabaseService {
 
     // フィルタビルダ
     var fnFilterBuilder = (): PostgrestFilterBuilder<any, any, any> =>{
-      var query = this.supabase.from('equipment_summary').select().limit(100);
+      var query = this.supabase.from('equipment_summary').select('*', { count: 'exact' }).range(offset * 100, offset * 100 + 99);
 
       if(jobs.length > 0){
         var jobFilter = "";
@@ -243,7 +243,7 @@ export class SupabaseService {
     if(queryData.error){
       // this.message.error(queryData.error.message);
       console.error(queryData.error.message);
-      return [[],[],[]];
+      return [[], [], [], 0];
     }
 
     // オーグメントの順番が合わない※ので並び順を揃えて親子関係を構築
@@ -307,7 +307,7 @@ export class SupabaseService {
       }
     })
 
-    return [equipments, txtkeywords, opkeywords];
+    return [equipments, txtkeywords, opkeywords, queryData.count!];
   }
 
   private createEquipHitories(jobs: string[], wepons:string[], inputText: string){
@@ -639,7 +639,7 @@ export class SupabaseService {
   }
 
   /** 食品 */
-  public async getFood(categories: string[], inputText: string): Promise<[Food[], string[], string[]]> {
+  public async getFood(categories: string[], inputText: string, offset: number = 0): Promise<[Food[], string[], string[], number]> {
 
     var txtkeywords: string[] = [];
     var opkeywords: string[] = [];
@@ -671,7 +671,7 @@ export class SupabaseService {
 
     // フィルタビルダ
     var fnFilterBuilder = (): PostgrestFilterBuilder<any, any, any> =>{
-      var query = this.supabase.from('foods').select().limit(100);
+      var query = this.supabase.from('foods').select('*', { count: 'exact' }).range(offset * 100, offset * 100 + 99);
 
       if(categories.length > 0){
         var filter = "";
@@ -781,10 +781,9 @@ export class SupabaseService {
     if(queryData.error){
       // this.message.error(queryData.error.message);
       console.error(queryData.error.message);
-      return [[],[],[]];
+      return [[], [], [], 0];
     }
 
-
-    return [queryData.data as Food[], txtkeywords, opkeywords];
+     return [queryData.data as Food[], txtkeywords, opkeywords, queryData.count!];
   }
 }

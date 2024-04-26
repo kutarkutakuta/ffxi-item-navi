@@ -26,6 +26,8 @@ export class ItemNaviComponent {
   wepons: readonly string[] = ["格闘","短剣","片手剣","両手剣","片手斧","両手斧","両手鎌","両手槍","片手刀","両手刀","片手棍","両手棍",
                               "弓術","射撃","楽器","グリップ","投擲","矢・弾","ストリンガー"];
   armors: readonly string[] = ["盾","頭","胴","両手","両脚","両足","首","耳","指","腰","背"];
+  offset: number = 0;
+  total: number = 0;
 
   selectedJobs: string[] = [];
   selectedWepons: string[] = [];
@@ -40,12 +42,19 @@ export class ItemNaviComponent {
 
   private startPos: number = 0;
   isHeader : boolean = true;
+  currentIndex = 0;
 
   constructor(private supabaseService: SupabaseService,
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router) {
       router.events.pipe(filter(event => event instanceof NavigationEnd ))
-      .subscribe(() => this.isHeader = true);
+      .subscribe(() => {
+        this.isHeader = true;
+        setTimeout(() => {
+          this.nzTableComponent.cdkVirtualScrollViewport?.scrollToIndex(this.currentIndex);
+        }, 100);
+
+      });
   }
 
   ngAfterViewInit() {
@@ -61,30 +70,50 @@ export class ItemNaviComponent {
       } else if(currentPos < this.startPos) {
         if(!this.isHeader){
           this.isHeader = true;
-          this.changeDetectorRef.detectChanges();
         }
       }
       this.startPos = currentPos;
     });
+
+    this.nzTableComponent.cdkVirtualScrollViewport?.scrolledIndexChange.subscribe(index => {
+      if (index > 0 && index > this.equipments.length - 10 && this.total > (this.offset + 1) * 100) {
+        this.inputChange(this.offset + 1);
+      }
+      this.currentIndex = index;
+    });
+
     this.inputChange();
   }
 
+  shouldLoadMore(): boolean {
+    // スクロールが特定の位置に達したかどうかを確認するロジックをここに実装する
+    const bufferPx = 500; // この値は適切に調整してください
+    const totalHeight = this.nzTableComponent.cdkVirtualScrollViewport!.measureScrollOffset('bottom') + this.nzTableComponent.cdkVirtualScrollViewport!.getViewportSize();
+    return totalHeight < this.nzTableComponent.cdkVirtualScrollViewport!.measureScrollOffset('top') + bufferPx;
+  }
+
   /** 入力変更時 */
-  inputChange(){
+  inputChange(offset: number = 0){
+
+    this.offset = offset;
 
     // 無害化
     this.inputValue = this.fnSanitize(this.inputValue);
 
     this.loading = true;
-    this.supabaseService.getEquipment(this.selectedJobs,
-       this.selectedWepons.concat(this.selectedArmors.map(n=> "防具:" + n)), this.inputValue.trim())
-    .then((res: [Equipment[], string[], string[]])=>{
-      this.equipments = res[0];
+    this.supabaseService.getEquipment(this.selectedJobs
+       , this.selectedWepons.concat(this.selectedArmors.map(n=> "防具:" + n))
+       , this.inputValue.trim()
+       , this.offset)
+    .then((res: [Equipment[], string[], string[], number])=>{
+      if(offset == 0) this.equipments = res[0];
+      else this.equipments = this.equipments.concat(res[0]);
       this.txtKeywords = res[1];
       this.opKeywords = res[2];
+      this.total = res[3];
     }).finally(()=>{
       this.loading = false;
-      this.nzTableComponent.cdkVirtualScrollViewport?.scrollToIndex(0);
+      if(offset == 0) this.nzTableComponent.cdkVirtualScrollViewport?.scrollToOffset(0);
       this.nzTableComponent.nzWidthConfig;
     });
   }

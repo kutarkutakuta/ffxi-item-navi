@@ -8,7 +8,7 @@
     </div>
   </div>
   <div nz-row [hidden]="!isHeader">
-    <nz-input-group [nzPrefix]="prefixIconSearch" [nzSuffix]="suffixIconSearch" style="max-width:630px">
+    <nz-input-group [nzAddOnBefore]="prefixIconSearch" [nzSuffix]="suffixIconSearch" style="max-width:630px">
       <input type="text" nz-input placeholder="(例) TIME=3600 ストアTP>5" maxlength="200"
         [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
     </nz-input-group>
@@ -20,7 +20,6 @@
     <ng-template #suffixIconSearch>
       <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
         nzType="close-circle" *ngIf="inputValue" (click)="clearText()"></span>
-      <span nz-icon nzType="search" *ngIf="!inputValue"></span>
     </ng-template>
   </div>
 </div>

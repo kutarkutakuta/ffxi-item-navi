@@ -25,3 +25,7 @@ td {
   background: rgba(0,0,0,.5);
   transition: .5s;
 }
+
+nz-table ::ng-deep cdk-virtual-scroll-viewport {
+  height: calc(100vh - 100px) !important;
+}

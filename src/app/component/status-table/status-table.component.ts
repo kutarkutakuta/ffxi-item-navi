@@ -303,8 +303,8 @@ export class StatusTableComponent {
             }
           }
           else if(n.slot == "サブ"){
-            // 二刀流のサブ武器スキル・命中・攻は無効
-            if(key.endsWith("スキル") || ["命中","攻"].includes(key)){
+            // 片手武器二刀流のサブ武器スキル・命中・攻は無効
+            if(["短剣","片手剣","片手斧","片手刀","片手棍"].includes(n.type!) && (key.endsWith("スキル") || ["命中","攻"].includes(key))){
               ret_number = 0;
             }
             else{

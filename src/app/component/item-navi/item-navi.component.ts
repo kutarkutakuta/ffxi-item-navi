@@ -73,6 +73,7 @@ export class ItemNaviComponent {
       } else if(currentPos < this.startPos) {
         if(!this.isHeader){
           this.isHeader = true;
+          this.changeDetectorRef.detectChanges();
         }
       }
       this.startPos = currentPos;

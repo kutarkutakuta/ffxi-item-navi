@@ -91,7 +91,9 @@ export class SupabaseService {
 
     // フィルタビルダ
     var fnFilterBuilder = (): PostgrestFilterBuilder<any, any, any> =>{
-      var query = this.supabase.from('equipment_summary').select('*', { count: 'exact' }).range(offset * 100, offset * 100 + 99);
+
+      var limit = 500;
+      var query = this.supabase.from('equipment_summary').select('*', { count: 'exact' }).range(offset * limit, offset * limit + limit - 1);
 
       if(jobs.length > 0){
         var jobFilter = "";

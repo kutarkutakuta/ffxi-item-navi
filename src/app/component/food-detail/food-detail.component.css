@@ -4,8 +4,9 @@
 
 .pin-button {
   width: 20px;
-  margin-top: 6px;
+  margin-top: 7px;
   padding-left: 4px;
+  padding-right: 24px;
 }
 .rare {
   border-radius:9999px;

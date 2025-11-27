@@ -1,24 +1,32 @@
-<div nz-row nzGutter="5" nzAlign="bottom" style="padding-bottom: 5px;">
-  <div nz-col>
-    <nz-select [(ngModel)]="selectedJob" nzSize="default" style="width: 88px;"
-      nzPlaceHolder="ジョブ" (ngModelChange)="redo()">
-    <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
-  </nz-select>
-  </div>
-  <div nz-col>
-    <button nz-button nzType="primary" (click)="redo()" [disabled]="!selectedJob"
-      [nzLoading]="isLoading| async">
-      <span nz-icon nzType="reload" nzTheme="outline"></span>Reload
-    </button>
-  </div>
-  <div nz-col>
-    <button nz-button nzType="primary" (click)="save()" [disabled]="!selectedJob">
-      <span nz-icon nzType="check" nzTheme="outline"></span>Save
-    </button>
-  </div>
-  <div nz-col>
-    <div [hidden]="!(equipsetgroup | async )?.updated" class="date-label">
-      (Saved: {{ (equipsetgroup | async )?.updated | date: 'yy/MM/dd HH:mm:ss' }})
+  <div class="page-header">
+    <h1 class="page-title">
+      <span class="title-icon">❤️</span>
+      マイ装備セット
+      <span class="title-subtitle">My Equipment Sets</span>
+    </h1>
+  </div><div class="filter-section">
+  <div nz-row nzGutter="5" nzAlign="bottom" style="padding-bottom: 5px;">
+    <div nz-col>
+      <nz-select [(ngModel)]="selectedJob" nzSize="default" style="width: 88px;"
+        nzPlaceHolder="ジョブ" (ngModelChange)="redo()">
+      <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
+    </nz-select>
+    </div>
+    <div nz-col>
+      <button nz-button nzType="primary" (click)="redo()" [disabled]="!selectedJob"
+        [nzLoading]="isLoading| async">
+        <span nz-icon nzType="reload" nzTheme="outline"></span>Reload
+      </button>
+    </div>
+    <div nz-col>
+      <button nz-button nzType="primary" (click)="save()" [disabled]="!selectedJob">
+        <span nz-icon nzType="check" nzTheme="outline"></span>Save
+      </button>
+    </div>
+    <div nz-col>
+      <div [hidden]="!(equipsetgroup | async )?.updated" class="date-label">
+        (Saved: {{ (equipsetgroup | async )?.updated | date: 'yy/MM/dd HH:mm:ss' }})
+      </div>
     </div>
   </div>
 </div>

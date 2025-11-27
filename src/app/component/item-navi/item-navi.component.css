@@ -1,3 +1,42 @@
+.page-header {
+  margin-bottom: 16px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #5A67D8 0%, #4C51BF 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(90, 103, 216, 0.2);
+}
+
+.page-title {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.4em;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.3px;
+}
+
+.title-icon {
+  font-size: 1.1em;
+}
+
+.title-subtitle {
+  font-size: 0.5em;
+  font-weight: 400;
+  color: #ffffff;
+  opacity: 0.9;
+  margin-left: 8px;
+  letter-spacing: 0.8px;
+}
+
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
 ::ng-deep .highlight {
   color: red;
   font-weight: bolder;
@@ -36,4 +75,11 @@ nz-table ::ng-deep .ant-table {
 
 nz-table ::ng-deep cdk-virtual-scroll-viewport {
   height: calc(100vh - 100px) !important;
+}
+
+nz-table ::ng-deep .ant-table-thead > tr > th {
+  background: linear-gradient(180deg, #5A67D8 0%, #4C51BF 100%) !important;
+  color: white !important;
+  font-weight: 600;
+  border-color: #4C51BF !important;
 }

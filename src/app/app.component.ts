@@ -44,7 +44,7 @@ export class AppComponent {
           this.meta.updateTag({ name: 'description', content: "FF11の装備セットを登録してステータスの確認や比較ができます。" });
           break;
         case "/list":
-          this.titleService.setTitle("公開リスト - FF11装備Navi");
+          this.titleService.setTitle("みんなの装備 - FF11装備Navi");
           this.meta.updateTag({ name: 'description', content: "FF11装備セットの公開一覧。" });
           break;
         default:

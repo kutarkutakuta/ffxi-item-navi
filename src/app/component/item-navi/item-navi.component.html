@@ -1,36 +1,46 @@
 <div>
-  <div nz-row *ngIf="isHeader">
-    <div nz-col nzFlex="150px">
-      <nz-select [(ngModel)]="selectedJobs" nzSize="default" nzMode="multiple" style="width: 100%;"
-        nzPlaceHolder="ジョブ" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
-        <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
-      </nz-select>
-    </div>
-    <div nz-col nzFlex="480px">
-      <nz-select [(ngModel)]="selectedWepons" nzSize="default" nzMode="multiple" style="width: 50%;"
-        nzPlaceHolder="武器" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
-        <nz-option *ngFor="let option of wepons" [nzLabel]="option" [nzValue]="option"></nz-option>
-      </nz-select>
-      <nz-select [(ngModel)]="selectedArmors" nzSize="default" style="width: 50%;"
-        nzMode="multiple" nzPlaceHolder="防具" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
-        <nz-option *ngFor="let option of armors" [nzLabel]="option" [nzValue]="option"></nz-option>
-      </nz-select>
-    </div>
+  <div class="page-header" *ngIf="isHeader">
+    <h1 class="page-title">
+      <span class="title-icon">⚔️</span>
+      装備検索
+      <span class="title-subtitle">Equipment Search</span>
+    </h1>
   </div>
-  <div nz-row [hidden]="!isHeader">
-    <nz-input-group [nzAddOnBefore]="prefixIconSearch" [nzSuffix]="suffixIconSearch" style="max-width:630px">
-      <input type="text" nz-input placeholder="(例) 被ダメージ<-2 PET:攻>20" maxlength="200"
-        [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
-    </nz-input-group>
-    <ng-template #prefixIconSearch>
-      <a style="color: rgba(0,0,0,0.85)" (click)="showIQueryBuilder()">
-        <span nz-icon nzType="form" nzTheme="outline"></span>
-      </a>
-    </ng-template>
-    <ng-template #suffixIconSearch>
-      <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
-        nzType="close-circle" *ngIf="inputValue" (click)="clearText()"></span>
-    </ng-template>
+
+  <div class="filter-section">
+    <div nz-row *ngIf="isHeader">
+      <div nz-col nzFlex="150px">
+        <nz-select [(ngModel)]="selectedJobs" nzSize="default" nzMode="multiple" style="width: 100%;"
+          nzPlaceHolder="ジョブ" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
+          <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
+        </nz-select>
+      </div>
+      <div nz-col nzFlex="480px">
+        <nz-select [(ngModel)]="selectedWepons" nzSize="default" nzMode="multiple" style="width: 50%;"
+          nzPlaceHolder="武器" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
+          <nz-option *ngFor="let option of wepons" [nzLabel]="option" [nzValue]="option"></nz-option>
+        </nz-select>
+        <nz-select [(ngModel)]="selectedArmors" nzSize="default" style="width: 50%;"
+          nzMode="multiple" nzPlaceHolder="防具" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
+          <nz-option *ngFor="let option of armors" [nzLabel]="option" [nzValue]="option"></nz-option>
+        </nz-select>
+      </div>
+    </div>
+    <div nz-row [hidden]="!isHeader">
+      <nz-input-group [nzAddOnBefore]="prefixIconSearch" [nzSuffix]="suffixIconSearch" style="max-width:630px">
+        <input type="text" nz-input placeholder="(例) 被ダメージ<-2 PET:攻>20" maxlength="200"
+          [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
+      </nz-input-group>
+      <ng-template #prefixIconSearch>
+        <a style="color: rgba(0,0,0,0.85)" (click)="showIQueryBuilder()">
+          <span nz-icon nzType="form" nzTheme="outline"></span>
+        </a>
+      </ng-template>
+      <ng-template #suffixIconSearch>
+        <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
+          nzType="close-circle" *ngIf="inputValue" (click)="clearText()"></span>
+      </ng-template>
+    </div>
   </div>
 </div>
 

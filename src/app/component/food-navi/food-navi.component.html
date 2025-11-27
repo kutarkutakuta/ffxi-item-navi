@@ -1,23 +1,32 @@
 <div>
-  <div nz-row *ngIf="isHeader">
-    <div nz-col nzFlex="320px">
-      <nz-select [(ngModel)]="selectedCategories" nzSize="default" nzMode="multiple" style="width: 100%;"
-        nzPlaceHolder="カテゴリー" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
-        <nz-option *ngFor="let option of categories" [nzLabel]="option" [nzValue]="option"></nz-option>
-      </nz-select>
-    </div>
+  <div class="page-header" *ngIf="isHeader">
+    <h1 class="page-title">
+      <span class="title-icon">🍽️</span>
+      食事効果
+      <span class="title-subtitle">Food Effects Search</span>
+    </h1>
   </div>
-  <div nz-row [hidden]="!isHeader">
-    <nz-input-group [nzAddOnBefore]="prefixIconSearch" [nzSuffix]="suffixIconSearch" style="max-width:630px">
-      <input type="text" nz-input placeholder="(例) TIME=3600 ストアTP>5" maxlength="200"
-        [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
-    </nz-input-group>
-    <ng-template #prefixIconSearch>
-      <a style="color: rgba(0,0,0,0.85)" (click)="showIQueryBuilder()">
-        <span nz-icon nzType="form" nzTheme="outline"></span>
-      </a>
-    </ng-template>
-    <ng-template #suffixIconSearch>
+
+  <div class="filter-section">
+    <div nz-row *ngIf="isHeader">
+      <div nz-col nzFlex="320px">
+        <nz-select [(ngModel)]="selectedCategories" nzSize="default" nzMode="multiple" style="width: 100%;"
+          nzPlaceHolder="カテゴリー" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
+          <nz-option *ngFor="let option of categories" [nzLabel]="option" [nzValue]="option"></nz-option>
+        </nz-select>
+      </div>
+    </div>
+    <div nz-row [hidden]="!isHeader">
+      <nz-input-group [nzAddOnBefore]="prefixIconSearch" [nzSuffix]="suffixIconSearch" style="max-width:630px">
+        <input type="text" nz-input placeholder="(例) TIME=3600 ストアTP>5" maxlength="200"
+          [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
+      </nz-input-group>
+      <ng-template #prefixIconSearch>
+        <a style="color: rgba(0,0,0,0.85)" (click)="showIQueryBuilder()">
+          <span nz-icon nzType="form" nzTheme="outline"></span>
+        </a>
+      </ng-template>
+      <ng-template #suffixIconSearch>
       <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
         nzType="close-circle" *ngIf="inputValue" (click)="clearText()"></span>
     </ng-template>

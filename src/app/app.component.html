@@ -12,8 +12,8 @@
   <nz-tabset nzSize="small" [nzAnimated]="false" nzLinkRouter>
     <nz-tab>
       <a *nzTabLink nz-tab-link routerLink="/">
-        <span nz-icon nzType="search"></span>
-        <span style="margin-left: -8px;">装備</span>
+        <span>⚔️</span>
+        <span style="margin-left: 4px;">装備</span>
       </a>
       <div  style="margin-top: -10px;">
         <app-item-navi></app-item-navi>
@@ -27,8 +27,8 @@
     </nz-tab>
     <nz-tab>
       <a *nzTabLink nz-tab-link routerLink="/food">
-        <span nz-icon nzType="coffee"></span>
-        <span style="margin-left: -8px;">食事</span>
+        <span>🍽️</span>
+        <span style="margin-left: 4px;">食事</span>
       </a>
       <div  style="margin-top: -10px;">
         <app-food-navi></app-food-navi>
@@ -42,8 +42,8 @@
     </nz-tab>
     <nz-tab>
       <a *nzTabLink nz-tab-link routerLink="/myset">
-        <span nz-icon nzType="heart"></span>
-        <span style="margin-left: -8px;">マイセット</span>
+        <span>❤️</span>
+        <span style="margin-left: 4px;">マイセット</span>
       </a>
       <div  style="margin-top: -10px;">
         <app-equipset (published)="published()"></app-equipset>
@@ -51,8 +51,8 @@
     </nz-tab>
     <nz-tab>
       <a *nzTabLink nz-tab-link routerLink="/list">
-        <span nz-icon nzType="bars"></span>
-        <span style="margin-left: -8px;">公開リスト</span>
+        <span>🌟</span>
+        <span style="margin-left: 4px;">みんなの装備</span>
       </a>
       <ng-template nz-tab>
         <div  style="margin-top: -10px;">

@@ -1,3 +1,45 @@
+.page-header {
+  margin-bottom: 16px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #9F7AEA 0%, #805AD5 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(128, 90, 213, 0.25);
+}
+
+.page-title {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.4em;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  letter-spacing: 0.3px;
+}
+
+.title-icon {
+  font-size: 1.1em;
+}
+
+.title-subtitle {
+  font-size: 0.5em;
+  font-weight: 400;
+  color: #ffffff;
+  opacity: 0.9;
+  margin-left: 8px;
+  letter-spacing: 0.8px;
+}
+
+.filter-section {
+  margin-bottom: 16px;
+}
+
+.equipset-table ::ng-deep .ant-table-thead > tr > th {
+  background: linear-gradient(180deg, #9F7AEA 0%, #805AD5 100%) !important;
+  color: #ffffff !important;
+  font-weight: 600;
+  border-color: #805AD5 !important;
+}
 
 .equipset-table .ant-table-cell {
   padding: 0;
@@ -10,9 +52,10 @@
 }
 
 .equipset-table th.slot-cell {
-  background-color: #fafafa;
+  background-color: #f8f5ff;
   font-size: smaller;
-  color: rgba(0, 0, 0, 0.85);
+  color: #6b46c1;
+  font-weight: 600;
 }
 
 .date-label {

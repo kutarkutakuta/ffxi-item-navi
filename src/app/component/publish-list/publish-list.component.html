@@ -1,14 +1,24 @@
-<nz-select [(ngModel)]="selectedJobs" nzSize="default" nzMode="multiple" style="width: 135px;"
-  nzPlaceHolder="ジョブ" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
-  <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
-</nz-select>
-<nz-input-group [nzPrefix]="prefixIconSearch" style="width:300px">
-  <input type="text" nz-input [(ngModel)]="inputValue"  maxlength="200"
-    nzAllowClear="true" (change)="inputChange()" placeholder="Title or User" />
-</nz-input-group>
-<ng-template #prefixIconSearch>
-  <span nz-icon nzType="search" nzTheme="outline"></span>
-</ng-template>
+<div class="page-header">
+  <h1 class="page-title">
+    <span class="title-icon">🌟</span>
+    みんなの装備セット
+    <span class="title-subtitle">Community Equipment Sets</span>
+  </h1>
+</div>
+
+<div class="filter-section">
+  <nz-select [(ngModel)]="selectedJobs" nzSize="default" nzMode="multiple" style="width: 135px;"
+    nzPlaceHolder="ジョブ" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
+    <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
+  </nz-select>
+  <nz-input-group [nzPrefix]="prefixIconSearch" style="width:300px">
+    <input type="text" nz-input [(ngModel)]="inputValue"  maxlength="200"
+      nzAllowClear="true" (change)="inputChange()" placeholder="Title or User" />
+  </nz-input-group>
+  <ng-template #prefixIconSearch>
+    <span nz-icon nzType="search" nzTheme="outline"></span>
+  </ng-template>
+</div>
 
 <!-- 公開List一覧 -->
 <nz-table #equipsetTable nzBordered [nzData]="publish_equipsets"  [nzLoading]="loading"

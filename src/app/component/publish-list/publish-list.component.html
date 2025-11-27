@@ -54,96 +54,64 @@
         <td class="date-cell">{{ data.updated_at | date:'yy/MM/dd HH:mm:ss'}}</td>
       </tr>
       <tr *ngIf="data.expanded">
-        <td colspan="2">
-          <div nz-row nzGutter="5" nzAlign="bottom">
+        <td colspan="2" style="padding: 5px 15px;">
+          <div nz-row nzGutter="15" nzAlign="bottom">
             <div nz-col>
               <table class="equip-table">
                 <tr>
-                  <td>
-                    <a (click)="showItem(data.equipset.equip_items, 'メイン')">
-                      {{getEquip(data.equipset.equip_items, 'メイン')}}
-                    </a>
+                  <td (click)="showItem(data.equipset.equip_items, 'メイン')">
+                    {{getEquip(data.equipset.equip_items, 'メイン')}}
                   </td>
-                  <td>
-                    <a (click)="showItem(data.equipset.equip_items, 'サブ')">
-                      {{getEquip(data.equipset.equip_items, 'サブ')}}
-                    </a>
+                  <td (click)="showItem(data.equipset.equip_items, 'サブ')">
+                    {{getEquip(data.equipset.equip_items, 'サブ')}}
                   </td>
-                  <td>
-                    <a (click)="showItem(data.equipset.equip_items, 'レンジ')">
-                      {{getEquip(data.equipset.equip_items, 'レンジ')}}
-                    </a>
+                  <td (click)="showItem(data.equipset.equip_items, 'レンジ')">
+                    {{getEquip(data.equipset.equip_items, 'レンジ')}}
                   </td>
-                  <td>
-                    <a (click)="showItem(data.equipset.equip_items, '矢弾')">
-                      {{getEquip(data.equipset.equip_items, '矢弾')}}
-                    </a>
+                  <td (click)="showItem(data.equipset.equip_items, '矢弾')">
+                    {{getEquip(data.equipset.equip_items, '矢弾')}}
                   </td>
                 </tr>
                 <tr>
-                  <td>
-                    <a (click)="showItem(data.equipset.equip_items, '頭')">
-                      {{getEquip(data.equipset.equip_items, '頭')}}
-                    </a>
+                  <td (click)="showItem(data.equipset.equip_items, '頭')">
+                    {{getEquip(data.equipset.equip_items, '頭')}}
                   </td>
-                  <td>
-                    <a (click)="showItem(data.equipset.equip_items, '首')">
-                      {{getEquip(data.equipset.equip_items, '首')}}
-                    </a>
+                  <td (click)="showItem(data.equipset.equip_items, '首')">
+                    {{getEquip(data.equipset.equip_items, '首')}}
                   </td>
-                  <td>
-                    <a (click)="showItem(data.equipset.equip_items, '左耳')">
-                      {{getEquip(data.equipset.equip_items, '左耳')}}
-                    </a>
+                  <td (click)="showItem(data.equipset.equip_items, '左耳')">
+                    {{getEquip(data.equipset.equip_items, '左耳')}}
                   </td>
-                  <td>
-                    <a (click)="showItem(data.equipset.equip_items, '右耳')">
-                      {{getEquip(data.equipset.equip_items, '右耳')}}
-                    </a>
+                  <td (click)="showItem(data.equipset.equip_items, '右耳')">
+                    {{getEquip(data.equipset.equip_items, '右耳')}}
                   </td>
                 </tr>
                 <tr>
-                  <td>
-                    <a (click)="showItem(data.equipset.equip_items, '胴')">
-                      {{getEquip(data.equipset.equip_items, '胴')}}
-                    </a>
+                  <td (click)="showItem(data.equipset.equip_items, '胴')">
+                    {{getEquip(data.equipset.equip_items, '胴')}}
                   </td>
-                  <td>
-                    <a (click)="showItem(data.equipset.equip_items, '両手')">
-                      {{getEquip(data.equipset.equip_items, '両手')}}
-                    </a>
+                  <td (click)="showItem(data.equipset.equip_items, '両手')">
+                    {{getEquip(data.equipset.equip_items, '両手')}}
                   </td>
-                  <td>
-                    <a (click)="showItem(data.equipset.equip_items, '左指')">
-                      {{getEquip(data.equipset.equip_items, '左指')}}
-                    </a>
+                  <td (click)="showItem(data.equipset.equip_items, '左指')">
+                    {{getEquip(data.equipset.equip_items, '左指')}}
                   </td>
-                  <td>
-                    <a (click)="showItem(data.equipset.equip_items, '右指')">
-                      {{getEquip(data.equipset.equip_items, '右指')}}
-                    </a>
+                  <td (click)="showItem(data.equipset.equip_items, '右指')">
+                    {{getEquip(data.equipset.equip_items, '右指')}}
                   </td>
                 </tr>
                 <tr>
-                  <td>
-                    <a (click)="showItem(data.equipset.equip_items, '背')">
-                      {{getEquip(data.equipset.equip_items, '背')}}
-                    </a>
+                  <td (click)="showItem(data.equipset.equip_items, '背')">
+                    {{getEquip(data.equipset.equip_items, '背')}}
                   </td>
-                  <td>
-                    <a (click)="showItem(data.equipset.equip_items, '腰')">
-                      {{getEquip(data.equipset.equip_items, '腰')}}
-                    </a>
+                  <td (click)="showItem(data.equipset.equip_items, '腰')">
+                    {{getEquip(data.equipset.equip_items, '腰')}}
                   </td>
-                  <td>
-                    <a (click)="showItem(data.equipset.equip_items, '両脚')">
-                      {{getEquip(data.equipset.equip_items, '両脚')}}
-                    </a>
+                  <td (click)="showItem(data.equipset.equip_items, '両脚')">
+                    {{getEquip(data.equipset.equip_items, '両脚')}}
                   </td>
-                  <td>
-                    <a (click)="showItem(data.equipset.equip_items, '両足')">
-                      {{getEquip(data.equipset.equip_items, '両足')}}
-                    </a>
+                  <td (click)="showItem(data.equipset.equip_items, '両足')">
+                    {{getEquip(data.equipset.equip_items, '両足')}}
                   </td>
                 </tr>
               </table>
@@ -154,14 +122,15 @@
           </div>
           <div nz-row class="action">
             <a (click)="copy(data, false, tplContent)">
-              <span nz-icon nzType="import" style="padding-right: 2px;"></span>My Set にコピー
+              <span nz-icon nzType="import" style="padding-right: 2px;"></span>マイセットにコピー
             </a>
             <nz-divider nzType="vertical"></nz-divider>
             <a (click)="copy(data, true, tplContent)">
-              <span nz-icon nzType="form" style="padding-right: 2px;"></span>編集用にMy Set にコピー
+              <span nz-icon nzType="form" style="padding-right: 2px;"></span>編集する
             </a>
             <nz-divider nzType="vertical"></nz-divider>
             <a (click)="like(data)">
+              良いね!
               <span nz-icon nzType="like" style="padding-right: 5px;"></span>
             </a>
             {{ data.likes_count }}

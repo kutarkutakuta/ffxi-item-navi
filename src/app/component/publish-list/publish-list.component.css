@@ -80,13 +80,14 @@ th a :hover {
 
 .user {
   font-size: 0.9em;
-  color: gray;
+  color: #D97706;
+  font-weight: 500;
 }
 
 .memo {
   padding-left:12px;
   margin-top: 4px;
-  font-size: 0.9em;
+  /* font-size: 0.9em; */
   color: #5a5a5a;
   font-weight: 400;
   font-style: italic;
@@ -100,15 +101,15 @@ th a :hover {
 }
 
 .action{
-  color: gray;
-  padding: 5px;
+  padding: 8px 5px;
+  margin-top: 8px;
+  border-radius: 6px;
   font-size: 0.9em;
+  color: gray;
 }
+
 .action a{
   color: gray;
-}
-.action a:hover{
-  color: #1890ff;;
 }
 
 .date-cell {
@@ -121,20 +122,29 @@ th a :hover {
 }
 
 .equip-table {
-  border-top: 1px solid #CCCCCC;
-	border-left: 1px solid #CCCCCC;
-	border-collapse: separate;
-  font-size: smaller;
+  border-collapse: separate;
+  border-spacing: 2px;
   width: auto;
+  background-color: #cccdce;
+  padding: 1px;
+  border-radius: 8px;
 }
 
-.equip-table td.ant-table-cell {
-	border-right: 1px solid #CCCCCC;
-	border-bottom: 1px solid #CCCCCC;
-	border-left: 1px solid #FFFFFF;
-	border-top: 1px solid #FFFFFF;
-  background-color: #fffffc;
-  width: 200px;
+.equip-table td {
+  /* border: 1px solid #BAE7FF; */
+  background-color: #ffffff;
+  width: 240px;
+  padding: 8px 6px;
+  border-radius: 4px;
+  transition: all 0.2s;
+  cursor: pointer;
+  color: #1890ff;
+  font-size: 0.9em;
+}
+
+.equip-table td:hover {
+  background-color: #E6F7FF;
+  border-color: #40A9FF;
 }
 
 @media (min-width: 1400px) {

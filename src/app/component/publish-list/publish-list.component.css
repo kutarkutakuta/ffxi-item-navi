@@ -5,6 +5,13 @@ th a :hover {
   color: #1890ff;
 }
 
+.publish-table {
+  background: transparent !important;
+}
+
+.publish-table ::ng-deep .ant-table {
+  background: transparent !important;
+}
 
 .publish-table td.ant-table-cell {
   padding-top: 3px;

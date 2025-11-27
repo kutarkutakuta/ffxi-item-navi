@@ -1,5 +1,6 @@
 <div class="relative p-2 w-12 border-round-md main surface-0">
-  <div class="absolute top-0 right-0 p-1 m-1">
+  <div class="watermark">FF11装備Navi</div>
+  <!-- <div class="absolute top-0 right-0 p-1 m-1">
     <img [hidden]="hidden_image"
       nz-image
       nzDisablePreview="true"
@@ -7,12 +8,12 @@
       alt="FF11装備Navi"
       height="24px"
     />
-  </div>
+  </div> -->
   <nz-tabset nzSize="small" [nzAnimated]="false" nzLinkRouter>
     <nz-tab>
       <a *nzTabLink nz-tab-link routerLink="/">
         <span nz-icon nzType="search"></span>
-        <span style="margin-left: -8px;">Search</span>
+        <span style="margin-left: -8px;">装備</span>
       </a>
       <div  style="margin-top: -10px;">
         <app-item-navi></app-item-navi>
@@ -27,7 +28,7 @@
     <nz-tab>
       <a *nzTabLink nz-tab-link routerLink="/food">
         <span nz-icon nzType="coffee"></span>
-        <span style="margin-left: -8px;">Food</span>
+        <span style="margin-left: -8px;">食事</span>
       </a>
       <div  style="margin-top: -10px;">
         <app-food-navi></app-food-navi>
@@ -42,7 +43,7 @@
     <nz-tab>
       <a *nzTabLink nz-tab-link routerLink="/myset">
         <span nz-icon nzType="heart"></span>
-        <span style="margin-left: -8px;">My Set</span>
+        <span style="margin-left: -8px;">マイセット</span>
       </a>
       <div  style="margin-top: -10px;">
         <app-equipset (published)="published()"></app-equipset>
@@ -51,7 +52,7 @@
     <nz-tab>
       <a *nzTabLink nz-tab-link routerLink="/list">
         <span nz-icon nzType="bars"></span>
-        <span style="margin-left: -8px;">公開List</span>
+        <span style="margin-left: -8px;">公開リスト</span>
       </a>
       <ng-template nz-tab>
         <div  style="margin-top: -10px;">

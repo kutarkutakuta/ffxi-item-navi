@@ -36,15 +36,15 @@ export class AppComponent {
     .subscribe(event => {
       switch  (router.url){
         case "/food":
-          this.titleService.setTitle("Food - FF11装備Navi");
+          this.titleService.setTitle("食事 - FF11装備Navi");
           this.meta.updateTag({ name: 'description', content: "FF11の食品を検索します。" });
           break;
         case "/myset":
-          this.titleService.setTitle("My Set - FF11装備Navi");
+          this.titleService.setTitle("マイセット - FF11装備Navi");
           this.meta.updateTag({ name: 'description', content: "FF11の装備セットを登録してステータスの確認や比較ができます。" });
           break;
         case "/list":
-          this.titleService.setTitle("公開List - FF11装備Navi");
+          this.titleService.setTitle("公開リスト - FF11装備Navi");
           this.meta.updateTag({ name: 'description', content: "FF11装備セットの公開一覧。" });
           break;
         default:

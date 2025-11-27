@@ -179,15 +179,21 @@ export class PublishListComponent {
   }
 
   showItem(equip_items:EquipsetItem[],  slot: string){
-    var equip_item = equip_items.find(n=>n.slot == slot)!;
-    this.showItemDetail(equip_item);
+    var equip_item = equip_items.find(n=>n.slot == slot);
+    if(equip_item){
+      this.showItemDetail(equip_item);
+    }
   }
 
   getEquip(equip_items:EquipsetItem[],  slot: string) : string {
-    var equip_item = equip_items.find(n=>n.slot == slot)!;
+    var equip_item = equip_items.find(n=>n.slot == slot);
+    
+    if(!equip_item || !equip_item.equipment) {
+      return '';
+    }
 
-    var ret = equip_item.equipment?.name!;
-    var augName = this.getAugName(equip_item!);
+    var ret = equip_item.equipment.name;
+    var augName = this.getAugName(equip_item);
     if(augName) ret += " " + augName;
     return ret;
   }

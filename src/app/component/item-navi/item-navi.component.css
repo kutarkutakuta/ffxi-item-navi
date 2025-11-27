@@ -26,6 +26,14 @@ td {
   transition: .5s;
 }
 
+nz-table {
+  background: transparent !important;
+}
+
+nz-table ::ng-deep .ant-table {
+  background: transparent !important;
+}
+
 nz-table ::ng-deep cdk-virtual-scroll-viewport {
   height: calc(100vh - 100px) !important;
 }

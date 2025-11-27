@@ -26,14 +26,18 @@ th a :hover {
 
 .memo {
   padding-left:12px;
+  margin-top: 4px;
   font-size: 0.9em;
-  color: gray;
-  font-weight: lighter;
+  color: #5a5a5a;
+  font-weight: 400;
+  font-style: italic;
 }
 
 .comment {
-  color: gray;
-  font-weight: lighter;
+  color: #1890ff;
+  font-size: 1.1em;
+  margin-left: 4px;
+  cursor: pointer;
 }
 
 .action{

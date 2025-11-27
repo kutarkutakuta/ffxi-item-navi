@@ -19,7 +19,7 @@ export class ItemDetailComponent {
     var ret = "";
     if(this.isFullScreen) ret = "100vh";
     else{
-      var tmp = this.fixed_eqpuips.length * 175 + 230;
+      var tmp = this.fixed_eqpuips.length * 175 + 240;
       ret = "min(100vh, " + tmp + "px)"
     }
     return ret;

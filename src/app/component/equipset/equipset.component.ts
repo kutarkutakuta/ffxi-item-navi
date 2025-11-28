@@ -54,6 +54,9 @@ export class EquipsetComponent {
   selected_job_trait: {status_name: string, status_value: number}[] = [];
 
   public isLoading: Subject<boolean> = new Subject<boolean>();
+  
+  private startPos: number = 0;
+  isHeader: boolean = true;
 
   constructor(private supabaseService: SupabaseService,
     private equipsetDBService: EquipsetDBService,
@@ -366,6 +369,20 @@ export class EquipsetComponent {
     equipsetItem.custom_pc_aug = result.trim();
     this.changeAugText(equipsetItem);
     this.visible_jobTrait = false;
+  }
+
+  onScroll(event: any) {
+    const currentPos = event.target.scrollTop;
+    if (currentPos > this.startPos) {
+      if (this.isHeader) {
+        this.isHeader = false;
+      }
+    } else if (currentPos < this.startPos) {
+      if (!this.isHeader) {
+        this.isHeader = true;
+      }
+    }
+    this.startPos = currentPos;
   }
 
 }

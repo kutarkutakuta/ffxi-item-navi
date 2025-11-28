@@ -29,12 +29,6 @@
   letter-spacing: 0.8px;
 }
 
-.filter-section {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
 .publish-table ::ng-deep .ant-table-thead > tr > th {
   background: linear-gradient(180deg, #68D391 0%, #48BB78 100%) !important;
   color: #1C4532 !important;
@@ -59,8 +53,8 @@ th a :hover {
 
 .publish-table {
   background: transparent !important;
-  padding-bottom: 10px;
   max-width: 1280px;
+  margin-top: -16px;
 }
 
 .publish-table ::ng-deep .ant-table {

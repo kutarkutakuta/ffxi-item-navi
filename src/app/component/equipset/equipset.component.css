@@ -62,3 +62,11 @@
   font-size: smaller;
   color: gray;
 }
+
+nz-table {
+  background: transparent !important;
+}
+
+nz-table ::ng-deep .ant-table {
+  background: transparent !important;
+}

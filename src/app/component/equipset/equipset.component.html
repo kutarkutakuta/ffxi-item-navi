@@ -1,10 +1,11 @@
-  <div class="page-header">
-    <h1 class="page-title">
-      <span class="title-icon">❤️</span>
-      マイ装備セット
-      <span class="title-subtitle">My Equipment Sets</span>
-    </h1>
-  </div><div class="filter-section">
+<div class="page-header" *ngIf="isHeader">
+  <h1 class="page-title">
+    <span class="title-icon">❤️</span>
+    マイ装備セット
+    <span class="title-subtitle">My Equipment Sets</span>
+  </h1>
+</div>
+<div class="filter-section">
   <div nz-row nzGutter="5" nzAlign="bottom" style="padding-bottom: 5px;">
     <div nz-col>
       <nz-select [(ngModel)]="selectedJob" nzSize="default" style="width: 88px;"
@@ -39,7 +40,8 @@ nzType="editable-card"
 >
 <nz-tab *ngFor="let equipset of (equipsetgroup | async )?.equipsets;let i = index" nzClosable [nzTitle]="equipset.name">
   <ng-template nz-tab>
-    <div style="max-height: calc(100vh - 300px); overflow-y: auto; overflow-x: hidden; margin-top: 10px; max-width: 1400px;">
+    
+    <div (scroll)="onScroll($event)" style="max-height: calc(100vh - 250px); overflow-y: auto; overflow-x: hidden; max-width: 1400px;">
     <div nz-row nzGutter="5" nzAlign="bottom">
       <div nz-col>
         <input nz-input placeholder="タイトル" [(ngModel)]="equipset.name" style="width: 160px;" maxlength="10" />
@@ -60,12 +62,11 @@ nzType="editable-card"
         </div>
       </div>
     </div>
-    <div nz-row>
+    <div nz-row style="padding-bottom: 8px;">
       <div nz-col nzFlex="auto">
         <input  nz-input placeholder="メモ" [(ngModel)]="equipset.memo" style="width: 100%;max-width: 600px;" maxlength="40" />
       </div>
     </div>
-
     <!-- 装備セット一覧 -->
     <nz-table #equipsetTable [nzData]="equipset.equip_items"
       nzShowPagination="false" class="equipset-table"  [nzPageSize]="20"

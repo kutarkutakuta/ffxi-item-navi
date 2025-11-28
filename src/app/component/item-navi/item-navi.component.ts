@@ -43,6 +43,7 @@ export class ItemNaviComponent {
   offset: number = 0;
   total: number = 0;
   currentIndex = 0;
+  private isLoadingMore = false;
 
   constructor(private supabaseService: SupabaseService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -77,12 +78,22 @@ export class ItemNaviComponent {
         }
       }
       this.startPos = currentPos;
+      
+      // スクロール位置に基づいてデータをロード
+      const viewport = this.nzTableComponent.cdkVirtualScrollViewport!;
+      const end = viewport.measureScrollOffset('bottom');
+      
+      if (end < 1000 && 
+          this.equipments.length > 0 &&
+          this.equipments.length < this.total && 
+          !this.isLoadingMore && 
+          !this.loading) {
+        this.isLoadingMore = true;
+        this.inputChange(this.offset + 1);
+      }
     });
 
     this.nzTableComponent.cdkVirtualScrollViewport?.scrolledIndexChange.subscribe(index => {
-      if (index > 0 && index > this.equipments.length - 10 && this.total > (this.offset + 1) * 100) {
-        this.inputChange(this.offset + 1);
-      }
       this.currentIndex = index;
     });
 
@@ -116,6 +127,7 @@ export class ItemNaviComponent {
       this.total = res[3];
     }).finally(()=>{
       this.loading = false;
+      this.isLoadingMore = false;
       if(offset == 0) this.nzTableComponent.cdkVirtualScrollViewport?.scrollToOffset(0);
       this.nzTableComponent.nzWidthConfig;
     });

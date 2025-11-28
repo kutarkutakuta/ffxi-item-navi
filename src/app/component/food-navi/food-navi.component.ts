@@ -37,6 +37,7 @@ export class FoodNaviComponent {
   offset: number = 0;
   total: number = 0;
   currentIndex = 0;
+  private isLoadingMore = false;
 
   constructor(private supabaseService: SupabaseService,
     private changeDetectorRef: ChangeDetectorRef,
@@ -71,12 +72,22 @@ export class FoodNaviComponent {
         }
       }
       this.startPos = currentPos;
+      
+      // スクロール位置に基づいてデータをロード
+      const viewport = this.nzTableComponent.cdkVirtualScrollViewport!;
+      const end = viewport.measureScrollOffset('bottom');
+      
+      if (end < 1000 && 
+          this.foods.length > 0 &&
+          this.foods.length < this.total && 
+          !this.isLoadingMore && 
+          !this.loading) {
+        this.isLoadingMore = true;
+        this.inputChange(this.offset + 1);
+      }
     });
 
     this.nzTableComponent.cdkVirtualScrollViewport?.scrolledIndexChange.subscribe(index => {
-      if (index > 0 && index > this.foods.length - 20 && this.total > (this.offset + 1) * 100) {
-        this.inputChange(this.offset + 1);
-      }
       this.currentIndex = index;
     });
 
@@ -101,6 +112,7 @@ export class FoodNaviComponent {
       this.total = res[3];
     }).finally(()=>{
       this.loading = false;
+      this.isLoadingMore = false;
       if(offset == 0) this.nzTableComponent.cdkVirtualScrollViewport?.scrollToOffset(0);
       this.nzTableComponent.nzWidthConfig;
     });

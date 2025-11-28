@@ -74,7 +74,7 @@ nz-table ::ng-deep .ant-table {
 }
 
 nz-table ::ng-deep cdk-virtual-scroll-viewport {
-  height: calc(100vh - 100px) !important;
+  height: calc(100vh - 200px) !important;
 }
 
 nz-table ::ng-deep .ant-table-thead > tr > th {

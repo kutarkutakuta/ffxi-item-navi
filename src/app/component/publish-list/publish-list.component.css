@@ -1,14 +1,14 @@
 .page-header {
   margin-bottom: 16px;
   padding: 16px 20px;
-  background: linear-gradient(135deg, #68D391 0%, #48BB78 100%);
+  background: linear-gradient(135deg, #5A67D8 0%, #4C51BF 100%);
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(104, 211, 145, 0.2);
 }
 
 .page-title {
   margin: 0;
-  color: #1C4532;
+  color: #ffffff;
   font-size: 1.4em;
   font-weight: 700;
   display: flex;
@@ -24,7 +24,7 @@
 .title-subtitle {
   font-size: 0.5em;
   font-weight: 400;
-  color: #22543D;
+  color: #ffffff;
   margin-left: 8px;
   letter-spacing: 0.8px;
 }
@@ -34,19 +34,19 @@
 }
 
 .publish-table ::ng-deep .ant-table-thead > tr > th {
-  background: linear-gradient(180deg, #68D391 0%, #48BB78 100%) !important;
-  color: #1C4532 !important;
+  background: linear-gradient(180deg, #5A67D8 0%, #4C51BF 100%) !important;
+  color: #ffffff !important;
   font-weight: 600;
-  border-color: #48BB78 !important;
+  border-color: #4C51BF !important;
   padding: 5px !important;
 }
 
 .publish-table ::ng-deep .ant-table-thead > tr > th a {
-  color: #1C4532;
+  color: #ffffff;
 }
 
 .publish-table ::ng-deep .ant-table-thead > tr > th a:hover {
-  color: #0F2922;
+  color: #F0F7FF;
 }
 
 th a {

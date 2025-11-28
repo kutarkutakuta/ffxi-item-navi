@@ -1,9 +1,9 @@
 .page-header {
   margin-bottom: 16px;
   padding: 16px 20px;
-  background: linear-gradient(135deg, #9F7AEA 0%, #805AD5 100%);
+  background: linear-gradient(135deg, #5A67D8 0%, #4C51BF 100%);
   border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(128, 90, 213, 0.25);
+  box-shadow: 0 4px 12px rgba(104, 211, 145, 0.2);
 }
 
 .page-title {
@@ -35,10 +35,10 @@
 }
 
 .equipset-table ::ng-deep .ant-table-thead > tr > th {
-  background: linear-gradient(180deg, #9F7AEA 0%, #805AD5 100%) !important;
+  background: linear-gradient(180deg, #5A67D8 0%, #4C51BF 100%) !important;
   color: #ffffff !important;
   font-weight: 600;
-  border-color: #805AD5 !important;
+  border-color: #4C51BF !important;
 }
 
 .equipset-table .ant-table-cell {
@@ -52,9 +52,9 @@
 }
 
 .equipset-table th.slot-cell {
-  background-color: #f8f5ff;
+  background-color: #f5f6ff;
   font-size: smaller;
-  color: #6b46c1;
+  color: #4C51BF;
   font-weight: 600;
 }
 

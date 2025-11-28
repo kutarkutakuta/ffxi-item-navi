@@ -101,11 +101,15 @@ th a :hover {
   margin-top: 8px;
   border-radius: 6px;
   font-size: 0.9em;
-  color: gray;
+  color: #5a5a5a;
 }
 
 .action a{
-  color: gray;
+  color: #5a5a5a;
+}
+
+.action a:hover {
+  color: #40A9FF;
 }
 
 .date-cell {
@@ -127,18 +131,17 @@ th a :hover {
 }
 
 .equip-table td {
-  /* border: 1px solid #BAE7FF; */
-  background-color: #ffffff;
+  background-color: #f5f2e8;
   width: 240px;
   padding: 8px 6px;
   border-radius: 4px;
   transition: all 0.2s;
   cursor: pointer;
-  color: #1890ff;
   font-size: 0.9em;
 }
 
 .equip-table td:hover {
+  color: #40A9FF;
   background-color: #E6F7FF;
   border-color: #40A9FF;
 }

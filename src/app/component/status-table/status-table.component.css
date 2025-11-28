@@ -37,8 +37,8 @@
 }
 
 table.base_table {
-  border-top: 1px solid #CCCCCC;
-	border-left: 1px solid #CCCCCC;
+  border-top: 1px solid #B7E1CD;
+    border-left: 1px solid #B7E1CD;
 	border-collapse: separate;
   border-spacing: 0;
   table-layout: fixed;
@@ -47,11 +47,11 @@ table.base_table {
 
 .base_table th{
   width: 70px;
-	border-right: 1px solid #CCCCCC;
-	border-bottom: 1px solid #CCCCCC;
+  border-right: 1px solid #B7E1CD;
+  border-bottom: 1px solid #B7E1CD;
 	border-left: 1px solid #FFFFFF;
 	border-top: 1px solid #FFFFFF;
-  background-color: #f9f9f9;
+  background-color: #E6F4E2;
   font-weight: bolder;
   font-size: smaller;
   white-space: nowrap;
@@ -64,8 +64,8 @@ table.base_table {
 }
 
 .base_table td{
-	border-right: 1px solid #CCCCCC;
-	border-bottom: 1px solid #CCCCCC;
+  border-right: 1px solid #B7E1CD;
+  border-bottom: 1px solid #B7E1CD;
 	border-left: 1px solid #FFFFFF;
 	border-top: 1px solid #FFFFFF;
   font-size: smaller;
@@ -78,8 +78,8 @@ table.base_table {
 }
 
 table.status_table {
-  border-top: 1px solid #CCCCCC;
-	border-left: 1px solid #CCCCCC;
+  border-top: 1px solid #B7E1CD;
+  	border-left: 1px solid #B7E1CD;
 	border-collapse: separate;
   border-spacing: 0;
   table-layout: fixed;
@@ -91,11 +91,11 @@ table.status_table {
   min-width: 43px;
   max-width: 43px;
   height: 18px;
-	border-right: 1px solid #CCCCCC;
-	border-bottom: 1px solid #CCCCCC;
+  	border-right: 1px solid #B7E1CD;
+  	border-bottom: 1px solid #B7E1CD;
 	border-left: 1px solid #FFFFFF;
 	border-top: 1px solid #FFFFFF;
-  background-color: #f9f9f9;
+  background-color: #E6F4E2;
   font-size: smaller;
   font-weight: normal;
   white-space: nowrap;
@@ -105,8 +105,8 @@ table.status_table {
 .status_table td{
   width: 43px;
   height: 18px;
-	border-right: 1px solid #CCCCCC;
-	border-bottom: 1px solid #CCCCCC;
+  	border-right: 1px solid #B7E1CD;
+  	border-bottom: 1px solid #B7E1CD;
 	border-left: 1px solid #FFFFFF;
 	border-top: 1px solid #FFFFFF;
   background-color: #ffffff;

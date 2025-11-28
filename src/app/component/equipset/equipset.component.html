@@ -39,7 +39,8 @@ nzType="editable-card"
 >
 <nz-tab *ngFor="let equipset of (equipsetgroup | async )?.equipsets;let i = index" nzClosable [nzTitle]="equipset.name">
   <ng-template nz-tab>
-    <div nz-row nzGutter="5" nzAlign="bottom" style="margin-top: -10px;">
+    <div style="max-height: calc(100vh - 300px); overflow-y: auto; overflow-x: hidden; margin-top: 10px; max-width: 1400px;">
+    <div nz-row nzGutter="5" nzAlign="bottom">
       <div nz-col>
         <input nz-input placeholder="タイトル" [(ngModel)]="equipset.name" style="width: 160px;" maxlength="10" />
       </div>
@@ -250,7 +251,7 @@ nzType="editable-card"
 
       </ng-container>
     </nz-drawer>
-
+    </div>
   </ng-template>
 </nz-tab>
 </nz-tabset>

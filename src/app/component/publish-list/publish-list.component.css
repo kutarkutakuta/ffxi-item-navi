@@ -59,6 +59,8 @@ th a :hover {
 
 .publish-table {
   background: transparent !important;
+  padding-bottom: 10px;
+  max-width: 1280px;
 }
 
 .publish-table ::ng-deep .ant-table {

@@ -1,12 +1,11 @@
 ::ng-deep .ant-drawer-header {
   height: 40px !important;
+  padding: 5px 5px !important;
 }
 
 .pin-button {
-  width: 20px;
+  min-width: 20px;
   margin-top: 7px;
-  padding-left: 4px;
-  padding-right: 24px;
 }
 .rare {
   border-radius:9999px;

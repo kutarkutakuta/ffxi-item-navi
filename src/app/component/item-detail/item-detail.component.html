@@ -4,7 +4,7 @@
     nzPlacement="bottom"
     [nzTitle]="title"
     [nzHeight]="height"
-    [nzBodyStyle]="{paddingLeft: '26px' , paddingRight: '10px', paddingTop: '0px', paddingBottom: '10px' }"
+    [nzBodyStyle]="{paddingLeft: '10px' , paddingRight: '10px', paddingTop: '0px', paddingBottom: '10px' }"
     (nzOnClose)="onClose()">
     <ng-template #title>
       装備詳細
@@ -18,7 +18,7 @@
       </a>
     </ng-template>
     <ng-container *nzDrawerContent>
-      <div style="overflow-x: auto;padding-right: 10px;padding-bottom: 10px;">
+      <div style="overflow-x: auto;">
         <div style="display: flex;">
           <a  nzType="text" (click)="onFix()" class="pin-button">
             <span nz-icon nzType="pushpin" [nzTheme]="theme"></span>

@@ -7,15 +7,29 @@ import { PublishEquipset } from './model/publish_equipset';
 import {filter} from 'rxjs/operators';
 import { PublishListComponent } from './component/publish-list/publish-list.component';
 import { Meta, Title } from '@angular/platform-browser';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('500ms ease-in', style({ opacity: 1 }))
+      ]),
+      transition(':leave', [
+        animate('300ms ease-out', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class AppComponent {
 
   hidden_image = true;
+  showFooter = true;
+  private scrollTimeout: any;
 
   @ViewChild(EquipsetComponent)
   private equipsetComponent?: EquipsetComponent;
@@ -52,6 +66,29 @@ export class AppComponent {
           this.meta.updateTag({ name: 'description', content: "FF11の装備品を検索ナビゲート。お探しの装備が見つかります。" });
       }
     });
+  }
+
+  ngOnInit() {
+    window.addEventListener('scroll', this.onScroll.bind(this), true);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.onScroll.bind(this), true);
+    if (this.scrollTimeout) {
+      clearTimeout(this.scrollTimeout);
+    }
+  }
+
+  onScroll() {
+    this.showFooter = false;
+    
+    if (this.scrollTimeout) {
+      clearTimeout(this.scrollTimeout);
+    }
+    
+    this.scrollTimeout = setTimeout(() => {
+      this.showFooter = true;
+    }, 5000);
   }
 
   published(){

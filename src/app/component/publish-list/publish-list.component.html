@@ -33,7 +33,7 @@
         [nzWidth]="column.width" [nzShowSort]="column.showSort"
         [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn"
         [nzSortDirections]="column.sortDirections">
-        <a *ngIf="column.name=='Title'" (click)="$event.stopPropagation();changeAllExpanded()">
+        <a *ngIf="column.name=='Title'" (click)="$event.stopPropagation();changeAllExpanded()" style="margin-left: 2px;margin-right: 6px;">
           <span *ngIf="!all_expanded" nz-icon nzType="plus-square" nzTheme="outline"></span>
           <span *ngIf="all_expanded" nz-icon nzType="minus-square" nzTheme="outline"></span>
         </a>

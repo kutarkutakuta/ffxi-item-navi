@@ -16,6 +16,7 @@ import { EquipsetItem } from 'src/app/model/equipset_item';
 })
 export class PublishListComponent implements OnDestroy {
 
+
   @ViewChild(ItemDetailComponent)
   private itemDetail!: ItemDetailComponent;
 
@@ -126,6 +127,11 @@ export class PublishListComponent implements OnDestroy {
     });
   }
 
+  clearText() {
+    this.inputValue = '';
+    this.inputChange();
+  }
+
       // 無害化
   fnSanitize (str:string): string {
     return str.replace(/["#$%&'()\*,\/;?@\[\\\]^_`{|}~]/g, '');
@@ -223,6 +229,13 @@ export class PublishListComponent implements OnDestroy {
     if(equip_item){
       this.showItemDetail(equip_item);
     }
+  }
+
+  /** ユーザ名クリックでフィルタを実行 */
+  filterByUser(userName: string | null | undefined){
+    if(!userName) return;
+    this.inputValue = userName;
+    this.inputChange();
   }
 
   getEquip(equip_items:EquipsetItem[],  slot: string) : string {

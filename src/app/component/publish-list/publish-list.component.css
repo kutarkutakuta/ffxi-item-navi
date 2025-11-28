@@ -7,7 +7,6 @@
 }
 
 .page-title {
-  margin: 0;
   color: #1C4532;
   font-size: 1.4em;
   font-weight: 700;
@@ -27,6 +26,10 @@
   color: #22543D;
   margin-left: 8px;
   letter-spacing: 0.8px;
+}
+
+.filter-section {
+  margin-bottom: 16px;
 }
 
 .publish-table ::ng-deep .ant-table-thead > tr > th {
@@ -54,7 +57,6 @@ th a :hover {
 .publish-table {
   background: transparent !important;
   max-width: 1280px;
-  margin-top: -16px;
 }
 
 .publish-table ::ng-deep .ant-table {
@@ -76,21 +78,30 @@ th a :hover {
 
 .user {
   font-size: 0.9em;
-  color: #D97706;
+  color: #333333;
   font-weight: 500;
+}
+ 
+.publish-table .user a {
+  color: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.publish-table .user a:hover {
+  color: #1890ff; /* slightly accent on hover */
 }
 
 .memo {
   padding-left:12px;
   margin-top: 4px;
-  /* font-size: 0.9em; */
   color: #5a5a5a;
   font-weight: 400;
   font-style: italic;
 }
 
 .comment {
-  color: #1890ff;
+  color: #a18d19;
   font-size: 1.1em;
   margin-left: 4px;
   cursor: pointer;
@@ -101,11 +112,11 @@ th a :hover {
   margin-top: 8px;
   border-radius: 6px;
   font-size: 0.9em;
-  color: #5a5a5a;
+  color: #333333;
 }
 
 .action a{
-  color: #5a5a5a;
+  color: #333333;
 }
 
 .action a:hover {

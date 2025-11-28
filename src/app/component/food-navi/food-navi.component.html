@@ -17,21 +17,19 @@
       </div>
     </div>
     <div nz-row [hidden]="!isHeader">
-      <nz-input-group [nzAddOnBefore]="prefixIconSearch" [nzSuffix]="suffixIconSearch" style="max-width:630px">
+      <nz-input-group [nzSuffix]="suffixIconSearch" style="max-width:630px">
+        <button nz-button nzType="primary" [nzSize]="'small'" (click)="showIQueryBuilder()" style="margin-right: 5px;">
+          <span nz-icon nzType="form" nzTheme="outline"></span>
+        </button>
         <input type="text" nz-input placeholder="(例) TIME=3600 ストアTP>5" maxlength="200"
           [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
       </nz-input-group>
-      <ng-template #prefixIconSearch>
-        <a style="color: rgba(0,0,0,0.85)" (click)="showIQueryBuilder()">
-          <span nz-icon nzType="form" nzTheme="outline"></span>
-        </a>
-      </ng-template>
       <ng-template #suffixIconSearch>
-      <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
-        nzType="close-circle" *ngIf="inputValue" (click)="clearText()"></span>
-    </ng-template>
+        <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
+          nzType="close-circle" *ngIf="inputValue" (click)="clearText()"></span>
+      </ng-template>
+    </div>
   </div>
-</div>
 
 <div>
   <nz-table #basicTable2 [nzData]="foods" [nzLoading]="loading"

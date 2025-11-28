@@ -11,17 +11,21 @@
     nzPlaceHolder="ジョブ" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
     <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
   </nz-select>
-  <nz-input-group [nzPrefix]="prefixIconSearch" style="width:200px">
+  <nz-input-group [nzSuffix]="suffixIconSearch" style="width:300px">
     <input type="text" nz-input [(ngModel)]="inputValue"  maxlength="200"
       nzAllowClear="true" (change)="inputChange()" placeholder="Title or User" />
   </nz-input-group>
   <ng-template #prefixIconSearch>
     <span nz-icon nzType="search" nzTheme="outline"></span>
   </ng-template>
+  <ng-template #suffixIconSearch>
+    <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
+      nzType="close-circle" *ngIf="inputValue" (click)="clearText()"></span>
+  </ng-template>
 </div>
 
 <!-- 公開List一覧 -->
-<nz-table #equipsetTable nzBordered [nzData]="publish_equipsets"  [nzLoading]="loading" [nzPaginationPosition]="'top'"
+<nz-table #equipsetTable nzBordered [nzData]="publish_equipsets"  [nzLoading]="loading" [nzPaginationPosition]="'bottom'"
   class="publish-table" [nzPageSize]="20" [nzScroll]="{x: 'calc(100vw-20px)', y: 'calc(100vh - 260px)'}">
   <thead>
     <tr>
@@ -47,7 +51,9 @@
               <span *ngIf="data.equipset.publish_comment" class="comment" nz-icon nzType="comment" nzTheme="outline"
                 nz-tooltip [nzTooltipTitle]="data.equipset.publish_comment"></span>
             </div>
-            <div nz-col class="user">({{ data.equipset.publish_user }})</div>
+            <div nz-col class="user">
+              <a role="button" class="user-link" (click)="$event.stopPropagation(); filterByUser(data.equipset.publish_user)">{{ data.equipset.publish_user }}</a>
+            </div>
           </div>
           <div class="memo">{{ data.equipset.memo }}</div>
         </td>

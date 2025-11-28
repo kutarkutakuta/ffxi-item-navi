@@ -82,6 +82,7 @@ th a :hover {
   font-size: 0.9em;
   color: #333333;
   font-weight: 500;
+  margin-right: 8px;
 }
  
 .publish-table .user a {

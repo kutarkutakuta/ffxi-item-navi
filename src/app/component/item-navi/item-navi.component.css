@@ -33,40 +33,27 @@
 .filter-section {
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  margin-bottom: 16px;
+  margin-bottom: 1px;
 }
 
 ::ng-deep .highlight {
   color: red;
   font-weight: bolder;
 }
+
 .status_value {
   font-weight: bolder;
   text-align: center;
   background-color: aliceblue;
 }
+
 td {
   vertical-align: top;
   font-size: smaller;
 }
+
 .active.ant-collapse > .ant-collapse-item > .ant-collapse-header {
   border-top: 3px solid black;
-}
-
-.header {
-  /* position: fixed; */
-  z-index: 99;
-  top: 100;
-  left: 0;
-  width: 100%;
-  /* height: 60px; */
-  background: rgba(0,0,0,.5);
-  transition: .5s;
-}
-
-nz-table {
-  background: transparent !important;
 }
 
 nz-table ::ng-deep .ant-table {
@@ -74,7 +61,7 @@ nz-table ::ng-deep .ant-table {
 }
 
 nz-table ::ng-deep cdk-virtual-scroll-viewport {
-  height: calc(100vh - 200px) !important;
+  height: calc(100vh - 160px) !important;
 }
 
 nz-table ::ng-deep .ant-table-thead > tr > th {

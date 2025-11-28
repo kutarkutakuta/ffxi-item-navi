@@ -30,7 +30,7 @@
 }
 
 .filter-section {
-  margin-bottom: 16px;
+  margin-bottom: 1px;
 }
 
 .publish-table ::ng-deep .ant-table-thead > tr > th {

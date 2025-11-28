@@ -28,10 +28,8 @@
               </ng-template>
             </nz-space>
           </div>
-          <div nz-col>
-            <button nz-button nzType="primary" (click)="addQuery1()">Add</button>
-          </div>
         </div>
+        <button nz-button nzType="primary" (click)="addQuery1()" style="width: 100%;">Add</button>
       </div>
       <div *ngIf="isFood">
         <div nz-row>
@@ -59,10 +57,8 @@
               </ng-template>
             </nz-space>
           </div>
-          <div nz-col>
-            <button nz-button nzType="primary" (click)="addQuery3()">Add</button>
-          </div>
         </div>
+        <button nz-button nzType="primary" (click)="addQuery3()" style="width: 100%;">Add</button>
       </div>
       <div nz-row style="padding-top: 10px;">
         <nz-select [(ngModel)]="target" style="width: 70px">
@@ -96,10 +92,8 @@
             </ng-template>
           </nz-space>
         </div>
-        <div nz-col>
-          <button nz-button nzType="primary" (click)="addQuery2()">Add</button>
-        </div>
       </div>
+        <button nz-button nzType="primary" (click)="addQuery2()" style="width: 100%;">Add</button>
     </ng-container>
   </nz-drawer>
 </div>

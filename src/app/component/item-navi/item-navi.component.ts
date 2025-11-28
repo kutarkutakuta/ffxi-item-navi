@@ -7,6 +7,7 @@ import { NzTableComponent } from 'ng-zorro-antd/table';
 import { QueryBuilderComponent } from '../query-builder/query-builder.component';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-item-navi',
@@ -47,6 +48,7 @@ export class ItemNaviComponent {
 
   constructor(private supabaseService: SupabaseService,
     private changeDetectorRef: ChangeDetectorRef,
+    private message: NzMessageService,
     private router: Router) {
       router.events.pipe(filter(event => event instanceof NavigationEnd ))
       .subscribe(() => {
@@ -300,6 +302,7 @@ export class ItemNaviComponent {
   addQuery(query: string){
     this.inputValue = this.inputValue + " " + query;
     this.inputChange();
+    this.message.info(`${query} をクエリに追加しました。`);
   }
 
 }

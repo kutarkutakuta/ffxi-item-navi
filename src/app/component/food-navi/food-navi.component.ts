@@ -6,6 +6,7 @@ import { Food } from 'src/app/model/food';
 import { FoodDetailComponent } from '../food-detail/food-detail.component';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-food-navi',
@@ -41,6 +42,7 @@ export class FoodNaviComponent {
 
   constructor(private supabaseService: SupabaseService,
     private changeDetectorRef: ChangeDetectorRef,
+    private message: NzMessageService,
     private router: Router) {
       router.events.pipe(filter(event => event instanceof NavigationEnd ))
       .subscribe(() => {
@@ -242,6 +244,7 @@ export class FoodNaviComponent {
   addQuery(query: string){
     this.inputValue = this.inputValue + " " + query;
     this.inputChange();
+    this.message.info(`${query} をクエリに追加しました。`);
   }
 
 }

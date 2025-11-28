@@ -1,4 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Output, TemplateRef, ViewChild, ElementRef, Renderer2, OnDestroy } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { Subscription, filter } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Equipment } from 'src/app/model/equipment';
 import { SupabaseService } from 'src/app/service/supabase.service'
@@ -63,12 +65,20 @@ export class PublishListComponent implements OnDestroy {
   ];
 
   private scrollUnsubscribe?: () => void;
+  private routerSubscription?: Subscription;
 
   constructor(private supabaseService: SupabaseService,
     private modal: NzModalService,
     private message: NzMessageService,
     private changeDetectorRef: ChangeDetectorRef,
-    private renderer: Renderer2) {
+    private renderer: Renderer2,
+    private router: Router) {
+      // ensure header is visible when navigating to this route
+      this.routerSubscription = this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
+        .subscribe(() => {
+          this.isHeader = true;
+          this.startPos = 0;
+        });
   }
 
   ngOnInit (): void {
@@ -102,6 +112,10 @@ export class PublishListComponent implements OnDestroy {
     if (this.scrollUnsubscribe) {
       this.scrollUnsubscribe();
       this.scrollUnsubscribe = undefined;
+    }
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+      this.routerSubscription = undefined;
     }
   }
 

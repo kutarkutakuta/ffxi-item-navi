@@ -136,3 +136,22 @@ table.status_table {
   color: blue;
   font-weight: bolder;
 }
+
+/* augment small gray icon */
+.augment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* height: 16px; */
+  min-width: 28px;
+  padding: 4px 6px;
+  margin-right: 6px;
+  border-radius: 10px; /* rounded rectangle */
+  background: #9ca3af; /* gray */
+  color: #ffffff; /* white text inside */
+  font-size: 0.8em;
+  font-weight: 600;
+  line-height: 1;
+  box-shadow: 0 1px 2px darkgray inset;
+}
+

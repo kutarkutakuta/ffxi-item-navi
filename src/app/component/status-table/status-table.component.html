@@ -33,21 +33,23 @@
         </div>
       </div>
       <table class="base_table">
-        <tr>
+        <tr *ngIf="equip.pc_text || equipAug?.aug_pc_text">
           <th>PC</th>
-          <td>{{ equip.pc_text }}</td>
+          <td>
+            {{ equip.pc_text }}
+            <div *ngIf="equipAug?.aug_pc_text">
+              <span class="augment">オグメ</span>{{ equipAug?.aug_pc_text }}
+            </div>
+          </td>
         </tr>
-        <tr *ngIf="equipAug?.aug_pc_text">
-          <th class="aug-header">PC Aug.</th>
-          <td>{{ equipAug?.aug_pc_text }}</td>
-        </tr>
-        <tr *ngIf="equip.pet_text">
+        <tr *ngIf="equip.pet_text || equipAug?.aug_pet_text">
           <th>PET</th>
-          <td>{{ equip.pet_text }}</td>
-        </tr>
-        <tr *ngIf="equipAug?.aug_pet_text">
-          <th class="aug-header">PET Aug.</th>
-          <td>{{ equipAug?.aug_pet_text }}</td>
+          <td>
+            {{ equip.pet_text }}
+            <div *ngIf="equipAug?.aug_pet_text">
+              <span class="augment">オグメ</span>{{ equipAug?.aug_pet_text }}
+            </div>
+          </td>
         </tr>
         <tr *ngIf="equip.other_text">
           <th>OTHER</th>
@@ -83,7 +85,7 @@
           <th>効果</th>
           <td>{{ getTimeText(food.effect_time) }}{{ food.effect_range == "PT" ? "（PT範囲）" : "" }}</td>
         </tr>
-        <tr>
+        <tr *ngIf="food.pc_text">
           <th>PC</th>
           <td>{{ food.pc_text }}</td>
         </tr>

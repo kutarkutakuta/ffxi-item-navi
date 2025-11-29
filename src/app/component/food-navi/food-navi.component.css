@@ -32,7 +32,6 @@
 .filter-section {
   display: flex;
   flex-direction: column;
-  gap: 8px;
   margin-bottom: 1px;
 }
 

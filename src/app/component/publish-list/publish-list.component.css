@@ -1,3 +1,48 @@
+.job-link {
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.job-link:hover {
+  color: #40A9FF;
+  background: linear-gradient(90deg, #5A67D8 60%, #4C51BF 100%);
+  color: #fff;
+}
+.alt-title {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 2px 0;
+}
+.alt-title-main {
+  color: #222;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(76,81,191,0.10);
+  margin-right: 8px;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.alt-title-job {
+  background: linear-gradient(90deg, #5A67D8 60%, #4C51BF 100%);
+  color: #fff;
+  border-radius: 6px;
+  padding: 2px 10px;
+  font-size: 0.9em;
+  font-weight: 500;
+  margin-right: 4px;
+}
+.alt-title-id {
+  color: #4C51BF;
+  font-size: 1em;
+  font-weight: 600;
+  margin-left: 6px;
+  opacity: 0.7;
+}
+
 .page-header {
   margin-bottom: 16px;
   padding: 16px 20px;
@@ -75,6 +120,43 @@ th a :hover {
 
 .title {
   font-weight: 600;
+  font-size: 1.1em;
+}
+
+.stylish-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.08em;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  padding: 2px 0;
+}
+.stylish-title .title-id {
+  color: #4C51BF;
+  font-size: 1.1em;
+  font-weight: 700;
+  margin-right: 2px;
+}
+.stylish-title .title-job {
+  background: linear-gradient(90deg, #5A67D8 60%, #4C51BF 100%);
+  color: #fff;
+  border-radius: 6px;
+  padding: 2px 8px;
+  font-size: 0.98em;
+  font-weight: 500;
+  margin-right: 4px;
+}
+.stylish-title .title-main {
+  color: #222;
+  font-size: 1.08em;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(76,81,191,0.08);
+  margin-right: 6px;
+}
+.stylish-title .comment {
+  margin-left: 6px;
+  color: #a18d19;
   font-size: 1.1em;
 }
 

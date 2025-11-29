@@ -28,7 +28,7 @@
     </div>
     <div nz-row [hidden]="!isHeader">
       <nz-input-group  [nzSuffix]="suffixIconSearch" style="max-width:630px">
-        <button nz-button nzType="primary" [nzSize]="'small'" (click)="showIQueryBuilder()" style="margin-right: 5px;">
+        <button nz-button [nzShape]="'round'" [nzSize]="'small'" (click)="showIQueryBuilder()" style="margin-right: 5px;">
           <span nz-icon nzType="form" nzTheme="outline"></span>
         </button>
         <input type="text" nz-input placeholder="(例) 被ダメージ<-2 PET:攻>20" maxlength="200"

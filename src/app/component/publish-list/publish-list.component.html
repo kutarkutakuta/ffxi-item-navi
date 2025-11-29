@@ -46,8 +46,10 @@
       <tr>
         <td [nzShowExpand]="true" (nzExpandChange)="data.expanded = !data.expanded" [nzExpand]="data.expanded" >
           <div nz-row nzJustify="space-between">
-            <div nz-col class="title">
-              {{ data.id }}. [{{ data.job }}] {{ data.equipset.name }}
+            <div nz-col class="title alt-title">
+              <button nz-button nzType="primary" nzShape="round" nzSize="small" (click)="filterByJob(data.job)">{{ data.job }}</button>
+              <span class="alt-title-main">{{ data.equipset.name }}</span>
+              <span class="alt-title-id">#{{ data.id }}</span>
               <span *ngIf="data.equipset.publish_comment" class="comment" nz-icon nzType="comment" nzTheme="outline"
                 nz-tooltip [nzTooltipTitle]="data.equipset.publish_comment"></span>
             </div>

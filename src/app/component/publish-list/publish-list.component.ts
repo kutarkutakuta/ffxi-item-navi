@@ -252,6 +252,12 @@ export class PublishListComponent implements OnDestroy {
     this.inputChange();
   }
 
+  filterByJob(job: string | null | undefined){
+    if(!job) return;
+    this.selectedJobs = [job];
+    this.inputChange();
+  }
+  
   getEquip(equip_items:EquipsetItem[],  slot: string) : string {
     var equip_item = equip_items.find(n=>n.slot == slot);
     

@@ -26,14 +26,14 @@
 
 <!-- 公開List一覧 -->
 <nz-table #equipsetTable nzBordered [nzData]="publish_equipsets"  [nzLoading]="loading" [nzPaginationPosition]="'bottom'"
-  class="publish-table" [nzPageSize]="20" [nzScroll]="{x: 'calc(100vw-20px)', y: 'calc(100vh - 220px)'}">
+  class="publish-table" [nzPageSize]="25" [nzScroll]="{x: 'calc(100vw-20px)', y: 'calc(100vh - 220px)'}">
   <thead>
     <tr>
       <th *ngFor="let column of listOfColumns"
         [nzWidth]="column.width" [nzShowSort]="column.showSort"
         [nzSortOrder]="column.sortOrder" [nzSortFn]="column.sortFn"
         [nzSortDirections]="column.sortDirections">
-        <a *ngIf="column.name=='Title'" (click)="$event.stopPropagation();changeAllExpanded()" style="margin-left: 2px;margin-right: 6px;">
+        <a *ngIf="column.name=='Title'" (click)="$event.stopPropagation();changeAllExpanded()" style="margin-left: 2px;margin-right: 6px;font-size: 1.1em;">
           <span *ngIf="!all_expanded" nz-icon nzType="plus-square" nzTheme="outline"></span>
           <span *ngIf="all_expanded" nz-icon nzType="minus-square" nzTheme="outline"></span>
         </a>

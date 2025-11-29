@@ -2,3 +2,9 @@
   font-weight: bolder;
   font-size: smaller;
 }
+
+.section-title {
+  font-weight: bolder;
+  margin-bottom: 6px;
+  color: #333333;
+}

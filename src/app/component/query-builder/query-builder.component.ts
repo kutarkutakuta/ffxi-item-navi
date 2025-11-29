@@ -41,7 +41,21 @@ export class QueryBuilderComponent {
     private message: NzMessageService,
     private clipboard: Clipboard) {
       supabaseService.getStatus().subscribe(data=>{
-        this.statuses = data;
+        
+        // 日本語変換
+        const typeMap: {[key: string]: string} = {
+          "BASE": "基本ステータス",
+          "ATACK": "物理",
+          "ATACK-SKILL": "戦闘スキル",
+          "DEFENSE": "防御",
+          "RESIST": "レジスト",
+          "MAGIC": "魔法",
+          "MAGIC-SKILL": "魔法スキル",
+        };
+        this.statuses = data.map(s => ({
+          ...s,
+          type: typeMap[s.type] || s.type
+        }));
 
         this.statuses.forEach(s=>{
           if(this.nodes.findIndex(n=>n.title == s.type) < 0){
@@ -105,6 +119,9 @@ export class QueryBuilderComponent {
     if(this.statusKey){
       this.created.emit((this.target == "PET" ? "PET:" : "") +
         this.statusKey + this.statusOperator + this.statusValue);
+    }
+    else{
+      this.message.warning("ステータスを選択してください。");
     }
   }
 

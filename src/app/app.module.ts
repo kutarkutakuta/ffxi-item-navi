@@ -46,6 +46,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { RouteReuseStrategy, RouterModule } from '@angular/router';
 import { LayoutModule } from '@angular/cdk/layout';
 import { DatePipe } from '@angular/common';
+import { A11yModule } from "@angular/cdk/a11y";
 
 
 registerLocaleData(ja);
@@ -93,14 +94,15 @@ registerLocaleData(ja);
     NzSpinModule,
     NzCheckboxModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
+        enabled: !isDevMode(),
+        // Register the ServiceWorker as soon as the application is stable
+        // or after 30 seconds (whichever comes first).
+        registrationStrategy: 'registerWhenStable:30000'
     }),
     RouterModule,
     LayoutModule,
-  ],
+    A11yModule
+],
   providers: [
     { provide: NZ_I18N, useValue: ja_JP },
     DatePipe

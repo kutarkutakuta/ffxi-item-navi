@@ -124,7 +124,7 @@ table.status_table {
 }
 
 ::ng-deep .status-table .ant-tabs-tab-btn {
-  font-size: smaller;
+  font-size: 0.9em;
 }
 
 ::ng-deep .highlight-plus {

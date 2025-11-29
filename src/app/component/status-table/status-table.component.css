@@ -155,3 +155,32 @@ table.status_table {
   box-shadow: 0 1px 2px darkgray inset;
 }
 
+/* slot badge: keep same line-height, only horizontal padding */
+.slot-badge {
+  display: inline-block;
+  box-sizing: border-box;
+  padding: 0 10px; /* no vertical padding so row height doesn't change */
+  height: 22px;
+  line-height: 22px; /* match current line height */
+  border-radius: 8px;
+  /* flat gray with subtle 3D depth */
+  background: #e6e9ec; /* flat light gray */
+  color: #0f1720; /* dark text for contrast */
+  font-weight: 700;
+  font-size: 0.98em;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Meiryo", sans-serif;
+  letter-spacing: 0.2px;
+  text-shadow: none;
+  box-shadow: 0 2px 4px rgba(15,23,32,0.08), 0 1px 0 rgba(255,255,255,0.6) inset;
+}
+
+/* warm variant for food category */
+.slot-badge--warm {
+  /* appetizing warm variant: glossy amber/carameL look */
+  /* background: linear-gradient(180deg, #FFDCA8 0%, #FFB46A 50%, #FF8A3B 100%); */
+  background: #ECC94B;
+  color: #744210; /* white for pop against warm background */
+  box-shadow: 0 4px 8px rgba(255,138,59,0.14), 0 1px 0 rgba(255,255,255,0.65) inset;
+  text-shadow: 0 1px 0 rgba(0,0,0,0.18);
+}
+

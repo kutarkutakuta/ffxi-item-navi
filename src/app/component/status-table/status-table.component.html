@@ -4,7 +4,7 @@
       <div style="margin-top: -10px;padding-bottom: 5px;">
         <div nz-row style="font-weight: bolder;">
           <div nz-col>
-            [{{ equip.slot }}] {{equip.name}}
+            <span class="slot-badge">{{ equip.slot }}</span> {{equip.name}}
           </div>
           <div nz-col>
             <span *ngIf="equipAug" class="aug_name">
@@ -63,7 +63,7 @@
       <div style="margin-top: -10px;padding-bottom: 5px;">
           <div nz-row style="font-weight: bolder;">
             <div nz-col>
-              [{{ food.category }}] {{food.name}}
+              <span class="slot-badge slot-badge--warm">{{ food.category }}</span> {{food.name}}
             </div>
             <div nz-col style="padding-left: 10px;white-space: nowrap;">
               <div *ngIf="food.rare" class="rare">Rare</div>

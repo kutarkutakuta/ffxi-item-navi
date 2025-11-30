@@ -1,5 +1,6 @@
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import {ActivationEnd, NavigationEnd, Router } from '@angular/router';
 import { map } from 'rxjs';
 import { EquipsetComponent } from './component/equipset/equipset.component';
@@ -30,6 +31,7 @@ export class AppComponent {
   hidden_image = true;
   showFooter = true;
   private scrollTimeout: any;
+  private isBrowser: boolean;
 
   @ViewChild(EquipsetComponent)
   private equipsetComponent?: EquipsetComponent;
@@ -37,7 +39,10 @@ export class AppComponent {
   private publishListComponent?: PublishListComponent;
 
   constructor(private breakpointObserver: BreakpointObserver,
-    private router: Router,private titleService: Title, private meta: Meta) {
+    private router: Router,private titleService: Title, private meta: Meta,
+    @Inject(PLATFORM_ID) private platformId: any) {
+
+    this.isBrowser = isPlatformBrowser(this.platformId);
 
     // ロゴ表示制御
     breakpointObserver.observe(Breakpoints.XSmall).pipe(
@@ -69,11 +74,15 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    window.addEventListener('scroll', this.onScroll.bind(this), true);
+    if (this.isBrowser) {
+      window.addEventListener('scroll', this.onScroll.bind(this), true);
+    }
   }
 
   ngOnDestroy() {
-    window.removeEventListener('scroll', this.onScroll.bind(this), true);
+    if (this.isBrowser) {
+      window.removeEventListener('scroll', this.onScroll.bind(this), true);
+    }
     if (this.scrollTimeout) {
       clearTimeout(this.scrollTimeout);
     }

@@ -16,16 +16,11 @@
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-// Ensure Gradle uses Java 11 or higher
-tasks.withType(JavaCompile).configureEach {
-    options.release = 11
-}
-
 buildscript {
 
     repositories {
         google()
-        mavenCentral()
+        jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.9.1'
@@ -38,7 +33,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        mavenCentral()
+        jcenter()
     }
 }
 

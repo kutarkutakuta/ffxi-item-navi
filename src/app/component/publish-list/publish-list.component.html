@@ -48,12 +48,12 @@
           <div nz-row nzJustify="space-between">
             <div nz-col class="title alt-title">
               <button nz-button nzType="primary" nzShape="round" nzSize="small" (click)="filterByJob(data.job)">{{ data.job }}</button>
-              <span class="alt-title-main">{{ data.equipset.name }}</span>
-              <span class="alt-title-id">#{{ data.id }}</span>
+              <span class="alt-title-main" appAutoFitText [minFontSize]="10" [step]="1">{{ data.equipset.name }}</span>
               <span *ngIf="data.equipset.publish_comment" class="comment" nz-icon nzType="comment" nzTheme="outline"
                 nz-tooltip [nzTooltipTitle]="data.equipset.publish_comment"></span>
             </div>
             <div nz-col class="user">
+              <span class="alt-title-id">#{{ data.id }}</span>
               <a role="button" class="user-link" (click)="$event.stopPropagation(); filterByUser(data.equipset.publish_user)">{{ data.equipset.publish_user }}</a>
             </div>
           </div>

@@ -9,6 +9,7 @@ import { StatusTableComponent } from './component/status-table/status-table.comp
 import { QueryBuilderComponent } from './component/query-builder/query-builder.component';
 import { EquipsetComponent } from './component/equipset/equipset.component';
 import { PublishListComponent } from './component/publish-list/publish-list.component';
+import { AutoFitTextDirective } from './directives/auto-fit-text.directive';
 import { FoodNaviComponent } from './component/food-navi/food-navi.component';
 import { FoodDetailComponent } from './component/food-detail/food-detail.component';
 import { NZ_I18N } from 'ng-zorro-antd/i18n';
@@ -60,6 +61,7 @@ registerLocaleData(ja);
     QueryBuilderComponent,
     EquipsetComponent,
     PublishListComponent,
+    AutoFitTextDirective,
     FoodNaviComponent,
     FoodDetailComponent
   ],

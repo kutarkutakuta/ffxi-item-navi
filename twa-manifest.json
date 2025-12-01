@@ -1,8 +1,8 @@
 {
   "packageId": "com.onrender.item_navi.twa",
   "host": "item-navi.onrender.com",
-  "name": "装備Navi",
-  "launcherName": "装備Navi",
+  "name": "11装備Navi",
+  "launcherName": "11装備Navi",
   "display": "standalone",
   "themeColor": "#1976D2",
   "themeColorDark": "#000000",
@@ -20,8 +20,8 @@
     "path": "C:\\Users\\yuman\\source\\repos\\ffxi_item_navi\\android.keystore",
     "alias": "android"
   },
-  "appVersionName": "6",
-  "appVersionCode": 6,
+  "appVersionName": "7",
+  "appVersionCode": 7,
   "shortcuts": [],
   "generatorApp": "bubblewrap-cli",
   "webManifestUrl": "https://item-navi.onrender.com/manifest.webmanifest",
@@ -43,5 +43,5 @@
   "fileHandlers": [],
   "launchHandlerClientMode": "",
   "displayOverride": [],
-  "appVersion": "6"
+  "appVersion": "7"
 }

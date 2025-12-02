@@ -7,8 +7,8 @@
     </h1>
   </div>
 
-  <div class="filter-section">
-    <div nz-row *ngIf="isHeader">
+  <div class="filter-section" [hidden]="!isHeader">
+    <div nz-row>
       <div nz-col nzFlex="150px">
         <nz-select [(ngModel)]="selectedJobs" nzSize="default" nzMode="multiple" style="width: 100%;"
           nzPlaceHolder="ジョブ" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
@@ -26,7 +26,7 @@
         </nz-select>
       </div>
     </div>
-    <div nz-row [hidden]="!isHeader">
+    <div nz-row>
       <nz-input-group  [nzSuffix]="suffixIconSearch" style="max-width:630px">
         <button nz-button [nzShape]="'round'" [nzSize]="'small'" (click)="showIQueryBuilder()" style="margin-right: 5px;">
           <span nz-icon nzType="form" nzTheme="outline"></span>
@@ -42,7 +42,7 @@
   </div>
 </div>
 
-<div>
+<div [class.header-hidden]="!isHeader">
   <nz-table #basicTable [nzData]="equipments" [nzLoading]="loading"
     [nzShowPagination]="false" [nzFrontPagination] = "false"
     nzSize="small" nzBordered="true" [nzScroll]="{x: '100%', y: '0px'}">

@@ -61,7 +61,17 @@ nz-table ::ng-deep .ant-table {
 }
 
 nz-table ::ng-deep cdk-virtual-scroll-viewport {
-  height: calc(100vh - 160px) !important;
+  height: calc(100vh - 320px) !important;
+}
+
+.header-hidden nz-table ::ng-deep cdk-virtual-scroll-viewport {
+  height: calc(100vh - 171px) !important;
+}
+
+nz-table ::ng-deep .cdk-virtual-scroll-content-wrapper::after {
+  content: '';
+  display: block;
+  height: 250px;
 }
 
 nz-table ::ng-deep .ant-table-thead > tr > th {

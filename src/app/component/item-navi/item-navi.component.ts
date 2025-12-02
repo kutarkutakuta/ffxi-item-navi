@@ -64,42 +64,47 @@ export class ItemNaviComponent {
   }
 
   ngAfterViewInit() {
-    this.nzTableComponent.cdkVirtualScrollViewport?.elementScrolled()
-    .subscribe(ev=>{
-      var src = ev.target as any;
-      let currentPos = src.scrollTop;
-      if(currentPos > this.startPos) {
-        if(this.isHeader) {
-          this.isHeader = false;
-          this.changeDetectorRef.detectChanges();
+    // AfterViewInit後に非同期でスクロールイベントを設定
+    setTimeout(() => {
+      this.nzTableComponent.cdkVirtualScrollViewport?.elementScrolled()
+      .subscribe(ev=>{
+        var src = ev.target as any;
+        let currentPos = src.scrollTop;
+        if(currentPos > this.startPos) {
+          if(this.isHeader) {
+            this.isHeader = false;
+            this.changeDetectorRef.detectChanges();
+          }
+        } else if(currentPos < this.startPos) {
+          if(!this.isHeader){
+            this.isHeader = true;
+            this.changeDetectorRef.detectChanges();
+          }
         }
-      } else if(currentPos < this.startPos) {
-        if(!this.isHeader){
-          this.isHeader = true;
-          this.changeDetectorRef.detectChanges();
+        this.startPos = currentPos;
+        
+        // スクロール位置に基づいてデータをロード
+        const viewport = this.nzTableComponent.cdkVirtualScrollViewport!;
+        const end = viewport.measureScrollOffset('bottom');
+        const viewportSize = viewport.measureScrollOffset('end');
+        
+        if (end < Math.max(viewportSize * 0.5, 500) && 
+            this.equipments.length > 0 &&
+            this.equipments.length < this.total && 
+            !this.isLoadingMore && 
+            !this.loading) {
+          this.isLoadingMore = true;
+          this.inputChange(this.offset + 1);
         }
-      }
-      this.startPos = currentPos;
-      
-      // スクロール位置に基づいてデータをロード
-      const viewport = this.nzTableComponent.cdkVirtualScrollViewport!;
-      const end = viewport.measureScrollOffset('bottom');
-      
-      if (end < 1000 && 
-          this.equipments.length > 0 &&
-          this.equipments.length < this.total && 
-          !this.isLoadingMore && 
-          !this.loading) {
-        this.isLoadingMore = true;
-        this.inputChange(this.offset + 1);
-      }
-    });
+      });
 
-    this.nzTableComponent.cdkVirtualScrollViewport?.scrolledIndexChange.subscribe(index => {
-      this.currentIndex = index;
-    });
+      this.nzTableComponent.cdkVirtualScrollViewport?.scrolledIndexChange.subscribe(index => {
+        this.currentIndex = index;
+      });
 
-    this.inputChange();
+      // 初期データ読み込みも非同期で実行
+      this.inputChange();
+    }, 0);
   }
 
   shouldLoadMore(): boolean {
@@ -122,11 +127,15 @@ export class ItemNaviComponent {
         this.selectedWepons.concat(this.selectedArmors.map(n=> "防具:" + n)),
         this.inputValue.trim(), offset)
     .then((res: [Equipment[], string[], string[], number])=>{
+      if(res == null || res[0].length == 0) return;
       if(offset == 0) this.equipments = res[0];
       else this.equipments = this.equipments.concat(res[0]);
       this.txtKeywords = res[1];
       this.opKeywords = res[2];
       this.total = res[3];
+    }).catch(error => {
+      console.error('Failed to load equipment data:', error);
+      this.isLoadingMore = false;
     }).finally(()=>{
       this.loading = false;
       this.isLoadingMore = false;

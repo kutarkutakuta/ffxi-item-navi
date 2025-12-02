@@ -58,42 +58,45 @@ export class FoodNaviComponent {
   }
 
   ngAfterViewInit() {
-    this.nzTableComponent.cdkVirtualScrollViewport?.elementScrolled()
-    .subscribe(ev=>{
-      var src = ev.target as any;
-      let currentPos = src.scrollTop;
-      if(currentPos > this.startPos) {
-        if(this.isHeader) {
-          this.isHeader = false;
-          this.changeDetectorRef.detectChanges();
+    setTimeout(() => {
+      this.nzTableComponent.cdkVirtualScrollViewport?.elementScrolled()
+      .subscribe(ev=>{
+        var src = ev.target as any;
+        let currentPos = src.scrollTop;
+        if(currentPos > this.startPos) {
+          if(this.isHeader) {
+            this.isHeader = false;
+            this.changeDetectorRef.detectChanges();
+          }
+        } else if(currentPos < this.startPos) {
+          if(!this.isHeader){
+            this.isHeader = true;
+            this.changeDetectorRef.detectChanges();
+          }
         }
-      } else if(currentPos < this.startPos) {
-        if(!this.isHeader){
-          this.isHeader = true;
-          this.changeDetectorRef.detectChanges();
+        this.startPos = currentPos;
+        
+        // スクロール位置に基づいてデータをロード
+        const viewport = this.nzTableComponent.cdkVirtualScrollViewport!;
+        const end = viewport.measureScrollOffset('bottom');
+        const viewportSize = viewport.measureScrollOffset('end');
+        
+        if (end < Math.max(viewportSize * 0.5, 500) && 
+            this.foods.length > 0 &&
+            this.foods.length < this.total && 
+            !this.isLoadingMore && 
+            !this.loading) {
+          this.isLoadingMore = true;
+          this.inputChange(this.offset + 1);
         }
-      }
-      this.startPos = currentPos;
-      
-      // スクロール位置に基づいてデータをロード
-      const viewport = this.nzTableComponent.cdkVirtualScrollViewport!;
-      const end = viewport.measureScrollOffset('bottom');
-      
-      if (end < 1000 && 
-          this.foods.length > 0 &&
-          this.foods.length < this.total && 
-          !this.isLoadingMore && 
-          !this.loading) {
-        this.isLoadingMore = true;
-        this.inputChange(this.offset + 1);
-      }
-    });
+      });
 
-    this.nzTableComponent.cdkVirtualScrollViewport?.scrolledIndexChange.subscribe(index => {
-      this.currentIndex = index;
-    });
+      this.nzTableComponent.cdkVirtualScrollViewport?.scrolledIndexChange.subscribe(index => {
+        this.currentIndex = index;
+      });
 
-    this.inputChange();
+      this.inputChange();
+    }, 0);
   }
 
   /** 入力変更時 */
@@ -107,11 +110,15 @@ export class FoodNaviComponent {
     this.loading = true;
     this.supabaseService.getFood(this.selectedCategories, this.inputValue.trim(), offset)
     .then((res: [Food[], string[], string[], number])=>{
+      if(res == null || res[0].length == 0) return;
       if(offset == 0) this.foods = res[0];
       else this.foods = this.foods.concat(res[0]);
       this.txtKeywords = res[1];
       this.opKeywords = res[2];
       this.total = res[3];
+    }).catch(error => {
+      console.error('Failed to load food data:', error);
+      this.isLoadingMore = false;
     }).finally(()=>{
       this.loading = false;
       this.isLoadingMore = false;

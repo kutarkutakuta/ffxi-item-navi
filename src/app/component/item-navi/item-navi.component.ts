@@ -127,9 +127,11 @@ export class ItemNaviComponent {
         this.selectedWepons.concat(this.selectedArmors.map(n=> "防具:" + n)),
         this.inputValue.trim(), offset)
     .then((res: [Equipment[], string[], string[], number])=>{
-      if(res == null || res[0].length == 0) return;
       if(offset == 0) this.equipments = res[0];
-      else this.equipments = this.equipments.concat(res[0]);
+      else {
+        if(res[0].length == 0) return;
+        this.equipments = this.equipments.concat(res[0]);
+      }
       this.txtKeywords = res[1];
       this.opKeywords = res[2];
       this.total = res[3];

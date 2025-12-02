@@ -110,9 +110,11 @@ export class FoodNaviComponent {
     this.loading = true;
     this.supabaseService.getFood(this.selectedCategories, this.inputValue.trim(), offset)
     .then((res: [Food[], string[], string[], number])=>{
-      if(res == null || res[0].length == 0) return;
       if(offset == 0) this.foods = res[0];
-      else this.foods = this.foods.concat(res[0]);
+      else {
+        if(res[0].length == 0) return;
+        this.foods = this.foods.concat(res[0]);
+      }
       this.txtKeywords = res[1];
       this.opKeywords = res[2];
       this.total = res[3];

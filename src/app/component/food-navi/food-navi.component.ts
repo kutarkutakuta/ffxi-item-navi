@@ -63,25 +63,33 @@ export class FoodNaviComponent {
       .subscribe(ev=>{
         var src = ev.target as any;
         let currentPos = src.scrollTop;
-        if(currentPos > this.startPos) {
-          if(this.isHeader) {
+        
+        // スクロール方向でヘッダーの表示/非表示を切り替え
+        if(currentPos > 150) {
+          // 下スクロールでヘッダー非表示
+          if(currentPos > this.startPos && this.isHeader) {
             this.isHeader = false;
-            this.changeDetectorRef.detectChanges();
           }
-        } else if(currentPos < this.startPos) {
-          if(!this.isHeader){
+          // 上スクロールでヘッダー表示
+          else if(currentPos < this.startPos && !this.isHeader) {
             this.isHeader = true;
-            this.changeDetectorRef.detectChanges();
           }
+        } else if(currentPos <= 150 && !this.isHeader) {
+          // トップ付近ではヘッダー表示
+          this.isHeader = true;
         }
+        
         this.startPos = currentPos;
         
         // スクロール位置に基づいてデータをロード
         const viewport = this.nzTableComponent.cdkVirtualScrollViewport!;
         const end = viewport.measureScrollOffset('bottom');
         const viewportSize = viewport.measureScrollOffset('end');
+        const scrollTop = viewport.measureScrollOffset('top');
         
+        // 実際に下にスクロールしていて、かつ追加データがある場合のみ追加ロード
         if (end < Math.max(viewportSize * 0.5, 500) && 
+            scrollTop > 50 &&
             this.foods.length > 0 &&
             this.foods.length < this.total && 
             !this.isLoadingMore && 
@@ -110,9 +118,9 @@ export class FoodNaviComponent {
     this.loading = true;
     this.supabaseService.getFood(this.selectedCategories, this.inputValue.trim(), offset)
     .then((res: [Food[], string[], string[], number])=>{
-      if(offset == 0) this.foods = res[0];
-      else {
-        if(res[0].length == 0) return;
+      if(offset == 0) {
+        this.foods = res[0];
+      } else if(res[0].length > 0) {
         this.foods = this.foods.concat(res[0]);
       }
       this.txtKeywords = res[1];

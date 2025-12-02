@@ -70,25 +70,33 @@ export class ItemNaviComponent {
       .subscribe(ev=>{
         var src = ev.target as any;
         let currentPos = src.scrollTop;
-        if(currentPos > this.startPos) {
-          if(this.isHeader) {
+        
+        // スクロール方向でヘッダーの表示/非表示を切り替え
+        if(currentPos > 150) {
+          // 下スクロールでヘッダー非表示
+          if(currentPos > this.startPos && this.isHeader) {
             this.isHeader = false;
-            this.changeDetectorRef.detectChanges();
           }
-        } else if(currentPos < this.startPos) {
-          if(!this.isHeader){
+          // 上スクロールでヘッダー表示
+          else if(currentPos < this.startPos && !this.isHeader) {
             this.isHeader = true;
-            this.changeDetectorRef.detectChanges();
           }
+        } else if(currentPos <= 150 && !this.isHeader) {
+          // トップ付近ではヘッダー表示
+          this.isHeader = true;
         }
+        
         this.startPos = currentPos;
         
         // スクロール位置に基づいてデータをロード
         const viewport = this.nzTableComponent.cdkVirtualScrollViewport!;
         const end = viewport.measureScrollOffset('bottom');
         const viewportSize = viewport.measureScrollOffset('end');
+        const scrollTop = viewport.measureScrollOffset('top');
         
+        // 実際に下にスクロールしていて、かつ追加データがある場合のみ追加ロード
         if (end < Math.max(viewportSize * 0.5, 500) && 
+            scrollTop > 50 &&
             this.equipments.length > 0 &&
             this.equipments.length < this.total && 
             !this.isLoadingMore && 
@@ -127,9 +135,9 @@ export class ItemNaviComponent {
         this.selectedWepons.concat(this.selectedArmors.map(n=> "防具:" + n)),
         this.inputValue.trim(), offset)
     .then((res: [Equipment[], string[], string[], number])=>{
-      if(offset == 0) this.equipments = res[0];
-      else {
-        if(res[0].length == 0) return;
+      if(offset == 0) {
+        this.equipments = res[0];
+      } else if(res[0].length > 0) {
         this.equipments = this.equipments.concat(res[0]);
       }
       this.txtKeywords = res[1];

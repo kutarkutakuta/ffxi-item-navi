@@ -248,7 +248,7 @@ export class SupabaseService {
     if(queryData.error){
       // this.message.error(queryData.error.message);
       console.error(queryData.error.message);
-      return [[], [], [], 0];
+      return [[], txtkeywords, opkeywords, 0];
     }
 
     // オーグメントの順番が合わない※ので並び順を揃えて親子関係を構築
@@ -790,7 +790,7 @@ export class SupabaseService {
     if(queryData.error){
       // this.message.error(queryData.error.message);
       console.error(queryData.error.message);
-      return [[], [], [], 0];
+      return [[], txtkeywords, opkeywords, 0];
     }
 
      return [queryData.data as Food[], txtkeywords, opkeywords, queryData.count!];

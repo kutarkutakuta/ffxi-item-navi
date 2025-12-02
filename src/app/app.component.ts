@@ -56,19 +56,19 @@ export class AppComponent {
       switch  (router.url){
         case "/food":
           this.titleService.setTitle("食事 - FF11装備Navi");
-          this.meta.updateTag({ name: 'description', content: "FF11の食品を検索します。" });
+          this.meta.updateTag({ name: 'description', content: "FF11の食事効果をサクッとチェック！気になる料理がすぐ見つかります。" });
           break;
         case "/myset":
-          this.titleService.setTitle("マイセット - FF11装備Navi");
-          this.meta.updateTag({ name: 'description', content: "FF11の装備セットを登録してステータスの確認や比較ができます。" });
+          this.titleService.setTitle("My Set - FF11装備Navi");
+          this.meta.updateTag({ name: 'description', content: "装備セットを気軽に登録＆比較！ステータス確認に便利です。" });
           break;
         case "/list":
           this.titleService.setTitle("みんなの装備 - FF11装備Navi");
-          this.meta.updateTag({ name: 'description', content: "FF11装備セットの公開一覧。" });
+          this.meta.updateTag({ name: 'description', content: "みんなが公開してる装備セットをのぞけます。強い構成のヒントに！" });
           break;
         default:
           this.titleService.setTitle("FF11装備Navi");
-          this.meta.updateTag({ name: 'description', content: "FF11の装備品を検索ナビゲート。お探しの装備が見つかります。" });
+          this.meta.updateTag({ name: 'description', content: "オンラインRPG『FF11』の装備品や食事効果を簡単にチェック！自分だけの装備セットを作って公開もできる非公式アプリです。" });
       }
     });
   }

@@ -24,8 +24,8 @@ def twaManifest = [
     applicationId: 'com.onrender.item_navi.twa',
     hostName: 'item-navi.onrender.com', // The domain being opened in the TWA.
     launchUrl: '/', // The start path for the TWA. Must be relative to the domain.
-    name: '11装備Navi', // The application name.
-    launcherName: '11装備Navi', // The name shown on the Android Launcher.
+    name: '𝑭𝑭𝟭𝟭装備Navi', // The application name.
+    launcherName: 'FF11装備Navi', // The name shown on the Android Launcher.
     themeColor: '#1976D2', // The color used for the status bar.
     themeColorDark: '#000000', // The color used for the dark status bar.
     navigationColor: '#000000', // The color used for the navigation bar.
@@ -57,8 +57,8 @@ android {
         applicationId "com.onrender.item_navi.twa"
         minSdkVersion 21
         targetSdkVersion 35
-        versionCode 7
-        versionName "7"
+        versionCode 8
+        versionName "8"
 
         // The name for the application
         resValue "string", "appName", twaManifest.name

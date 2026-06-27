@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, EventEmitter, Output, TemplateRef, ViewChild, ElementRef, Renderer2, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Output, TemplateRef, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
-import { Subscription, filter } from 'rxjs';
+import { filter } from 'rxjs';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Equipment } from 'src/app/model/equipment';
 import { SupabaseService } from 'src/app/service/supabase.service'
@@ -16,14 +16,11 @@ import { EquipsetItem } from 'src/app/model/equipset_item';
   templateUrl: './publish-list.component.html',
   styleUrls: ['./publish-list.component.css'],
 })
-export class PublishListComponent implements OnDestroy {
+export class PublishListComponent {
 
 
   @ViewChild(ItemDetailComponent)
   private itemDetail!: ItemDetailComponent;
-
-  @ViewChild('equipsetTable', { static: false, read: ElementRef })
-  private equipsetTableRef!: ElementRef;
 
   @ViewChild('equipsetTable', { static: false })
   private nzTableComponent!: NzTableComponent<Equipment>;
@@ -41,9 +38,6 @@ export class PublishListComponent implements OnDestroy {
   publish_key = "";
 
   all_expanded = false;
-
-  private startPos: number = 0;
-  isHeader: boolean = true;
 
   listOfColumns: ColumnItem[] = [
     {
@@ -65,58 +59,15 @@ export class PublishListComponent implements OnDestroy {
   ];
 
   private scrollUnsubscribe?: () => void;
-  private routerSubscription?: Subscription;
 
   constructor(private supabaseService: SupabaseService,
     private modal: NzModalService,
     private message: NzMessageService,
-    private changeDetectorRef: ChangeDetectorRef,
-    private renderer: Renderer2,
     private router: Router) {
-      // ensure header is visible when navigating to this route
-      this.routerSubscription = this.router.events.pipe(filter((e): e is NavigationEnd => e instanceof NavigationEnd))
-        .subscribe(() => {
-          this.isHeader = true;
-          this.startPos = 0;
-        });
   }
 
   ngOnInit (): void {
     this.inputChange();
-  }
-  ngAfterViewInit() {
-    setTimeout(() => {
-      const tableEl = this.equipsetTableRef?.nativeElement as HTMLElement | undefined;
-      const scrollContainer = tableEl?.querySelector('.ant-table-body') as HTMLElement | null;
-      if (scrollContainer) {
-        this.scrollUnsubscribe = this.renderer.listen(scrollContainer, 'scroll', (ev: any) => {
-          let currentPos = ev.target.scrollTop;
-          if (currentPos > this.startPos) {
-            if (this.isHeader) {
-              this.isHeader = false;
-              this.changeDetectorRef.detectChanges();
-            }
-          } else if (currentPos < this.startPos) {
-            if (!this.isHeader) {
-              this.isHeader = true;
-              this.changeDetectorRef.detectChanges();
-            }
-          }
-          this.startPos = currentPos;
-        });
-      }
-    }, 500);
-  }
-
-  ngOnDestroy(): void {
-    if (this.scrollUnsubscribe) {
-      this.scrollUnsubscribe();
-      this.scrollUnsubscribe = undefined;
-    }
-    if (this.routerSubscription) {
-      this.routerSubscription.unsubscribe();
-      this.routerSubscription = undefined;
-    }
   }
 
   changeAllExpanded(){

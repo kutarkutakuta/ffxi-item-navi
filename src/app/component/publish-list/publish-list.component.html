@@ -1,12 +1,4 @@
-<div class="page-header" *ngIf="isHeader">
-  <h1 class="page-title">
-    <span class="title-icon">🧑‍🤝‍🧑</span>
-    みんなの装備
-    <span class="title-subtitle">Public Gallery</span>
-  </h1>
-</div>
-
-<div class="filter-section" *ngIf="isHeader">
+<div class="filter-section">
   <nz-select [(ngModel)]="selectedJobs" nzSize="default" nzMode="multiple" style="width: 135px;"
     nzPlaceHolder="ジョブ" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
     <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
@@ -26,7 +18,7 @@
 
 <!-- 公開List一覧 -->
 <nz-table #equipsetTable nzBordered [nzData]="publish_equipsets"  [nzLoading]="loading" [nzPaginationPosition]="'bottom'"
-  class="publish-table" [nzPageSize]="25" [nzScroll]="{x: 'calc(100vw-20px)', y: 'calc(100vh - 220px)'}">
+  class="publish-table" [nzPageSize]="25" [nzScroll]="{x: 'calc(100vw-20px)', y: 'calc(100vh - 250px)'}">
   <thead>
     <tr>
       <th *ngFor="let column of listOfColumns"

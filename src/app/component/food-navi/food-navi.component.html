@@ -1,38 +1,28 @@
-<div>
-  <div class="page-header" *ngIf="isHeader">
-    <h1 class="page-title">
-      <span class="title-icon">🥖</span>
-      食事効果
-      <span class="title-subtitle">Food Effects Search</span>
-    </h1>
+<div class="filter-section">
+  <div nz-row>
+    <div nz-col nzFlex="320px">
+      <nz-select [(ngModel)]="selectedCategories" nzSize="default" nzMode="multiple" style="width: 100%;"
+        nzPlaceHolder="カテゴリー" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
+        <nz-option *ngFor="let option of categories" [nzLabel]="option" [nzValue]="option"></nz-option>
+      </nz-select>
+    </div>
   </div>
-
-  <div class="filter-section" [hidden]="!isHeader">
-    <div nz-row>
-      <div nz-col nzFlex="320px">
-        <nz-select [(ngModel)]="selectedCategories" nzSize="default" nzMode="multiple" style="width: 100%;"
-          nzPlaceHolder="カテゴリー" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
-          <nz-option *ngFor="let option of categories" [nzLabel]="option" [nzValue]="option"></nz-option>
-        </nz-select>
-      </div>
-    </div>
-    <div nz-row>
-      <nz-input-group [nzSuffix]="suffixIconSearch" style="max-width:630px">
-        <button nz-button [nzShape]="'round'" [nzSize]="'small'" (click)="showIQueryBuilder()" style="margin-right: 5px;">
-          <span nz-icon nzType="form" nzTheme="outline"></span>
-        </button>
-        <input type="text" nz-input placeholder="(例) TIME=3600 ストアTP>5" maxlength="200"
-          [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
-      </nz-input-group>
-      <ng-template #suffixIconSearch>
-        <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
-          nzType="close-circle" *ngIf="inputValue" (click)="clearText()"></span>
-      </ng-template>
-    </div>
+  <div nz-row>
+    <nz-input-group [nzSuffix]="suffixIconSearch" style="max-width:630px">
+      <button nz-button [nzShape]="'round'" [nzSize]="'small'" (click)="showIQueryBuilder()" style="margin-right: 5px;">
+        <span nz-icon nzType="form" nzTheme="outline"></span>
+      </button>
+      <input type="text" nz-input placeholder="(例) TIME=3600 ストアTP>5" maxlength="200"
+        [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
+        nzType="close-circle" *ngIf="inputValue" (click)="clearText()"></span>
+    </ng-template>
   </div>
 </div>
 
-<div [class.header-hidden]="!isHeader">
+<div>
   <nz-table #basicTable2 [nzData]="foods" [nzLoading]="loading"
     [nzShowPagination]="false" [nzFrontPagination] = "false"
     nzSize="small" nzBordered="true" [nzScroll]="{x: '100%', y: '0px'}">

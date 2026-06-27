@@ -1,48 +1,38 @@
-<div>
-  <div class="page-header" *ngIf="isHeader">
-    <h1 class="page-title">
-      <span class="title-icon">⚔️</span>
-      装備検索
-      <span class="title-subtitle">Equipment Search</span>
-    </h1>
+<div class="filter-section">
+  <div nz-row>
+    <div nz-col nzFlex="150px">
+      <nz-select [(ngModel)]="selectedJobs" nzSize="default" nzMode="multiple" style="width: 100%;"
+        nzPlaceHolder="ジョブ" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
+        <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
+      </nz-select>
+    </div>
+    <div nz-col nzFlex="480px">
+      <nz-select [(ngModel)]="selectedWepons" nzSize="default" nzMode="multiple" style="width: 50%;"
+        nzPlaceHolder="武器" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
+        <nz-option *ngFor="let option of wepons" [nzLabel]="option" [nzValue]="option"></nz-option>
+      </nz-select>
+      <nz-select [(ngModel)]="selectedArmors" nzSize="default" style="width: 50%;"
+        nzMode="multiple" nzPlaceHolder="防具" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
+        <nz-option *ngFor="let option of armors" [nzLabel]="option" [nzValue]="option"></nz-option>
+      </nz-select>
+    </div>
   </div>
-
-  <div class="filter-section" [hidden]="!isHeader">
-    <div nz-row>
-      <div nz-col nzFlex="150px">
-        <nz-select [(ngModel)]="selectedJobs" nzSize="default" nzMode="multiple" style="width: 100%;"
-          nzPlaceHolder="ジョブ" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
-          <nz-option *ngFor="let option of jobs" [nzLabel]="option" [nzValue]="option"></nz-option>
-        </nz-select>
-      </div>
-      <div nz-col nzFlex="480px">
-        <nz-select [(ngModel)]="selectedWepons" nzSize="default" nzMode="multiple" style="width: 50%;"
-          nzPlaceHolder="武器" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
-          <nz-option *ngFor="let option of wepons" [nzLabel]="option" [nzValue]="option"></nz-option>
-        </nz-select>
-        <nz-select [(ngModel)]="selectedArmors" nzSize="default" style="width: 50%;"
-          nzMode="multiple" nzPlaceHolder="防具" nzAllowClear="true" maxlength="100" (ngModelChange)="inputChange()">
-          <nz-option *ngFor="let option of armors" [nzLabel]="option" [nzValue]="option"></nz-option>
-        </nz-select>
-      </div>
-    </div>
-    <div nz-row>
-      <nz-input-group  [nzSuffix]="suffixIconSearch" style="max-width:630px">
-        <button nz-button [nzShape]="'round'" [nzSize]="'small'" (click)="showIQueryBuilder()" style="margin-right: 5px;">
-          <span nz-icon nzType="form" nzTheme="outline"></span>
-        </button>
-        <input type="text" nz-input placeholder="(例) 被ダメージ<-2 PET:攻>20" maxlength="200"
-          [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
-      </nz-input-group>
-      <ng-template #suffixIconSearch>
-        <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
-          nzType="close-circle" *ngIf="inputValue" (click)="clearText()"></span>
-      </ng-template>
-    </div>
+  <div nz-row>
+    <nz-input-group [nzSuffix]="suffixIconSearch" style="max-width:630px">
+      <button nz-button [nzShape]="'round'" [nzSize]="'small'" (click)="showIQueryBuilder()" style="margin-right: 5px;">
+        <span nz-icon nzType="form" nzTheme="outline"></span>
+      </button>
+      <input type="text" nz-input placeholder="(例) 被ダメージ<-2 PET:攻>20" maxlength="200"
+        [(ngModel)]="inputValue" nzAllowClear="true" (change)="inputChange()" />
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <span nz-icon class="ant-input-clear-icon" nzTheme="fill"
+        nzType="close-circle" *ngIf="inputValue" (click)="clearText()"></span>
+    </ng-template>
   </div>
 </div>
 
-<div [class.header-hidden]="!isHeader">
+<div>
   <nz-table #basicTable [nzData]="equipments" [nzLoading]="loading"
     [nzShowPagination]="false" [nzFrontPagination] = "false"
     nzSize="small" nzBordered="true" [nzScroll]="{x: '100%', y: '0px'}">

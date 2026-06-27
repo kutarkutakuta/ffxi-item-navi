@@ -33,8 +33,6 @@ export class FoodNaviComponent {
   txtKeywords: string[] = [];
   opKeywords: string[] = [];
 
-  private startPos: number = 0;
-  isHeader : boolean = true;
   offset: number = 0;
   total: number = 0;
   currentIndex = 0;
@@ -46,7 +44,6 @@ export class FoodNaviComponent {
     private router: Router) {
       router.events.pipe(filter(event => event instanceof NavigationEnd ))
       .subscribe(() => {
-        this.isHeader = true;
         setTimeout(() => {
           if(this.currentIndex == 0) {
             this.nzTableComponent.cdkVirtualScrollViewport?.checkViewportSize();
@@ -63,23 +60,6 @@ export class FoodNaviComponent {
       .subscribe(ev=>{
         var src = ev.target as any;
         let currentPos = src.scrollTop;
-        
-        // スクロール方向でヘッダーの表示/非表示を切り替え
-        if(currentPos > 150) {
-          // 下スクロールでヘッダー非表示
-          if(currentPos > this.startPos && this.isHeader) {
-            this.isHeader = false;
-          }
-          // 上スクロールでヘッダー表示
-          else if(currentPos < this.startPos && !this.isHeader) {
-            this.isHeader = true;
-          }
-        } else if(currentPos <= 150 && !this.isHeader) {
-          // トップ付近ではヘッダー表示
-          this.isHeader = true;
-        }
-        
-        this.startPos = currentPos;
         
         // スクロール位置に基づいてデータをロード
         const viewport = this.nzTableComponent.cdkVirtualScrollViewport!;

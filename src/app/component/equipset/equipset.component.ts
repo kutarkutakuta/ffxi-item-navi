@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { Equipment } from 'src/app/model/equipment';
 import { SupabaseService } from 'src/app/service/supabase.service'
@@ -10,7 +10,7 @@ import { Equipset } from 'src/app/model/equipset';
 import { EquipsetItem } from 'src/app/model/equipset_item';
 import { EquipsetDBService } from 'src/app/service/equipsetdb.service';
 import { Router, NavigationEnd } from '@angular/router';
-import { filter, Subscription } from 'rxjs';
+import { filter } from 'rxjs';
 import { map, Observable, of, Subject, tap } from 'rxjs';
 import { JobTrait } from 'src/app/model/job_traits';
 
@@ -19,7 +19,7 @@ import { JobTrait } from 'src/app/model/job_traits';
   templateUrl: './equipset.component.html',
   styleUrls: ['./equipset.component.css'],
 })
-export class EquipsetComponent implements OnDestroy {
+export class EquipsetComponent {
 
   @ViewChild(ItemDetailComponent)
   private itemDetail!: ItemDetailComponent;
@@ -57,35 +57,17 @@ export class EquipsetComponent implements OnDestroy {
 
   public isLoading: Subject<boolean> = new Subject<boolean>();
   
-  private startPos: number = 0;
-  isHeader: boolean = true;
-
-  private routerSubscription?: Subscription;
-
   constructor(private supabaseService: SupabaseService,
     private equipsetDBService: EquipsetDBService,
     private message: NzMessageService,
     private modal: NzModalService,
     private router: Router) {
-    // subscribe to route events and reset header visibility when the user navigates to this page
-    // (useful when the header was hidden due to scroll and user navigated away then returned)
-    this.routerSubscription = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
-      this.isHeader = true;
-      this.startPos = 0;
-    });
     this.equipsetgroup = equipsetDBService.getEquipsetGroup(this.selectedJob);
     supabaseService.getJobTrait().subscribe(data=>{
       this.job_trait_groups = data;
     });
   }
 
-  ngOnDestroy(): void {
-    if (this.routerSubscription) {
-      this.routerSubscription.unsubscribe();
-      this.routerSubscription = undefined;
-    }
-  }
-  
   /** 装備品検索 */
   searchEquipment(value: string, equipitem: EquipsetItem): void {
     var wepon = equipitem.type || (equipitem.slot == "両手" ? "防具:両手" : equipitem.slot);
@@ -387,20 +369,6 @@ export class EquipsetComponent implements OnDestroy {
     equipsetItem.custom_pc_aug = result.trim();
     this.changeAugText(equipsetItem);
     this.visible_jobTrait = false;
-  }
-
-  onScroll(event: any) {
-    const currentPos = event.target.scrollTop;
-    if (currentPos > this.startPos) {
-      if (this.isHeader) {
-        this.isHeader = false;
-      }
-    } else if (currentPos < this.startPos) {
-      if (!this.isHeader) {
-        this.isHeader = true;
-      }
-    }
-    this.startPos = currentPos;
   }
 
 }

@@ -43,6 +43,11 @@
           },
           "configurations": {
             "production": {
+              "optimization": {
+                "scripts": true,
+                "styles": true,
+                "fonts": false
+              },
               "budgets": [
                 {
                   "type": "initial",
@@ -159,6 +164,6 @@
     }
   },
   "cli": {
-    "analytics": "0cd46d6e-145b-48a8-b760-f90e4770b83d"
+    "analytics": false
   }
 }

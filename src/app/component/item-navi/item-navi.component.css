@@ -29,14 +29,14 @@ nz-table ::ng-deep .ant-table {
 }
 
 nz-table ::ng-deep cdk-virtual-scroll-viewport {
-  height: calc(100vh - 280px) !important;
+  height: calc(100vh - 260px) !important;
 }
 
 /* テーブル下部に余白を追加してスクロール可能にする */
 nz-table ::ng-deep .cdk-virtual-scroll-content-wrapper::after {
   content: '';
   display: block;
-  height: 250px;
+  height: 230px;
 }
 
 nz-table ::ng-deep .ant-table-thead > tr > th {
